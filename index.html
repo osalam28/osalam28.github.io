@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Salam | Product Executive</title>
+    <style>
+        :root {
+            /* BRANDING: Clean, Executive, "FinTech/SaaS" Vibe */
+            --accent-color: #38bdf8; /* Professional Light Blue */
+            --bg-main: #0f172a;      /* Deep Slate Navy */
+            --bg-card: #1e293b;      /* Lighter Slate */
+            --text-primary: #f8fafc; /* White */
+            --text-secondary: #94a3b8; /* Muted Blue-Gray */
+            --border-color: #334155;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        a:hover { color: var(--accent-color); }
+
+        /* HEADER / HERO */
+        .hero {
+            padding: 120px 20px 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .role {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .bio {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin: 30px auto;
+            max-width: 700px;
+            font-weight: 300;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 35px;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-primary);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+        }
+
+        /* METRICS STRIP */
+        .metrics-container {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+            padding: 40px 0;
+            margin-bottom: 100px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            gap: 30px;
+        }
+
+        .metric-item h3 {
+            font-size: 3rem;
+            margin: 0;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .metric-item p {
+            margin: 5px 0 0 0;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* EXPERIENCE SECTION */
+        .section-container {
+            max-width: 800px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .job {
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: 150px 1fr; /* Date on left, content on right */
+            gap: 20px;
+        }
+
+        .job-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding-top: 5px;
+        }
+
+        .job-content h3 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .company-name {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .job-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Tags for skills */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 700px) {
+            h1 { font-size: 3rem; }
+            .job { grid-template-columns: 1fr; gap: 5px; }
+            .job-date { margin-bottom: 5px; font-size: 0.85rem; color: var(--accent-color); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Omar Salam</h1>
+        <div class="role">Digital Product Executive</div>
+        <p class="bio">
+            15+ years scaling omnichannel ecosystems for global brands including Under Armour, Capital Group, and Experian. 
+            Blending operational rigor with AI innovation to drive revenue at scale.
+        </p>
+        <a href="mailto:osalam28@gmail.com" class="cta-btn">Get in Touch</a>
+    </div>
+
+    <div class="metrics-container">
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <h3>$5B</h3>
+                <p>Ecosystem Managed</p>
+            </div>
+            <div class="metric-item">
+                <h3>$20M</h3>
+                <p>Capital Secured</p>
+            </div>
+            <div class="metric-item">
+                <h3>#1</h3>
+                <p>U.S. Patent (AI/ML)</p>
+            </div>
+            <div class="metric-item">
+                <h3>20+</h3>
+                <p>Global Squads</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-title">Selected Experience</div>
+
+        <div class="job">
+            <div class="job-date">2025 — Present</div>
+            <div class="job-content">
+                <h3>Head of Product, Digital CX</h3>
+                <span class="company-name">Southern California Edison</span>
+                <p class="job-desc">
+                    Leading digital product strategy across self-service channels for 5M+ customers. 
+                    Managing an $18M budget and modernizing end-to-end journeys using conversational AI.
+                </p>
+                <div class="tags">
+                    <span class="tag">AI Implementation</span>
+                    <span class="tag">Digital Strategy</span>
+                    <span class="tag">$18M Budget</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-date">2022 — 2023</div>
+            <div class="job-content">
+                <h3>Global Director of Digital Product</h3>
+                <span class="company-name">Under Armour</span>
+                <p class="job-desc">
+                    Led strategy for a $5B omnichannel ecosystem (Web, App, In-Store). 
+                    Secured $20M investment for "Next-Gen Connected Commerce" and achieved 34% conversion lift via AI recommendations.
+                </p>
+                <div class="tags">
+                    <span class="tag">Global Scale</span>
+                    <span class="tag">Omnichannel</span>
+                    <span class="tag">Revenue Growth</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-date">2019 — 2022</div>
+            <div class="job-content">
+                <h3>AVP, Digital Product</h3>
+                <span class="company-name">Capital Group</span>
+                <p class="job-desc">
+                    Modernized legacy digital experiences for the U.S. Advisor market. 
+                    Increased engagement 300% by shifting from static content to AI-driven personalized journeys.
+                </p>
+                <div class="tags">
+                    <span class="tag">FinTech</span>
+                    <span class="tag">Personalization</span>
+                    <span class="tag">Data Science</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-date">2018 — 2019</div>
+            <div class="job-content">
+                <h3>Product Manager, Digital E-Commerce</h3>
+                <span class="company-name">Taco Bell</span>
+                <p class="job-desc">
+                    Launched the Taco Bell Delivery channel and managed complex third-party vendor integrations (Grubhub/Alacriti) to ensure seamless order flow.
+                </p>
+                <div class="tags">
+                    <span class="tag">Delivery Launch</span>
+                    <span class="tag">Vendor Mgmt</span>
+                    <span class="tag">Operations</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-date">2015 — 2018</div>
+            <div class="job-content">
+                <h3>Senior Product Manager</h3>
+                <span class="company-name">Experian</span>
+                <p class="job-desc">
+                    Owned B2B strategy for a $300M portfolio. Awarded U.S. Patent for ML-based detection system and led a 200-person Agile transformation.
+                </p>
+                <div class="tags">
+                    <span class="tag">U.S. Patent</span>
+                    <span class="tag">B2B SaaS</span>
+                    <span class="tag">Agile Transformation</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Omar Salam. All rights reserved.<br>
+        <a href="mailto:osalam28@gmail.com">osalam28@gmail.com</a>
+    </footer>
+
+</body>
+</html>
