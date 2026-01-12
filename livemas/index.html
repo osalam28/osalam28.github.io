@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Salam | Director of Digital Product</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tb: {
+                            purple: '#682A8F',
+                            lightPurple: '#A77BCA',
+                            dark: '#121212',
+                            card: '#1E1E1E',
+                            green: '#3FA72F', 
+                            orange: '#FF8200'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #121212; color: white; }
+        h1, h2, h3, .tb-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #682A8F; }
+        
+        /* Nutrition Label */
+        .nutrition-label { border: 2px solid white; padding: 10px; font-family: Helvetica, Arial, sans-serif; background: white; color: black; }
+        .nutrition-header { border-bottom: 8px solid black; padding-bottom: 4px; margin-bottom: 4px; }
+        .nutrition-row { border-bottom: 1px solid #333; display: flex; justify-content: space-between; padding: 4px 0; }
+        .nutrition-row.bold { border-bottom: 4px solid black; font-weight: 800; }
+        
+        /* Strat Stack Visuals */
+        .strat-layer { transition: all 0.3s ease; border-left: 4px solid transparent; }
+        .strat-layer:hover { border-left: 4px solid #A77BCA; background: rgba(104,42,143,0.1); padding-left: 1rem; }
+    </style>
+</head>
+<body class="bg-tb-dark text-white min-h-screen flex flex-col">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-tb-dark/95 backdrop-blur border-b border-gray-800 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="text-tb-purple">
+                <i data-lucide="bell" class="w-8 h-8 fill-current"></i>
+            </div>
+            <div class="leading-none">
+                <span class="block tb-font font-bold text-xl tracking-tighter">OMAR SALAM | CANDIDATE</span>
+                <span class="block text-[10px] text-gray-400 font-bold tracking-widest">DIRECTOR, DIGITAL PRODUCT</span>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <button onclick="scrollToSection('contact')" class="hidden sm:block font-bold text-sm hover:text-tb-lightPurple transition">CONTACT</button>
+            <div class="relative cursor-pointer" onclick="scrollToSection('contact')">
+                <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+                <span class="absolute -top-1 -right-1 bg-tb-purple text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative w-full h-96 bg-gradient-to-r from-tb-purple to-indigo-900 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-48 h-48 bg-pink-600 rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative z-10 text-center px-4 max-w-4xl">
+            <!-- ORANGE BADGE -->
+            <span class="bg-tb-orange text-black font-bold text-xs px-2 py-1 uppercase tracking-widest mb-4 inline-block transform -rotate-2">Vision & Roadmap</span>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight italic">COMING BACK TO <br> BUILD WHAT’S NEXT.</h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-8 font-light max-w-2xl mx-auto">
+                A strategic roadmap to hit <span class="font-bold text-white">$3M AUV</span> through smarter personalization, operational alignment, and scalable guest experiences.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+                <!-- Primary CTA -->
+                <button onclick="scrollToSection('strategy')" class="bg-white text-black tb-font font-bold text-lg px-8 py-3 rounded-full hover:bg-gray-200 transition transform hover:scale-105 shadow-lg">
+                    SEE THE STRATEGY
+                </button>
+                <!-- Secondary CTA -->
+                <button onclick="scrollToSection('experience')" class="border-2 border-white text-white tb-font font-bold text-lg px-8 py-3 rounded-full hover:bg-white/10 transition">
+                    MY BACKGROUND
+                </button>
+            </div>
+            <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold">Aligned to Taco Bell’s R.I.N.G. The Bell 2030 targets.</p>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-6xl mx-auto w-full p-4 md:p-8 space-y-16">
+        
+        <!-- SECTION 1: THE STRATEGY -->
+        <section id="strategy">
+            
+            <!-- STRATEGY DIVIDER -->
+            <div class="flex items-end justify-between mb-8 border-b border-gray-800 pb-2">
+                <h2 class="text-3xl font-bold">PROPOSED STRATEGY</h2>
+                <span class="text-xs sm:text-sm text-gray-400 mb-1 text-right">Unofficial Product Strategy.</span>
+            </div>
+
+            <!-- Strategy Header (Purple Card) -->
+            <div class="bg-gradient-to-b from-tb-purple to-black rounded-t-3xl p-8 md:p-12 text-center border-b border-white/10 shadow-2xl">
+                <span class="bg-black/30 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block border border-white/20">
+                    Confidential: Strategy Proposal
+                </span>
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">THE CONNECTED CRAVINGS MENU</h2>
+                <p class="text-xl text-purple-200 max-w-3xl mx-auto">
+                    Built to support Taco Bell's <span class="text-white font-bold">R.I.N.G. The Bell 2030</span> goal: <span class="text-white font-bold border-b border-white">$3M AUV</span> and 100% of transactions digitally enabled.
+                </p>
+            </div>
+
+            <!-- PROPOSED OKRs SECTION -->
+            <div class="bg-gray-900 border-x border-gray-800 p-6 md:p-10 relative">
+                
+                <!-- Measurement Note -->
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-3 mb-8 flex gap-3 text-xs text-blue-200 max-w-4xl mx-auto">
+                    <i data-lucide="info" class="w-4 h-4 flex-shrink-0 text-blue-400 mt-0.5"></i>
+                    <p><strong>Note on Measurement:</strong> Targets shown are directional ranges. Baselines and final targets would be set in the first 2–4 weeks after validating channel scope, cohort definitions, and instrumentation.</p>
+                </div>
+
+                <div class="flex items-center gap-3 mb-6">
+                    <i data-lucide="target" class="w-6 h-6 text-white"></i>
+                    <h3 class="text-2xl font-bold font-display tracking-wide text-white">PROPOSED FY26 OKRs</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- OKR 1: THE BUSINESS -->
+                    <div class="bg-black border border-gray-800 rounded-xl overflow-hidden flex flex-col h-full">
+                        <div class="p-5 flex-grow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-tb-green font-bold text-xs uppercase tracking-widest border border-tb-green px-2 py-0.5 rounded">THE BUSINESS</span>
+                            </div>
+                            <h4 class="text-lg font-bold mb-1 leading-tight">Transform Digital into the Franchisee’s Primary Profit Engine.</h4>
+                            
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Increase digital revenue per active user by <strong>+10–15%</strong> <span class="text-gray-500 text-xs">(baseline validated in first 30 days)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Digital transaction mix <strong>≥60%</strong> <span class="text-gray-500 text-xs">(scope: app/web/kiosk + 3P)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Kiosk upsell conversion <strong>+2–3 ppts</strong> <span class="text-gray-500 text-xs">(attach-rate definition TBD)</span></span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-4 border-t border-gray-800">
+                                <p class="text-xs text-gray-400 font-bold mb-1">GUARDRAILS:</p>
+                                <ul class="text-xs text-white list-disc list-inside">
+                                    <li>Refund/cancel rate: no increase</li>
+                                    <li>Guest satisfaction: stable/improving</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-tb-green/20 p-3 border-t border-tb-green/30 text-[10px] text-tb-green font-bold uppercase tracking-wider text-center">
+                            Strategy: Margin-Aware Upsells & Prep-Time Aware Recommendations
+                        </div>
+                    </div>
+
+                    <!-- OKR 2: THE EXPERIENCE -->
+                    <div class="bg-black border border-gray-800 rounded-xl overflow-hidden flex flex-col h-full">
+                        <div class="p-5 flex-grow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-tb-purple font-bold text-xs uppercase tracking-widest border border-tb-purple px-2 py-0.5 rounded">THE EXPERIENCE</span>
+                            </div>
+                            <h4 class="text-lg font-bold mb-1 leading-tight">Erase Friction: Make the Order-to-Eat Journey Invisible.</h4>
+                            
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-purple mt-0.5 flex-shrink-0"></i>
+                                    <span>Reduce error rate drivers to <strong>≤1%</strong> <span class="text-gray-500 text-xs">(remake/refund/missing)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-purple mt-0.5 flex-shrink-0"></i>
+                                    <span>Checkout success rate <strong>≥99.X%</strong> <span class="text-gray-500 text-xs">(Best-in-Class)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-purple mt-0.5 flex-shrink-0"></i>
+                                    <span>Increase digital order completion by <strong>+10%</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-4 border-t border-gray-800">
+                                <p class="text-xs text-gray-400 font-bold mb-1">GUARDRAILS:</p>
+                                <ul class="text-xs text-white list-disc list-inside">
+                                    <li>Remakes/refunds: no increase</li>
+                                    <li>Completion rate: no decline</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-tb-purple/25 p-3 border-t border-tb-purple/30 text-[10px] text-tb-purple font-bold uppercase tracking-wider text-center">
+                            Strategy: Proactive Issue Prevention, Checkout Optimization + Friction Removal
+                        </div>
+                    </div>
+
+                    <!-- OKR 3: THE FUTURE -->
+                    <div class="bg-black border border-gray-800 rounded-xl overflow-hidden flex flex-col h-full">
+                        <div class="p-5 flex-grow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-tb-orange font-bold text-xs uppercase tracking-widest border border-tb-orange px-2 py-0.5 rounded">THE FUTURE</span>
+                            </div>
+                            <h4 class="text-lg font-bold mb-1 leading-tight">Pioneer the Next Generation of "Rebel" Commerce.</h4>
+                            
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Contextual offers <strong>≥25%</strong> redemption <span class="text-gray-500 text-xs">(measured incremental lift)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Pilot personalized digital menu board / signage for <strong>8%</strong> lift <span class="text-gray-500 text-xs">(daypart/context-based)</span></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Run 3 experiments / sprint, 70% decision rate and >1 shipped / month</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-4 border-t border-gray-800">
+                                <p class="text-xs text-gray-400 font-bold mb-1">GUARDRAILS:</p>
+                                <ul class="text-xs text-white list-disc list-inside">
+                                    <li>Privacy/Compliance: zero incidents</li>
+                                    <li>Member Quality: meets retention threshold</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-tb-orange/10 p-3 border-t border-tb-orange/30 text-[10px] text-tb-orange font-bold uppercase tracking-wider text-center">
+                            Strategy: AI-Driven Loyalty & Contextual Engine
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Strategy Stack (Pillars) -->
+            <div class="bg-gray-900 border-x border-t border-gray-800 p-6 md:p-10 space-y-12">
+                
+                <!-- PILLAR 01: OPERATIONS -->
+                <div class="strat-layer flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3">
+                        <div class="text-tb-lightPurple font-bold text-xs uppercase tracking-widest mb-1">PILLAR 01 — OPERATIONS</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">DYNAMIC VELOCITY</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Demand shaping</span>
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Platform unity</span>
+                        </div>
+                        
+                        <!-- Updated Vertical Lists -->
+                        <div class="text-xs text-gray-400 border-t border-gray-800 pt-3">
+                            <div class="mb-3">
+                                <strong class="text-white block mb-1">KPIs to track:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• refunds/cancels</li>
+                                    <li>• order error rate</li>
+                                    <li>• guest satisfaction</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong class="text-white block mb-1">Surfaces touched:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• kiosk</li>
+                                    <li>• app/web</li>
+                                    <li>• digital menu boards/signage</li>
+                                    <li>• BOH/KDS signals</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-gray-300 leading-relaxed mb-3">
+                            <strong>Goal:</strong> Make CX easy for Team Members while protecting speed and accuracy during peak hours.
+                        </p>
+                        <p class="text-white italic mb-5 border-l-2 border-tb-lightPurple pl-4 py-1 bg-tb-purple/5">
+                            "Use real-time signals to dynamically steer digital ordering toward what restaurants can execute fast and accurately."
+                        </p>
+                        <div class="text-sm text-gray-300">
+                            <strong class="text-white block mb-2 uppercase tracking-wide text-xs">Opportunities:</strong>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-lightPurple mt-0.5 flex-shrink-0"></i>
+                                    <span>Roll out demand shaping across <strong>Kiosk + App/Web</strong> using <strong>Byte by Yum!</strong> as the execution layer.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-lightPurple mt-0.5 flex-shrink-0"></i>
+                                    <span>Test capacity-aware merchandising: highlighting “fast picks” to guide guests toward high-margin, low-complexity items during peak times.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-lightPurple mt-0.5 flex-shrink-0"></i>
+                                    <span>Reduce preventable defects by syncing availability, mods, and kitchen load with what guests see on the front-end.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 w-full"></div>
+
+                <!-- PILLAR 02: DATA -->
+                <div class="strat-layer flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3">
+                        <div class="text-tb-orange font-bold text-xs uppercase tracking-widest mb-1">PILLAR 02 — DATA</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">CONTEXTUAL IQ</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Unified CDP</span>
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Loyalty</span>
+                        </div>
+                        
+                        <!-- Updated Vertical Lists -->
+                        <div class="text-xs text-gray-400 border-t border-gray-800 pt-3">
+                            <div class="mb-3">
+                                <strong class="text-white block mb-1">KPIs to track:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• digital revenue per active user</li>
+                                    <li>• incremental lift vs control</li>
+                                    <li>• frequency/repeat lift</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong class="text-white block mb-1">Surfaces touched:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• Martech/CRM</li>
+                                    <li>• App/Web</li>
+                                    <li>• Kiosk</li>
+                                    <li>• Delivery Entry Points</li>
+                                    <li>• Loyalty Touchpoints (Identity)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-gray-300 leading-relaxed mb-3">
+                            <strong>Goal:</strong> Increase conversion and LTV through measurable, real-time personalization.
+                        </p>
+                        <p class="text-white italic mb-5 border-l-2 border-tb-orange pl-4 py-1 bg-tb-orange/5">
+                            "Move from broad segmentation to context-driven decisions that proves incremental lift—not just redemption."
+                        </p>
+                        <div class="text-sm text-gray-300">
+                            <strong class="text-white block mb-2 uppercase tracking-wide text-xs">Opportunities:</strong>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Unify identity and behavior signals with <strong>Loyalty/CRM</strong> into a working CDP/decisioning layer (validate → scale).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Trigger offers based on daypart, location, intent, and situational context—then test for incrementality.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-orange mt-0.5 flex-shrink-0"></i>
+                                    <span>Expand personalization coverage across <strong>App/Web, Kiosk, and Delivery</strong> entry points wherever identity is present.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 w-full"></div>
+
+                <!-- PILLAR 03: FUTURE -->
+                <div class="strat-layer flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3">
+                        <div class="text-tb-green font-bold text-xs uppercase tracking-widest mb-1">PILLAR 03 — FUTURE</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">AGENTIC INTERFACES</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Voice AI</span>
+                            <span class="bg-gray-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-gray-700">Automation</span>
+                        </div>
+                        
+                        <!-- Updated Vertical Lists -->
+                        <div class="text-xs text-gray-400 border-t border-gray-800 pt-3">
+                            <div class="mb-3">
+                                <strong class="text-white block mb-1">KPIs to track:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• adoption + completion lift</li>
+                                    <li>• incremental impact</li>
+                                    <li>• experiment win rate</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong class="text-white block mb-1">Surfaces touched:</strong>
+                                <ul class="space-y-0.5">
+                                    <li>• drive-thru voice</li>
+                                    <li>• app/web</li>
+                                    <li>• kiosk</li>
+                                    <li>• digital menu boards/signage</li>
+                                    <li>• experimentation platform</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-gray-300 leading-relaxed mb-3">
+                            <strong>Goal:</strong> Future-proof the platform for accelerated growth with lower guest effort.
+                        </p>
+                        <p class="text-white italic mb-5 border-l-2 border-tb-green pl-4 py-1 bg-tb-green/5">
+                            "Expand guided, “agentic” experiences so guests can order, modify, pay, and resolve issues with minimal effort/friction."
+                        </p>
+                        <div class="text-sm text-gray-300">
+                            <strong class="text-white block mb-2 uppercase tracking-wide text-xs">Opportunities:</strong>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Stabilize and scale Voice AI where it meaningfully improves accuracy and speed (especially for modifications).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Build assistive app journeys: help me choose, build my meal, smart reorder (e.g. with constraints), proactive issue resolution.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-tb-green mt-0.5 flex-shrink-0"></i>
+                                    <span>Pilot personalized digital menu boards/signage with clear measurement gates and ship/kill discipline.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROADMAP SECTION -->
+            <div class="bg-gray-900 border border-gray-800 rounded-b-3xl p-6 md:p-10 border-t-0">
+                <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-800 pb-4">EXECUTION ROADMAP</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-800">
+                    
+                    <!-- COLUMN 1: NOW -->
+                    <div class="p-0 md:pr-6 pb-8 md:pb-0">
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-3xl font-bold text-white">NOW</span>
+                            <span class="text-gray-500 text-sm font-bold uppercase">0–90 DAYS</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider font-bold">Stabilize + Instrument + Unlock Quick Wins</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-tb-lightPurple text-xs font-bold uppercase mb-2">Dynamic Velocity</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Launch a capacity-aware decisioning MVP for kiosk + app/web <span class="text-xs text-gray-500">(e.g., “Fast Picks” + simplified upsell rules during peak)</span></li>
+                                    <li>Align menu, availability, and modifiers across surfaces to reduce preventable errors</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-orange text-xs font-bold uppercase mb-2">Contextual IQ</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Define identity + event taxonomy and validate instrumentation <span class="text-xs text-gray-500">(active user, completion, error, refund)</span></li>
+                                    <li>Stand up incrementality measurement <span class="text-xs text-gray-500">(holdouts)</span> for offers and personalization</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-green text-xs font-bold uppercase mb-2">Agentic Interfaces</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Identify 1–2 high-confidence AI journeys to test <span class="text-xs text-gray-500">(guided ordering, modifications, issue resolution)</span></li>
+                                    <li>Establish the experiment operating rhythm <span class="text-xs text-gray-500">(ship/kill decisions, weekly growth review)</span></li>
+                                </ul>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800">
+                                <p class="text-[10px] text-gray-500 font-bold uppercase">Key Deliverables</p>
+                                <p class="text-xs text-gray-400">KPI tree + dashboards • experiment templates • first “Fast Picks” pilot • measurement plan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 2: NEXT -->
+                    <div class="p-0 md:px-6 py-8 md:py-0">
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-3xl font-bold text-white">NEXT</span>
+                            <span class="text-gray-500 text-sm font-bold uppercase">3–6 MOS</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider font-bold">Scale Conversion + Reliability Across Core Journeys</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-tb-lightPurple text-xs font-bold uppercase mb-2">Dynamic Velocity</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Scale capacity-aware merchandising from MVP to broader coverage <span class="text-xs text-gray-500">(more stores/regions + additional surfaces)</span></li>
+                                    <li>Expand prep-time–aware upsell rules and bundle logic</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-orange text-xs font-bold uppercase mb-2">Contextual IQ</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Launch context-triggered offers <span class="text-xs text-gray-500">(daypart/location/intent)</span> with holdouts</li>
+                                    <li>Increase identified orders across kiosk + app/web via simple sign-in prompts</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-green text-xs font-bold uppercase mb-2">Agentic Interfaces</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Release an assistive ordering layer as an in-app experiment program <span class="text-xs text-gray-500">(help me choose, meal builder, reorder with constraints)</span></li>
+                                    <li>Pilot menu board personalization tied to daypart and context</li>
+                                </ul>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800">
+                                <p class="text-[10px] text-gray-500 font-bold uppercase">Key Deliverables</p>
+                                <p class="text-xs text-gray-400">checkout optimization releases • offer decisioning v1 • personalization coverage improvements • AI-assisted ordering beta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 3: LATER -->
+                    <div class="p-0 md:pl-6 pt-8 md:pt-0">
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-3xl font-bold text-white">LATER</span>
+                            <span class="text-gray-500 text-sm font-bold uppercase">6–12 MOS</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider font-bold">Compound Growth + Expand to New Surfaces</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-tb-lightPurple text-xs font-bold uppercase mb-2">Dynamic Velocity</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Unify decisioning across kiosk, app/web, and menu boards <span class="text-xs text-gray-500">(consistent nudges and logic)</span></li>
+                                    <li>Deploy advanced capacity-aware strategies <span class="text-xs text-gray-500">(peak smoothing without hurting trust)</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-orange text-xs font-bold uppercase mb-2">Contextual IQ</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Mature to "next-best action" <span class="text-xs text-gray-500">(recommendations, bundles, messaging)</span></li>
+                                    <li>Strengthen loyalty/CRM loops that lift frequency and LTV, not just redemption</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-tb-green text-xs font-bold uppercase mb-2">Agentic Interfaces</h4>
+                                <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Expand voice + agentic experiences into a connected journey <span class="text-xs text-gray-500">(order → pay → fulfill → support)</span></li>
+                                    <li>Scale signage program if pilots show measurable lift</li>
+                                </ul>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800">
+                                <p class="text-[10px] text-gray-500 font-bold uppercase">Key Deliverables</p>
+                                <p class="text-xs text-gray-400">next-best engine v2 • expanded agentic journeys • mature experimentation operating system</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-12 text-center pt-8">
+                <button onclick="scrollToSection('contact')" class="bg-white text-black hover:bg-tb-lightPurple font-bold text-lg px-8 py-3 rounded-full transition transform hover:scale-105">
+                    DISCUSS THE EXECUTION
+                </button>
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: EXPERIENCE (Menu) -->
+        <section id="experience">
+            <div class="flex items-end justify-between mb-8 border-b border-gray-800 pb-2">
+                <h2 class="text-3xl font-bold">CORE COMPETENCIES</h2>
+                <span class="text-sm text-gray-400 mb-1">Proven Leadership</span>
+            </div>
+
+            <!-- Job Cards (Updated with new content) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div onclick="openModal('card1')" class="group bg-tb-card rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-tb-purple transition duration-300 flex flex-col">
+                    <div class="h-40 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                         <div class="text-gray-600 tb-font text-3xl opacity-30">ECOSYSTEM</div>
+                         <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white">15+ YEARS EXP</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">DIGITAL COMMERCE ECOSYSTEMS</h3>
+                            <span class="text-tb-green font-bold text-xs border border-tb-green px-1 rounded">Scale + Execution</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-4">
+                            Scaled digital commerce ecosystems across web/app, delivery, in-store digital, and AI—connecting ops, platforms, and partners for reliable execution.
+                        </p>
+                        <button class="mt-auto w-full bg-transparent border border-gray-600 hover:bg-gray-700 text-white font-bold py-2 rounded uppercase text-sm">
+                            View Nutrition Facts (Impact)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div onclick="openModal('card2')" class="group bg-tb-card rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-tb-purple transition duration-300 flex flex-col">
+                     <div class="h-40 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                         <div class="text-gray-600 tb-font text-3xl opacity-30">OPERATING SYSTEM</div>
+                         <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white">PORTFOLIO + TEAMS</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">PRODUCT OPERATING MODEL & TEAM LEADERSHIP</h3>
+                             <span class="text-tb-lightPurple font-bold text-xs border border-tb-lightPurple px-1 rounded">OKRs + Velocity</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-4">
+                            Built product operating systems that create focus and speed—OKRs, planning, prioritization, and governance—enabling teams and budgets to deliver outcomes.
+                        </p>
+                        <button class="mt-auto w-full bg-transparent border border-gray-600 hover:bg-gray-700 text-white font-bold py-2 rounded uppercase text-sm">
+                            View Nutrition Facts (Impact)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div onclick="openModal('card3')" class="group bg-tb-card rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-tb-purple transition duration-300 flex flex-col">
+                     <div class="h-40 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                         <div class="text-gray-600 tb-font text-3xl opacity-30">FUTURE</div>
+                         <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white">AI + INNOVATION</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">AI COMMERCE & NEXT-GEN EXPERIENCES</h3>
+                             <span class="text-tb-orange font-bold text-xs border border-tb-orange px-1 rounded">Test-and-Learn</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-4">
+                            Designed and shipped AI-powered experiences and led innovation pipelines—balancing bold bets with measured learning and scalable impact.
+                        </p>
+                        <button class="mt-auto w-full bg-transparent border border-gray-600 hover:bg-gray-700 text-white font-bold py-2 rounded uppercase text-sm">
+                            View Nutrition Facts (Impact)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-black border-t border-gray-800 mt-12 py-16">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-4xl md:text-5xl mb-6">READY TO ORDER?</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+                I am ready to lead the US Digital team to deliver against these goals. Let's schedule a time to discuss the full roadmap.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="mailto:osalam28@gmail.com" class="bg-tb-purple hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transition">
+                    Email Me
+                </a>
+                <a href="https://www.linkedin.com/in/omar-salam" target="_blank" class="border border-white hover:bg-white hover:text-black text-white font-bold py-4 px-8 rounded-full text-lg transition">
+                    LinkedIn
+                </a>
+            </div>
+             <p class="mt-12 text-xs text-gray-600">
+                2026 Omar Salam Portfolio. Unofficial Product Strategy. Not Affiliated with Taco Bell. (Yet).
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL (Nutrition Label) -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="bg-white text-black max-w-md w-full rounded-lg overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0" id="modal-content" onclick="event.stopPropagation()">
+            <div class="p-6 relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div class="nutrition-label border-2 border-black p-4">
+                    <h2 class="text-3xl font-black tracking-tighter mb-1 border-b-8 border-black pb-1">IMPACT NUTRITION FACTS</h2>
+                    <p class="text-sm mb-1 font-bold">Serving Size: <span id="modal-serving" class="font-normal">Omnichannel Commerce Ecosystems</span></p>
+                    <p class="text-sm mb-2 font-bold">Ingredients: <span id="modal-ingredients" class="font-normal">Platforms • Integrations • Ops Alignment</span></p>
+                    
+                    <div class="bg-black h-2 w-full mb-1"></div>
+                    
+                    <div class="flex justify-between items-baseline border-b-4 border-black pb-1 mb-2">
+                        <span class="font-black text-xl">AMOUNT PER SERVING</span>
+                    </div>
+
+                    <!-- Dynamic Rows Container -->
+                    <div id="modal-rows" class="space-y-1">
+                        <!-- Rows injected by JS -->
+                    </div>
+                    
+                    <div class="border-t-8 border-black mt-3 pt-2">
+                         <h3 id="modal-bottom-title" class="text-lg font-black uppercase leading-tight">THE CONNECTED COMMERCE FOUNDATION</h3>
+                         <p id="modal-bottom-desc" class="text-xs text-gray-600">Built to scale, measured to improve.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // --- DATA OBJECT ---
+        const nutritionData = {
+            card1: {
+                servingSize: "Omnichannel Commerce Ecosystems",
+                ingredients: "Platforms • Integrations • Ops Alignment • Measurement",
+                rows: [
+                    ["Ecosystem Scale", "$5B global commerce + 1,400+ retail locations (Under Armour)"],
+                    ["Customer Scale", "5M+ customers across web/mobile/AI self-service (SCE)"],
+                    ["Channel Expansion", "Delivery channel launch + scale foundations (Taco Bell)"],
+                    ["Adoption", "Reached 70% of U.S. advisor market with digital experiences (Capital Group)"],
+                    ["Reliability + Integrations", "3P + payments integrations + operator reporting (Taco Bell)"]
+                ],
+                bottomTitle: "THE CONNECTED COMMERCE FOUNDATION",
+                bottomDesc: "Built to scale, measured to improve."
+            },
+            card2: {
+                servingSize: "Operating Model at Scale",
+                ingredients: "OKRs • Governance • Planning • Coaching • Budget Discipline",
+                rows: [
+                    ["Budget Ownership", "$18M annual budget across O&M/Eng/QA + vendors (SCE)"],
+                    ["Teams Led", "Scaled product teams to 20+; led global squads across NA/EMEA/APAC (Career)"],
+                    ["Operating Cadence", "PI planning governance + OKR operating model; Agile transformation enablement (Career)"],
+                    ["Speed Gain", "4 weeks faster time-to-market (Under Armour)"],
+                    ["Capacity Reclaimed", "12% engineering capacity via value-based prioritization + OKRs (Capital Group)"]
+                ],
+                bottomTitle: "THE EXECUTION ENGINE",
+                bottomDesc: "Clear goals, faster shipping, fewer wasted cycles."
+            },
+            card3: {
+                servingSize: "Innovation → Shipped Value",
+                ingredients: "Conversational • Personalization • Experimentation • New Channels",
+                rows: [
+                    ["AI Shipped (Commerce)", "Conversational AI + recommendations driving +34% conversion and +$5 AOV (Under Armour)"],
+                    ["Engagement Lift", "3x engagement via personalized journeys (Capital Group)"],
+                    ["Innovation Pipeline", "Social commerce, AR/VR try-on, smart mirrors, metaverse shopping/community, new payment types (Under Armour)"],
+                    ["Patent (Applied ML)", "U.S. patent in security/identity verification architecture (Experian)"],
+                    ["Channel Launch", "Taco Bell Delivery launch foundations; integrated 3P + payments (Taco Bell)"]
+                ],
+                bottomTitle: "THE FUTURE, GROUNDED IN RESULTS",
+                bottomDesc: "Bold ideas—validated and scaled with data."
+            }
+        };
+
+        // --- CORE UI LOGIC ---
+        function openModal(cardKey) {
+            const data = nutritionData[cardKey];
+            if (!data) return;
+
+            // Populate Static Fields
+            document.getElementById('modal-serving').textContent = data.servingSize;
+            document.getElementById('modal-ingredients').textContent = data.ingredients;
+            document.getElementById('modal-bottom-title').textContent = data.bottomTitle;
+            document.getElementById('modal-bottom-desc').textContent = data.bottomDesc;
+
+            // Populate Rows
+            const rowsContainer = document.getElementById('modal-rows');
+            rowsContainer.innerHTML = ''; // Clear previous
+            data.rows.forEach(row => {
+                rowsContainer.innerHTML += `
+                    <div class="flex flex-col border-b border-gray-300 pb-1 mb-1">
+                        <span class="font-black text-sm">${row[0]}</span>
+                        <span class="text-xs text-gray-700">${row[1]}</span>
+                    </div>
+                `;
+            });
+
+            // Show Modal
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
