@@ -67,6 +67,10 @@
       border:1px solid rgba(15,23,42,.08);overflow:hidden;flex:0 0 auto}
     .brand-logo img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
     .brand-name{font-weight:700;color:var(--primary);font-size:.95rem;letter-spacing:-.2px;line-height:1.2}
+      .logo--tacobell {
+  transform: scale(1.25);
+  transform-origin: center;
+}
 
     .stats{background:var(--primary);color:var(--white);padding:44px 0}
     .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;text-align:center;align-items:start}
@@ -160,16 +164,18 @@
           <div class="trust-grid">
             <div class="brand-row">
               <div class="brand-logo"><img src="./assets/sce.svg" alt="SCE logo" loading="lazy" decoding="async" /></div>
-              <div class="brand-name">SCE</div>
+              <div class="brand-name">Southern California Edison</div>
             </div>
             <div class="brand-row">
               <div class="brand-logo"><img src="./assets/under-armour.svg" alt="Under Armour logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">Under Armour</div>
             </div>
             <div class="brand-row">
-              <div class="brand-logo"><img src="./assets/taco-bell.svg" alt="Taco Bell logo" loading="lazy" decoding="async" /></div>
-              <div class="brand-name">Taco Bell</div>
-            </div>
+  <div class="brand-logo">
+    <img class="logo--tacobell" src="./assets/taco-bell.svg" alt="Taco Bell logo" loading="lazy" decoding="async" />
+  </div>
+  <div class="brand-name">Taco Bell</div>
+</div>
             <div class="brand-row">
               <div class="brand-logo"><img src="./assets/experian.svg" alt="Experian logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">Experian</div>
