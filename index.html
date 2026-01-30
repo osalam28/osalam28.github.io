@@ -10,7 +10,7 @@
 
   gtag('config', 'G-T36TQP3B5N');
 </script>
-   <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Omar Salam | Head of Product</title>
 
@@ -280,6 +280,7 @@
       letter-spacing: -0.1px;
     }
 
+    /* Single-line pills for Leadership on desktop */
     .pill-row--nowrap { flex-wrap: nowrap; }
     .pill-row--nowrap .pill { font-size: 0.72rem; padding: 5px 9px; }
 
@@ -362,42 +363,42 @@
           </div>
         </div>
 
-        <!-- IMPORTANT: logos live in /assets/ -->
+        <!-- TRUSTED BRANDS CARD -->
         <aside class="trust-card" aria-label="Trusted brands">
           <div class="trust-title">Trusted by teams at</div>
 
           <div class="trust-grid">
             <div class="brand-row">
               <div class="brand-logo">
-                <img src="./assets/sce.jpg" alt="SCE logo" loading="lazy" decoding="async" />
+                <img data-src="assets/sce.jpg" alt="SCE logo" loading="lazy" decoding="async" />
               </div>
               <div class="brand-name">SCE</div>
             </div>
 
             <div class="brand-row">
               <div class="brand-logo">
-                <img src="./assets/under-armour.jpg" alt="Under Armour logo" loading="lazy" decoding="async" />
+                <img data-src="assets/under-armour.jpg" alt="Under Armour logo" loading="lazy" decoding="async" />
               </div>
               <div class="brand-name">Under Armour</div>
             </div>
 
             <div class="brand-row">
               <div class="brand-logo">
-                <img src="./assets/taco-bell.jpg" alt="Taco Bell logo" loading="lazy" decoding="async" />
+                <img data-src="assets/taco-bell.jpg" alt="Taco Bell logo" loading="lazy" decoding="async" />
               </div>
               <div class="brand-name">Taco Bell</div>
             </div>
 
             <div class="brand-row">
               <div class="brand-logo">
-                <img src="./assets/experian.jpg" alt="Experian logo" loading="lazy" decoding="async" />
+                <img data-src="assets/experian.jpg" alt="Experian logo" loading="lazy" decoding="async" />
               </div>
               <div class="brand-name">Experian</div>
             </div>
 
             <div class="brand-row">
               <div class="brand-logo">
-                <img src="./assets/chase.jpg" alt="JP Morgan Chase logo" loading="lazy" decoding="async" />
+                <img data-src="assets/chase.jpg" alt="Chase logo" loading="lazy" decoding="async" />
               </div>
               <div class="brand-name">JP Morgan Chase</div>
             </div>
@@ -550,11 +551,12 @@
         <a href="#projects">Case Studies</a>
         <a href="mailto:osalam28@gmail.com">Email</a>
       </div>
-      <p>&copy; 2026 Omar Salam.</p>
+      <p>&copy; 2026 Omar Salam. Built with intention.</p>
     </div>
   </footer>
 
   <script>
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const target = this.getAttribute('href');
@@ -563,6 +565,26 @@
         document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
       });
     });
+
+    // GitHub Pages-safe asset loading for logos (works for user.github.io and user.github.io/repo/)
+    (function () {
+      const isGitHubPages = location.hostname.endsWith("github.io");
+      const isFile = location.protocol === "file:";
+
+      let base = ""; // default for local/normal hosting
+
+      // For GitHub Pages project sites, prefix with "/<repo>/"
+      if (isGitHubPages && !isFile) {
+        const firstSegment = location.pathname.split("/").filter(Boolean)[0];
+        if (firstSegment) base = "/" + firstSegment + "/";
+      }
+
+      document.querySelectorAll("img[data-src]").forEach((img) => {
+        const p = img.getAttribute("data-src").replace(/^\/+/, "");
+        img.src = base + p;
+        img.onerror = () => console.warn("Logo failed to load:", img.src);
+      });
+    })();
   </script>
 </body>
 </html>
