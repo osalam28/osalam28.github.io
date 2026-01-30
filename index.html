@@ -15,313 +15,107 @@
   <title>Omar Salam | Head of Product</title>
 
   <style>
-    /* --- CSS VARIABLES & RESET --- */
-    :root {
-      --primary: #0f172a;
-      --accent: #3b82f6;
-      --text-main: #334155;
-      --text-light: #64748b;
-      --bg-light: #f8fafc;
-      --white: #ffffff;
-      --max-width: 1100px;
-      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --transition: all 0.25s ease;
+    :root{
+      --primary:#0f172a; --accent:#3b82f6; --text-main:#334155; --text-light:#64748b;
+      --bg-light:#f8fafc; --white:#ffffff; --max-width:1100px;
+      --font-main:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      --transition:all .25s ease;
     }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-main);color:var(--text-main);line-height:1.6;background:var(--white)}
+    a{text-decoration:none;color:inherit;transition:var(--transition)}
+    ul{list-style:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-main);
-      color: var(--text-main);
-      line-height: 1.6;
-      background-color: var(--white);
-    }
-    a { text-decoration: none; color: inherit; transition: var(--transition); }
-    ul { list-style: none; }
+    .btn{display:inline-block;background:var(--accent);color:var(--white);padding:12px 24px;border-radius:10px;
+      font-weight:650;border:2px solid var(--accent);letter-spacing:-.1px}
+    .btn:hover{background:transparent;color:var(--accent)}
+    .btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+    .btn-outline:hover{background:var(--primary);color:var(--white)}
 
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+    .section-title{font-size:2rem;color:var(--primary);margin-bottom:1rem;position:relative;display:inline-block;letter-spacing:-.5px}
+    .section-title::after{content:'';display:block;width:60px;height:4px;background:var(--accent);margin-top:8px;border-radius:2px}
+    .muted{color:var(--text-light)}
 
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--white);
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-weight: 650;
-      border: 2px solid var(--accent);
-      letter-spacing: -0.1px;
-    }
-    .btn:hover { background: transparent; color: var(--accent); }
+    header{position:fixed;top:0;width:100%;background:rgba(255,255,255,.90);backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);z-index:1000;box-shadow:0 2px 16px rgba(0,0,0,.06);
+      border-bottom:1px solid rgba(15,23,42,.06)}
+    nav{display:flex;justify-content:space-between;align-items:center;height:72px}
+    .logo{font-size:1.1rem;font-weight:850;color:var(--primary);letter-spacing:-.6px}
+    .nav-links{display:flex;gap:26px;align-items:center}
+    .nav-links a{font-weight:560;font-size:.95rem;color:var(--text-main)}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-cta{color:var(--accent)!important;font-weight:700!important}
 
-    .btn-outline {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-    .btn-outline:hover { background: var(--primary); color: var(--white); }
+    .hero{padding:160px 0 90px;background:linear-gradient(135deg,#f8fafc 0%,#e2e8f0 100%);
+      border-bottom:1px solid rgba(15,23,42,.06)}
+    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:start}
+    .hero-content{max-width:900px}
+    .eyebrow{color:var(--accent);font-weight:750;text-transform:uppercase;font-size:.82rem;letter-spacing:1.2px;margin-bottom:16px;display:block}
+    .hero h1{font-size:2.6rem;line-height:1.1;color:var(--primary);margin-bottom:18px;font-weight:900;letter-spacing:-.9px}
+    .hero p{font-size:1.12rem;color:var(--text-light);max-width:820px}
+    .hero p + p{margin-top:16px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
 
-    .section-title {
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      position: relative;
-      display: inline-block;
-      letter-spacing: -0.5px;
-    }
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin-top: 8px;
-      border-radius: 2px;
-    }
-    .muted { color: var(--text-light); }
+    .trust-card{background:rgba(255,255,255,.55);border:1px solid rgba(15,23,42,.10);border-radius:16px;
+      padding:18px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .trust-title{font-size:.92rem;font-weight:750;color:var(--primary);letter-spacing:-.2px;margin-bottom:12px}
+    .trust-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .brand-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.70);
+      border:1px solid rgba(15,23,42,.08)}
+    .brand-logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(15,23,42,.04);
+      border:1px solid rgba(15,23,42,.08);overflow:hidden;flex:0 0 auto}
+    .brand-logo img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+    .brand-name{font-weight:700;color:var(--primary);font-size:.95rem;letter-spacing:-.2px;line-height:1.2}
 
-    /* --- NAV --- */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.90);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 1000;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-    }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 72px;
-    }
-    .logo {
-      font-size: 1.1rem;
-      font-weight: 850;
-      color: var(--primary);
-      letter-spacing: -0.6px;
-    }
-    .nav-links { display: flex; gap: 26px; align-items: center; }
-    .nav-links a { font-weight: 560; font-size: 0.95rem; color: var(--text-main); }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-cta { color: var(--accent) !important; font-weight: 700 !important; }
+    .stats{background:var(--primary);color:var(--white);padding:44px 0}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;text-align:center;align-items:start}
+    .stat-number{font-size:2.2rem;font-weight:850;color:var(--accent);letter-spacing:-.6px;line-height:1.1}
+    .stat-label{font-size:.92rem;opacity:.82;margin-top:8px;line-height:1.35}
 
-    /* --- HERO --- */
-    .hero {
-      padding: 160px 0 90px;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 28px;
-      align-items: start;
-    }
-    .hero-content { max-width: 900px; }
+    .expertise{padding:80px 0}
+    .cards-grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:34px}
+    @media (min-width:900px){.cards-grid--2x2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .card{position:relative;padding:28px;border:1px solid rgba(15,23,42,.10);border-radius:14px;transition:var(--transition);
+      background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.02);min-height:250px}
+    .card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.06);border-color:rgba(59,130,246,.35)}
+    .card h3{color:var(--primary);margin-bottom:10px;font-size:1.12rem;letter-spacing:-.3px}
+    .card p{color:var(--text-light);font-size:.96rem;margin-bottom:16px}
 
-    .eyebrow {
-      color: var(--accent);
-      font-weight: 750;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-      letter-spacing: 1.2px;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .hero h1 {
-      font-size: 2.6rem;
-      line-height: 1.1;
-      color: var(--primary);
-      margin-bottom: 18px;
-      font-weight: 900;
-      letter-spacing: -0.9px;
-    }
-    .hero p {
-      font-size: 1.12rem;
-      color: var(--text-light);
-      max-width: 820px;
-    }
-    .hero p + p { margin-top: 16px; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+    .pill-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;font-size:.76rem;font-weight:650;padding:6px 10px;border-radius:999px;
+      background:rgba(59,130,246,.10);color:rgba(37,99,235,.95);border:1px solid rgba(59,130,246,.18);letter-spacing:-.1px;white-space:nowrap}
+    .badge{position:absolute;top:16px;right:16px;font-size:.72rem;font-weight:750;padding:6px 10px;border-radius:999px;
+      background:rgba(15,23,42,.06);color:rgba(15,23,42,.88);border:1px solid rgba(15,23,42,.10);letter-spacing:-.1px}
 
-    /* Trusted brands card */
-    .trust-card {
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 16px;
-      padding: 18px 18px 16px;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.06);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .trust-title {
-      font-size: 0.92rem;
-      font-weight: 750;
-      color: var(--primary);
-      letter-spacing: -0.2px;
-      margin-bottom: 12px;
-    }
-    .trust-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.70);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      overflow: hidden;
-      flex: 0 0 auto;
-    }
-    .brand-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 6px;
-      display: block;
-    }
-    .brand-name {
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 0.95rem;
-      letter-spacing: -0.2px;
-      line-height: 1.2;
-    }
+    .pill-row--nowrap{flex-wrap:nowrap}
+    .pill-row--nowrap .pill{font-size:.72rem;padding:5px 9px}
 
-    /* --- STATS --- */
-    .stats { background: var(--primary); color: var(--white); padding: 44px 0; }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-      text-align: center;
-      align-items: start;
-    }
-    .stat-number {
-      font-size: 2.2rem;
-      font-weight: 850;
-      color: var(--accent);
-      letter-spacing: -0.6px;
-      line-height: 1.1;
-    }
-    .stat-label {
-      font-size: 0.92rem;
-      opacity: 0.82;
-      margin-top: 8px;
-      line-height: 1.35;
-    }
+    .projects{padding:80px 0;background:var(--bg-light)}
+    .project-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(15,23,42,.10);
+      display:flex;flex-direction:column;box-shadow:0 16px 40px rgba(0,0,0,.03)}
+    .project-content{padding:30px}
+    .project-title{font-size:1.2rem;color:var(--primary);margin-bottom:14px;letter-spacing:-.4px;font-weight:850}
+    .project-body p{color:var(--text-main);font-size:.96rem;margin-bottom:12px}
+    .project-body strong{color:var(--primary)}
+    .project-body ul{list-style:disc;margin-left:18px;margin-top:8px;color:var(--text-main)}
+    .project-body li{margin-bottom:6px}
+    .project-link{margin-top:18px;display:inline-block;font-weight:700;color:var(--accent)}
 
-    /* --- WHAT I DO --- */
-    .expertise { padding: 80px 0; }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
-      margin-top: 34px;
-    }
-    @media (min-width: 900px) {
-      .cards-grid--2x2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    .card {
-      position: relative;
-      padding: 28px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 14px;
-      transition: var(--transition);
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-      min-height: 250px;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.06);
-      border-color: rgba(59, 130, 246, 0.35);
-    }
-    .card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.12rem; letter-spacing: -0.3px; }
-    .card p { color: var(--text-light); font-size: 0.96rem; margin-bottom: 16px; }
+    footer{background:var(--primary);color:var(--white);padding:52px 0;text-align:center;border-top:1px solid rgba(255,255,255,.08)}
+    .footer-links{margin-bottom:18px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+    .footer-links a{color:#94a3b8;font-weight:600}
+    .footer-links a:hover{color:var(--white)}
 
-    .pill-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.76rem;
-      font-weight: 650;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(59, 130, 246, 0.10);
-      color: rgba(37, 99, 235, 0.95);
-      border: 1px solid rgba(59, 130, 246, 0.18);
-      letter-spacing: -0.1px;
-      white-space: nowrap;
-    }
-
-    .badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 0.72rem;
-      font-weight: 750;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.06);
-      color: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      letter-spacing: -0.1px;
-    }
-
-    /* Single-line pills for Leadership on desktop */
-    .pill-row--nowrap { flex-wrap: nowrap; }
-    .pill-row--nowrap .pill { font-size: 0.72rem; padding: 5px 9px; }
-
-    /* --- CASE STUDIES --- */
-    .projects { padding: 80px 0; background: var(--bg-light); }
-    .project-card {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.03);
-    }
-    .project-content { padding: 30px; }
-    .project-title { font-size: 1.2rem; color: var(--primary); margin-bottom: 14px; letter-spacing: -0.4px; font-weight: 850; }
-    .project-body p { color: var(--text-main); font-size: 0.96rem; margin-bottom: 12px; }
-    .project-body strong { color: var(--primary); }
-    .project-body ul { list-style: disc; margin-left: 18px; margin-top: 8px; color: var(--text-main); }
-    .project-body li { margin-bottom: 6px; }
-    .project-link { margin-top: 18px; display: inline-block; font-weight: 700; color: var(--accent); }
-
-    /* --- FOOTER --- */
-    footer { background: var(--primary); color: var(--white); padding: 52px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .footer-links { margin-bottom: 18px; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
-    .footer-links a { color: #94a3b8; font-weight: 600; }
-    .footer-links a:hover { color: var(--white); }
-
-    /* --- RESPONSIVE --- */
-    @media (max-width: 980px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .trust-card { margin-top: 14px; }
-    }
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.15rem; }
-      .nav-links { display: none; }
-      .hero-actions { flex-direction: column; }
-      .btn { width: 100%; text-align: center; }
-      .project-content { padding: 22px; }
-      .card { padding: 22px; }
-      .pill-row--nowrap { flex-wrap: wrap; } /* prevent overflow on small screens */
+    @media (max-width:980px){.hero-grid{grid-template-columns:1fr}.trust-card{margin-top:14px}}
+    @media (max-width:768px){
+      .hero h1{font-size:2.15rem}
+      .nav-links{display:none}
+      .hero-actions{flex-direction:column}
+      .btn{width:100%;text-align:center}
+      .project-content{padding:22px}
+      .card{padding:22px}
+      .pill-row--nowrap{flex-wrap:wrap}
     }
   </style>
 </head>
@@ -346,13 +140,11 @@
       <div class="hero-grid">
         <div class="hero-content">
           <span class="eyebrow">Digital Product Leadership</span>
-
           <h1>Building product systems that scale and the experiences people trust.</h1>
 
           <p>
             I lead digital product across customer-facing digital experiences and the operating systems behind them. My work sits at the intersection of strategy, execution discipline, and measurable outcomes.
           </p>
-
           <p>
             I’ve spent 15+ years leading digital product across retail, eComm, health, fintech, and enterprise – focused on improving everyday customer journeys to rolling out patented AI-driven experiences. I focus teams on what matters, and deliver outcomes customers can feel and leaders can measure.
           </p>
@@ -363,47 +155,32 @@
           </div>
         </div>
 
-        <!-- TRUSTED BRANDS CARD -->
         <aside class="trust-card" aria-label="Trusted brands">
           <div class="trust-title">Trusted by teams at</div>
-
           <div class="trust-grid">
             <div class="brand-row">
-              <div class="brand-logo">
-                <img data-src="assets/sce.jpg" alt="SCE logo" loading="lazy" decoding="async" />
-              </div>
+              <div class="brand-logo"><img src="./assets/sce.svg" alt="SCE logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">SCE</div>
             </div>
-
             <div class="brand-row">
-              <div class="brand-logo">
-                <img data-src="assets/under-armour.jpg" alt="Under Armour logo" loading="lazy" decoding="async" />
-              </div>
+              <div class="brand-logo"><img src="./assets/under-armour.svg" alt="Under Armour logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">Under Armour</div>
             </div>
-
             <div class="brand-row">
-              <div class="brand-logo">
-                <img data-src="assets/taco-bell.jpg" alt="Taco Bell logo" loading="lazy" decoding="async" />
-              </div>
+              <div class="brand-logo"><img src="./assets/taco-bell.svg" alt="Taco Bell logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">Taco Bell</div>
             </div>
-
             <div class="brand-row">
-              <div class="brand-logo">
-                <img data-src="assets/experian.jpg" alt="Experian logo" loading="lazy" decoding="async" />
-              </div>
+              <div class="brand-logo"><img src="./assets/experian.svg" alt="Experian logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">Experian</div>
             </div>
-
             <div class="brand-row">
-              <div class="brand-logo">
-                <img data-src="assets/chase.jpg" alt="Chase logo" loading="lazy" decoding="async" />
-              </div>
+              <div class="brand-logo"><img src="./assets/chase.svg" alt="Chase logo" loading="lazy" decoding="async" /></div>
               <div class="brand-name">JP Morgan Chase</div>
             </div>
           </div>
         </aside>
+
       </div>
     </div>
   </section>
@@ -411,25 +188,10 @@
   <div class="stats" aria-label="Highlights">
     <div class="container">
       <div class="stats-grid">
-        <div>
-          <div class="stat-number">30M+</div>
-          <div class="stat-label">Customers served across global digital portfolios.</div>
-        </div>
-
-        <div>
-          <div class="stat-number">3X</div>
-          <div class="stat-label">engagement lift through AI-driven personalization.</div>
-        </div>
-
-        <div>
-          <div class="stat-number">12% YoY</div>
-          <div class="stat-label">Digital adoption growth in legacy enterprise sectors</div>
-        </div>
-
-        <div>
-          <div class="stat-number">1</div>
-          <div class="stat-label">U.S. Patent held in Machine Learning Innovation.</div>
-        </div>
+        <div><div class="stat-number">30M+</div><div class="stat-label">Customers served across global digital portfolios.</div></div>
+        <div><div class="stat-number">3X</div><div class="stat-label">engagement lift through AI-driven personalization.</div></div>
+        <div><div class="stat-number">12% YoY</div><div class="stat-label">Digital adoption growth in legacy enterprise sectors</div></div>
+        <div><div class="stat-number">1</div><div class="stat-label">U.S. Patent held in Machine Learning Innovation.</div></div>
       </div>
     </div>
   </div>
@@ -445,7 +207,7 @@
           <p>
             Leading AI product work with a practical goal: help people get to the right answer, product, or next step faster. I set the product direction, partner closely with data science, design, and engineering, and make sure what we ship is safe, measurable, and maintainable.
           </p>
-          <div class="pill-row" aria-label="Applied AI tags">
+          <div class="pill-row">
             <span class="pill">Recommendation Engines</span>
             <span class="pill">Personalization</span>
             <span class="pill">Converstaional AI</span>
@@ -457,7 +219,7 @@
           <p>
             Build with feedback, not guesswork. Focusing on defining success up front, measuring what matters, and creating feedback loops that turn shipping into learning. Strong measurement tells you what to do next and reduces rework. This keeps teams honest and makes tradeoffs easier when priorities compete.
           </p>
-          <div class="pill-row" aria-label="Measurement tags">
+          <div class="pill-row">
             <span class="pill">North Star Metrics</span>
             <span class="pill">Experimentation</span>
             <span class="pill">Evidence-Based Discovery</span>
@@ -469,7 +231,7 @@
           <p>
             I approach designing products as end-to-end journeys across web, mobile, and service channels — where handoffs and edge cases matter most. The goal is consistency and clarity: fewer dead ends, fewer “why is this different here?” moments, and smoother paths for customers.
           </p>
-          <div class="pill-row" aria-label="Omnichannel tags">
+          <div class="pill-row">
             <span class="pill">Service Design</span>
             <span class="pill">Cross-Channel UX / Handoffs</span>
             <span class="pill">Journey Mapping</span>
@@ -481,7 +243,7 @@
           <p>
             I build the cadence that keeps teams focused: OKRs that protect priorities, discovery that validates assumptions, and governance that prevents roadmap confusion. I've scaled global teams across NA, EMEA, and APAC, and led waterfall-to-agile shifts that improved time-to-market by ~20%.
           </p>
-          <div class="pill-row pill-row--nowrap" aria-label="Leadership tags">
+          <div class="pill-row pill-row--nowrap">
             <span class="pill">OKRs</span>
             <span class="pill">Outcome based roadmaps</span>
             <span class="pill">Team enablement &amp; Accountability</span>
@@ -494,27 +256,21 @@
   <section class="projects" id="projects">
     <div class="container">
       <h2 class="section-title">Case Studies</h2>
-      <p class="muted" style="margin-top: -4px; max-width: 900px;">
-        Two quick examples of the work — click through if you want the deeper context.
-      </p>
+      <p class="muted" style="margin-top:-4px;max-width:900px;">Two quick examples of the work — click through if you want the deeper context.</p>
 
-      <div class="cards-grid" style="margin-top: 28px;">
+      <div class="cards-grid" style="margin-top:28px;">
         <div class="project-card">
           <div class="project-content">
             <div class="project-title">Scaling Discovery: AI-driven personalization &amp; Next Best Action</div>
-
             <div class="project-body">
               <p><strong>Challenge:</strong> Content and resources weren’t reaching customers when they were most relevant, leading to low engagement with high-value workflows.</p>
-
               <p><strong>The Approach:</strong> Shift the user experience from passive search to intent-based discovery, by building a recommendation engine using behavioral signals to surface the most relevant tools and insights in context.</p>
-
               <p><strong>Results:</strong></p>
               <ul>
                 <li>3× engagement increase</li>
                 <li>Better adoption of high-value workflows</li>
                 <li>11% increase in AUM contribution</li>
               </ul>
-
               <a class="project-link" href="#">Read Case Study →</a>
             </div>
           </div>
@@ -523,23 +279,20 @@
         <div class="project-card">
           <div class="project-content">
             <div class="project-title">Building an Operating Model That Protects Focus</div>
-
             <div class="project-body">
               <p><strong>Challenge:</strong> Teams were shipping, but outcomes were inconsistent and accountability was focused on output over results.</p>
-
               <p><strong>The Approach:</strong> Scale an outcome based culture by redesigning the operating model to prioritize empowerment, clear accountability and owning results through OKRs and discovery-led prioritization frameworks.</p>
-
               <p><strong>Results:</strong></p>
               <ul>
                 <li>Output → outcome culture shift</li>
                 <li>20% faster time-to-market</li>
                 <li>12% engineering capacity reclaimed</li>
               </ul>
-
               <a class="project-link" href="#">Read Case Study →</a>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -556,7 +309,6 @@
   </footer>
 
   <script>
-    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const target = this.getAttribute('href');
@@ -565,26 +317,6 @@
         document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
       });
     });
-
-    // GitHub Pages-safe asset loading for logos (works for user.github.io and user.github.io/repo/)
-    (function () {
-      const isGitHubPages = location.hostname.endsWith("github.io");
-      const isFile = location.protocol === "file:";
-
-      let base = ""; // default for local/normal hosting
-
-      // For GitHub Pages project sites, prefix with "/<repo>/"
-      if (isGitHubPages && !isFile) {
-        const firstSegment = location.pathname.split("/").filter(Boolean)[0];
-        if (firstSegment) base = "/" + firstSegment + "/";
-      }
-
-      document.querySelectorAll("img[data-src]").forEach((img) => {
-        const p = img.getAttribute("data-src").replace(/^\/+/, "");
-        img.src = base + p;
-        img.onerror = () => console.warn("Logo failed to load:", img.src);
-      });
-    })();
   </script>
 </body>
 </html>
