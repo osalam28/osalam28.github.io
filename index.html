@@ -10,327 +10,559 @@
 
   gtag('config', 'G-T36TQP3B5N');
 </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omar Salam | Product Executive</title>
-    <style>
-        :root {
-            /* BRANDING: Clean, Executive, "FinTech/SaaS" Vibe */
-            --accent-color: #38bdf8; /* Professional Light Blue */
-            --bg-main: #0f172a;      /* Deep Slate Navy */
-            --bg-card: #1e293b;      /* Lighter Slate */
-            --text-primary: #f8fafc; /* White */
-            --text-secondary: #94a3b8; /* Muted Blue-Gray */
-            --border-color: #334155;
-        }
+   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omar Salam | Head of Product</title>
 
-        body {
-            margin: 0;
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-        }
+  <style>
+    /* --- CSS VARIABLES & RESET --- */
+    :root {
+      --primary: #0f172a;
+      --accent: #3b82f6;
+      --text-main: #334155;
+      --text-light: #64748b;
+      --bg-light: #f8fafc;
+      --white: #ffffff;
+      --max-width: 1100px;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --transition: all 0.25s ease;
+    }
 
-        a { text-decoration: none; color: inherit; transition: color 0.2s; }
-        a:hover { color: var(--accent-color); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      background-color: var(--white);
+    }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
 
-        /* HEADER / HERO */
-        .hero {
-            padding: 120px 20px 80px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
 
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-        }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 650;
+      border: 2px solid var(--accent);
+      letter-spacing: -0.1px;
+    }
+    .btn:hover { background: transparent; color: var(--accent); }
 
-        .role {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            margin-top: 20px;
-            display: inline-block;
-        }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
 
-        .bio {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin: 30px auto;
-            max-width: 700px;
-            font-weight: 300;
-        }
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.5px;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    .muted { color: var(--text-light); }
 
-        .cta-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 35px;
-            border: 1px solid var(--text-secondary);
-            color: var(--text-primary);
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+    /* --- NAV --- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 850;
+      color: var(--primary);
+      letter-spacing: -0.6px;
+    }
+    .nav-links { display: flex; gap: 26px; align-items: center; }
+    .nav-links a { font-weight: 560; font-size: 0.95rem; color: var(--text-main); }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { color: var(--accent) !important; font-weight: 700 !important; }
 
-        .cta-btn:hover {
-            border-color: var(--accent-color);
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent-color);
-        }
+    /* --- HERO --- */
+    .hero {
+      padding: 160px 0 90px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .hero-content { max-width: 900px; }
 
-        /* METRICS STRIP */
-        .metrics-container {
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            background: var(--bg-card);
-            padding: 40px 0;
-            margin-bottom: 100px;
-        }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 750;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 1.2px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      line-height: 1.1;
+      color: var(--primary);
+      margin-bottom: 18px;
+      font-weight: 900;
+      letter-spacing: -0.9px;
+    }
+    .hero p {
+      font-size: 1.12rem;
+      color: var(--text-light);
+      max-width: 820px;
+    }
+    .hero p + p { margin-top: 16px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            gap: 30px;
-        }
+    /* Trusted brands card */
+    .trust-card {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .trust-title {
+      font-size: 0.92rem;
+      font-weight: 750;
+      color: var(--primary);
+      letter-spacing: -0.2px;
+      margin-bottom: 12px;
+    }
+    .trust-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.70);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+      display: block;
+    }
+    .brand-name {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+    }
 
-        .metric-item h3 {
-            font-size: 3rem;
-            margin: 0;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
+    /* --- STATS --- */
+    .stats { background: var(--primary); color: var(--white); padding: 44px 0; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      text-align: center;
+      align-items: start;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 850;
+      color: var(--accent);
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.92rem;
+      opacity: 0.82;
+      margin-top: 8px;
+      line-height: 1.35;
+    }
 
-        .metric-item p {
-            margin: 5px 0 0 0;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
+    /* --- WHAT I DO --- */
+    .expertise { padding: 80px 0; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 34px;
+    }
+    @media (min-width: 900px) {
+      .cards-grid--2x2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .card {
+      position: relative;
+      padding: 28px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 14px;
+      transition: var(--transition);
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+      min-height: 250px;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.06);
+      border-color: rgba(59, 130, 246, 0.35);
+    }
+    .card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.12rem; letter-spacing: -0.3px; }
+    .card p { color: var(--text-light); font-size: 0.96rem; margin-bottom: 16px; }
 
-        /* EXPERIENCE SECTION */
-        .section-container {
-            max-width: 800px;
-            margin: 0 auto 100px auto;
-            padding: 0 20px;
-        }
+    .pill-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 650;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.10);
+      color: rgba(37, 99, 235, 0.95);
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+    }
 
-        .section-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-secondary);
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-        }
+    .badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 0.72rem;
+      font-weight: 750;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      letter-spacing: -0.1px;
+    }
 
-        .job {
-            margin-bottom: 60px;
-            display: grid;
-            grid-template-columns: 150px 1fr; /* Date on left, content on right */
-            gap: 20px;
-        }
+    .pill-row--nowrap { flex-wrap: nowrap; }
+    .pill-row--nowrap .pill { font-size: 0.72rem; padding: 5px 9px; }
 
-        .job-date {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            padding-top: 5px;
-        }
+    /* --- CASE STUDIES --- */
+    .projects { padding: 80px 0; background: var(--bg-light); }
+    .project-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.03);
+    }
+    .project-content { padding: 30px; }
+    .project-title { font-size: 1.2rem; color: var(--primary); margin-bottom: 14px; letter-spacing: -0.4px; font-weight: 850; }
+    .project-body p { color: var(--text-main); font-size: 0.96rem; margin-bottom: 12px; }
+    .project-body strong { color: var(--primary); }
+    .project-body ul { list-style: disc; margin-left: 18px; margin-top: 8px; color: var(--text-main); }
+    .project-body li { margin-bottom: 6px; }
+    .project-link { margin-top: 18px; display: inline-block; font-weight: 700; color: var(--accent); }
 
-        .job-content h3 {
-            font-size: 1.5rem;
-            margin: 0;
-            color: var(--text-primary);
-        }
+    /* --- FOOTER --- */
+    footer { background: var(--primary); color: var(--white); padding: 52px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-links { margin-bottom: 18px; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+    .footer-links a { color: #94a3b8; font-weight: 600; }
+    .footer-links a:hover { color: var(--white); }
 
-        .company-name {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .job-desc {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        /* Tags for skills */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tag {
-            font-size: 0.75rem;
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            padding: 5px 12px;
-            border-radius: 4px;
-            color: var(--text-secondary);
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* MOBILE ADJUSTMENTS */
-        @media (max-width: 700px) {
-            h1 { font-size: 3rem; }
-            .job { grid-template-columns: 1fr; gap: 5px; }
-            .job-date { margin-bottom: 5px; font-size: 0.85rem; color: var(--accent-color); }
-        }
-    </style>
+    /* --- RESPONSIVE --- */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .trust-card { margin-top: 14px; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.15rem; }
+      .nav-links { display: none; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; text-align: center; }
+      .project-content { padding: 22px; }
+      .card { padding: 22px; }
+      .pill-row--nowrap { flex-wrap: wrap; } /* prevent overflow on small screens */
+    }
+  </style>
 </head>
+
 <body>
-
-    <div class="hero">
-        <h1>Omar Salam</h1>
-        <div class="role">Digital Product Executive</div>
-        <p class="bio">
-            15+ years scaling omnichannel ecosystems for global brands including Under Armour, Capital Group, and Experian. 
-            Blending operational rigor with AI innovation to drive revenue at scale.
-        </p>
-        <a href="mailto:osalam28@gmail.com" class="cta-btn">Get in Touch</a>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">Omar Salam.</a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#expertise">What I Do</a>
+          <a href="#projects">Case Studies</a>
+          <a class="nav-cta" href="mailto:osalam28@gmail.com">Contact</a>
+        </div>
+      </nav>
     </div>
+  </header>
 
-    <div class="metrics-container">
-        <div class="metrics-grid">
-            <div class="metric-item">
-                <h3>$5B</h3>
-                <p>Ecosystem Managed</p>
-            </div>
-            <div class="metric-item">
-                <h3>$20M</h3>
-                <p>Capital Secured</p>
-            </div>
-            <div class="metric-item">
-                <h3>#1</h3>
-                <p>U.S. Patent (AI/ML)</p>
-            </div>
-            <div class="metric-item">
-                <h3>20+</h3>
-                <p>Global Squads</p>
-            </div>
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Digital Product Leadership</span>
+
+          <h1>Building product systems that scale and the experiences people trust.</h1>
+
+          <p>
+            I lead digital product across customer-facing digital experiences and the operating systems behind them. My work sits at the intersection of strategy, execution discipline, and measurable outcomes.
+          </p>
+
+          <p>
+            I’ve spent 15+ years leading digital product across retail, eComm, health, fintech, and enterprise – focused on improving everyday customer journeys to rolling out patented AI-driven experiences. I focus teams on what matters, and deliver outcomes customers can feel and leaders can measure.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn">View Case Studies</a>
+            <a href="https://www.linkedin.com/in/omar-salam" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
         </div>
+
+        <!-- IMPORTANT: logos live in /assets/ -->
+        <aside class="trust-card" aria-label="Trusted brands">
+          <div class="trust-title">Trusted by teams at</div>
+
+          <div class="trust-grid">
+            <div class="brand-row">
+              <div class="brand-logo">
+                <img src="./assets/sce.jpg" alt="SCE logo" loading="lazy" decoding="async" />
+              </div>
+              <div class="brand-name">SCE</div>
+            </div>
+
+            <div class="brand-row">
+              <div class="brand-logo">
+                <img src="./assets/under-armour.jpg" alt="Under Armour logo" loading="lazy" decoding="async" />
+              </div>
+              <div class="brand-name">Under Armour</div>
+            </div>
+
+            <div class="brand-row">
+              <div class="brand-logo">
+                <img src="./assets/taco-bell.jpg" alt="Taco Bell logo" loading="lazy" decoding="async" />
+              </div>
+              <div class="brand-name">Taco Bell</div>
+            </div>
+
+            <div class="brand-row">
+              <div class="brand-logo">
+                <img src="./assets/experian.jpg" alt="Experian logo" loading="lazy" decoding="async" />
+              </div>
+              <div class="brand-name">Experian</div>
+            </div>
+
+            <div class="brand-row">
+              <div class="brand-logo">
+                <img src="./assets/chase.jpg" alt="JP Morgan Chase logo" loading="lazy" decoding="async" />
+              </div>
+              <div class="brand-name">JP Morgan Chase</div>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
+  </section>
 
-    <div class="section-container">
-        <div class="section-title">Selected Experience</div>
-
-        <div class="job">
-            <div class="job-date">2025 — Present</div>
-            <div class="job-content">
-                <h3>Head of Product, Digital CX</h3>
-                <span class="company-name">Southern California Edison</span>
-                <p class="job-desc">
-                    Leading digital product strategy across self-service channels for 5M+ customers. 
-                    Managing an $18M budget and modernizing end-to-end journeys using conversational AI.
-                </p>
-                <div class="tags">
-                    <span class="tag">AI Implementation</span>
-                    <span class="tag">Digital Strategy</span>
-                    <span class="tag">$18M Budget</span>
-                </div>
-            </div>
+  <div class="stats" aria-label="Highlights">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number">30M+</div>
+          <div class="stat-label">Customers served across global digital portfolios.</div>
         </div>
 
-        <div class="job">
-            <div class="job-date">2022 — 2023</div>
-            <div class="job-content">
-                <h3>Global Director of Digital Product</h3>
-                <span class="company-name">Under Armour</span>
-                <p class="job-desc">
-                    Led strategy for a $5B omnichannel ecosystem (Web, App, In-Store). 
-                    Secured $20M investment for "Next-Gen Connected Commerce" and achieved 34% conversion lift via AI recommendations.
-                </p>
-                <div class="tags">
-                    <span class="tag">Global Scale</span>
-                    <span class="tag">Omnichannel</span>
-                    <span class="tag">Revenue Growth</span>
-                </div>
-            </div>
+        <div>
+          <div class="stat-number">3X</div>
+          <div class="stat-label">engagement lift through AI-driven personalization.</div>
         </div>
 
-        <div class="job">
-            <div class="job-date">2019 — 2022</div>
-            <div class="job-content">
-                <h3>AVP, Digital Product</h3>
-                <span class="company-name">Capital Group</span>
-                <p class="job-desc">
-                    Modernized legacy digital experiences for the U.S. Advisor market. 
-                    Increased engagement 300% by shifting from static content to AI-driven personalized journeys.
-                </p>
-                <div class="tags">
-                    <span class="tag">FinTech</span>
-                    <span class="tag">Personalization</span>
-                    <span class="tag">Data Science</span>
-                </div>
-            </div>
+        <div>
+          <div class="stat-number">12% YoY</div>
+          <div class="stat-label">Digital adoption growth in legacy enterprise sectors</div>
         </div>
 
-        <div class="job">
-            <div class="job-date">2018 — 2019</div>
-            <div class="job-content">
-                <h3>Product Manager, Digital E-Commerce</h3>
-                <span class="company-name">Taco Bell</span>
-                <p class="job-desc">
-                    Part of the cross-functional team that brought Taco Bell Delivery to life! Managed complex third-party vendor integrations (Grubhub/Alacriti) to ensure seamless order flow.
-                </p>
-                <div class="tags">
-                    <span class="tag">Delivery Launch</span>
-                    <span class="tag">Vendor Mgmt</span>
-                    <span class="tag">Operations</span>
-                </div>
-            </div>
+        <div>
+          <div class="stat-number">1</div>
+          <div class="stat-label">U.S. Patent held in Machine Learning Innovation.</div>
         </div>
-
-        <div class="job">
-            <div class="job-date">2015 — 2018</div>
-            <div class="job-content">
-                <h3>Senior Product Manager</h3>
-                <span class="company-name">Experian</span>
-                <p class="job-desc">
-                    Owned B2B strategy for a $300M portfolio. Awarded U.S. Patent for ML-based detection system and led a 200-person Agile transformation.
-                </p>
-                <div class="tags">
-                    <span class="tag">U.S. Patent</span>
-                    <span class="tag">B2B SaaS</span>
-                    <span class="tag">Agile Transformation</span>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
+  </div>
 
-    <footer>
-        &copy; 2026 Omar Salam. All rights reserved.<br>
-        <a href="mailto:osalam28@gmail.com">osalam28@gmail.com</a>
-    </footer>
+  <section class="expertise" id="expertise">
+    <div class="container">
+      <h2 class="section-title">What I Do</h2>
 
+      <div class="cards-grid cards-grid--2x2">
+        <div class="card">
+          <span class="badge">U.S. Patent</span>
+          <h3>Applied AI &amp; Emerging Tech</h3>
+          <p>
+            Leading AI product work with a practical goal: help people get to the right answer, product, or next step faster. I set the product direction, partner closely with data science, design, and engineering, and make sure what we ship is safe, measurable, and maintainable.
+          </p>
+          <div class="pill-row" aria-label="Applied AI tags">
+            <span class="pill">Recommendation Engines</span>
+            <span class="pill">Personalization</span>
+            <span class="pill">Converstaional AI</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Measurement &amp; Outcome Loops</h3>
+          <p>
+            Build with feedback, not guesswork. Focusing on defining success up front, measuring what matters, and creating feedback loops that turn shipping into learning. Strong measurement tells you what to do next and reduces rework. This keeps teams honest and makes tradeoffs easier when priorities compete.
+          </p>
+          <div class="pill-row" aria-label="Measurement tags">
+            <span class="pill">North Star Metrics</span>
+            <span class="pill">Experimentation</span>
+            <span class="pill">Evidence-Based Discovery</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Omnichannel Product &amp; Journey Design</h3>
+          <p>
+            I approach designing products as end-to-end journeys across web, mobile, and service channels — where handoffs and edge cases matter most. The goal is consistency and clarity: fewer dead ends, fewer “why is this different here?” moments, and smoother paths for customers.
+          </p>
+          <div class="pill-row" aria-label="Omnichannel tags">
+            <span class="pill">Service Design</span>
+            <span class="pill">Cross-Channel UX / Handoffs</span>
+            <span class="pill">Journey Mapping</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Team Leadership &amp; Operating Rhythm</h3>
+          <p>
+            I build the cadence that keeps teams focused: OKRs that protect priorities, discovery that validates assumptions, and governance that prevents roadmap confusion. I've scaled global teams across NA, EMEA, and APAC, and led waterfall-to-agile shifts that improved time-to-market by ~20%.
+          </p>
+          <div class="pill-row pill-row--nowrap" aria-label="Leadership tags">
+            <span class="pill">OKRs</span>
+            <span class="pill">Outcome based roadmaps</span>
+            <span class="pill">Team enablement &amp; Accountability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section-title">Case Studies</h2>
+      <p class="muted" style="margin-top: -4px; max-width: 900px;">
+        Two quick examples of the work — click through if you want the deeper context.
+      </p>
+
+      <div class="cards-grid" style="margin-top: 28px;">
+        <div class="project-card">
+          <div class="project-content">
+            <div class="project-title">Scaling Discovery: AI-driven personalization &amp; Next Best Action</div>
+
+            <div class="project-body">
+              <p><strong>Challenge:</strong> Content and resources weren’t reaching customers when they were most relevant, leading to low engagement with high-value workflows.</p>
+
+              <p><strong>The Approach:</strong> Shift the user experience from passive search to intent-based discovery, by building a recommendation engine using behavioral signals to surface the most relevant tools and insights in context.</p>
+
+              <p><strong>Results:</strong></p>
+              <ul>
+                <li>3× engagement increase</li>
+                <li>Better adoption of high-value workflows</li>
+                <li>11% increase in AUM contribution</li>
+              </ul>
+
+              <a class="project-link" href="#">Read Case Study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <div class="project-title">Building an Operating Model That Protects Focus</div>
+
+            <div class="project-body">
+              <p><strong>Challenge:</strong> Teams were shipping, but outcomes were inconsistent and accountability was focused on output over results.</p>
+
+              <p><strong>The Approach:</strong> Scale an outcome based culture by redesigning the operating model to prioritize empowerment, clear accountability and owning results through OKRs and discovery-led prioritization frameworks.</p>
+
+              <p><strong>Results:</strong></p>
+              <ul>
+                <li>Output → outcome culture shift</li>
+                <li>20% faster time-to-market</li>
+                <li>12% engineering capacity reclaimed</li>
+              </ul>
+
+              <a class="project-link" href="#">Read Case Study →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#projects">Case Studies</a>
+        <a href="mailto:osalam28@gmail.com">Email</a>
+      </div>
+      <p>&copy; 2026 Omar Salam.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = this.getAttribute('href');
+        if (!target || target === "#") return;
+        e.preventDefault();
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
 </html>
