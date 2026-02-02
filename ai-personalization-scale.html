@@ -99,20 +99,19 @@
     .navlinks a:hover{background:var(--subtle);color:var(--accent)}
     .cta{
       display:inline-flex;align-items:center;gap:10px;
-      background:var(--ink);color:#fff;
-      padding:10px 14px;border-radius:12px;
-      font-weight:900;font-size:.92rem;
+      background:var(--ink) !important;
+      color:#ffffff !important; /* Forces text to be white */
+      padding:10px 20px;        /* Adjusted to match Home page */
+      border-radius:6px;        /* Adjusted to match Home page */
+      font-weight:600;          /* Adjusted to match Home page */
+      font-size:.95rem;
       transition:var(--t);
-      border:1px solid rgba(0,0,0,.1);
+      border:none;
     }
-    .cta:hover{background:var(--accent);transform:translateY(-1px)}
-    .ghost{
-      display:inline-flex;align-items:center;gap:10px;
-      border:1px solid var(--border);
-      padding:10px 14px;border-radius:12px;
-      font-weight:900;font-size:.92rem;
-      background:#fff;
-      transition:var(--t);
+    .cta:hover{
+      background:var(--accent) !important; /* Blue on hover */
+      color:#ffffff !important;
+      transform:translateY(-1px);
     }
     .ghost:hover{border-color:#cfcfcf;background:var(--subtle)}
     .menu-btn{
@@ -173,7 +172,7 @@
       font-weight:700;
       letter-spacing:-.045em;
       color:var(--ink);
-      font-size:3.15rem;
+      font-size:.15rem;
       line-height:1.04;
       margin-bottom:12px;
       max-width:28ch;
@@ -239,6 +238,13 @@
       background:#fff;
       border-radius:var(--radius);
       padding:16px 16px 14px;
+      
+      /* New Centering Code */
+      display:flex;
+      flex-direction:column;
+      align-items:center;      /* Centers items horizontally */
+      justify-content:center;  /* Centers items vertically */
+      text-align:center;       /* Ensures multi-line text is centered */
     }
     .proof-num{
       font-family:var(--serif);
