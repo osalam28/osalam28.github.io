@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T36TQP3B5N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-T36TQP3B5N');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Product leader helping teams shift from output to outcomes. 15+ years building operating systems that drive accountability and measurable impact." />
   <title>Omar Salam | Product Leadership</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T36TQP3B5N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T36TQP3B5N');
+  </script>
 
   <style>
     :root{
@@ -51,7 +53,7 @@
       padding:0 32px;
     }
     
-    .container--narrow{max-width:920px}
+    .container--narrow{max-width:820px}
     
     /* HEADER */
     header{
@@ -91,25 +93,84 @@
       letter-spacing:-.01em;
     }
     .nav-links a:hover{color:var(--accent)}
+    .btn-ghost{
+      border:1.5px solid var(--primary)!important;
+      color:var(--primary)!important;
+      padding:9px 18px!important;
+      border-radius:6px!important;
+      font-weight:600!important;
+    }
+    .btn-ghost:hover{
+      background:var(--primary)!important;
+      color:var(--white)!important;
+    }
     .nav-cta{
-      background:var(--primary);
+      background:var(--primary)!important;
       color:var(--white)!important;
       padding:10px 20px;
       border-radius:6px;
       font-weight:600;
     }
-    .nav-cta:hover{background:var(--accent)}
+    .nav-cta:hover{background:var(--accent)!important;color:var(--white)!important}
+    
+    .mobile-menu-btn{
+      display:none;
+      background:var(--primary);
+      color:var(--white);
+      border:none;
+      padding:10px 16px;
+      border-radius:6px;
+      font-weight:600;
+      font-size:.9rem;
+      cursor:pointer;
+    }
+    
+    .mobile-menu{
+      display:none;
+      position:fixed;
+      top:80px;
+      left:0;
+      right:0;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+      padding:20px;
+      z-index:999;
+    }
+    
+    .mobile-menu.active{
+      display:block;
+    }
+    
+    .mobile-menu a{
+      display:block;
+      padding:12px;
+      color:var(--text-main);
+      font-weight:600;
+      border-radius:6px;
+      margin-bottom:8px;
+    }
+    
+    .mobile-menu a:hover{
+      background:var(--bg-subtle);
+    }
+    
+    .mobile-menu .btn{
+      width:100%;
+      justify-content:center;
+      margin-bottom:8px;
+    }
     
     /* HERO */
     .hero{
-      padding:140px 0 60px;
+      padding:140px 0 80px;
       background:var(--white);
       border-bottom:1px solid var(--border);
     }
     
     .hero-grid{
       display:grid;
-      grid-template-columns:1fr 280px;
+      grid-template-columns:1.3fr 280px;
       gap:60px;
       align-items:center;
     }
@@ -138,7 +199,25 @@
       line-height:1.6;
       color:var(--text-light);
       max-width:640px;
+      margin-bottom:32px;
+    }
+    
+    .hero-meta{
+      display:flex;
+      gap:32px;
       margin-bottom:40px;
+      flex-wrap:wrap;
+    }
+    
+    .hero-meta-item{
+      font-size:.95rem;
+      color:var(--text-main);
+      font-weight:600;
+    }
+    
+    .hero-meta-item strong{
+      color:var(--primary);
+      font-weight:700;
     }
     
     .hero-image{
@@ -156,13 +235,13 @@
       height:100%;
       object-fit:cover;
       display:block;
-    object-position: center 20%
     }
     
     .hero-actions{
       display:flex;
       gap:16px;
       align-items:center;
+      flex-wrap:wrap;
     }
     
     .btn{
@@ -194,132 +273,30 @@
       color:var(--white);
     }
     
-    /* TRUST BAR */
-    .trust-bar{
+    /* METRICS BAR */
+    .metrics-bar{
       padding:16px 0;
       background:var(--bg-subtle);
       border-bottom:1px solid var(--border);
     }
     
-    .trust-content{
-      display:flex;
-      align-items:center;
-      gap:40px;
+    .metrics-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
     }
     
-    .trust-label{
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      color:var(--text-light);
-      font-weight:600;
-      white-space:nowrap;
-    }
-    
-    .trust-logos{
-      display:flex;
-      gap:32px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    
-    .trust-logo{
-      font-size:.85rem;
-      color:var(--text-light);
-      font-weight:500;
-      letter-spacing:-.01em;
-    }
-    
-    /* SECTION HEADERS */
-    .section-header{
-      padding:60px 0 30px;
-    }
-    
-    .section-header h2{
-      font-family:var(--font-serif);
-      font-size:3.5rem;
-      line-height:1.1;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.03em;
-      margin-bottom:20px;
-    }
-    
-    .section-header p{
-      font-size:1.15rem;
-      line-height:1.6;
-      color:var(--text-light);
-      max-width:700px;
-    }
-    
-    /* CASE STUDIES */
-    .cases{
+    .metric-card{
       background:var(--white);
-      padding-bottom:60px;
-    }
-    
-    .case-study{
-      margin-bottom:50px;
-      padding-bottom:50px;
-      border-bottom:1px solid var(--border);
-    }
-    
-    .case-study:last-child{
-      border-bottom:none;
-      margin-bottom:0;
-      padding-bottom:0;
-    }
-    
-    .case-title{
-      font-family:var(--font-serif);
-      font-size:2.5rem;
-      line-height:1.2;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      margin-bottom:32px;
-    }
-    
-    .case-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:60px;
-      margin-bottom:40px;
-    }
-    
-    .case-section h3{
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:var(--text-light);
-      font-weight:700;
-      margin-bottom:16px;
-    }
-    
-    .case-section p{
-      font-size:1.05rem;
-      line-height:1.7;
-      color:var(--text-main);
-    }
-    
-    .case-metrics{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:40px;
-      margin-top:40px;
-      padding:40px;
-      background:var(--bg-subtle);
       border:1px solid var(--border);
       border-radius:8px;
-    }
-    
-    .metric-item{
+      padding:20px 16px;
       text-align:center;
     }
     
     .metric-number{
       font-family:var(--font-serif);
-      font-size:2.8rem;
+      font-size:2.2rem;
       line-height:1;
       color:var(--primary);
       font-weight:600;
@@ -333,15 +310,119 @@
       line-height:1.4;
     }
     
+    /* SECTIONS */
+    .section{
+      padding:70px 0;
+    }
+    
+    .section-header{
+      margin-bottom:36px;
+    }
+    
+    .section-header h2{
+      font-family:var(--font-serif);
+      font-size:3.5rem;
+      line-height:1.1;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.03em;
+      margin-bottom:16px;
+    }
+    
+    .section-header p{
+      font-size:1.15rem;
+      line-height:1.6;
+      color:var(--text-light);
+      max-width:700px;
+    }
+    
+    /* CASE STUDIES */
+    .cases-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+    }
+    
+    .case-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:28px;
+      transition:var(--transition);
+      box-shadow:0 10px 30px rgba(0,0,0,.02);
+    }
+    
+    .case-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 44px rgba(0,0,0,.06);
+      border-color:rgba(59,130,246,.35);
+    }
+    
+    .case-kicker{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--text-light);
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    
+    .case-card h3{
+      font-family:var(--font-serif);
+      font-size:1.5rem;
+      line-height:1.3;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:14px;
+    }
+    
+    .case-card p{
+      font-size:1rem;
+      line-height:1.6;
+      color:var(--text-main);
+      margin-bottom:24px;
+    }
+    
+    .case-metrics{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:20px;
+    }
+    
+    .case-metric{
+      background:var(--bg-subtle);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:14px 12px;
+      text-align:center;
+    }
+    
+    .case-metric strong{
+      display:block;
+      font-family:var(--font-serif);
+      font-size:1.5rem;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      margin-bottom:4px;
+    }
+    
+    .case-metric span{
+      font-size:.85rem;
+      color:var(--text-light);
+      line-height:1.3;
+    }
+    
     .case-link{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      font-size:.95rem;
-      font-weight:600;
+      font-weight:700;
       color:var(--accent);
-      margin-top:32px;
-      letter-spacing:-.01em;
+      font-size:.95rem;
     }
     
     .case-link:hover{
@@ -353,73 +434,127 @@
       font-size:1.2rem;
     }
     
-    /* PRINCIPLES */
-    .principles{
+    /* HOW I WORK */
+    .how-i-work{
       background:var(--primary);
       color:var(--white);
-      padding:60px 0;
+      padding:70px 0;
     }
     
-    .principles .section-header{
-      padding-top:0;
-      padding-bottom:20px;
-    }
-    
-    .principles h2{
+    .how-i-work .section-header h2{
       color:var(--white);
     }
     
-    .principles p{
+    .how-i-work .section-header p{
       color:rgba(255,255,255,.7);
     }
     
     .principles-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:60px 80px;
-      margin-top:30px;
+      gap:24px;
     }
     
-    .principle-item h3{
+    .principle-card{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:14px;
+      padding:28px;
+      transition:var(--transition);
+    }
+    
+    .principle-card:hover{
+      background:rgba(255,255,255,.12);
+      border-color:rgba(255,255,255,.25);
+    }
+    
+    .principle-card h3{
       font-family:var(--font-serif);
       font-size:1.5rem;
       line-height:1.3;
       color:var(--white);
       font-weight:600;
       letter-spacing:-.02em;
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
     
-    .principle-item p{
+    .principle-card p{
       font-size:1.05rem;
       line-height:1.7;
       color:rgba(255,255,255,.75);
     }
     
-    /* CTA SECTION */
+    /* ABOUT */
+    .about{
+      background:var(--bg-subtle);
+      padding:70px 0;
+    }
+    
+    .about-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:start;
+    }
+    
+    .about-box{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:28px;
+    }
+    
+    .about-box p{
+      font-size:1.05rem;
+      line-height:1.7;
+      color:var(--text-main);
+      margin-bottom:16px;
+    }
+    
+    .about-box .lane{
+      font-size:1.05rem;
+      line-height:1.7;
+      color:var(--text-main);
+    }
+    
+    .about-box .fine{
+      font-size:.95rem;
+      color:var(--text-light);
+      margin-top:16px;
+    }
+    
+    .about-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    
+    .about-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 0;
+      border-bottom:1px solid var(--border);
+    }
+    
+    .about-row:last-child{
+      border-bottom:none;
+    }
+    
+    .about-row strong{
+      color:var(--primary);
+      font-weight:700;
+    }
+    
+    .about-row span{
+      color:var(--text-light);
+      text-align:right;
+    }
+    
+    /* CTA */
     .cta-section{
       padding:50px 0;
-      background:var(--white);
-      border-top:1px solid var(--border);
       text-align:center;
-    }
-    
-    .cta-section h2{
-      font-family:var(--font-serif);
-      font-size:3rem;
-      line-height:1.2;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      margin-bottom:24px;
-    }
-    
-    .cta-section p{
-      font-size:1.15rem;
-      line-height:1.6;
-      color:var(--text-light);
-      max-width:600px;
-      margin:0 auto 40px;
     }
     
     /* FOOTER */
@@ -455,28 +590,6 @@
       color:var(--text-light);
     }
     
-    /* ANIMATIONS */
-    @keyframes fadeInUp{
-      from{
-        opacity:0;
-        transform:translateY(20px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-    
-    .fade-in{
-      animation:fadeInUp .8s cubic-bezier(.4,0,.2,1) forwards;
-      opacity:0;
-    }
-    
-    .delay-1{animation-delay:.1s}
-    .delay-2{animation-delay:.2s}
-    .delay-3{animation-delay:.3s}
-    .delay-4{animation-delay:.4s}
-    
     /* RESPONSIVE */
     @media (max-width:1024px){
       .hero-grid{
@@ -488,19 +601,20 @@
         margin:0 auto;
       }
       
-      .case-grid{
+      .cases-grid{
         grid-template-columns:1fr;
-        gap:40px;
-      }
-      
-      .case-metrics{
-        grid-template-columns:1fr;
-        gap:30px;
       }
       
       .principles-grid{
         grid-template-columns:1fr;
-        gap:40px;
+      }
+      
+      .about-grid{
+        grid-template-columns:1fr;
+      }
+      
+      .metrics-grid{
+        grid-template-columns:repeat(2,1fr);
       }
     }
     
@@ -509,15 +623,16 @@
       nav{padding:0 20px}
       
       .nav-links{display:none}
+      .mobile-menu-btn{display:block}
       
-      .hero{padding:100px 0 60px}
+      .hero{padding:100px 0 50px}
       
       .hero-content h1{
-        font-size:2.8rem;
+        font-size:2.5rem;
       }
       
       .hero-content .lead{
-        font-size:1.15rem;
+        font-size:1.1rem;
       }
       
       .hero-content .subtext{
@@ -529,9 +644,14 @@
         height:200px;
       }
       
+      .hero-meta{
+        gap:20px;
+      }
+      
       .hero-actions{
         flex-direction:column;
         width:100%;
+        gap:12px;
       }
       
       .btn{
@@ -539,49 +659,102 @@
         justify-content:center;
       }
       
-      .trust-content{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:16px;
+      .metrics-bar{
+        padding:12px 0;
+      }
+      
+      .metrics-grid{
+        grid-template-columns:1fr;
+        gap:12px;
+      }
+      
+      .metric-card{
+        padding:16px;
+      }
+      
+      .metric-number{
+        font-size:1.8rem;
+      }
+      
+      .section{
+        padding:50px 0;
       }
       
       .section-header{
-        padding:60px 0 40px;
+        margin-bottom:28px;
       }
       
       .section-header h2{
         font-size:2.2rem;
+        margin-bottom:12px;
       }
       
-      .case-title{
-        font-size:1.8rem;
+      .section-header p{
+        font-size:1rem;
       }
       
-      .cases{
-        padding-bottom:60px;
+      .case-card{
+        padding:24px;
       }
       
-      .case-study{
-        margin-bottom:60px;
-        padding-bottom:60px;
+      .case-card h3{
+        font-size:1.3rem;
       }
       
-      .principles{
-        padding:60px 0;
+      .case-metrics{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+      
+      .how-i-work{
+        padding:50px 0;
+      }
+      
+      .principle-card{
+        padding:24px;
+      }
+      
+      .principle-card h3{
+        font-size:1.3rem;
+      }
+      
+      .principle-card p{
+        font-size:1rem;
+      }
+      
+      .about{
+        padding:50px 0;
+      }
+      
+      .about-box{
+        padding:24px;
       }
       
       .cta-section{
-        padding:60px 0;
-      }
-      
-      .cta-section h2{
-        font-size:2rem;
+        padding:40px 0;
       }
       
       .footer-content{
         flex-direction:column;
-        gap:24px;
+        gap:20px;
         text-align:center;
+      }
+      
+      .footer-links{
+        flex-direction:column;
+        gap:16px;
+      }
+    }
+    
+    /* Performance optimizations */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -592,162 +765,219 @@
     <nav>
       <a href="#" class="logo">Omar Salam</a>
       <div class="nav-links">
-        <a href="#cases">Case Studies</a>
-        <a href="#principles">How I Think</a>
+        <a href="#work">Case Studies</a>
+        <a href="#system">How I Work</a>
+        <a href="#about">About Me</a>
+        <a href="assets/Omar_Salam_Resume.pdf" class="btn-ghost" target="_blank" rel="noopener">Download Resume</a>
         <a href="mailto:osalam28@gmail.com" class="nav-cta">Get In Touch</a>
       </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">Menu</button>
     </nav>
+    
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#work">Case Studies</a>
+      <a href="#system">How I Work</a>
+      <a href="#about">About Me</a>
+      <a href="assets/Omar_Salam_Resume.pdf" class="btn btn-outline" target="_blank" rel="noopener">Download Resume</a>
+      <a href="mailto:osalam28@gmail.com" class="btn btn-primary">Get In Touch</a>
+    </div>
   </header>
 
   <section class="hero">
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
-          <h1 class="fade-in">Outcomes Over Output.</h1>
-          <p class="lead fade-in delay-1">
+          <h1>Outcomes Over Output.</h1>
+          <p class="lead">
             I help product teams stop celebrating how much they ship and start measuring what changed because they shipped it.
           </p>
-          <p class="subtext fade-in delay-2">
-            For 15 years, I've led digital product across retail, fintech, health, and enterprise. I build operating systems that drive accountability and protect focus, measurement loops that accelerate learning, and AI products that solve real problems.
+          <p class="subtext">
+            15+ years across retail, fintech, health, and enterprise. I partner with executives, and build operating systems that drive accountability and protect focus, measurement loops that accelerate learning, and AI products that improve the customer experience.
           </p>
-          <div class="hero-actions fade-in delay-3">
-            <a href="#cases" class="btn btn-primary">See The Work</a>
+          
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <strong>Teams of 20+</strong> built & led
+            </div>
+            <div class="hero-meta-item">
+              <strong>U.S. Patent</strong> in AI/ML Innovation
+            </div>
+          </div>
+          
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">See The Work</a>
             <a href="https://www.linkedin.com/in/omar-salam" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
-        <div class="hero-image fade-in delay-2">
-          <img src="./assets/myphoto.JPG" alt="Omar Salam" />
+        
+        <div class="hero-image">
+          <img src="./photo.jpeg" alt="Omar Salam" />
         </div>
       </div>
     </div>
   </section>
 
-  <div class="trust-bar">
+  <div class="metrics-bar">
     <div class="container">
-      <div class="trust-content">
-        <span class="trust-label">Trusted by teams at</span>
-        <div class="trust-logos">
-          <span class="trust-logo">Southern California Edison</span>
-          <span class="trust-logo">Under Armour</span>
-          <span class="trust-logo">Taco Bell</span>
-          <span class="trust-logo">Experian</span>
-          <span class="trust-logo">JP Morgan Chase</span>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">34%</div>
+          <div class="metric-label">Conversion lift from recommendations</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">3×</div>
+          <div class="metric-label">Engagement growth at scale</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">+6%</div>
+          <div class="metric-label">AOV increase via personalization</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">20%</div>
+          <div class="metric-label">Faster delivery after operating model change</div>
         </div>
       </div>
     </div>
   </div>
 
-  <section class="cases" id="cases">
-    <div class="container container--narrow">
+  <section class="section" id="work">
+    <div class="container">
       <div class="section-header">
-        <h2>The Work</h2>
-        <p>Two examples of how I help teams shift from output to outcomes — with measurable results.</p>
+        <h2>Selected work</h2>
+        <p>Two examples of how I shift teams from shipping volume to business outcomes, using clear decision systems and measurable learning loops.</p>
       </div>
 
-      <article class="case-study">
-        <h3 class="case-title">Building an Operating Model That Protects Focus</h3>
-        
-        <div class="case-grid">
-          <div class="case-section">
-            <h3>The Challenge</h3>
-            <p>Teams were shipping features, but outcomes were inconsistent. Teams were proud of their velocity, but leadership couldn't connect the work to business outcomes. Accountability was fuzzy.</p>
+      <div class="cases-grid">
+        <a class="case-card" href="building-operating-model.html">
+          <div class="case-kicker">Operating Model</div>
+          <h3>Protecting focus with OKRs, governance, and discovery discipline</h3>
+          <p>Rebuilt planning and decision rights so teams could stop thrashing, kill low-impact work, and tie delivery to outcomes leadership could trust.</p>
+          
+          <div class="case-metrics">
+            <div class="case-metric">
+              <strong>20%</strong>
+              <span>faster delivery</span>
+            </div>
+            <div class="case-metric">
+              <strong>12%</strong>
+              <span>capacity reclaimed</span>
+            </div>
+            <div class="case-metric">
+              <strong>+8</strong>
+              <span>NPS points</span>
+            </div>
           </div>
           
-          <div class="case-section">
-            <h3>What I Did</h3>
-            <p>I rebuilt how the team worked: shifted from feature roadmaps to outcome-based planning, introduced OKRs that protected focus, and built a discovery cadence that validated assumptions before writing code.</p>
-            <p style="margin-top:16px">This wasn't about adding process — it was about creating clarity on what success looked like and giving teams the authority to kill low-impact work.</p>
-          </div>
-        </div>
-        
-        <div class="case-metrics">
-          <div class="metric-item">
-            <div class="metric-number">20%</div>
-            <div class="metric-label">Faster time-to-market</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-number">12%</div>
-            <div class="metric-label">Engineering capacity reclaimed</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-number">8pts</div>
-            <div class="metric-label">NPS improvement</div>
-          </div>
-        </div>
-        <a href="building-operating-model.html" class="case-link">Read Full Case Study</a>
-             </article>
+          <span class="case-link">Read case study</span>
+        </a>
 
-      <article class="case-study">
-        <h3 class="case-title">AI-Driven Personalization at Scale</h3>
-        
-        <div class="case-grid">
-          <div class="case-section">
-            <h3>The Challenge</h3>
-            <p>A wealth management platform had built a massive content library — white papers, calculators, market insights — but customers weren't finding what they needed. Search was terrible. Engagement was low. High-value tools were getting ignored.</p>
+        <a class="case-card" href="ai-personalization-scale.html">
+          <div class="case-kicker">AI & Personalization</div>
+          <h3>Recommendation engine that moved users from searching to finding</h3>
+          <p>Built relevance guardrails, partnered with data science, and ran controlled experiments to scale personalization without "creepy" overreach.</p>
+          
+          <div class="case-metrics">
+            <div class="case-metric">
+              <strong>3×</strong>
+              <span>engagement lift</span>
+            </div>
+            <div class="case-metric">
+              <strong>11%</strong>
+              <span>AUM contribution</span>
+            </div>
+            <div class="case-metric">
+              <strong>1</strong>
+              <span>U.S. patent</span>
+            </div>
           </div>
           
-          <div class="case-section">
-            <h3>What I Did</h3>
-            <p>I led the build of a recommendation engine that used behavioral signals to surface the right content at the right time. We flipped the experience from passive search to intent-based discovery.</p>
-            <p style="margin-top:16px">This required partnering with data science to define "relevance," building guardrails to avoid creepy over-personalization, and running controlled experiments before rollout.</p>
-          </div>
-        </div>
-        
-        <div class="case-metrics">
-          <div class="metric-item">
-            <div class="metric-number">3×</div>
-            <div class="metric-label">Increase in content engagement</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-number">11%</div>
-            <div class="metric-label">Lift in AUM contribution</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-number">1</div>
-            <div class="metric-label">U.S. Patent granted</div>
-          </div>
-        </div>
-        <a href="ai-personalization-scale.html" class="case-link">Read Full Case Study</a>
-              </article>
+          <span class="case-link">Read case study</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="principles" id="principles">
-    <div class="container container--narrow">
+  <section class="how-i-work" id="system">
+    <div class="container">
       <div class="section-header">
-        <h2>How I Think</h2>
-        <p>Four principles that guide how I approach product leadership.</p>
+        <h2>How I work</h2>
+        <p>An operating system based on four principles, that guide how I approach product leadership: clarity on what matters, proper learning, and measurable outcomes, without noise.</p>
       </div>
-      
+
       <div class="principles-grid">
-        <div class="principle-item">
+        <div class="principle-card">
+          <h3>Decision systems that protect teams</h3>
+          <p>Clear decision rights, prioritization rules, and lightweight governance where appropriate, so that work aligns to outcomes and tradeoffs happen early.</p>
+        </div>
+
+        <div class="principle-card">
+          <h3>Discovery earns the build (and budget)</h3>
+          <p>Structured discovery, that frames what the focus is and validates risks before code: problem clarity, value hypothesis, and tests that reduce rework.</p>
+        </div>
+
+        <div class="principle-card">
           <h3>Measurement isn't optional</h3>
-          <p>If you can't measure it, you can't improve it. I set up feedback loops early — qualitative and quantitative — so we know if we're winning or just busy. Strong measurement tells you what to do next and reduces rework.</p>
+          <p>Feedback loops built into every delivery so teams learn quickly and can prove what changed because they shipped.</p>
         </div>
-        
-        <div class="principle-item">
-          <h3>AI should solve problems, not impress people</h3>
-          <p>I've shipped AI products that users loved and AI products that were technically impressive but useless. The difference? Starting with the problem, not the tech. Most teams build AI features because it's exciting, not because it solves a real customer pain.</p>
+
+        <div class="principle-card">
+          <h3>AI built with purpose and restraint</h3>
+          <p>AI applied starting with the problem, not the tech and where it improves customer outcomes: recommendations, support, trust/fraud; all measured, governed and human-safe.</p>
         </div>
-        
-        <div class="principle-item">
-          <h3>Teams need protection from chaos</h3>
-          <p>Roadmaps should say "no" more than they say "yes." My job is to protect the team from distractions so they can focus on work that compounds. OKRs aren't bureaucracy — they're shields against feature creep.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About</h2>
+        <p>Product leader who focuses on clarity, evidence, and delivering what moves the business.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-box">
+          <p>
+            I partner with executives and teams to modernize digital experiences, build product discipline, and deliver measurable growth.
+          </p>
+          <p class="lane">
+            My lane: omnichannel platforms, personalization/AI, operating models, and 0→1 launches that scale.
+          </p>
+          <p class="fine">
+            Based in Irvine, CA.
+          </p>
         </div>
-        
-        <div class="principle-item">
-          <h3>Process should enable, not slow down</h3>
-          <p>I've run agile transformations, scaled global teams, and introduced OKRs — but only when they solve a real coordination problem. Process for the sake of process is bureaucracy. The goal is clarity, not documentation.</p>
+
+        <div class="about-box">
+          <div class="about-list">
+            <div class="about-row">
+              <strong>Focus</strong>
+              <span>Growth • CX • Platforms • AI</span>
+            </div>
+            <div class="about-row">
+              <strong>Strength</strong>
+              <span>Operating models • Execution • Alignment</span>
+            </div>
+            <div class="about-row">
+              <strong>Scale</strong>
+              <span>20M+ customers reached • Teams of 20+ global squads</span>
+            </div>
+            <div class="about-row">
+              <strong>Proof</strong>
+              <span>3× ↑ engagement • $1B+ revenue • U.S. Patent • AI</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section class="cta-section" id="contact">
-    <div class="container container--narrow">
+    <div class="container">
       <div class="hero-actions" style="justify-content:center;">
         <a href="mailto:osalam28@gmail.com" class="btn btn-primary">Get In Touch</a>
-        <a href="https://www.linkedin.com/in/omar-salam" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+        <a href="assets/Omar_Salam_Resume.pdf" class="btn btn-outline" target="_blank" rel="noopener">Download Resume</a>
+        <a href="https://www.linkedin.com/in/omar-salam" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </section>
@@ -757,7 +987,7 @@
       <div class="footer-content">
         <div class="footer-links">
           <a href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="#cases">Case Studies</a>
+          <a href="#work">Case Studies</a>
           <a href="mailto:osalam28@gmail.com">Email</a>
         </div>
         <p class="footer-credit">&copy; 2026 Omar Salam</p>
@@ -781,33 +1011,22 @@
             top: offsetPosition,
             behavior: 'smooth'
           });
+          // Close mobile menu after navigation
+          document.getElementById('mobileMenu').classList.remove('active');
         }
       });
     });
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+        this.textContent = mobileMenu.classList.contains('active') ? 'Close' : 'Menu';
       });
-    }, observerOptions);
-
-    // Observe case studies for scroll reveal
-    document.querySelectorAll('.case-study').forEach((el, index) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'all .8s cubic-bezier(.4,0,.2,1)';
-      el.style.transitionDelay = `${index * .1}s`;
-      observer.observe(el);
-    });
+    }
   </script>
 </body>
 </html>
