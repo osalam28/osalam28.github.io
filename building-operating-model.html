@@ -1,686 +1,982 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T36TQP3B5N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T36TQP3B5N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T36TQP3B5N');
+  </script>
 
-  gtag('config', 'G-T36TQP3B5N');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building an Operating Model That Protects Focus | Omar Salam</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Installing a Decision System | Operating Model Case Study — Omar Salam</title>
+  <meta name="description" content="Rebuilt a product operating model with OKRs, decision rights, and outcome reviews: 20% faster delivery, 12% capacity reclaimed, +8 NPS points." />
+  <meta name="theme-color" content="#0A0A0A" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --primary:#0a0a0a;
+      --bg:#ffffff;
+      --ink:#0a0a0a;
+      --text:#1f1f1f;
+      --muted:#666666;
+      --border:#e8e8e8;
+      --subtle:#fafafa;
       --accent:#2563eb;
-      --text-main:#262626;
-      --text-light:#737373;
-      --border:#e5e5e5;
-      --bg-subtle:#fafafa;
-      --white:#ffffff;
-      --max-width:1200px;
-      --font-serif:'Crimson Pro',Georgia,serif;
-      --font-sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-      --transition:all .3s cubic-bezier(.4,0,.2,1);
+
+      --max:1120px;
+      --narrow:960px;
+      --radius:14px;
+      --shadow:0 14px 40px rgba(0,0,0,.08);
+
+      --serif:'Crimson Pro', Georgia, serif;
+      --sans:'IBM Plex Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+      --ease:cubic-bezier(.4,0,.2,1);
+      --t:all .25s var(--ease);
     }
-    
+
     *{box-sizing:border-box;margin:0;padding:0}
-    
+    html{scroll-behavior:smooth}
     body{
-      font-family:var(--font-sans);
-      color:var(--text-main);
+      font-family:var(--sans);
+      color:var(--text);
+      background:var(--bg);
       line-height:1.65;
-      background:var(--white);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
-    
-    a{text-decoration:none;color:inherit;transition:var(--transition)}
-    ul,ol{margin-left:24px}
-    
-    .container{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:0 32px;
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip{
+      position:absolute;left:16px;top:12px;
+      padding:10px 12px;border-radius:10px;
+      background:var(--ink);color:#fff;
+      transform:translateY(-200%);
+      transition:var(--t);
+      z-index:9999;
     }
-    
-    .container--narrow{max-width:820px}
-    
-    /* HEADER */
+    .skip:focus{transform:translateY(0)}
+
+    /* Header */
     header{
-      position:fixed;
-      top:0;
-      width:100%;
-      background:rgba(255,255,255,.92);
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
+      position:fixed;top:0;left:0;right:0;
+      background:rgba(255,255,255,.86);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
       z-index:1000;
-      border-bottom:1px solid var(--border);
     }
-    
-    nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      height:80px;
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:0 32px;
+    .nav{
+      height:76px;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;
     }
-    
-    .logo{
-      font-family:var(--font-serif);
-      font-size:1.25rem;
+    .brand{display:flex;flex-direction:column;line-height:1.05}
+    .brand .name{
+      font-family:var(--serif);
       font-weight:700;
-      color:var(--primary);
       letter-spacing:-.02em;
+      color:var(--ink);
+      font-size:1.15rem;
     }
-    
-    .back-link{
-      font-size:.9rem;
-      font-weight:500;
-      color:var(--text-light);
-      display:flex;
-      align-items:center;
-      gap:8px;
+    .brand .tag{
+      font-size:.78rem;color:var(--muted);
+      letter-spacing:.02em;
     }
-    
-    .back-link:hover{
-      color:var(--primary);
+    .navlinks{display:flex;align-items:center;gap:22px}
+    .navlinks a{
+      font-size:.92rem;font-weight:800;color:#222;
+      padding:10px 10px;border-radius:10px;
+      transition:var(--t);
     }
-    
-    .back-link::before{
-      content:'←';
-      font-size:1.2rem;
+    .navlinks a:hover{background:var(--subtle);color:var(--accent)}
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;
+      background:var(--ink);color:#fff;
+      padding:10px 14px;border-radius:12px;
+      font-weight:900;font-size:.92rem;
+      transition:var(--t);
+      border:1px solid rgba(0,0,0,.1);
     }
-    
-    /* HERO */
-    .case-hero{
-      padding:140px 0 80px;
-      background:var(--white);
+    .cta:hover{background:var(--accent);transform:translateY(-1px)}
+    .ghost{
+      display:inline-flex;align-items:center;gap:10px;
+      border:1px solid var(--border);
+      padding:10px 14px;border-radius:12px;
+      font-weight:900;font-size:.92rem;
+      background:#fff;
+      transition:var(--t);
+    }
+    .ghost:hover{border-color:#cfcfcf;background:var(--subtle)}
+    .menu-btn{
+      display:none;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:900;
+    }
+
+    /* Mobile drawer */
+    .drawer{
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(0,0,0,.28);
+      z-index:2000;
+    }
+    .drawer[aria-hidden="false"]{display:block}
+    .drawer-panel{
+      position:absolute;right:0;top:0;height:100%;
+      width:min(360px, 92vw);
+      background:#fff;
+      border-left:1px solid var(--border);
+      padding:16px;
+    }
+    .drawer-panel .top{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:10px;
+    }
+    .drawer-panel a{
+      display:block;
+      padding:14px 12px;
+      border-radius:12px;
+      font-weight:950;
+    }
+    .drawer-panel a:hover{background:var(--subtle);color:var(--accent)}
+    .drawer-panel .stack{display:grid;gap:6px;margin-top:6px}
+
+    main{padding-top:110px}
+
+    /* Hero */
+    .hero{
+      padding:30px 0 28px;
       border-bottom:1px solid var(--border);
     }
-    
-    .case-hero h1{
-      font-family:var(--font-serif);
-      font-size:4rem;
-      line-height:1.1;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.03em;
-      margin-bottom:24px;
-      max-width:900px;
+    .crumbs{
+      display:flex;gap:10px;align-items:center;
+      color:var(--muted);
+      font-size:.92rem;
+      margin-bottom:14px;
+      flex-wrap:wrap;
     }
-    
-    .case-hero .lead{
-      font-size:1.3rem;
-      line-height:1.5;
-      color:var(--text-light);
-      max-width:720px;
-      margin-bottom:40px;
-    }
-    
-    .meta-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:40px;
-      padding:40px 0;
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-    }
-    
-    .meta-item h3{
-      font-size:.75rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:var(--text-light);
+    .crumbs a{font-weight:900}
+    .crumbs a:hover{color:var(--accent)}
+    .h1{
+      font-family:var(--serif);
       font-weight:700;
+      letter-spacing:-.045em;
+      color:var(--ink);
+      font-size:3.15rem;
+      line-height:1.04;
+      margin-bottom:12px;
+      max-width:30ch;
+    }
+    .lead{
+      font-size:1.15rem;
+      color:var(--muted);
+      max-width:84ch;
+      margin-bottom:16px;
+    }
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      font-size:.88rem;
+      color:#2b2b2b;
+      font-weight:800;
+    }
+
+    .meta{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:16px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+    .meta .item{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:var(--subtle);
+      min-height:64px;
+    }
+    .meta .k{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:950;
+      margin-bottom:6px;
+    }
+    .meta .v{font-weight:950;color:var(--ink)}
+
+    /* Proof strip */
+    .proof{
+      padding:22px 0;
+      background:var(--subtle);
+      border-bottom:1px solid var(--border);
+    }
+    .proof-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .proof-card{
+      border:solid var(--border);
+      background:#fff;
+      border-radius:var(--radius);
+      padding:16px 16px 14px;
+    }
+    .proof-num{
+      font-family:var(--serif);
+      font-weight:700;
+      color:var(--ink);
+      font-size:1.9rem;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+    .proof-lbl{color:var(--muted);font-size:.92rem}
+
+    /* Layout */
+    .body{padding:54px 0}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Article */
+    article{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      overflow:hidden;
+      box-shadow:0 1px 0 rgba(0,0,0,.02);
+    }
+    .section{
+      padding:26px 22px 30px;
+      border-bottom:1px solid var(--border);
+    }
+    .section:last-child{border-bottom:none}
+    .label{
+      display:inline-flex;align-items:center;
+      font-size:.75rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:950;
+      margin-bottom:12px;
+    }
+    h2{
+      font-family:var(--serif);
+      font-size:2.05rem;
+      letter-spacing:-.03em;
+      color:var(--ink);
+      line-height:1.12;
+      margin-bottom:12px;
+      max-width:36ch;
+    }
+    h3{
+      font-family:var(--serif);
+      font-size:1.45rem;
+      letter-spacing:-.02em;
+      color:var(--ink);
+      line-height:1.25;
+      margin:18px 0 10px;
+    }
+    p{color:#2a2a2a;font-size:1.05rem;margin-bottom:14px;max-width:88ch}
+    ul,ol{margin:10px 0 14px 20px}
+    li{margin:8px 0;color:#2a2a2a;font-size:1.03rem;max-width:88ch}
+    strong{color:var(--ink)}
+
+    .tldr{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .tldr .cell{
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:var(--subtle);
+      padding:12px;
+    }
+    .tldr .cell .k{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:950;
+      margin-bottom:6px;
+    }
+    .tldr .cell .v{
+      color:var(--ink);
+      font-weight:900;
+      line-height:1.4;
+      font-size:.98rem;
+    }
+
+    .callout{
+      border:1px solid var(--border);
+      background:var(--subtle);
+      border-radius:var(--radius);
+      padding:16px;
+      margin:16px 0 6px;
+    }
+    .callout b{display:block;color:var(--ink);margin-bottom:6px}
+    .pull{
+      border-top:2px solid var(--ink);
+      border-bottom:2px solid var(--ink);
+      padding:18px 0;
+      margin:16px 0 6px;
+      font-family:var(--serif);
+      font-size:1.35rem;
+      letter-spacing:-.02em;
+      color:var(--ink);
+      font-weight:700;
+      max-width:80ch;
+    }
+
+    /* Decision cards */
+    .cards{display:grid;gap:12px;margin-top:12px}
+    .card{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:var(--radius);
+      padding:16px;
+    }
+    .card .title{
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      align-items:baseline;
       margin-bottom:8px;
     }
-    
-    .meta-item p{
-      font-size:1rem;
-      color:var(--primary);
-      font-weight:600;
+    .card .title b{
+      color:var(--ink);
+      font-weight:950;
+      letter-spacing:-.01em;
     }
-    
-    /* CONTENT */
-    .case-content{
-      padding:80px 0;
-    }
-    
-    .content-section{
-      margin-bottom:80px;
-    }
-    
-    .content-section:last-child{
-      margin-bottom:0;
-    }
-    
-    .section-label{
-      font-size:.75rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:var(--accent);
-      font-weight:700;
-      margin-bottom:16px;
-      display:block;
-    }
-    
-    .content-section h2{
-      font-family:var(--font-serif);
-      font-size:2.5rem;
-      line-height:1.2;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      margin-bottom:24px;
-    }
-    
-    .content-section h3{
-      font-family:var(--font-serif);
-      font-size:1.8rem;
-      line-height:1.3;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      margin-bottom:16px;
-      margin-top:40px;
-    }
-    
-    .content-section h3:first-child{
-      margin-top:0;
-    }
-    
-    .content-section p{
-      font-size:1.1rem;
-      line-height:1.7;
-      color:var(--text-main);
-      margin-bottom:20px;
-    }
-    
-    .content-section ul,
-    .content-section ol{
-      margin-bottom:24px;
-    }
-    
-    .content-section li{
-      font-size:1.1rem;
-      line-height:1.7;
-      color:var(--text-main);
-      margin-bottom:12px;
-    }
-    
-    .content-section strong{
-      color:var(--primary);
-      font-weight:600;
-    }
-    
-    .pullquote{
-      font-family:var(--font-serif);
-      font-size:1.6rem;
-      line-height:1.4;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      padding:40px 0;
-      margin:40px 0;
-      border-top:2px solid var(--primary);
-      border-bottom:2px solid var(--primary);
-      max-width:680px;
-    }
-    
-    .stats-highlight{
-      background:var(--bg-subtle);
+    .badge{
+      display:inline-flex;align-items:center;
       border:1px solid var(--border);
-      border-radius:8px;
-      padding:48px;
-      margin:60px 0;
+      background:var(--subtle);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:.82rem;
+      font-weight:900;
+      color:#333;
+      white-space:nowrap;
     }
-    
-    .stats-grid{
+    .card .rows{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:40px;
+      gap:8px;
+      margin-top:10px;
     }
-    
-    .stat-item{
-      text-align:center;
+    .row{
+      display:flex;
+      gap:10px;
+      padding:10px 0;
+      border-top:1px solid var(--border);
+      align-items:flex-start;
     }
-    
-    .stat-number{
-      font-family:var(--font-serif);
-      font-size:3rem;
-      line-height:1;
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:-.02em;
-      margin-bottom:12px;
-    }
-    
-    .stat-label{
-      font-size:.95rem;
-      color:var(--text-light);
-      line-height:1.4;
-    }
-    
-    .framework-box{
-      background:var(--white);
+    .row:first-child{border-top:none;padding-top:0}
+    .row b{min-width:130px;color:var(--ink)}
+    .row span{color:#2f2f2f}
+
+    /* Operating system diagram */
+    .system{
       border:1px solid var(--border);
-      border-radius:8px;
-      padding:32px;
-      margin:40px 0;
+      border-radius:var(--radius);
+      background:var(--subtle);
+      padding:16px;
+      margin:16px 0 6px;
     }
-    
-    .framework-box h4{
-      font-family:var(--font-serif);
-      font-size:1.3rem;
-      color:var(--primary);
-      font-weight:600;
-      margin-bottom:16px;
+    .system .stitle{
+      font-weight:950;
+      color:var(--ink);
+      margin-bottom:10px;
       letter-spacing:-.01em;
     }
-    
-    /* FOOTER NAV */
-    .footer-nav{
-      background:var(--bg-subtle);
-      padding:60px 0;
-      border-top:1px solid var(--border);
+    .system .flow{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      align-items:stretch;
     }
-    
-    .footer-nav-content{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    .node{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:12px;
+      position:relative;
     }
-    
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      padding:14px 28px;
+    .node .k{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:950;
+      margin-bottom:6px;
+    }
+    .node .v{
+      font-weight:900;
+      color:#2a2a2a;
+      line-height:1.45;
+    }
+    .node:after{
+      content:"→";
+      position:absolute;
+      right:-18px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-weight:950;
+    }
+    .node:last-child:after{content:""}
+
+    /* Artifacts */
+    .artifacts{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .artifact{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:14px;
+      transition:var(--t);
+    }
+    .artifact:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+    .artifact .kicker{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:950;
+      margin-bottom:8px;
+    }
+    .artifact b{display:block;color:var(--ink);margin-bottom:6px;font-weight:950}
+    .artifact span{color:#444}
+
+    /* Aside nav */
+    aside{
+      position:sticky;
+      top:96px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:16px;
+      box-shadow:0 1px 0 rgba(0,0,0,.02);
+    }
+    .aside-title{
+      font-size:.75rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:950;
+      margin-bottom:10px;
+    }
+    .toc{display:grid;gap:6px;margin-bottom:14px}
+    .toc a{
+      display:flex;justify-content:space-between;gap:10px;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      font-weight:900;
       font-size:.95rem;
-      font-weight:600;
-      border-radius:6px;
-      letter-spacing:-.01em;
-      transition:var(--transition);
+      color:#2a2a2a;
+      transition:var(--t);
     }
-    
-    .btn-primary{
-      background:var(--primary);
-      color:var(--white);
+    .toc a:hover{background:var(--subtle);color:var(--accent)}
+    .toc a.active{
+      background:var(--subtle);
+      border-color:var(--border);
+      color:var(--ink);
     }
-    
-    .btn-primary:hover{
-      background:var(--accent);
-    }
-    
-    .btn-outline{
-      border:1.5px solid var(--primary);
-      color:var(--primary);
-    }
-    
-    .btn-outline:hover{
-      background:var(--primary);
-      color:var(--white);
-    }
-    
-    /* FOOTER */
-    footer{
-      background:var(--bg-subtle);
-      padding:60px 0;
+    .toc small{color:var(--muted);font-weight:900}
+    .aside-ctas{display:grid;gap:8px}
+    .aside-ctas a{justify-content:center}
+
+    /* Pager + footer */
+    .pager{
+      padding:34px 0 54px;
       border-top:1px solid var(--border);
+      background:var(--subtle);
     }
-    
-    .footer-content{
-      display:flex;
-      justify-content:space-between;
+    .pager-inner{
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       align-items:center;
     }
-    
-    .footer-links{
-      display:flex;
-      gap:32px;
+    footer{
+      padding:26px 0;
+      border-top:1px solid var(--border);
+      background:#fff;
+      color:var(--muted);
+      font-size:.92rem;
     }
-    
-    .footer-links a{
-      font-size:.9rem;
-      color:var(--text-light);
-      font-weight:500;
+    footer a{font-weight:950}
+    footer a:hover{color:var(--accent)}
+    .foot{
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;
     }
-    
-    .footer-links a:hover{
-      color:var(--primary);
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .grid{grid-template-columns:1fr}
+      aside{display:none}
     }
-    
-    .footer-credit{
-      font-size:.9rem;
-      color:var(--text-light);
+    @media (max-width: 920px){
+      .meta{grid-template-columns:1fr}
+      .proof-grid{grid-template-columns:repeat(2,1fr)}
+      .tldr{grid-template-columns:1fr}
+      .system .flow{grid-template-columns:1fr}
+      .node:after{content:"";display:none}
+      .artifacts{grid-template-columns:1fr}
+      .h1{font-size:2.35rem}
+      .navlinks{display:none}
+      .menu-btn{display:inline-flex}
     }
-    
-    /* RESPONSIVE */
-    @media (max-width:768px){
-      .container{padding:0 20px}
-      nav{padding:0 20px}
-      
-      .case-hero{padding:100px 0 60px}
-      
-      .case-hero h1{
-        font-size:2.5rem;
-      }
-      
-      .case-hero .lead{
-        font-size:1.15rem;
-      }
-      
-      .meta-grid{
-        grid-template-columns:1fr;
-        gap:24px;
-      }
-      
-      .content-section h2{
-        font-size:2rem;
-      }
-      
-      .content-section h3{
-        font-size:1.5rem;
-      }
-      
-      .pullquote{
-        font-size:1.3rem;
-      }
-      
-      .stats-grid{
-        grid-template-columns:1fr;
-        gap:30px;
-      }
-      
-      .stats-highlight{
-        padding:32px 24px;
-      }
-      
-      .footer-nav-content{
-        flex-direction:column;
-        gap:24px;
-        text-align:center;
-      }
-      
-      .footer-content{
-        flex-direction:column;
-        gap:24px;
-        text-align:center;
-      }
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
     }
   </style>
 </head>
 
 <body>
+  <a class="skip" href="#content">Skip to content</a>
+
   <header>
-    <nav>
-      <a href="index-v2.html" class="logo">Omar Salam</a>
-      <a href="index-v2.html" class="back-link">Back to Home</a>
-    </nav>
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" class="brand" aria-label="Home">
+          <span class="name">Omar Salam</span>
+          <span class="tag">Case study</span>
+        </a>
+
+        <div class="navlinks">
+          <a href="index.html#work">Work</a>
+          <a href="index.html#system">How I Work</a>
+          <a href="index.html#about">About</a>
+          <a class="ghost" href="./assets/Omar_Salam_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+          <a class="cta" href="mailto:osalam28@gmail.com">Get in touch</a>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">Menu</button>
+      </nav>
+    </div>
   </header>
 
-  <section class="case-hero">
-    <div class="container container--narrow">
-      <h1>Building an Operating Model That Protects Focus</h1>
-      <p class="lead">
-        How I transformed a feature-factory product org into an outcome-driven team that shipped 20% faster while reclaiming 12% engineering capacity.
-      </p>
-      
-      <div class="meta-grid">
-        <div class="meta-item">
-          <h3>Timeline</h3>
-          <p>18 months</p>
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer-panel">
+      <div class="top">
+        <div class="brand">
+          <span class="name" style="font-family:var(--serif);font-weight:800;">Omar Salam</span>
+          <span class="tag">Case study</span>
         </div>
-        <div class="meta-item">
-          <h3>Team Size</h3>
-          <p>120+ across NA, EMEA, APAC</p>
-        </div>
-        <div class="meta-item">
-          <h3>My Role</h3>
-          <p>Head of Product</p>
-        </div>
+        <button class="menu-btn" id="closeBtn" aria-label="Close menu">Close</button>
+      </div>
+
+      <div class="stack">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#system">How I Work</a>
+        <a href="index.html#about">About</a>
+        <a href="./assets/Omar_Salam_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+        <a class="cta" style="justify-content:center;" href="mailto:osalam28@gmail.com">Get in touch</a>
+        <a class="ghost" style="justify-content:center;" href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <article class="case-content">
-    <div class="container container--narrow">
-      
-      <div class="content-section">
-        <span class="section-label">The Problem</span>
-        <h2>Velocity Without Direction</h2>
-        <p>
-          The product organization was shipping constantly. Every sprint ended with demos. Every quarter closed with a long list of features deployed. But when leadership asked "what changed?" — the honest answer was "not much."
-        </p>
-        <p>
-          Revenue was flat. Customer satisfaction scores hadn't moved in two years. Engineering was burning out fixing issues created by features that shouldn't have been built. And every planning session turned into a negotiation: which stakeholder could yell the loudest.
-        </p>
-        <p>
-          The real problem wasn't talent or effort. The team was working incredibly hard. The problem was <strong>the system rewarded activity over impact</strong>.
-        </p>
-        
-        <div class="pullquote">
-          "We had a roadmap full of features no one asked for, built because a stakeholder was loud or a competitor shipped something similar."
+  <main id="content">
+    <section class="hero">
+      <div class="container">
+        <div class="crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>·</span>
+          <a href="index.html#work">Work</a><span>·</span>
+          <span>Operating model</span>
         </div>
-        
-        <p>
-          Teams measured success by tickets closed and features deployed. Leadership measured success by whether the roadmap was "on track." No one was measuring whether any of it mattered to customers or the business.
-        </p>
-      </div>
 
-      <div class="content-section">
-        <span class="section-label">The Diagnosis</span>
-        <h2>What Was Actually Broken</h2>
-        <p>
-          Before proposing solutions, I spent the first 90 days diagnosing what was actually happening. I interviewed product managers, designers, engineers, and business stakeholders. I sat in on planning meetings. I reviewed roadmaps and OKRs (which existed, but no one believed in them).
+        <h1 class="h1">Building an Operating Model That Protects Focus</h1>
+        <p class="lead">
+          Rebuilt a product operating model with OKRs, decision rights, and outcome reviews—shifting focus to measurable progress and delivering <strong>20% faster time-to-market</strong>, <strong>12% capacity reclaimed</strong>, and <strong>+8 NPS points</strong>.
         </p>
-        <p>
-          Here's what I found:
-        </p>
-        
-        <h3>The teams didn't know what success looked like</h3>
-        <p>
-          Every team had objectives, but they were vague and unmeasurable. "Improve the customer experience." "Increase engagement." These weren't goals — they were aspirations. Without clear success metrics, teams defaulted to shipping features as a proxy for progress.
-        </p>
-        
-        <h3>Discovery was theater</h3>
-        <p>
-          Teams ran usability tests and A/B experiments, but only after decisions had already been made. Discovery became a way to validate what leadership wanted, not to challenge assumptions or kill bad ideas early.
-        </p>
-        
-        <h3>Accountability was fuzzy</h3>
-        <p>
-          When features didn't move metrics, no one owned the outcome. Product blamed engineering for poor execution. Engineering blamed product for unclear requirements. Leadership blamed both for not moving fast enough. The cycle repeated.
-        </p>
-        
-        <h3>The roadmap was a wishlist</h3>
-        <p>
-          Every quarter, teams added more features to the roadmap than they could possibly deliver. When priorities shifted (which they did constantly), incomplete work was abandoned, and teams started over. This created technical debt, morale problems, and wasted capacity.
-        </p>
-      </div>
 
-      <div class="content-section">
-        <span class="section-label">The Solution</span>
-        <h2>Rebuilding the Operating Model</h2>
-        <p>
-          I didn't add more process. I rebuilt how the team worked by introducing three interconnected changes: outcome-based planning, continuous discovery, and clear accountability structures.
-        </p>
-        
-        <h3>Step 1: Define What Success Actually Means</h3>
-        <p>
-          I worked with leadership to establish clear business objectives tied to measurable outcomes. Not "improve engagement" — but "increase daily active users by 15% while maintaining retention above 70%."
-        </p>
-        <p>
-          Then I worked with each product team to translate business objectives into team-level OKRs. Each team needed to answer:
-        </p>
-        <ul>
-          <li><strong>Who is your customer?</strong> (Internal or external)</li>
-          <li><strong>What behavior are you trying to change?</strong> (Specific and measurable)</li>
-          <li><strong>How will you measure success?</strong> (3-5 key results, not just output metrics)</li>
-        </ul>
-        <p>
-          This wasn't easy. It took multiple rounds of revision. But by the end, every team could articulate their mission and how they'd measure progress in language anyone could understand.
-        </p>
-        
-        <div class="framework-box">
-          <h4>The OKR Framework We Used</h4>
-          <p style="margin-bottom:16px">
-            <strong>Objective:</strong> A non-metric statement describing a future state focused on customer behavior change.
-          </p>
-          <p style="margin-bottom:16px">
-            <strong>Key Results:</strong> 3-5 measurable outcomes that indicate progress toward the objective. Not output metrics (features shipped), but outcome metrics (behavior changed).
-          </p>
-          <p style="margin-bottom:0">
-            <strong>Projects:</strong> The initiatives teams work on to achieve the key results. These are the only things that belong on the roadmap.
-          </p>
+        <div class="chips" aria-label="Highlights">
+          <span class="chip">OKRs</span>
+          <span class="chip">Decision rights + governance</span>
+          <span class="chip">Discovery cadence</span>
+          <span class="chip">Monthly outcome reviews</span>
         </div>
-        
-        <h3>Step 2: Build Discovery Into the Rhythm</h3>
-        <p>
-          Teams were "doing agile" but skipping the most important part: validating assumptions before writing code. I introduced a lightweight discovery cadence:
-        </p>
-        <ul>
-          <li><strong>Week 1-2: Problem exploration.</strong> What customer problem are we solving? How do we know it's worth solving?</li>
-          <li><strong>Week 3-4: Solution validation.</strong> What's the simplest way to test if our proposed solution works?</li>
-          <li><strong>Week 5+: Delivery decision.</strong> Do we have enough evidence to invest in building this? If yes, build. If no, kill it or iterate.</li>
-        </ul>
-        <p>
-          This wasn't about adding bureaucracy. It was about creating <strong>permission to kill bad ideas early</strong> instead of discovering they were bad after six months of development.
-        </p>
-        
-        <h3>Step 3: Create Transparency and Accountability</h3>
-        <p>
-          Every month, teams presented their progress in a structured review format:
-        </p>
-        <ol>
-          <li><strong>What were we trying to achieve?</strong> (Restate the objective and key results)</li>
-          <li><strong>What did we learn?</strong> (Discovery insights, experiment results)</li>
-          <li><strong>What changed?</strong> (Actual movement on key results, not just features shipped)</li>
-          <li><strong>What are we doing next?</strong> (Clear decision: continue, pivot, or kill)</li>
-        </ol>
-        <p>
-          This format forced honesty. Teams couldn't hide behind "we shipped three features" when the metrics hadn't moved. And when something wasn't working, we killed it publicly and moved capacity to higher-impact work.
-        </p>
-        
-        <div class="pullquote">
-          "The goal wasn't to punish failure. It was to make failure cheap and learning fast."
+
+        <div class="meta" aria-label="Project metadata">
+          <div class="item"><div class="k">Timeline</div><div class="v">18 months</div></div>
+          <div class="item"><div class="k">Scale</div><div class="v">50+ across NA/EMEA/APAC</div></div>
+          <div class="item"><div class="k">Stakeholders</div><div class="v">Execs + business owners</div></div>
+          <div class="item"><div class="k">My role</div><div class="v">AVP of Digital Product</div></div>
+        </div>
+
+    </section>
+
+    <section class="proof" aria-label="Results strip">
+      <div class="container">
+        <div class="proof-grid">
+          <div class="proof-card"><div class="proof-num">20%</div><div class="proof-lbl">Faster time-to-market</div></div>
+          <div class="proof-card"><div class="proof-num">12%</div><div class="proof-lbl">Engineering capacity reclaimed</div></div>
+          <div class="proof-card"><div class="proof-num">+8</div><div class="proof-lbl">NPS points</div></div>
+          <div class="proof-card"><div class="proof-num">15</div><div class="proof-lbl">Low-impact initiatives stopped early</div></div>
         </div>
       </div>
+    </section>
 
-      <div class="content-section">
-        <span class="section-label">The Results</span>
-        <h2>What Changed</h2>
-        <p>
-          Eighteen months after the transformation began, the results were clear:
-        </p>
-        
-        <div class="stats-highlight">
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number">20%</div>
-              <div class="stat-label">Faster time-to-market</div>
+    <section class="body">
+      <div class="container">
+        <div class="grid">
+          <article aria-label="Case study content">
+            <!-- EXEC SUMMARY -->
+            <section class="section" id="exec" data-nav="Executive summary">
+              <span class="label">Executive summary</span>
+              <h2>What we changed</h2>
+              <p>
+                The organization shipped constantly but couldn’t connect work to outcomes. The solution was not just "more process", it was installing a decision system: <strong>measurable OKRs</strong>, <strong>clear decision rights</strong>, and <strong>monthly outcome reviews</strong> that made learning fast and failure cheap.
+              </p>
+
+              <div class="tldr" aria-label="TL;DR details">
+                <div class="cell"><div class="k">Context</div><div class="v">High-output org with flat outcomes + roadmap connfusion</div></div>
+                <div class="cell"><div class="k">Problem</div><div class="v">Politics-driven prioritization; fuzzy accountability</div></div>
+                <div class="cell"><div class="k">Move</div><div class="v">OKRs + discovery cadence + decision rights + reviews</div></div>
+                <div class="cell"><div class="k">Outcome</div><div class="v">Faster delivery, reclaimed capacity, improved NPS</div></div>
+              </div>
+
+              <div class="pull">
+                Most product orgs don’t have a talent problem. They have a clarity problem.
+              </div>
+            </section>
+
+            <!-- PROBLEM -->
+            <section class="section" id="problem" data-nav="Problem">
+              <span class="label">Problem</span>
+              <h2>Velocity without direction</h2>
+              <p>
+                Shipping volume was high, but leadership couldn’t answer: <strong>what changed because we shipped?</strong>
+                Planning became a negotiation, teams reacted vs planned, and engineering paid for it in rework and burnout.
+              </p>
+              <p>
+                The system rewarded activity over impact. Roadmaps tracked output and no one owned outcomes.
+              </p>
+            </section>
+
+            <!-- DIAGNOSIS -->
+            <section class="section" id="diagnosis" data-nav="Diagnosis">
+              <span class="label">Diagnosis</span>
+              <h2>What was actually broken</h2>
+              <p>
+                I spent the first 90 days observing planning, interviewing across functions, and reviewing how objectives and roadmaps were used.
+                Four constraints showed up everywhere:
+              </p>
+
+              <div class="callout">
+                <b>Root causes</b>
+                <ul>
+                  <li><strong>Success was vague:</strong> objectives were aspirtaional goals, not measurable outcomes</li>
+                  <li><strong>Discovery was late:</strong> validation happened after decisions were made</li>
+                  <li><strong>Accountability was unclear:</strong> outcomes had no owner</li>
+                  <li><strong>Roadmap was a wishlist:</strong> constant reprioritization created waste</li>
+                </ul>
+              </div>
+
+              <div class="pull">
+                When priorities shift weekly, you don’t move faster—you restart more often.
+              </div>
+            </section>
+
+            <!-- DECISIONS -->
+            <section class="section" id="decisions" data-nav="Decisions that mattered">
+              <span class="label">Decisions</span>
+              <h2>The decisions that mattered</h2>
+              <p>
+                The operating model change worked because it was anchored in decision rules and accountability—not “ceremonies.”
+              </p>
+
+              <div class="cards" aria-label="Decision cards">
+                <div class="card">
+                  <div class="title">
+                    <b>Define decision rights: who decides what</b>
+                    <span class="badge">Governance</span>
+                  </div>
+                  <div class="rows">
+                    <div class="row"><b>Options</b><span>Stakeholder-by-stakeholder negotiation vs. explicit decision rights</span></div>
+                    <div class="row"><b>Tradeoff</b><span>More discomfort upfront; less chaos over time</span></div>
+                    <div class="row"><b>Proof</b><span>Fewer escalations; cleaner prioritization; fewer “urgent” interruptions</span></div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="title">
+                    <b>Make OKRs enforce focus—not decorate decks</b>
+                    <span class="badge">Focus</span>
+                  </div>
+                  <div class="rows">
+                    <div class="row"><b>Options</b><span>Broad goals vs. measurable outcomes with kill criteria</span></div>
+                    <div class="row"><b>Tradeoff</b><span>Painful first cycles; compounding clarity</span></div>
+                    <div class="row"><b>Proof</b><span>Stopped low-impact work early; reclaimed 12% capacity</span></div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="title">
+                    <b>Monthly outcome reviews with real decisions</b>
+                    <span class="badge">Accountability</span>
+                  </div>
+                  <div class="rows">
+                    <div class="row"><b>Options</b><span>Output demos vs. outcome reviews (learn → decide)</span></div>
+                    <div class="row"><b>Tradeoff</b><span>Higher transparency; higher trust</span></div>
+                    <div class="row"><b>Proof</b><span>Teams pivoted faster; leadership knew what to expect</span></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SYSTEM -->
+            <section class="section" id="system" data-nav="Operating system">
+              <span class="label">Operating system</span>
+              <h2>The model we installed</h2>
+              <p>
+                The point wasn’t “agile.” It was a coherent loop: strategy → decisions → discovery → delivery → outcomes.
+                Lightweight enough to move fast, strict enough to protect focus.
+              </p>
+
+              <div class="system" aria-label="Operating model diagram">
+                <div class="stitle">Operating model loop</div>
+                <div class="flow">
+                  <div class="node">
+                    <div class="k">Inputs</div>
+                    <div class="v">Strategy + metrics + constraints</div>
+                  </div>
+                  <div class="node">
+                    <div class="k">Decision rules</div>
+                    <div class="v">OKRs + prioritization criteria + decision ownership</div>
+                  </div>
+                  <div class="node">
+                    <div class="k">Execution</div>
+                    <div class="v">Discovery cadence → build only what’s validated</div>
+                  </div>
+                  <div class="node">
+                    <div class="k">Accountability</div>
+                    <div class="v">Monthly outcome reviews → decide next</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout">
+                <b>Monthly outcome review format</b>
+                <ol>
+                  <li><strong>Goal:</strong> what we were trying to change</li>
+                  <li><strong>Learning:</strong> what we discovered (evidence)</li>
+                  <li><strong>Change:</strong> what moved in the metrics</li>
+                  <li><strong>Decision:</strong> continue / pivot / kill</li>
+                </ol>
+              </div>
+
+              <div class="pull">
+                The goal wasn’t to punish failure. It was to make failure cheap—and learning fast.
+              </div>
+            </section>
+
+            <!-- PROOF -->
+            <section class="section" id="proof" data-nav="Proof">
+              <span class="label">Proof</span>
+              <h2>How we made it real</h2>
+              <p>
+                This wasn’t a “process rollout.” We made the model real through enforced decision rules and by publicly stopping work that didn’t move outcomes.
+              </p>
+
+              <div class="callout">
+                <b>Mechanisms that created credibility</b>
+                <ul>
+                  <li><strong>Kill criteria:</strong> stop low-impact work early and visibly</li>
+                  <li><strong>Instrumentation:</strong> measure outcomes, not user stories</li>
+                  <li><strong>Cadence:</strong> reviews ended with decisions, not status</li>
+                  <li><strong>Air cover:</strong> executive alignment protected the shift</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- RESULTS -->
+            <section class="section" id="results" data-nav="Results">
+              <span class="label">Results</span>
+              <h2>What changed</h2>
+              <p>
+                Outcomes improved because teams stopped building the wrong things and stopped reflecting on output.
+              </p>
+
+              <h3>Capacity returned to the work that mattered</h3>
+              <p>
+                We reclaimed <strong>12% capacity</strong> by stopping <strong>15</strong> low-impact initiatives early—freeing engineers to focus on the work tied to key results.
+              </p>
+
+              <h3>Delivery got faster—and more predictable</h3>
+              <p>
+                Clear decision rights and fewer restarts produced <strong>20% faster time-to-market</strong> without increasing burnout.
+              </p>
+
+              <h3>Customer experience improved</h3>
+              <p>
+                The model created accountability to customer outcomes, contributing to <strong>+8 NPS points</strong>.
+              </p>
+
+              <h3>Leadership trust increased</h3>
+              <p>
+                Once leaders saw teams killing their own bad ideas and learning fast, micromanagement decreased and autonomy increased.
+              </p>
+            </section>
+
+            <!-- TAKEAWAYS -->
+            <section class="section" id="takeaways" data-nav="What I learned">
+              <span class="label">What I learned</span>
+              <h2>The hard parts no one talks about</h2>
+              <p>
+                Operating model change is culture change. Clarity is gained through repetition, coaching, and executive alignment.
+              </p>
+              <ul>
+                <li><strong>Not everyone adapts:</strong> outcome accountability changes who thrives</li>
+                <li><strong>Executive air cover is essential:</strong> without it, politics (and old habits) wins</li>
+                <li><strong>Measurement is hardest:</strong> teams need coaching to choose meaningful KRs</li>
+              </ul>
+            </section>
+
+            <!-- ARTIFACTS -->
+            <section class="section" id="artifacts" data-nav="Artifacts">
+              <span class="label">Artifacts</span>
+              <h2>Operating model templates</h2>
+              <p>
+                These artifacts made the model repeatable and scalable. Link to redacted versions if you want to share publicly.
+              </p>
+
+              <div class="artifacts" aria-label="Artifact links">
+                <a class="artifact" href="./assets/outcome-review-template.pdf" target="_blank" rel="noopener">
+                  <div class="kicker">Template</div>
+                  <b>Monthly outcome review deck</b>
+                  <span>Goal → learning → change → decision</span>
+                </a>
+                <a class="artifact" href="./assets/okr-rubric.pdf" target="_blank" rel="noopener">
+                  <div class="kicker">Template</div>
+                  <b>OKR rubric</b>
+                  <span>Examples of strong vs weak key results</span>
+                </a>
+                <a class="artifact" href="./assets/prioritization-rules.pdf" target="_blank" rel="noopener">
+                  <div class="kicker">Template</div>
+                  <b>Prioritization decision rules</b>
+                  <span>Constraints, scoring, and tradeoffs</span>
+                </a>
+                <a class="artifact" href="./assets/kill-criteria-checklist.pdf" target="_blank" rel="noopener">
+                  <div class="kicker">Template</div>
+                  <b>Kill criteria checklist</b>
+                  <span>When to stop, pivot, or continue</span>
+                </a>
+              </div>
+            </section>
+          </article>
+
+          <aside aria-label="On this page">
+            <div class="aside-title">On this page</div>
+            <nav class="toc" id="toc">
+              <a href="#exec"><span>Executive summary</span><small>TL;DR</small></a>
+              <a href="#problem"><span>Problem</span><small>Why</small></a>
+              <a href="#diagnosis"><span>Diagnosis</span><small>Root cause</small></a>
+              <a href="#decisions"><span>Decisions</span><small>Tradeoffs</small></a>
+              <a href="#system"><span>Operating system</span><small>Loop</small></a>
+              <a href="#proof"><span>Proof</span><small>Mechanisms</small></a>
+              <a href="#results"><span>Results</span><small>Impact</small></a>
+              <a href="#takeaways"><span>What I learned</span><small>Playbook</small></a>
+              <a href="#artifacts"><span>Artifacts</span><small>Templates</small></a>
+            </nav>
+
+            <div class="aside-ctas">
+              <a class="cta" href="mailto:osalam28@gmail.com">Get in touch</a>
+              <a class="ghost" href="index.html#work">Back to work</a>
             </div>
-            <div class="stat-item">
-              <div class="stat-number">12%</div>
-              <div class="stat-label">Engineering capacity reclaimed</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">8pts</div>
-              <div class="stat-label">NPS improvement</div>
-            </div>
-          </div>
-        </div>
-        
-        <p>
-          But the numbers only tell part of the story. Here's what actually changed:
-        </p>
-        
-        <h3>Teams stopped building the wrong things</h3>
-        <p>
-          The 12% capacity reclaim came from killing low-impact projects early. In the first six months, we stopped work on 15 initiatives that weren't moving key results. That freed up engineers to focus on the work that actually mattered.
-        </p>
-        
-        <h3>Planning became continuous, not quarterly chaos</h3>
-        <p>
-          Because teams were reviewing progress monthly and adjusting based on data, quarterly planning sessions became lightweight check-ins instead of three-day marathons. Teams already knew what was working and what needed to change.
-        </p>
-        
-        <h3>Accountability became cultural</h3>
-        <p>
-          In the old system, missing a metric meant making excuses. In the new system, missing a metric meant asking "what did we learn?" and "what are we changing?" Teams took ownership of outcomes, not just output.
-        </p>
-        
-        <h3>Leadership trusted the teams</h3>
-        <p>
-          Once leadership saw that teams were making evidence-based decisions and killing their own bad ideas, they stopped micromanaging the roadmap. Teams gained autonomy because they earned it through results.
-        </p>
-      </div>
-
-      <div class="content-section">
-        <span class="section-label">What I Learned</span>
-        <h2>The Hard Parts No One Talks About</h2>
-        <p>
-          Transforming an operating model isn't a process change. It's a culture change. And culture change is messy.
-        </p>
-        
-        <h3>Not everyone will survive the shift</h3>
-        <p>
-          Some people thrived in the old system because they were good at navigating politics or managing up. When we shifted to outcome accountability, those skills mattered less. Some people adapted. Others left. That's not a failure — it's part of the process.
-        </p>
-        
-        <h3>You need executive air cover</h3>
-        <p>
-          I could only do this work because the CEO and CFO were aligned on shifting to outcomes. When stakeholders complained that their pet projects were being killed, leadership backed the new process. Without that support, this transformation would have failed.
-        </p>
-        
-        <h3>The first few cycles are painful</h3>
-        <p>
-          Teams weren't used to defining success upfront or admitting when something wasn't working. The first OKR planning cycle took twice as long as expected. The first monthly reviews felt defensive. But by the third quarter, teams had internalized the rhythm and it became natural.
-        </p>
-        
-        <h3>Measurement is the hardest part</h3>
-        <p>
-          Most teams struggled to define good key results. They wanted to measure features shipped instead of customer behavior changed. It took coaching, iteration, and examples from other teams to help everyone understand what "good" looked like.
-        </p>
-        
-        <div class="pullquote">
-          "Most product orgs don't have a talent problem. They have a clarity problem."
+          </aside>
         </div>
       </div>
+    </section>
 
-    </div>
-  </article>
-
-  <section class="footer-nav">
-    <div class="container container--narrow">
-      <div class="footer-nav-content">
-        <a href="index-v2.html" class="btn btn-outline">Back to Home</a>
-        <a href="case-ai-personalization.html" class="btn btn-primary">Next Case Study →</a>
+    <section class="pager" aria-label="Case study navigation">
+      <div class="container">
+        <div class="pager-inner">
+          <a class="ghost" href="index.html#work">Back to work</a>
+          <a class="cta" href="case-ai-personalization.html">Next case study →</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-links">
-          <a href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="index-v2.html#cases">Case Studies</a>
-          <a href="mailto:osalam28@gmail.com">Email</a>
-        </div>
-        <p class="footer-credit">&copy; 2026 Omar Salam</p>
+      <div class="foot">
+        <span>© 2026 Omar Salam</span>
+        <span>
+          <a href="mailto:osalam28@gmail.com">Email</a> ·
+          <a href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+          <a href="index.html#work">Work</a>
+        </span>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Drawer
+    const drawer = document.getElementById('drawer');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openDrawer(){
+      drawer.setAttribute('aria-hidden','false');
+      menuBtn?.setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+    }
+    function closeDrawer(){
+      drawer.setAttribute('aria-hidden','true');
+      menuBtn?.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+    }
+    menuBtn?.addEventListener('click', openDrawer);
+    closeBtn?.addEventListener('click', closeDrawer);
+    drawer?.addEventListener('click', (e)=>{ if(e.target === drawer) closeDrawer(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeDrawer(); });
+
+    // Sticky TOC active state (desktop)
+    const tocLinks = Array.from(document.querySelectorAll('#toc a'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          tocLinks.forEach(l=>l.classList.remove('active'));
+          const id = '#'+entry.target.id;
+          const active = tocLinks.find(l => l.getAttribute('href') === id);
+          if(active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0.01 });
+
+    sections.forEach(s => obs.observe(s));
+  </script>
 </body>
 </html>
