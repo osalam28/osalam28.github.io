@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T36TQP3B5N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T36TQP3B5N');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building an Operating Model That Protects Focus | Omar Salam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#0a0a0a;
+      --accent:#2563eb;
+      --text-main:#262626;
+      --text-light:#737373;
+      --border:#e5e5e5;
+      --bg-subtle:#fafafa;
+      --white:#ffffff;
+      --max-width:1200px;
+      --font-serif:'Crimson Pro',Georgia,serif;
+      --font-sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      --transition:all .3s cubic-bezier(.4,0,.2,1);
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0}
+    
+    body{
+      font-family:var(--font-sans);
+      color:var(--text-main);
+      line-height:1.65;
+      background:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    
+    a{text-decoration:none;color:inherit;transition:var(--transition)}
+    ul,ol{margin-left:24px}
+    
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 32px;
+    }
+    
+    .container--narrow{max-width:820px}
+    
+    /* HEADER */
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      z-index:1000;
+      border-bottom:1px solid var(--border);
+    }
+    
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      height:80px;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 32px;
+    }
+    
+    .logo{
+      font-family:var(--font-serif);
+      font-size:1.25rem;
+      font-weight:700;
+      color:var(--primary);
+      letter-spacing:-.02em;
+    }
+    
+    .back-link{
+      font-size:.9rem;
+      font-weight:500;
+      color:var(--text-light);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    
+    .back-link:hover{
+      color:var(--primary);
+    }
+    
+    .back-link::before{
+      content:'←';
+      font-size:1.2rem;
+    }
+    
+    /* HERO */
+    .case-hero{
+      padding:140px 0 80px;
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+    }
+    
+    .case-hero h1{
+      font-family:var(--font-serif);
+      font-size:4rem;
+      line-height:1.1;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.03em;
+      margin-bottom:24px;
+      max-width:900px;
+    }
+    
+    .case-hero .lead{
+      font-size:1.3rem;
+      line-height:1.5;
+      color:var(--text-light);
+      max-width:720px;
+      margin-bottom:40px;
+    }
+    
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:40px;
+      padding:40px 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+    
+    .meta-item h3{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--text-light);
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    
+    .meta-item p{
+      font-size:1rem;
+      color:var(--primary);
+      font-weight:600;
+    }
+    
+    /* CONTENT */
+    .case-content{
+      padding:80px 0;
+    }
+    
+    .content-section{
+      margin-bottom:80px;
+    }
+    
+    .content-section:last-child{
+      margin-bottom:0;
+    }
+    
+    .section-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--accent);
+      font-weight:700;
+      margin-bottom:16px;
+      display:block;
+    }
+    
+    .content-section h2{
+      font-family:var(--font-serif);
+      font-size:2.5rem;
+      line-height:1.2;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:24px;
+    }
+    
+    .content-section h3{
+      font-family:var(--font-serif);
+      font-size:1.8rem;
+      line-height:1.3;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:16px;
+      margin-top:40px;
+    }
+    
+    .content-section h3:first-child{
+      margin-top:0;
+    }
+    
+    .content-section p{
+      font-size:1.1rem;
+      line-height:1.7;
+      color:var(--text-main);
+      margin-bottom:20px;
+    }
+    
+    .content-section ul,
+    .content-section ol{
+      margin-bottom:24px;
+    }
+    
+    .content-section li{
+      font-size:1.1rem;
+      line-height:1.7;
+      color:var(--text-main);
+      margin-bottom:12px;
+    }
+    
+    .content-section strong{
+      color:var(--primary);
+      font-weight:600;
+    }
+    
+    .pullquote{
+      font-family:var(--font-serif);
+      font-size:1.6rem;
+      line-height:1.4;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      padding:40px 0;
+      margin:40px 0;
+      border-top:2px solid var(--primary);
+      border-bottom:2px solid var(--primary);
+      max-width:680px;
+    }
+    
+    .stats-highlight{
+      background:var(--bg-subtle);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:48px;
+      margin:60px 0;
+    }
+    
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:40px;
+    }
+    
+    .stat-item{
+      text-align:center;
+    }
+    
+    .stat-number{
+      font-family:var(--font-serif);
+      font-size:3rem;
+      line-height:1;
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:12px;
+    }
+    
+    .stat-label{
+      font-size:.95rem;
+      color:var(--text-light);
+      line-height:1.4;
+    }
+    
+    .framework-box{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:32px;
+      margin:40px 0;
+    }
+    
+    .framework-box h4{
+      font-family:var(--font-serif);
+      font-size:1.3rem;
+      color:var(--primary);
+      font-weight:600;
+      margin-bottom:16px;
+      letter-spacing:-.01em;
+    }
+    
+    /* FOOTER NAV */
+    .footer-nav{
+      background:var(--bg-subtle);
+      padding:60px 0;
+      border-top:1px solid var(--border);
+    }
+    
+    .footer-nav-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      padding:14px 28px;
+      font-size:.95rem;
+      font-weight:600;
+      border-radius:6px;
+      letter-spacing:-.01em;
+      transition:var(--transition);
+    }
+    
+    .btn-primary{
+      background:var(--primary);
+      color:var(--white);
+    }
+    
+    .btn-primary:hover{
+      background:var(--accent);
+    }
+    
+    .btn-outline{
+      border:1.5px solid var(--primary);
+      color:var(--primary);
+    }
+    
+    .btn-outline:hover{
+      background:var(--primary);
+      color:var(--white);
+    }
+    
+    /* FOOTER */
+    footer{
+      background:var(--bg-subtle);
+      padding:60px 0;
+      border-top:1px solid var(--border);
+    }
+    
+    .footer-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    
+    .footer-links{
+      display:flex;
+      gap:32px;
+    }
+    
+    .footer-links a{
+      font-size:.9rem;
+      color:var(--text-light);
+      font-weight:500;
+    }
+    
+    .footer-links a:hover{
+      color:var(--primary);
+    }
+    
+    .footer-credit{
+      font-size:.9rem;
+      color:var(--text-light);
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width:768px){
+      .container{padding:0 20px}
+      nav{padding:0 20px}
+      
+      .case-hero{padding:100px 0 60px}
+      
+      .case-hero h1{
+        font-size:2.5rem;
+      }
+      
+      .case-hero .lead{
+        font-size:1.15rem;
+      }
+      
+      .meta-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+      }
+      
+      .content-section h2{
+        font-size:2rem;
+      }
+      
+      .content-section h3{
+        font-size:1.5rem;
+      }
+      
+      .pullquote{
+        font-size:1.3rem;
+      }
+      
+      .stats-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+      
+      .stats-highlight{
+        padding:32px 24px;
+      }
+      
+      .footer-nav-content{
+        flex-direction:column;
+        gap:24px;
+        text-align:center;
+      }
+      
+      .footer-content{
+        flex-direction:column;
+        gap:24px;
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index-v2.html" class="logo">Omar Salam</a>
+      <a href="index-v2.html" class="back-link">Back to Home</a>
+    </nav>
+  </header>
+
+  <section class="case-hero">
+    <div class="container container--narrow">
+      <h1>Building an Operating Model That Protects Focus</h1>
+      <p class="lead">
+        How I transformed a feature-factory product org into an outcome-driven team that shipped 20% faster while reclaiming 12% engineering capacity.
+      </p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <h3>Timeline</h3>
+          <p>18 months</p>
+        </div>
+        <div class="meta-item">
+          <h3>Team Size</h3>
+          <p>120+ across NA, EMEA, APAC</p>
+        </div>
+        <div class="meta-item">
+          <h3>My Role</h3>
+          <p>Head of Product</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <article class="case-content">
+    <div class="container container--narrow">
+      
+      <div class="content-section">
+        <span class="section-label">The Problem</span>
+        <h2>Velocity Without Direction</h2>
+        <p>
+          The product organization was shipping constantly. Every sprint ended with demos. Every quarter closed with a long list of features deployed. But when leadership asked "what changed?" — the honest answer was "not much."
+        </p>
+        <p>
+          Revenue was flat. Customer satisfaction scores hadn't moved in two years. Engineering was burning out fixing issues created by features that shouldn't have been built. And every planning session turned into a negotiation: which stakeholder could yell the loudest.
+        </p>
+        <p>
+          The real problem wasn't talent or effort. The team was working incredibly hard. The problem was <strong>the system rewarded activity over impact</strong>.
+        </p>
+        
+        <div class="pullquote">
+          "We had a roadmap full of features no one asked for, built because a stakeholder was loud or a competitor shipped something similar."
+        </div>
+        
+        <p>
+          Teams measured success by tickets closed and features deployed. Leadership measured success by whether the roadmap was "on track." No one was measuring whether any of it mattered to customers or the business.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <span class="section-label">The Diagnosis</span>
+        <h2>What Was Actually Broken</h2>
+        <p>
+          Before proposing solutions, I spent the first 90 days diagnosing what was actually happening. I interviewed product managers, designers, engineers, and business stakeholders. I sat in on planning meetings. I reviewed roadmaps and OKRs (which existed, but no one believed in them).
+        </p>
+        <p>
+          Here's what I found:
+        </p>
+        
+        <h3>The teams didn't know what success looked like</h3>
+        <p>
+          Every team had objectives, but they were vague and unmeasurable. "Improve the customer experience." "Increase engagement." These weren't goals — they were aspirations. Without clear success metrics, teams defaulted to shipping features as a proxy for progress.
+        </p>
+        
+        <h3>Discovery was theater</h3>
+        <p>
+          Teams ran usability tests and A/B experiments, but only after decisions had already been made. Discovery became a way to validate what leadership wanted, not to challenge assumptions or kill bad ideas early.
+        </p>
+        
+        <h3>Accountability was fuzzy</h3>
+        <p>
+          When features didn't move metrics, no one owned the outcome. Product blamed engineering for poor execution. Engineering blamed product for unclear requirements. Leadership blamed both for not moving fast enough. The cycle repeated.
+        </p>
+        
+        <h3>The roadmap was a wishlist</h3>
+        <p>
+          Every quarter, teams added more features to the roadmap than they could possibly deliver. When priorities shifted (which they did constantly), incomplete work was abandoned, and teams started over. This created technical debt, morale problems, and wasted capacity.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <span class="section-label">The Solution</span>
+        <h2>Rebuilding the Operating Model</h2>
+        <p>
+          I didn't add more process. I rebuilt how the team worked by introducing three interconnected changes: outcome-based planning, continuous discovery, and clear accountability structures.
+        </p>
+        
+        <h3>Step 1: Define What Success Actually Means</h3>
+        <p>
+          I worked with leadership to establish clear business objectives tied to measurable outcomes. Not "improve engagement" — but "increase daily active users by 15% while maintaining retention above 70%."
+        </p>
+        <p>
+          Then I worked with each product team to translate business objectives into team-level OKRs. Each team needed to answer:
+        </p>
+        <ul>
+          <li><strong>Who is your customer?</strong> (Internal or external)</li>
+          <li><strong>What behavior are you trying to change?</strong> (Specific and measurable)</li>
+          <li><strong>How will you measure success?</strong> (3-5 key results, not just output metrics)</li>
+        </ul>
+        <p>
+          This wasn't easy. It took multiple rounds of revision. But by the end, every team could articulate their mission and how they'd measure progress in language anyone could understand.
+        </p>
+        
+        <div class="framework-box">
+          <h4>The OKR Framework We Used</h4>
+          <p style="margin-bottom:16px">
+            <strong>Objective:</strong> A non-metric statement describing a future state focused on customer behavior change.
+          </p>
+          <p style="margin-bottom:16px">
+            <strong>Key Results:</strong> 3-5 measurable outcomes that indicate progress toward the objective. Not output metrics (features shipped), but outcome metrics (behavior changed).
+          </p>
+          <p style="margin-bottom:0">
+            <strong>Projects:</strong> The initiatives teams work on to achieve the key results. These are the only things that belong on the roadmap.
+          </p>
+        </div>
+        
+        <h3>Step 2: Build Discovery Into the Rhythm</h3>
+        <p>
+          Teams were "doing agile" but skipping the most important part: validating assumptions before writing code. I introduced a lightweight discovery cadence:
+        </p>
+        <ul>
+          <li><strong>Week 1-2: Problem exploration.</strong> What customer problem are we solving? How do we know it's worth solving?</li>
+          <li><strong>Week 3-4: Solution validation.</strong> What's the simplest way to test if our proposed solution works?</li>
+          <li><strong>Week 5+: Delivery decision.</strong> Do we have enough evidence to invest in building this? If yes, build. If no, kill it or iterate.</li>
+        </ul>
+        <p>
+          This wasn't about adding bureaucracy. It was about creating <strong>permission to kill bad ideas early</strong> instead of discovering they were bad after six months of development.
+        </p>
+        
+        <h3>Step 3: Create Transparency and Accountability</h3>
+        <p>
+          Every month, teams presented their progress in a structured review format:
+        </p>
+        <ol>
+          <li><strong>What were we trying to achieve?</strong> (Restate the objective and key results)</li>
+          <li><strong>What did we learn?</strong> (Discovery insights, experiment results)</li>
+          <li><strong>What changed?</strong> (Actual movement on key results, not just features shipped)</li>
+          <li><strong>What are we doing next?</strong> (Clear decision: continue, pivot, or kill)</li>
+        </ol>
+        <p>
+          This format forced honesty. Teams couldn't hide behind "we shipped three features" when the metrics hadn't moved. And when something wasn't working, we killed it publicly and moved capacity to higher-impact work.
+        </p>
+        
+        <div class="pullquote">
+          "The goal wasn't to punish failure. It was to make failure cheap and learning fast."
+        </div>
+      </div>
+
+      <div class="content-section">
+        <span class="section-label">The Results</span>
+        <h2>What Changed</h2>
+        <p>
+          Eighteen months after the transformation began, the results were clear:
+        </p>
+        
+        <div class="stats-highlight">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">20%</div>
+              <div class="stat-label">Faster time-to-market</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">12%</div>
+              <div class="stat-label">Engineering capacity reclaimed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">8pts</div>
+              <div class="stat-label">NPS improvement</div>
+            </div>
+          </div>
+        </div>
+        
+        <p>
+          But the numbers only tell part of the story. Here's what actually changed:
+        </p>
+        
+        <h3>Teams stopped building the wrong things</h3>
+        <p>
+          The 12% capacity reclaim came from killing low-impact projects early. In the first six months, we stopped work on 15 initiatives that weren't moving key results. That freed up engineers to focus on the work that actually mattered.
+        </p>
+        
+        <h3>Planning became continuous, not quarterly chaos</h3>
+        <p>
+          Because teams were reviewing progress monthly and adjusting based on data, quarterly planning sessions became lightweight check-ins instead of three-day marathons. Teams already knew what was working and what needed to change.
+        </p>
+        
+        <h3>Accountability became cultural</h3>
+        <p>
+          In the old system, missing a metric meant making excuses. In the new system, missing a metric meant asking "what did we learn?" and "what are we changing?" Teams took ownership of outcomes, not just output.
+        </p>
+        
+        <h3>Leadership trusted the teams</h3>
+        <p>
+          Once leadership saw that teams were making evidence-based decisions and killing their own bad ideas, they stopped micromanaging the roadmap. Teams gained autonomy because they earned it through results.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <span class="section-label">What I Learned</span>
+        <h2>The Hard Parts No One Talks About</h2>
+        <p>
+          Transforming an operating model isn't a process change. It's a culture change. And culture change is messy.
+        </p>
+        
+        <h3>Not everyone will survive the shift</h3>
+        <p>
+          Some people thrived in the old system because they were good at navigating politics or managing up. When we shifted to outcome accountability, those skills mattered less. Some people adapted. Others left. That's not a failure — it's part of the process.
+        </p>
+        
+        <h3>You need executive air cover</h3>
+        <p>
+          I could only do this work because the CEO and CFO were aligned on shifting to outcomes. When stakeholders complained that their pet projects were being killed, leadership backed the new process. Without that support, this transformation would have failed.
+        </p>
+        
+        <h3>The first few cycles are painful</h3>
+        <p>
+          Teams weren't used to defining success upfront or admitting when something wasn't working. The first OKR planning cycle took twice as long as expected. The first monthly reviews felt defensive. But by the third quarter, teams had internalized the rhythm and it became natural.
+        </p>
+        
+        <h3>Measurement is the hardest part</h3>
+        <p>
+          Most teams struggled to define good key results. They wanted to measure features shipped instead of customer behavior changed. It took coaching, iteration, and examples from other teams to help everyone understand what "good" looked like.
+        </p>
+        
+        <div class="pullquote">
+          "Most product orgs don't have a talent problem. They have a clarity problem."
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <section class="footer-nav">
+    <div class="container container--narrow">
+      <div class="footer-nav-content">
+        <a href="index-v2.html" class="btn btn-outline">Back to Home</a>
+        <a href="case-ai-personalization.html" class="btn btn-primary">Next Case Study →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/omar-salam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="index-v2.html#cases">Case Studies</a>
+          <a href="mailto:osalam28@gmail.com">Email</a>
+        </div>
+        <p class="footer-credit">&copy; 2026 Omar Salam</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
