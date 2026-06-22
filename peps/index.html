@@ -101,14 +101,13 @@
     </section>
 
     <section class="settings-band" aria-labelledby="settingsHeading">
-      <div class="section-heading compact"><div><p class="eyebrow">Protocol Controls</p><h2 id="settingsHeading">Dose rules</h2></div></div>
+      <div class="section-heading compact"><div><p class="eyebrow">Protocol Controls</p><h2 id="settingsHeading">Current doses</h2></div></div>
       <div class="settings-grid">
-        <label><span>GHK-Cu cruise dose</span><select id="ghkCruiseSelect"><option value="1.5">1.5 mg - 9 units</option><option value="2">2 mg - 12 units</option><option value="3">3 mg - 18 units</option></select></label>
-        <label><span>BPC after week 4</span><select id="bpcDoseSelect"><option value="500">500 mcg - 10 units</option><option value="750">750 mcg - 15 units</option></select></label>
-        <label><span>Reta increase step</span><select id="retaStepSelect"><option value="1">1 mg - 10 units</option><option value="0.5">0.5 mg - 5 units</option></select></label>
-        <label><span>Minimum weekly loss</span><input id="targetMinInput" type="number" step="0.1" min="0" max="5"></label>
-        <label><span>Maximum weekly loss</span><input id="targetMaxInput" type="number" step="0.1" min="0" max="5"></label>
-        <div class="settings-actions"><button class="secondary-button" id="resetBtn" type="button"><svg aria-hidden="true"><use href="#icon-rotate-ccw"></use></svg><span>Reset local data</span></button></div>
+        <label><span>Effective date</span><input id="doseEffectiveDate" type="date"></label>
+        <label><span>Reta weekly dose</span><select id="retaDoseSelect"><option value="1">1 mg - 10 units</option><option value="1.5">1.5 mg - 15 units</option><option value="2">2 mg - 20 units</option><option value="2.5">2.5 mg - 25 units</option><option value="3">3 mg - 30 units</option><option value="4">4 mg - 40 units</option><option value="5">5 mg - 50 units</option><option value="6">6 mg - 60 units</option><option value="9">9 mg - 90 units</option><option value="12">12 mg - 120 units</option></select></label>
+        <label><span>GHK-Cu daily dose</span><select id="ghkDoseSelect"><option value="1.5">1.5 mg - 9 units</option><option value="2">2 mg - 12 units</option><option value="3">3 mg - 18 units</option></select></label>
+        <label><span>BPC-157 daily dose</span><select id="bpcDoseSelect"><option value="500">500 mcg - 10 units</option><option value="750">750 mcg - 15 units</option></select></label>
+        <div class="settings-actions"><button class="secondary-button" id="applyDoseBtn" type="button"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Apply going forward</span></button><button class="secondary-button" id="resetBtn" type="button"><svg aria-hidden="true"><use href="#icon-rotate-ccw"></use></svg><span>Reset local data</span></button></div>
       </div>
       <div class="formula-strip" id="formulaStrip"></div>
     </section>
