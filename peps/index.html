@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fff'/%3E%3Ccircle cx='11' cy='11' r='5' fill='%230f8f80'/%3E%3Ccircle cx='21' cy='11' r='5' fill='%23b97208'/%3E%3Ccircle cx='11' cy='21' r='5' fill='%237651b7'/%3E%3Ccircle cx='21' cy='21' r='5' fill='%232f62d7'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./crypto.js"></script>
   <script defer src="./state.js"></script>
@@ -13,42 +12,45 @@
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
-    <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></symbol>
-    <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></symbol>
-    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M17 8l-5-5-5 5"></path><path d="M12 3v12"></path></symbol>
-    <symbol id="icon-calendar-days" viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v11h14V10"></path><path d="M9 21v-6h6v6"></path></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
+    <symbol id="icon-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M8 6h8"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-7"></path></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5z"></path><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 1 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6h.1a1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 1 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"></path></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
     <symbol id="icon-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></symbol>
     <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></symbol>
-    <symbol id="icon-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"></path><path d="M3 3v5h5"></path></symbol>
-    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
     <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 15H6L5 6"></path></symbol>
-    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v11h14V10"></path><path d="M9 21v-6h6v6"></path></symbol>
-    <symbol id="icon-layers" viewBox="0 0 24 24"><path d="M12 2l9 5-9 5-9-5 9-5z"></path><path d="M3 12l9 5 9-5"></path><path d="M3 17l9 5 9-5"></path></symbol>
-    <symbol id="icon-calculator" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M8 6h8"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-7"></path></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"></path><path d="M3 3v5h5"></path></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M17 8l-5-5-5 5"></path><path d="M12 3v12"></path></symbol>
+    <symbol id="icon-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></symbol>
+    <symbol id="icon-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></symbol>
   </svg>
 
-  <section class="auth-screen" id="authScreen" aria-labelledby="authTitle">
+  <section class="auth-screen" id="authScreen">
     <form class="auth-card" id="unlockForm">
       <div class="auth-mark"><svg aria-hidden="true"><use href="#icon-lock"></use></svg></div>
-      <p class="eyebrow">Private Calendar</p>
-      <h1 id="authTitle">Peptide Stack</h1>
-      <input type="text" autocomplete="username" value="peps" hidden>
+      <p class="eyebrow">Private Profiles</p>
+      <h1>Peptide Stack</h1>
+      <label><span>Profile</span><select id="profileSelect"><option value="omar">Omar</option><option value="amber">Amber</option></select></label>
+      <input type="text" autocomplete="username" id="usernameInput" value="omar" hidden>
+      <p class="auth-note" id="authModeText">Checking profile…</p>
       <label><span>Password</span><input id="passwordInput" type="password" autocomplete="current-password" required></label>
-      <button class="primary-button" type="submit"><span>Unlock</span></button>
+      <label id="confirmPasswordLabel" hidden><span>Confirm password</span><input id="confirmPasswordInput" type="password" autocomplete="new-password"></label>
+      <button class="primary-button" type="submit"><span id="unlockButtonText">Unlock</span></button>
       <p class="form-error" id="authError" role="alert"></p>
     </form>
   </section>
 
   <header class="app-header">
     <div>
-      <p class="eyebrow">Stack Calendar</p>
+      <p class="eyebrow" id="profileEyebrow">Private calendar</p>
       <h1>Peptide Schedule</h1>
     </div>
     <div class="header-actions">
       <span class="sync-status" id="syncStatus">Locked</span>
-      <button class="icon-button" id="syncBtn" type="button" aria-label="Sync"><svg aria-hidden="true"><use href="#icon-rotate-ccw"></use></svg></button>
+      <button class="icon-button" id="syncBtn" type="button" aria-label="Sync"><svg aria-hidden="true"><use href="#icon-refresh"></use></svg></button>
       <button class="icon-button" id="exportBtn" type="button" aria-label="Export"><svg aria-hidden="true"><use href="#icon-download"></use></svg></button>
       <button class="icon-button" id="importBtn" type="button" aria-label="Import"><svg aria-hidden="true"><use href="#icon-upload"></use></svg></button>
       <button class="icon-button" id="lockBtn" type="button" aria-label="Lock"><svg aria-hidden="true"><use href="#icon-lock"></use></svg></button>
@@ -57,18 +59,18 @@
 
   <nav class="app-nav" aria-label="Primary">
     <button class="nav-button active" type="button" data-nav="dashboard"><svg aria-hidden="true"><use href="#icon-home"></use></svg><span>Today</span></button>
-    <button class="nav-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>Calendar</span></button>
-    <button class="nav-button" type="button" data-nav="stack"><svg aria-hidden="true"><use href="#icon-layers"></use></svg><span>Stack</span></button>
-    <button class="nav-button" type="button" data-nav="calculator"><svg aria-hidden="true"><use href="#icon-calculator"></use></svg><span>Calc</span></button>
+    <button class="nav-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span></button>
+    <button class="nav-button" type="button" data-nav="calculator"><svg aria-hidden="true"><use href="#icon-calc"></use></svg><span>Calc</span></button>
     <button class="nav-button" type="button" data-nav="progress"><svg aria-hidden="true"><use href="#icon-chart"></use></svg><span>Progress</span></button>
+    <button class="nav-button" type="button" data-nav="settings"><svg aria-hidden="true"><use href="#icon-settings"></use></svg><span>Settings</span></button>
   </nav>
 
   <main class="app-shell">
-    <section class="view active" id="view-dashboard" aria-labelledby="dashboardHeading">
+    <section class="view active" id="view-dashboard">
       <section class="dashboard-hero">
         <div>
-          <p class="eyebrow" id="todayKicker">Today</p>
-          <h2 id="dashboardHeading">Today’s plan</h2>
+          <p class="eyebrow">Today</p>
+          <h2>Today’s plan</h2>
           <p class="hero-date" id="currentDatePill"></p>
         </div>
         <div class="hero-metrics" id="dashboardMetrics"></div>
@@ -77,9 +79,9 @@
       <section class="panel">
         <div class="section-heading">
           <div><p class="eyebrow">Exact pulls</p><h2>Due today</h2></div>
-          <button class="secondary-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>Calendar</span></button>
+          <button class="secondary-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span></button>
         </div>
-        <div class="dose-grid" id="todayCards"></div>
+        <div class="session-grid" id="todayCards"></div>
       </section>
 
       <section class="dashboard-grid">
@@ -100,30 +102,25 @@
         </section>
 
         <section class="panel">
-          <div class="section-heading compact"><div><p class="eyebrow">Review</p><h2>Check-ins due</h2></div></div>
-          <div class="review-list" id="reviewQueue"></div>
-        </section>
-
-        <section class="panel">
-          <div class="section-heading compact"><div><p class="eyebrow">Active</p><h2>Stack snapshot</h2></div><button class="link-button" type="button" data-nav="stack">Edit</button></div>
+          <div class="section-heading compact"><div><p class="eyebrow">Active</p><h2>Current stack</h2></div><button class="link-button" type="button" data-nav="settings">Update protocol</button></div>
           <div class="snapshot-list" id="dashboardStack"></div>
         </section>
       </section>
     </section>
 
-    <section class="view" id="view-calendar" aria-labelledby="calendarViewHeading">
+    <section class="view" id="view-calendar">
       <div class="view-heading">
-        <div><p class="eyebrow">Calendar</p><h2 id="calendarViewHeading">Schedule</h2></div>
+        <div><p class="eyebrow">Calendar</p><h2>Schedule</h2></div>
         <input id="jumpDate" type="date">
       </div>
       <section class="workspace-grid">
         <section class="panel calendar-panel">
           <div class="calendar-toolbar">
-            <button class="icon-button" id="prevMonthBtn" type="button" aria-label="Previous month"><svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg></button>
+            <button class="icon-button" id="prevMonthBtn" type="button" aria-label="Previous month"><svg aria-hidden="true"><use href="#icon-left"></use></svg></button>
             <h2><span id="monthTitle"></span></h2>
-            <button class="icon-button" id="nextMonthBtn" type="button" aria-label="Next month"><svg aria-hidden="true"><use href="#icon-chevron-right"></use></svg></button>
+            <button class="icon-button" id="nextMonthBtn" type="button" aria-label="Next month"><svg aria-hidden="true"><use href="#icon-right"></use></svg></button>
           </div>
-          <button class="secondary-button full-button" id="todayBtn" type="button"><svg aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>Today</span></button>
+          <button class="secondary-button full-button" id="todayBtn" type="button"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Today</span></button>
           <div class="weekday-row" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
           <div class="calendar-grid" id="calendarGrid"></div>
         </section>
@@ -150,9 +147,9 @@
       </section>
     </section>
 
-    <section class="view" id="view-stack" aria-labelledby="stackHeading">
+    <section class="view" id="view-settings">
       <div class="view-heading">
-        <div><p class="eyebrow">Protocol</p><h2 id="stackHeading">My stack</h2></div>
+        <div><p class="eyebrow">Settings</p><h2>Update protocol</h2></div>
         <button class="secondary-button" id="newPeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-plus"></use></svg><span>New</span></button>
       </div>
       <section class="stack-layout">
@@ -168,6 +165,7 @@
             <label><span>BAC water added</span><input id="bacMlInput" type="number" min="0" step="0.01" required></label>
             <label><span>Dose amount</span><input id="doseAmountInput" type="number" min="0" step="0.001" required></label>
             <label><span>Dose unit</span><select id="doseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
+            <label><span>Time</span><select id="timeInput"><option value="Any">Any</option><option value="AM">AM</option><option value="PM">PM</option><option value="AM,PM">AM & PM</option></select></label>
             <label><span>Frequency</span><select id="frequencyInput"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="interval">Every X days</option></select></label>
             <label><span>Interval days</span><input id="intervalDaysInput" type="number" min="1" step="1"></label>
             <label><span>Start date</span><input id="startDateInput" type="date" required></label>
@@ -201,8 +199,8 @@
       </section>
     </section>
 
-    <section class="view" id="view-calculator" aria-labelledby="calculatorHeading">
-      <div class="view-heading"><div><p class="eyebrow">Math</p><h2 id="calculatorHeading">Calculator</h2></div></div>
+    <section class="view" id="view-calculator">
+      <div class="view-heading"><div><p class="eyebrow">Math</p><h2>Calculator</h2></div></div>
       <div class="calculator-grid">
         <form class="panel calc-panel" id="unitsCalcForm">
           <div class="form-head"><h3>Units from dose</h3><span>U-100 default</span></div>
@@ -230,8 +228,8 @@
       </div>
     </section>
 
-    <section class="view" id="view-progress" aria-labelledby="progressHeading">
-      <div class="view-heading"><div><p class="eyebrow">Tracking</p><h2 id="progressHeading">Progress</h2></div></div>
+    <section class="view" id="view-progress">
+      <div class="view-heading"><div><p class="eyebrow">Tracking</p><h2>Progress</h2></div></div>
       <div class="metrics-grid" id="metricsGrid"></div>
       <section class="panel chart-panel">
         <div class="section-heading compact"><div><p class="eyebrow">Trend</p><h2>Weight</h2></div><span id="chartCaption"></span></div>
