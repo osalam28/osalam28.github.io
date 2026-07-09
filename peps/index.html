@@ -20,6 +20,7 @@
     <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
     <symbol id="icon-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></symbol>
     <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></symbol>
     <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 15H6L5 6"></path></symbol>
     <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"></path><path d="M3 3v5h5"></path></symbol>
     <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></symbol>
@@ -69,33 +70,44 @@
     <section class="view active" id="view-dashboard">
       <section class="dashboard-hero">
         <div>
-          <p class="eyebrow">Today</p>
-          <h2>Today’s plan</h2>
+          <p class="eyebrow">Dashboard</p>
+          <h2>Today</h2>
           <p class="hero-date" id="currentDatePill"></p>
         </div>
         <div class="hero-metrics" id="dashboardMetrics"></div>
       </section>
 
-      <section class="panel">
+      <section class="panel today-plan-panel">
         <div class="section-heading">
-          <div><p class="eyebrow">Exact pulls</p><h2>Due today</h2></div>
+          <div><p class="eyebrow">Exact pulls</p><h2>Today’s plan</h2></div>
+          <span class="section-status" id="todayCompletionSummary"></span>
           <button class="secondary-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span></button>
         </div>
-        <div class="session-grid" id="todayCards"></div>
+        <div class="today-plan-list" id="todayCards"></div>
       </section>
 
-      <section class="dashboard-grid">
-        <form class="panel checkin-card" id="quickCheckinForm">
-          <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Quick check-in</h2></div><span id="quickCheckinState"></span></div>
-          <div class="form-grid">
-            <label><span>Weight</span><input id="quickWeightInput" type="number" step="0.1" inputmode="decimal"></label>
-            <label><span>Appetite / food noise</span><input id="quickFoodNoiseInput" type="range" min="0" max="10" step="1"><output id="quickFoodNoiseOutput"></output></label>
-            <label><span>Side effects</span><select id="quickSideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
-            <label><span>Decision</span><select id="quickDecisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
-          </div>
-          <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save</span></button>
-        </form>
+      <form class="panel checkin-card dashboard-checkin" id="quickCheckinForm">
+        <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Check-in</h2></div><span id="quickCheckinState"></span></div>
+        <div class="form-grid">
+          <label><span>Weight</span><input id="quickWeightInput" type="number" step="0.1" inputmode="decimal"></label>
+          <label><span>Appetite / food noise</span><input id="quickFoodNoiseInput" type="range" min="0" max="10" step="1"><output id="quickFoodNoiseOutput"></output></label>
+          <label><span>Side effects</span><select id="quickSideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
+          <label><span>Decision</span><select id="quickDecisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
+        </div>
+        <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save</span></button>
+      </form>
 
+      <section class="panel chart-panel dashboard-progress">
+        <div class="section-heading compact"><div><p class="eyebrow">Progress</p><h2>Weight trend</h2></div><span id="dashboardChartCaption"></span></div>
+        <div id="dashboardWeightChart" class="weight-chart"></div>
+      </section>
+
+      <section class="panel dashboard-analytics-panel">
+        <div class="section-heading compact"><div><p class="eyebrow">Analytics</p><h2>Signals</h2></div></div>
+        <div class="metrics-grid" id="dashboardAnalyticsGrid"></div>
+      </section>
+
+      <section class="dashboard-grid dashboard-support-grid">
         <section class="panel">
           <div class="section-heading compact"><div><p class="eyebrow">Soon</p><h2>Next up</h2></div></div>
           <div class="next-list" id="nextUpList"></div>
