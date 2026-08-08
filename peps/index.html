@@ -177,8 +177,9 @@
             <label><span>Dose amount</span><input id="doseAmountInput" type="number" min="0" step="0.001" required></label>
             <label><span>Dose unit</span><select id="doseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
             <label><span>Time</span><select id="timeInput"><option value="Any">Any</option><option value="AM">AM</option><option value="PM">PM</option><option value="AM,PM">AM & PM</option></select></label>
-            <label><span>Frequency</span><select id="frequencyInput"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="interval">Every X days</option></select></label>
+            <label><span>Frequency</span><select id="frequencyInput"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="weekdays">Specific weekdays</option><option value="interval">Every X days</option></select></label>
             <label><span>Interval days</span><input id="intervalDaysInput" type="number" min="1" step="1"></label>
+            <label><span>Weekdays</span><input id="weekdaysInput" type="text" placeholder="Mon, Thu"></label>
             <label><span>Start date</span><input id="startDateInput" type="date" required></label>
             <label><span>End date</span><input id="endDateInput" type="date"></label>
             <label><span>Cycle on days</span><input id="cycleOnInput" type="number" min="0" step="1"></label>
