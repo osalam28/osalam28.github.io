@@ -688,6 +688,7 @@ output { color: var(--ink); font-weight: 900; }
 
 .metric-card {
   display: grid;
+  align-content: start;
   gap: 4px;
 }
 
@@ -780,6 +781,11 @@ output { color: var(--ink); font-weight: 900; }
   .workspace-grid, .stack-layout, .changes-layout { grid-template-columns: minmax(0, 1fr) minmax(360px, .8fr); align-items: start; }
   .calculator-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .metrics-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .metrics-grid .metric-latest { grid-column: 1; grid-row: 1; }
+  .metrics-grid .metric-total-loss { grid-column: 1; grid-row: 2; }
+  .metrics-grid .metric-weekly-change { grid-column: 2; grid-row: 1 / span 2; }
+  .metrics-grid .metric-daily-change { grid-column: 3; grid-row: 1 / span 2; }
+  .metrics-grid .metric-appetite-avg { grid-column: 4; grid-row: 1 / span 2; }
   .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mini-form { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .day-cell { min-height: 104px; padding: 8px; }
