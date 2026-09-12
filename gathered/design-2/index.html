@@ -1,0 +1,4836 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1B2A38" />
+    <meta
+      name="description"
+      content="One thoughtful request. The right local people. Discover a more considered way to find event vendors in Southern California."
+    />
+    <title>gathered. — Good company. Beautiful occasions.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;450;500;550;600;650;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/motion@12.23.24/dist/motion.js"
+    ></script>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #121512;
+        --panel: #1b1e19;
+        --panel2: #22251f;
+        --ivory: #f3f0e7;
+        --muted: #aaada2;
+        --gold: #cfba94;
+        --sage: #b7c7ac;
+        --line: #ffffff20;
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "Manrope", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 105px;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--ivory);
+        font-family: var(--sans);
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      textarea {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      a {
+        touch-action: manipulation;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        color: inherit;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      ::selection {
+        background: var(--gold);
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 5px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: 400;
+      }
+      p {
+        line-height: 1.8;
+      }
+      .serif {
+        font-family: var(--serif);
+      }
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 600;
+        line-height: 1.7;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .gold {
+        color: var(--gold);
+      }
+      .sage {
+        color: var(--sage);
+      }
+      .small {
+        font-size: 12px;
+      }
+      .tiny {
+        font-size: 10px;
+      }
+      .nowrap {
+        white-space: nowrap;
+      }
+      .line {
+        border-top: 1px solid var(--line);
+      }
+      .shell {
+        max-width: 1440px;
+        margin: auto;
+        padding: 0 64px;
+      }
+      .section {
+        padding: 106px 0;
+      }
+      .section-title {
+        font-family: var(--serif);
+        font-size: clamp(38px, 4.2vw, 64px);
+        line-height: 1.03;
+        letter-spacing: -0.025em;
+      }
+      .italic {
+        font-style: italic;
+      }
+      .icon {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .btn {
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        min-height: 48px;
+        padding: 13px 22px;
+        border: 1px solid transparent;
+        background: var(--ivory);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.015em;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          border-color 0.2s;
+      }
+      .btn:hover {
+        background: #fff;
+        transform: translateY(-2px);
+      }
+      .btn.secondary {
+        background: transparent;
+        border-color: #ffffff35;
+        color: var(--ivory);
+      }
+      .btn.secondary:hover {
+        border-color: var(--gold);
+        background: #ffffff06;
+      }
+      .btn.dark {
+        background: var(--ink);
+        color: var(--ivory);
+      }
+      .btn.compact {
+        min-height: 39px;
+        padding: 9px 15px;
+        gap: 10px;
+        font-size: 11px;
+      }
+      .text-link {
+        display: inline-flex;
+        gap: 20px;
+        align-items: center;
+        font-size: 12px;
+        border-bottom: 1px solid #ffffff40;
+        padding-bottom: 7px;
+        background: none;
+        transition:
+          color 0.2s,
+          gap 0.2s;
+      }
+      .text-link:hover {
+        color: var(--gold);
+        gap: 26px;
+      }
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        background: transparent;
+        border-radius: 50%;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .icon-btn:hover {
+        border-color: var(--gold);
+        background: #ffffff09;
+      }
+      .badge {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 5px 9px;
+        border: 1px solid var(--line);
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .badge.green {
+        color: var(--sage);
+        border-color: #b7c7ac35;
+        background: #b7c7ac09;
+      }
+      .badge.gold {
+        border-color: #cfba9435;
+        background: #cfba9409;
+      }
+      .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+        display: inline-block;
+      }
+      .brand {
+        font-family: var(--serif);
+        font-size: 37px;
+        line-height: 1;
+        letter-spacing: -1.5px;
+        font-weight: 500;
+      }
+      .brand span {
+        color: var(--gold);
+      }
+      .skip {
+        position: fixed;
+        top: -80px;
+        left: 16px;
+        z-index: 100;
+        background: var(--ivory);
+        color: var(--ink);
+        padding: 12px;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      .nav {
+        height: 84px;
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid var(--line);
+        background: #121512dc;
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+      }
+      .nav-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        font-size: 11px;
+        color: #d8d8ce;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-actions {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .mobile-nav {
+        position: absolute;
+        top: 83px;
+        left: 0;
+        right: 0;
+        background: var(--ink);
+        padding: 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .mobile-nav a {
+        display: block;
+        padding: 13px 0;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.02fr 1fr;
+        min-height: 660px;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-copy {
+        padding: 77px 44px 46px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+      }
+      .hero h1 {
+        font-family: var(--serif);
+        font-size: clamp(64px, 6.3vw, 94px);
+        line-height: 0.96;
+        letter-spacing: -0.035em;
+        margin: 27px 0 25px;
+      }
+      .hero h1 em {
+        color: var(--gold);
+        font-weight: 400;
+      }
+      .hero-description {
+        max-width: 335px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.95;
+        margin-bottom: 28px;
+      }
+      .hero-proof {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 18px;
+      }
+      .hero-bottom {
+        margin-top: auto;
+        padding-top: 34px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .hero-bottom .seal {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #cfba9440;
+        border-radius: 50%;
+        color: var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-photo {
+        position: relative;
+        margin: 25px 0 25px 8px;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .hero-photo > img {
+        position: absolute;
+        inset: 0;
+        filter: brightness(0.77) saturate(0.67);
+        object-position: 48% center;
+        transition: transform 1.4s;
+      }
+      .hero-photo:hover > img {
+        transform: scale(1.025);
+      }
+      .photo-tag {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid #ffffff4a;
+        background: #12151260;
+        backdrop-filter: blur(8px);
+        padding: 8px 11px;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+      }
+      .hero-note {
+        position: absolute;
+        bottom: 30px;
+        left: 28px;
+        right: 28px;
+        padding: 19px 22px;
+        background: #f3f0e7;
+        color: var(--ink);
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        box-shadow: 0 10px 30px #0002;
+      }
+      .hero-note .mark {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #12151230;
+        border-radius: 50%;
+      }
+      .hero-note p {
+        font-size: 11px;
+        line-height: 1.65;
+      }
+      .hero-note strong {
+        font-weight: 600;
+        display: block;
+        font-size: 12px;
+      }
+      .hero-note .icon:last-child {
+        margin-left: auto;
+      }
+      .occasion-strip {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        padding: 27px 0;
+        color: #b6b7ab;
+        border-bottom: 1px solid var(--line);
+      }
+      .occasion-strip span:not(.eyebrow) {
+        font-family: var(--serif);
+        font-size: 20px;
+      }
+      .occasion-strip i {
+        font-size: 10px;
+        color: var(--gold);
+      }
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 35px;
+        margin-bottom: 46px;
+      }
+      .section-heading p {
+        max-width: 320px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 42px;
+      }
+      .step {
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+      }
+      .step-number {
+        font-family: var(--serif);
+        color: var(--gold);
+        font-size: 23px;
+      }
+      .step h3 {
+        font-family: var(--serif);
+        font-size: 31px;
+        margin: 33px 0 12px;
+      }
+      .step p {
+        font-size: 12px;
+        max-width: 300px;
+        color: var(--muted);
+      }
+      .category-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: 20px;
+      }
+      .category {
+        position: relative;
+        height: 360px;
+        overflow: hidden;
+        text-align: left;
+        border: 0;
+        background: var(--panel);
+        padding: 0;
+      }
+      .category img {
+        filter: brightness(0.68) saturate(0.65);
+        transition:
+          transform 0.7s,
+          filter 0.7s;
+      }
+      .category:hover img {
+        transform: scale(1.04);
+        filter: brightness(0.8) saturate(0.8);
+      }
+      .category-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 45px 24px 24px;
+        background: linear-gradient(transparent, #000b);
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+      }
+      .category-label h3 {
+        font-family: var(--serif);
+        font-size: 31px;
+      }
+      .category-label p {
+        font-size: 10px;
+        color: #e0e0d6;
+      }
+      .category-label .icon-btn {
+        border-color: #ffffff60;
+      }
+      .standards {
+        background: #e9e5da;
+        color: var(--ink);
+        padding: 78px 0;
+      }
+      .standards .muted {
+        color: #5e6359;
+      }
+      .standards-inner {
+        display: grid;
+        grid-template-columns: 1fr 1.12fr;
+        gap: 80px;
+      }
+      .standard-row {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 18px;
+        padding: 22px 0;
+        border-bottom: 1px solid #12151225;
+      }
+      .standard-row:first-child {
+        padding-top: 0;
+      }
+      .standard-row h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 7px;
+      }
+      .standard-row p {
+        font-size: 12px;
+        color: #606459;
+      }
+      .standard-row .icon {
+        margin-top: 2px;
+      }
+      .provider-story {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .provider-story-image {
+        height: 430px;
+        position: relative;
+      }
+      .provider-story-image img {
+        filter: saturate(0.5) brightness(0.8);
+      }
+      .provider-story-copy p {
+        color: var(--muted);
+        max-width: 350px;
+        font-size: 13px;
+        margin: 23px 0;
+      }
+      .faq-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1.12fr;
+        gap: 80px;
+      }
+      .faq {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 22px 0;
+        font-size: 13px;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary:after {
+        content: "+";
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--gold);
+      }
+      .faq[open] summary:after {
+        content: "−";
+      }
+      .faq p {
+        font-size: 12px;
+        color: var(--muted);
+        padding: 0 25px 24px 0;
+      }
+      .final-cta {
+        text-align: center;
+        padding: 95px 20px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .final-cta h2 {
+        font-family: var(--serif);
+        font-size: clamp(48px, 6vw, 80px);
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+        margin: 20px 0 30px;
+      }
+      .footer {
+        padding: 34px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+      }
+      .footer .brand {
+        font-size: 29px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 24px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .preview-label {
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .workspace {
+        max-width: 1600px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 208px minmax(0, 1fr);
+        min-height: calc(100vh - 84px);
+      }
+      .sidebar {
+        border-right: 1px solid var(--line);
+        padding: 29px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        position: sticky;
+        top: 84px;
+        height: calc(100vh - 84px);
+      }
+      .sidebar-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        margin: 6px 12px 17px;
+      }
+      .side-link {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px;
+        font-size: 11px;
+        color: var(--muted);
+        border: 0;
+        background: transparent;
+        text-align: left;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        width: 100%;
+      }
+      .side-link.active {
+        background: #cfba9410;
+        color: var(--gold);
+        border-left: 2px solid var(--gold);
+        padding-left: 10px;
+      }
+      .side-link:hover {
+        color: var(--ivory);
+        background: #ffffff06;
+      }
+      .side-count {
+        margin-left: auto;
+        font-size: 10px;
+      }
+      .sidebar-bottom {
+        margin-top: auto;
+        border-top: 1px solid var(--line);
+        padding: 20px 10px 0;
+      }
+      .avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        background: #d3c5ad;
+        color: var(--ink);
+        border-radius: 50%;
+        font-family: var(--serif);
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .avatar.dark-avatar {
+        background: #34392f;
+        color: var(--sage);
+      }
+      .workspace-main {
+        padding: 29px 38px 60px;
+        min-width: 0;
+      }
+      .demo-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 30px;
+      }
+      .demo-bar button {
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: transparent;
+        font-size: 10px;
+        padding: 2px 0;
+      }
+      .page-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .page-heading h1 {
+        font-family: var(--serif);
+        font-size: 49px;
+        letter-spacing: -0.025em;
+        line-height: 1.05;
+        margin: 8px 0 9px;
+      }
+      .page-heading p {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .event-banner {
+        height: 175px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 25px;
+        background: var(--panel);
+      }
+      .event-banner > img {
+        position: absolute;
+        inset: 0;
+        filter: brightness(0.37) saturate(0.5);
+        object-position: center 56%;
+      }
+      .event-banner-content {
+        position: relative;
+        height: 100%;
+        padding: 28px 31px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+      }
+      .event-banner h2 {
+        font-family: var(--serif);
+        font-size: 37px;
+        margin: 8px 0;
+      }
+      .event-meta {
+        font-size: 10px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        color: #d5d7cc;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--line);
+        margin-bottom: 34px;
+      }
+      .stat {
+        padding: 19px 23px;
+        border-right: 1px solid var(--line);
+      }
+      .stat:last-child {
+        border: 0;
+      }
+      .stat-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 10px;
+        margin-bottom: 9px;
+      }
+      .stat strong {
+        font-family: var(--serif);
+        font-size: 31px;
+        font-weight: 400;
+        line-height: 1;
+      }
+      .stat small {
+        font-size: 10px;
+        margin-left: 8px;
+        color: var(--muted);
+      }
+      .workspace-columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 255px;
+        gap: 25px;
+      }
+      .block-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .block-heading h2 {
+        font-family: var(--serif);
+        font-size: 28px;
+      }
+      .block-heading button {
+        font-size: 10px;
+      }
+      .tabs {
+        display: flex;
+        gap: 23px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 21px;
+      }
+      .tab {
+        border: 0;
+        border-bottom: 2px solid transparent;
+        background: none;
+        padding: 12px 0;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .tab.active {
+        border-color: var(--gold);
+        color: var(--ivory);
+      }
+      .quote-card {
+        border: 1px solid var(--line);
+        margin-bottom: 15px;
+        padding: 19px;
+        transition: border-color 0.2s;
+        background: #181b16;
+      }
+      .quote-card:hover {
+        border-color: #cfba9460;
+      }
+      .quote-card-top {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+      .quote-thumb {
+        width: 66px;
+        height: 66px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      .quote-thumb img {
+        filter: saturate(0.6);
+      }
+      .quote-name {
+        font-family: var(--serif);
+        font-size: 24px;
+        line-height: 1.2;
+      }
+      .rating {
+        font-size: 9px;
+        color: var(--muted);
+        margin-top: 7px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+      .rating b {
+        color: var(--gold);
+        font-weight: 500;
+      }
+      .quote-card-body {
+        display: flex;
+        gap: 10px;
+        margin: 17px 0;
+        flex-wrap: wrap;
+      }
+      .chip {
+        border: 1px solid #ffffff18;
+        padding: 5px 8px;
+        color: #c8cabd;
+        font-size: 9px;
+      }
+      .quote-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        gap: 15px;
+      }
+      .price {
+        font-family: var(--serif);
+        font-size: 27px;
+      }
+      .price-caption {
+        font-size: 9px;
+        color: var(--muted);
+      }
+      .aside-box {
+        border: 1px solid var(--line);
+        padding: 21px;
+        margin-bottom: 18px;
+        background: var(--panel);
+      }
+      .aside-box h3 {
+        font-family: var(--serif);
+        font-size: 25px;
+        margin-bottom: 17px;
+      }
+      .need-row {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px 0;
+        font-size: 10px;
+        border-bottom: 1px solid var(--line);
+      }
+      .need-row:last-child {
+        border: 0;
+      }
+      .need-check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 19px;
+        height: 19px;
+        border: 1px solid #ffffff30;
+        border-radius: 50%;
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+      .need-check.done {
+        background: var(--sage);
+        color: var(--ink);
+        border-color: var(--sage);
+      }
+      .need-check.pending {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .need-row .status-text {
+        font-size: 8px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .progress-track {
+        height: 3px;
+        background: #ffffff16;
+        margin: 16px 0 9px;
+      }
+      .progress-track span {
+        display: block;
+        height: 100%;
+        background: var(--sage);
+        transition: width 0.4s;
+      }
+      .empty {
+        text-align: center;
+        padding: 40px 20px;
+        border: 1px dashed var(--line);
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 23px;
+        flex-wrap: wrap;
+      }
+      .pills {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        padding: 9px 14px;
+        font-size: 10px;
+        background: none;
+        border-radius: 30px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .pill.active {
+        background: var(--ivory);
+        color: var(--ink);
+        border-color: var(--ivory);
+      }
+      .pill:hover:not(.active) {
+        border-color: var(--gold);
+      }
+      .select-small {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        padding: 9px 12px;
+        color: var(--muted);
+        font-size: 10px;
+        max-width: 100%;
+      }
+      .feed-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 19px;
+      }
+      .request-card {
+        border: 1px solid var(--line);
+        background: #181b16;
+        padding: 24px;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+      .request-card:hover {
+        border-color: #cfba9460;
+        transform: translateY(-2px);
+      }
+      .request-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .request-card h2 {
+        font-family: var(--serif);
+        font-size: 31px;
+        letter-spacing: -0.02em;
+        line-height: 1.12;
+        margin-bottom: 13px;
+      }
+      .request-meta {
+        display: flex;
+        gap: 14px;
+        font-size: 10px;
+        color: var(--muted);
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+      .request-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 11px 0;
+        border-top: 1px solid var(--line);
+        font-size: 11px;
+      }
+      .request-line small {
+        display: block;
+        font-size: 9px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .slots {
+        color: var(--gold);
+        font-size: 9px;
+        white-space: nowrap;
+      }
+      .slot-dots {
+        display: flex;
+        gap: 3px;
+        margin-top: 7px;
+        justify-content: end;
+      }
+      .slot-dots i {
+        width: 13px;
+        height: 3px;
+        background: var(--gold);
+      }
+      .slot-dots i.filled {
+        background: #ffffff26;
+      }
+      .request-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding-top: 19px;
+      }
+      .request-footer .tiny {
+        max-width: 125px;
+      }
+      .match-note {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+        padding: 13px 17px;
+        border: 1px solid #b7c7ac25;
+        background: #b7c7ac06;
+        margin-bottom: 24px;
+        color: var(--sage);
+        font-size: 10px;
+        line-height: 1.7;
+      }
+      .preview-switch {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: #ffffff05;
+        border: 1px solid var(--line);
+        padding: 3px;
+      }
+      .preview-switch button {
+        font-size: 9px;
+        padding: 7px 9px;
+        border: 0;
+        background: none;
+        color: var(--muted);
+      }
+      .preview-switch button.active {
+        background: #ffffff10;
+        color: var(--ivory);
+      }
+      .match-aside {
+        margin-top: 25px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+      }
+      .match-aside h3 {
+        font-family: var(--serif);
+        font-size: 25px;
+        margin-bottom: 5px;
+      }
+      .match-aside p {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      dialog {
+        margin: auto;
+        border: 1px solid #ffffff30;
+        padding: 0;
+        background: var(--ink);
+        color: var(--ivory);
+        width: min(680px, calc(100% - 32px));
+        max-height: 88dvh;
+        box-shadow: 0 30px 100px #0008;
+      }
+      dialog::backdrop {
+        background: #080b08bd;
+        backdrop-filter: blur(7px);
+      }
+      dialog.wide {
+        width: min(980px, calc(100% - 32px));
+      }
+      .modal-header {
+        padding: 22px 27px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        background: var(--ink);
+        z-index: 2;
+      }
+      .modal-header h2 {
+        font-family: var(--serif);
+        font-size: 31px;
+        line-height: 1.05;
+      }
+      .modal-body {
+        padding: 27px;
+      }
+      .modal-footer {
+        padding: 20px 27px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        font-size: 11px;
+        margin-bottom: 20px;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        border: 1px solid #ffffff28;
+        background: #1c201a;
+        color: var(--ivory);
+        padding: 13px 14px;
+        border-radius: 0;
+        min-height: 45px;
+      }
+      .field textarea {
+        min-height: 95px;
+        resize: vertical;
+      }
+      .field small {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 20px;
+      }
+      .check-label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 11px;
+        line-height: 1.7;
+        padding: 6px 0;
+      }
+      .check-label input {
+        accent-color: var(--gold);
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+      .check-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+        margin: 12px 0 22px;
+      }
+      .check-grid .check-label {
+        border: 1px solid var(--line);
+        padding: 12px;
+      }
+      .notice {
+        border: 1px solid #cfba9435;
+        background: #cfba9408;
+        padding: 14px 16px;
+        font-size: 11px;
+        line-height: 1.8;
+        color: #d7c9ad;
+        margin: 18px 0;
+      }
+      .detail-list {
+        margin: 19px 0;
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+      }
+      .detail-row small {
+        display: block;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+      .detail-total {
+        font-family: var(--serif);
+        font-size: 31px;
+      }
+      .compare-scroll {
+        overflow-x: auto;
+      }
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 650px;
+        text-align: left;
+        font-size: 11px;
+      }
+      .compare-table th {
+        font-weight: 500;
+        vertical-align: top;
+      }
+      .compare-table td,
+      .compare-table th {
+        border-bottom: 1px solid var(--line);
+        padding: 16px 13px;
+      }
+      .compare-table th:first-child {
+        width: 25%;
+      }
+      .compare-table .serif {
+        font-size: 22px;
+      }
+      .compare-result {
+        margin-top: 22px;
+        padding: 20px;
+        background: var(--panel);
+        font-size: 12px;
+      }
+      .catalog-line {
+        display: grid;
+        grid-template-columns: 46px 1fr 95px;
+        gap: 12px;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .catalog-line img {
+        width: 46px;
+        height: 46px;
+      }
+      .catalog-line label {
+        font-size: 11px;
+      }
+      .catalog-line input[type="number"] {
+        width: 100%;
+        background: var(--panel);
+        color: var(--ivory);
+        border: 1px solid var(--line);
+        padding: 10px;
+        font-size: 12px;
+      }
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc(100vw - 32px);
+        width: max-content;
+        background: var(--ivory);
+        color: var(--ink);
+        padding: 15px 22px;
+        font-size: 12px;
+        z-index: 100;
+        box-shadow: 0 8px 35px #0005;
+      }
+      .inbox-message {
+        padding: 15px 18px;
+        background: var(--panel);
+        margin: 12px 0;
+        font-size: 12px;
+        line-height: 1.8;
+      }
+      .inbox-message.mine {
+        margin-left: 35px;
+        background: #cfba9414;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      @media (min-width: 1500px) {
+        .hero {
+          min-height: 735px;
+        }
+        .hero-copy {
+          padding-top: 95px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .shell {
+          padding: 0 36px;
+        }
+        .nav-links {
+          gap: 20px;
+        }
+        .hero h1 {
+          font-size: 77px;
+        }
+        .workspace-columns {
+          grid-template-columns: minmax(0, 1fr) 225px;
+        }
+        .workspace-main {
+          padding: 25px;
+        }
+        .workspace {
+          grid-template-columns: 180px minmax(0, 1fr);
+        }
+        .sidebar {
+          padding: 24px 12px;
+        }
+        .request-card {
+          padding: 19px;
+        }
+        .standards-inner,
+        .provider-story,
+        .faq-wrap {
+          gap: 48px;
+        }
+      }
+      @media (max-width: 1020px) {
+        .nav-links {
+          gap: 18px;
+        }
+        .nav-links a:nth-child(2) {
+          display: none;
+        }
+        .nav-actions {
+          gap: 15px;
+        }
+        .workspace {
+          grid-template-columns: 160px minmax(0, 1fr);
+        }
+        .workspace-columns {
+          grid-template-columns: 1fr;
+        }
+        .customer-aside {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .feed-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          min-height: 620px;
+        }
+        .hero h1 {
+          font-size: 66px;
+        }
+        .hero-copy {
+          padding-right: 25px;
+        }
+        .occasion-strip span:not(.eyebrow) {
+          font-size: 17px;
+        }
+        .occasion-strip {
+          gap: 10px;
+        }
+        .hero-note {
+          left: 18px;
+          right: 18px;
+          bottom: 18px;
+          padding: 16px;
+        }
+        .hero-note .mark {
+          display: none;
+        }
+        .hero-note p {
+          font-size: 10px;
+        }
+        .category {
+          height: 300px;
+        }
+        .category-grid {
+          gap: 14px;
+        }
+        .category-label {
+          padding: 35px 18px 18px;
+        }
+        .category-label h3 {
+          font-size: 27px;
+        }
+      }
+      @media (max-width: 760px) {
+        .shell {
+          padding: 0 22px;
+        }
+        .nav {
+          height: 72px;
+        }
+        .brand {
+          font-size: 33px;
+        }
+        .nav-links,
+        .nav-actions .signin {
+          display: none;
+        }
+        .nav-actions .btn {
+          min-height: 37px;
+          padding: 9px 13px;
+          font-size: 10px;
+        }
+        .nav-actions {
+          gap: 13px;
+        }
+        .mobile-menu {
+          display: inline-flex;
+        }
+        .mobile-nav {
+          top: 71px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: 0;
+          border: 0;
+        }
+        .hero-copy {
+          padding: 46px 0 33px;
+        }
+        .hero h1 {
+          font-size: clamp(64px, 11vw, 84px);
+          margin: 24px 0;
+          max-width: 550px;
+        }
+        .hero-description {
+          max-width: 350px;
+        }
+        .hero-bottom {
+          padding-top: 30px;
+        }
+        .hero-photo {
+          margin: 0;
+          height: 470px;
+        }
+        .hero-note {
+          left: 20px;
+          right: 20px;
+          bottom: 20px;
+          padding: 18px;
+        }
+        .hero-note .mark {
+          display: flex;
+        }
+        .hero-note p {
+          font-size: 11px;
+        }
+        .occasion-strip {
+          overflow-x: auto;
+          justify-content: flex-start;
+          gap: 23px;
+          white-space: nowrap;
+          padding: 25px 0;
+        }
+        .occasion-strip .eyebrow {
+          display: none;
+        }
+        .occasion-strip span:not(.eyebrow) {
+          font-size: 20px;
+        }
+        .section {
+          padding: 65px 0;
+        }
+        .section-heading {
+          display: block;
+          margin-bottom: 30px;
+        }
+        .section-heading p {
+          margin-top: 20px;
+        }
+        .steps {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .step {
+          display: grid;
+          grid-template-columns: 40px 1fr;
+          column-gap: 14px;
+        }
+        .step h3 {
+          margin: 0 0 10px;
+          font-size: 30px;
+        }
+        .step p {
+          grid-column: 2;
+          max-width: 100%;
+        }
+        .category-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .category:first-child {
+          grid-column: 1/-1;
+          height: 330px;
+        }
+        .category {
+          height: 255px;
+        }
+        .category-label h3 {
+          font-size: 25px;
+        }
+        .category-label .icon-btn {
+          display: none;
+        }
+        .standards {
+          padding: 58px 0;
+        }
+        .standards-inner,
+        .provider-story,
+        .faq-wrap {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+        .provider-story-image {
+          height: 330px;
+        }
+        .provider-story-copy {
+          order: -1;
+        }
+        .final-cta {
+          padding: 65px 15px;
+        }
+        .footer {
+          align-items: start;
+          flex-wrap: wrap;
+        }
+        .footer-links {
+          gap: 18px;
+          flex-wrap: wrap;
+        }
+        .preview-label {
+          width: 100%;
+        }
+        .workspace {
+          display: block;
+        }
+        .sidebar {
+          position: static;
+          height: auto;
+          border: 0;
+          border-bottom: 1px solid var(--line);
+          padding: 12px 18px;
+          display: flex;
+          flex-direction: row;
+          overflow-x: auto;
+          gap: 5px;
+        }
+        .sidebar-label,
+        .sidebar-bottom {
+          display: none;
+        }
+        .side-link {
+          width: auto;
+          white-space: nowrap;
+          padding: 10px 12px;
+          font-size: 10px;
+          gap: 7px;
+        }
+        .side-link.active {
+          border-left: 0;
+          border-bottom: 1px solid var(--gold);
+          padding-left: 12px;
+        }
+        .side-link .icon {
+          width: 15px;
+          height: 15px;
+        }
+        .workspace-main {
+          padding: 22px 20px 45px;
+        }
+        .demo-bar {
+          align-items: start;
+          margin-bottom: 24px;
+          font-size: 9px;
+        }
+        .page-heading {
+          align-items: start;
+        }
+        .page-heading h1 {
+          font-size: 39px;
+        }
+        .page-heading .btn {
+          padding: 9px 11px;
+          font-size: 10px;
+          min-height: 38px;
+          gap: 6px;
+        }
+        .event-banner {
+          height: 190px;
+        }
+        .event-banner-content {
+          padding: 22px;
+          display: block;
+        }
+        .event-banner-content .btn {
+          position: absolute;
+          top: 20px;
+          right: 18px;
+        }
+        .event-banner h2 {
+          font-size: 32px;
+          margin-top: 27px;
+        }
+        .event-meta {
+          font-size: 9px;
+          gap: 10px;
+        }
+        .stats {
+          margin-bottom: 25px;
+        }
+        .stat {
+          padding: 15px 12px;
+        }
+        .stat-top {
+          font-size: 9px;
+        }
+        .stat-top .icon {
+          display: none;
+        }
+        .stat strong {
+          font-size: 28px;
+        }
+        .stat small {
+          font-size: 8px;
+          display: block;
+          margin: 6px 0 0;
+        }
+        .customer-aside {
+          grid-template-columns: 1fr;
+        }
+        .quote-card {
+          padding: 15px;
+        }
+        .quote-name {
+          font-size: 23px;
+        }
+        .quote-thumb {
+          width: 55px;
+          height: 55px;
+        }
+        .quote-bottom .btn {
+          font-size: 10px;
+        }
+        .request-card {
+          padding: 22px;
+        }
+        .page-heading.provider-heading {
+          display: block;
+        }
+        .page-heading.provider-heading .preview-switch {
+          display: inline-flex;
+          margin-top: 20px;
+        }
+        .toolbar {
+          gap: 16px;
+        }
+        .pills {
+          gap: 6px;
+        }
+        .pill {
+          padding: 8px 12px;
+        }
+        .match-aside {
+          align-items: start;
+          flex-direction: column;
+        }
+        .modal-body {
+          padding: 21px;
+        }
+        .modal-header {
+          padding: 18px 21px;
+        }
+        .modal-footer {
+          padding: 18px 21px;
+          flex-wrap: wrap;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-header h2 {
+          font-size: 28px;
+        }
+        .catalog-line {
+          grid-template-columns: 40px 1fr 80px;
+        }
+        .hero-proof {
+          font-size: 9px;
+        }
+        .section-title {
+          font-size: 43px;
+        }
+      }
+      .workspace .side-link {
+        font-size: 12px;
+      }
+      .workspace .page-heading p {
+        font-size: 12px;
+      }
+      .workspace .request-line {
+        font-size: 12px;
+      }
+      .workspace .request-meta {
+        font-size: 11px;
+      }
+      .workspace .quote-bottom .price-caption {
+        font-size: 10px;
+      }
+      .workspace .rating {
+        font-size: 10px;
+      }
+      .workspace .tiny {
+        font-size: 11px;
+      }
+      .workspace .need-row {
+        font-size: 12px;
+      }
+      .workspace .status-text {
+        font-size: 10px;
+      }
+      .workspace .tabs .tab {
+        font-size: 12px;
+      }
+      .workspace .stat-top {
+        font-size: 11px;
+      }
+      .workspace .stat small {
+        font-size: 10px;
+      }
+      .workspace .match-note {
+        font-size: 11px;
+      }
+      .workspace .match-aside p {
+        font-size: 12px;
+      }
+      .workspace .request-line small {
+        font-size: 10px;
+      }
+      .workspace .slots {
+        font-size: 10px;
+      }
+      @media (max-width: 760px) {
+        .workspace .side-link {
+          font-size: 11px;
+        }
+        .workspace .stat-top {
+          font-size: 10px;
+        }
+        .workspace .stat small {
+          font-size: 9px;
+        }
+        .workspace .stat:last-child strong {
+          font-size: 23px !important;
+        }
+        .workspace .rating {
+          font-size: 10px;
+        }
+        .workspace .quote-bottom {
+          align-items: flex-start;
+        }
+        .workspace .quote-bottom .price-caption {
+          max-width: 175px;
+          line-height: 1.6;
+        }
+        .workspace .request-meta {
+          font-size: 10px;
+        }
+        .workspace .request-card h2 {
+          font-size: 32px;
+        }
+        .workspace .request-line {
+          font-size: 11px;
+        }
+        .workspace .request-footer .tiny {
+          font-size: 10px;
+        }
+      }
+      @media (max-width: 370px) {
+        .nav-actions > .btn {
+          display: none;
+        }
+        .shell {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+        .workspace-main {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        .stat {
+          padding-left: 9px;
+          padding-right: 9px;
+        }
+        .workspace .stat:last-child strong {
+          font-size: 20px !important;
+        }
+        .block-heading {
+          flex-wrap: wrap;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *:before,
+        *:after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      /* CONCEPT 02 — WARM EDITORIAL. Gold appears only in awarded states. */
+      :root {
+        color-scheme: light;
+        --canvas: #faf6f0;
+        --ink: #221f1b;
+        --ivory: #221f1b;
+        --panel: #f1eae0;
+        --panel2: #fffdf9;
+        --muted: #69645c;
+        --line: #221f1b24;
+        --gold: #9c3d1b;
+        --sage: #456349;
+        --sienna: #c1512f;
+        --navy: #1b2a38;
+        --award: #c9973f;
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "Inter", sans-serif;
+      }
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-size: 15px;
+      }
+      ::selection {
+        background: #eac4b3;
+        color: #221f1b;
+      }
+      .shell {
+        max-width: 1380px;
+        padding: 0 56px;
+      }
+      .nav {
+        background: #1b2a38ed;
+        border-bottom: 1px solid #ffffff20;
+        color: #faf6f0;
+        height: 80px;
+      }
+      .brand {
+        font-size: 30px;
+        letter-spacing: -1.8px;
+        font-weight: 500;
+      }
+      .brand span {
+        color: inherit;
+      }
+      .nav .brand {
+        color: #faf6f0;
+      }
+      .nav-links {
+        font-size: 12px;
+        color: #e4e8e9;
+        gap: 30px;
+      }
+      .nav-links a:hover {
+        color: #fff;
+      }
+      .nav .text-link {
+        color: #fff;
+        border-color: #ffffff60;
+        font-size: 12px;
+      }
+      .nav-inner {
+        gap: 24px;
+      }
+      .nav-actions {
+        gap: 24px;
+      }
+      .mobile-nav {
+        background: var(--navy);
+        color: #fff;
+        top: 79px;
+      }
+      .nav .icon-btn {
+        border-color: #ffffff55;
+        color: #fff;
+      }
+      .btn {
+        background: var(--sienna);
+        color: #fff;
+        border-radius: 10px;
+        min-height: 49px;
+        font-size: 13px;
+        padding: 14px 22px;
+        font-weight: 550;
+        box-shadow: 0 3px 5px #221f1b09;
+        transition:
+          background 0.18s,
+          transform 0.18s,
+          box-shadow 0.18s;
+      }
+      .btn:hover {
+        background: #a84324;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px #221f1b16;
+      }
+      .btn.secondary {
+        background: transparent;
+        border-color: var(--line);
+        color: var(--ink);
+        box-shadow: none;
+      }
+      .btn.secondary:hover {
+        background: var(--panel);
+        border-color: #8b8172;
+      }
+      .btn.dark {
+        background: var(--navy);
+        color: #fff;
+      }
+      .btn.compact {
+        font-size: 12px;
+        min-height: 40px;
+        padding: 10px 15px;
+      }
+      .text-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gold);
+        border-color: #9c3d1b45;
+        gap: 12px;
+      }
+      .text-link:hover {
+        color: var(--gold);
+        gap: 17px;
+      }
+      .icon-btn {
+        border-color: var(--line);
+        border-radius: 10px;
+        background: transparent;
+        width: 38px;
+        height: 38px;
+      }
+      .icon-btn:hover {
+        border-color: var(--gold);
+        background: #c1512f08;
+      }
+      .icon {
+        stroke-width: 1.5;
+      }
+      .eyebrow {
+        letter-spacing: 0.13em;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .small {
+        font-size: 13px;
+      }
+      .tiny {
+        font-size: 11px;
+      }
+      .section-title {
+        font-size: clamp(34px, 3.8vw, 52px);
+        font-weight: 400;
+        line-height: 1.13;
+        letter-spacing: -0.045em;
+      }
+      .section {
+        padding: 86px 0;
+      }
+      .badge {
+        border-radius: 6px;
+        background: #eee8df;
+        color: #514c45;
+        border-color: #ddd3c5;
+        font-size: 11px;
+        padding: 5px 9px;
+      }
+      .badge.green {
+        color: #456349;
+        background: #e8eee5;
+        border-color: #ccd9c8;
+      }
+      .badge.gold {
+        color: #79531d;
+        background: #f4ead7;
+        border-color: #dcc9a3;
+      }
+      .badge.awarded {
+        background: var(--award);
+        border-color: var(--award);
+        color: #221f1b;
+      }
+      .badge.submitted {
+        background: #e6ecf2;
+        color: #42596d;
+        border-color: #c7d3df;
+      }
+      .badge.neutral {
+        color: var(--muted);
+        background: var(--panel);
+        border-color: var(--line);
+      }
+      .editorial-hero {
+        text-align: center;
+        padding: 58px 0 0;
+      }
+      .editorial-hero .eyebrow {
+        color: var(--gold);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 11px;
+      }
+      .editorial-hero h1 {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(45px, 5.2vw, 73px);
+        letter-spacing: -0.055em;
+        line-height: 1.09;
+        margin: 23px auto 21px;
+        max-width: 940px;
+      }
+      .editorial-hero h1 span {
+        color: var(--gold);
+      }
+      .editorial-hero .intro {
+        font-size: 15px;
+        color: var(--muted);
+        max-width: 550px;
+        line-height: 1.8;
+        margin: auto;
+      }
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin: 25px 0 17px;
+      }
+      .hero-fine {
+        font-size: 11px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .hero-fine .icon {
+        width: 14px;
+        height: 14px;
+        color: var(--sage);
+      }
+      .editorial-gallery {
+        display: grid;
+        grid-template-columns: 1fr 2.1fr 1fr;
+        gap: 16px;
+        margin: 39px 0 0;
+        height: 330px;
+        align-items: stretch;
+      }
+      .editorial-gallery figure {
+        margin: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        background: var(--panel);
+      }
+      .editorial-gallery figure:first-child,
+      .editorial-gallery figure:last-child {
+        margin-top: 29px;
+      }
+      .editorial-gallery img {
+        filter: saturate(0.82);
+        transition: transform 0.6s;
+      }
+      .editorial-gallery figure:hover img {
+        transform: scale(1.025);
+      }
+      .editorial-gallery figure:nth-child(2) img {
+        object-position: center 57%;
+      }
+      .gallery-caption {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        background: #faf6f0ed;
+        color: #221f1b;
+        border-radius: 6px;
+        padding: 9px 12px;
+        font-size: 11px;
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        max-width: calc(100% - 36px);
+      }
+      .gallery-caption .icon {
+        width: 14px;
+        height: 14px;
+      }
+      .occasion-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+        padding: 28px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .occasion-line span {
+        white-space: nowrap;
+      }
+      .occasion-line .eyebrow {
+        font-size: 9px;
+        color: var(--gold);
+      }
+      .how-grid {
+        display: grid;
+        grid-template-columns: 0.86fr 1.14fr;
+        gap: 85px;
+        align-items: start;
+      }
+      .how-intro p {
+        max-width: 340px;
+        margin: 23px 0 25px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .process-row {
+        display: grid;
+        grid-template-columns: 37px 1fr;
+        gap: 19px;
+        padding: 0 0 24px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--line);
+      }
+      .process-row:last-child {
+        margin: 0;
+      }
+      .process-number {
+        width: 34px;
+        height: 34px;
+        background: #efe1d5;
+        color: #9c3d1b;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .process-row h3 {
+        font-size: 17px;
+        font-weight: 550;
+        margin: 4px 0 9px;
+      }
+      .process-row p {
+        font-size: 13px;
+        color: var(--muted);
+        max-width: 400px;
+      }
+      .clarity-section {
+        background: var(--panel);
+        padding: 74px 0;
+      }
+      .clarity-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 85px;
+        align-items: center;
+      }
+      .product-peek {
+        border: 1px solid #e0d5c7;
+        background: #fffdf9;
+        border-radius: 14px;
+        box-shadow: 0 12px 24px #5847350a;
+        overflow: hidden;
+      }
+      .peek-top {
+        padding: 21px 24px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+      }
+      .peek-top h3 {
+        font-size: 16px;
+        font-weight: 550;
+      }
+      .peek-top span {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .peek-event {
+        padding: 21px 24px 12px;
+        font-family: var(--serif);
+        font-size: 28px;
+        letter-spacing: -0.04em;
+      }
+      .peek-row {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin: 0 24px;
+        padding: 17px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .peek-row img {
+        width: 47px;
+        height: 47px;
+        border-radius: 7px;
+        flex-shrink: 0;
+      }
+      .peek-row strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 550;
+        margin-bottom: 5px;
+      }
+      .peek-row p {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .peek-row .peek-price {
+        margin-left: auto;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 550;
+        font-variant-numeric: tabular-nums;
+      }
+      .peek-bottom {
+        padding: 19px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .clarity-copy p {
+        font-size: 14px;
+        line-height: 1.9;
+        color: var(--muted);
+        margin: 23px 0;
+        max-width: 365px;
+      }
+      .clarity-copy .check-label {
+        font-size: 12px;
+        gap: 10px;
+      }
+      .clarity-copy .check-label .icon {
+        color: var(--sage);
+        width: 16px;
+        height: 16px;
+      }
+      .standard-heading {
+        text-align: center;
+        max-width: 590px;
+        margin: 0 auto 38px;
+      }
+      .standard-heading .eyebrow {
+        margin-bottom: 18px;
+      }
+      .standard-heading p {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 21px;
+      }
+      .trust-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .trust-card {
+        padding: 28px;
+        border: 1px solid var(--line);
+        background: #fffdf9;
+        border-radius: 12px;
+      }
+      .trust-card > .icon {
+        color: var(--gold);
+        width: 23px;
+        height: 23px;
+        margin-bottom: 28px;
+      }
+      .trust-card h3 {
+        font-size: 17px;
+        font-weight: 550;
+        line-height: 1.45;
+        margin-bottom: 12px;
+      }
+      .trust-card p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .trust-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+        margin-top: 27px;
+      }
+      .trust-foot p {
+        font-size: 11px;
+        color: var(--muted);
+        max-width: 640px;
+      }
+      .professional-panel {
+        border-radius: 14px;
+        background: var(--navy);
+        color: #faf6f0;
+        padding: 53px 55px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 65px;
+        align-items: center;
+      }
+      .professional-panel .eyebrow {
+        color: #c2cbd1;
+        margin-bottom: 20px;
+      }
+      .professional-panel p {
+        color: #d2d9dd;
+        font-size: 14px;
+        margin: 23px 0;
+        max-width: 410px;
+      }
+      .professional-panel h2 {
+        font-size: 42px;
+      }
+      .business-note {
+        border: 1px solid #ffffff26;
+        border-radius: 12px;
+        padding: 29px;
+        background: #ffffff04;
+      }
+      .business-note h3 {
+        font-family: var(--sans);
+        font-size: 23px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.03em;
+      }
+      .business-note .note-row {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        font-size: 12px;
+        color: #d2d9dd;
+        margin-top: 20px;
+      }
+      .business-note .note-row .icon {
+        width: 16px;
+        height: 16px;
+      }
+      .faq-wrap {
+        gap: 75px;
+      }
+      .faq summary {
+        font-size: 14px;
+        padding: 24px 0;
+        font-weight: 500;
+      }
+      .faq p {
+        font-size: 13px;
+      }
+      .warm-footer {
+        background: var(--navy);
+        color: #faf6f0;
+        padding: 61px 0 0;
+      }
+      .warm-footer .footer {
+        padding: 28px 0;
+        border-top: 1px solid #ffffff26;
+      }
+      .warm-footer .footer-links,
+      .warm-footer .preview-label {
+        color: #c6cfd5;
+      }
+      .warm-footer .brand {
+        color: #fff;
+      }
+      .footer-invite {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 35px;
+        margin-bottom: 48px;
+      }
+      .footer-invite h2 {
+        font-family: var(--serif);
+        font-size: 43px;
+        letter-spacing: -0.04em;
+      }
+      .footer-invite p {
+        font-size: 13px;
+        color: #c6cfd5;
+        margin-top: 15px;
+      }
+      .workspace {
+        background: var(--canvas);
+        max-width: 1600px;
+        grid-template-columns: 210px minmax(0, 1fr);
+      }
+      .sidebar {
+        top: 80px;
+        height: calc(100vh - 80px);
+        padding: 27px 19px;
+        background: #f5efe6;
+        border-color: var(--line);
+      }
+      .sidebar-label {
+        font-size: 10px;
+      }
+      .side-link {
+        color: var(--muted);
+        border-radius: 8px;
+      }
+      .side-link.active {
+        border-left: 0;
+        padding-left: 12px;
+        background: #eaddce;
+        color: #713318;
+      }
+      .side-link:hover {
+        background: #ece3d7;
+        color: var(--ink);
+      }
+      .sidebar-bottom {
+        border-color: var(--line);
+      }
+      .avatar {
+        background: #e5cbb9;
+        color: #623823;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .avatar.dark-avatar {
+        background: #dbe3e8;
+        color: var(--navy);
+      }
+      .workspace-main {
+        padding: 25px 34px 60px;
+      }
+      .demo-bar {
+        font-size: 10px;
+        line-height: 1.5;
+      }
+      .demo-tools {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        flex-wrap: wrap;
+        justify-content: end;
+      }
+      .demo-tools a,
+      .demo-tools button {
+        font-size: 10px;
+        color: var(--muted);
+        border: 0;
+        background: transparent;
+      }
+      .demo-tools button:hover,
+      .demo-tools a:hover {
+        color: var(--gold);
+      }
+      .page-heading h1 {
+        font-family: var(--sans);
+        font-size: 36px;
+        line-height: 1.2;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        margin-top: 9px;
+      }
+      .workspace .page-heading p {
+        font-size: 13px;
+      }
+      .page-heading .eyebrow {
+        font-size: 10px;
+      }
+      .event-banner {
+        border-radius: 12px;
+        height: 181px;
+        color: #fff;
+      }
+      .event-banner > img {
+        filter: brightness(0.5) saturate(0.85);
+      }
+      .event-banner h2 {
+        font-size: 32px;
+        letter-spacing: -0.035em;
+        font-weight: 400;
+      }
+      .event-banner .event-meta {
+        color: #fff;
+      }
+      .event-banner .btn.secondary {
+        border-color: #ffffff65;
+        color: #fff;
+        background: #1b2a3830;
+      }
+      .event-banner .btn.secondary:hover {
+        background: #1b2a3880;
+      }
+      .stats {
+        border: 0;
+        gap: 15px;
+      }
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel2);
+        padding: 19px 20px;
+        box-shadow: 0 3px 6px #221f1b03;
+      }
+      .stat:last-child {
+        border: 1px solid var(--line);
+      }
+      .stat strong,
+      .price,
+      .detail-total,
+      .peek-price {
+        font-family: var(--sans);
+        font-variant-numeric: tabular-nums;
+        font-weight: 500;
+        letter-spacing: -0.025em;
+      }
+      .stat strong {
+        font-size: 28px;
+      }
+      .stat small {
+        display: block;
+        margin: 10px 0 0;
+        line-height: 1.6;
+      }
+      .stat-top {
+        margin-bottom: 14px;
+      }
+      .workspace-columns {
+        grid-template-columns: minmax(0, 1fr) 260px;
+        gap: 24px;
+      }
+      .block-heading h2 {
+        font-family: var(--sans);
+        font-size: 21px;
+        font-weight: 550;
+        letter-spacing: -0.025em;
+      }
+      .block-heading .text-link {
+        font-size: 12px;
+      }
+      .tabs {
+        gap: 25px;
+      }
+      .tab.active {
+        color: var(--gold);
+        border-color: var(--sienna);
+      }
+      .quote-card {
+        border-radius: 12px;
+        padding: 23px;
+        background: var(--panel2);
+        box-shadow: 0 4px 10px #221f1b03;
+        border-color: var(--line);
+      }
+      .quote-card:hover {
+        border-color: #c6b9a8;
+      }
+      .quote-thumb {
+        width: 65px;
+        height: 65px;
+        border-radius: 9px;
+      }
+      .quote-thumb img {
+        filter: saturate(0.85);
+      }
+      .quote-name {
+        font-family: var(--sans);
+        font-size: 17px;
+        font-weight: 550;
+        letter-spacing: -0.025em;
+      }
+      .rating {
+        gap: 13px;
+        line-height: 1.6;
+      }
+      .rating b {
+        color: var(--muted);
+      }
+      .chip {
+        background: var(--panel);
+        border-color: transparent;
+        color: var(--ink);
+        font-size: 11px;
+        padding: 7px 9px;
+        border-radius: 6px;
+      }
+      .quote-bottom {
+        border-color: var(--line);
+        padding-top: 18px;
+      }
+      .price {
+        font-size: 24px;
+      }
+      .quote-bottom .btn.secondary {
+        color: var(--gold);
+        border-color: #cfab98;
+        background: transparent;
+      }
+      .quote-bottom .btn.secondary:hover {
+        background: #c1512f09;
+      }
+      .quote-card .badge {
+        margin-top: 3px;
+      }
+      .aside-box {
+        border-radius: 12px;
+        border-color: var(--line);
+        background: var(--panel2);
+        padding: 23px;
+      }
+      .aside-box h3 {
+        font-family: var(--sans);
+        font-size: 18px;
+        font-weight: 550;
+        letter-spacing: -0.025em;
+      }
+      .need-check {
+        border-color: #b7ae9f;
+      }
+      .need-check.done {
+        background: var(--award);
+        color: #221f1b;
+        border-color: var(--award);
+      }
+      .need-check.pending {
+        background: #f4ead7;
+        color: #79531d;
+        border-color: #dcc9a3;
+      }
+      .need-row {
+        border-color: var(--line);
+        padding: 14px 0;
+      }
+      .progress-track {
+        background: #e4dccf;
+      }
+      .progress-track span {
+        background: var(--award);
+      }
+      .provider-heading {
+        background: var(--navy);
+        border-radius: 12px;
+        padding: 30px;
+        color: #faf6f0;
+        align-items: center;
+        gap: 25px;
+      }
+      .provider-heading .eyebrow {
+        color: #c2cbd1;
+      }
+      .provider-heading h1 {
+        font-size: 32px;
+      }
+      .provider-heading p {
+        color: #d0d8df !important;
+        line-height: 1.7;
+      }
+      .preview-switch {
+        border-color: #ffffff36;
+        background: #ffffff07;
+        border-radius: 7px;
+        flex-shrink: 0;
+      }
+      .preview-switch button {
+        color: #d2d9dd;
+        font-size: 10px;
+        border-radius: 5px;
+      }
+      .preview-switch button.active {
+        background: #faf6f0;
+        color: #1b2a38;
+      }
+      .match-note {
+        color: var(--muted);
+        border-color: var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        font-size: 12px !important;
+        padding: 14px 17px;
+      }
+      .match-note .icon {
+        color: var(--sage);
+        width: 16px;
+        height: 16px;
+      }
+      .pill {
+        border-radius: 7px;
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+      .pill.active {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #fff;
+      }
+      .pill:hover:not(.active) {
+        border-color: #8b8172;
+        background: var(--panel);
+      }
+      .select-small {
+        border-radius: 7px;
+        background: var(--panel2);
+        font-size: 12px;
+        padding: 10px 12px;
+      }
+      .request-card {
+        border-radius: 12px;
+        background: var(--panel2);
+        padding: 25px;
+        box-shadow: 0 4px 10px #221f1b04;
+      }
+      .request-card:hover {
+        transform: none;
+        border-color: #c6b9a8;
+      }
+      .request-top {
+        margin-bottom: 19px;
+      }
+      .request-card h2 {
+        font-family: var(--sans);
+        font-size: 21px !important;
+        font-weight: 550;
+        letter-spacing: -0.035em;
+        line-height: 1.35;
+        margin-bottom: 16px;
+      }
+      .request-card .eyebrow {
+        font-size: 10px !important;
+      }
+      .request-meta {
+        gap: 15px;
+        margin-bottom: 19px;
+      }
+      .request-meta .icon {
+        width: 15px;
+        height: 15px;
+      }
+      .request-line {
+        font-size: 12px;
+        align-items: center;
+        border-color: var(--line);
+        gap: 14px;
+      }
+      .slots {
+        color: var(--muted);
+        font-size: 10px !important;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+        line-height: 1.7;
+        white-space: normal;
+        min-width: 94px;
+      }
+      .slot-dots {
+        display: none;
+      }
+      .request-footer {
+        margin-top: 3px;
+      }
+      .request-footer .btn {
+        background: transparent;
+        border: 1px solid #cfab98;
+        color: var(--gold);
+        box-shadow: none;
+      }
+      .request-footer .btn:hover {
+        background: #c1512f09;
+      }
+      .match-aside {
+        border-radius: 10px;
+        background: var(--panel);
+        padding: 23px;
+      }
+      .match-aside h3 {
+        font-family: var(--sans);
+        font-size: 17px;
+        font-weight: 550;
+      }
+      .workspace .tiny {
+        font-size: 11px;
+      }
+      .empty {
+        border-radius: 10px;
+        background: var(--panel2);
+      }
+      dialog {
+        background: var(--canvas);
+        color: var(--ink);
+        border-color: #cdbfac;
+        border-radius: 14px;
+        box-shadow: 0 20px 60px #1b2a382e;
+      }
+      dialog::backdrop {
+        background: #1b2a387a;
+      }
+      .modal-header {
+        background: var(--canvas);
+        border-color: var(--line);
+      }
+      .modal-header h2 {
+        font-size: 27px;
+        letter-spacing: -0.035em;
+      }
+      .modal-footer {
+        border-color: var(--line);
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        background: var(--panel2);
+        color: var(--ink);
+        border: 1px solid #bfb4a6;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      .field {
+        font-size: 13px;
+      }
+      .field small {
+        font-size: 11px;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline-color: var(--gold);
+      }
+      .check-label {
+        font-size: 12px;
+      }
+      .check-label input {
+        accent-color: var(--sienna);
+      }
+      .check-grid .check-label {
+        border-radius: 8px;
+      }
+      .notice {
+        background: #f1e9df;
+        color: #675240;
+        border: 1px solid #ded0bd;
+        border-radius: 8px;
+        font-size: 12px;
+      }
+      .detail-row {
+        font-variant-numeric: tabular-nums;
+      }
+      .detail-row small {
+        font-size: 11px;
+      }
+      .compare-table {
+        font-size: 12px;
+      }
+      .compare-table th .serif {
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 550;
+        letter-spacing: -0.02em;
+      }
+      .compare-table td {
+        font-variant-numeric: tabular-nums;
+      }
+      .compare-table td.serif {
+        font-family: var(--sans);
+        font-size: 20px;
+        font-weight: 550;
+      }
+      .compare-result {
+        background: var(--panel);
+        border-radius: 9px;
+        font-size: 13px;
+      }
+      .catalog-line input[type="number"] {
+        background: var(--panel2);
+        color: var(--ink);
+        border-color: #bfb4a6;
+        border-radius: 7px;
+      }
+      .catalog-line img {
+        border-radius: 6px;
+      }
+      .inbox-message {
+        background: var(--panel);
+        border-radius: 9px;
+      }
+      .inbox-message.mine {
+        background: #e7ecee;
+      }
+      .toast {
+        background: var(--navy);
+        color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px #1b2a3820;
+      }
+      .toast.awarded-toast {
+        background: var(--award);
+        color: #221f1b;
+      }
+      .skip {
+        background: var(--sienna);
+        color: #fff;
+      }
+      body.provider-dark {
+        color-scheme: dark;
+        --canvas: #1b2a38;
+        --ink: #f3f0e8;
+        --ivory: #f3f0e8;
+        --panel: #263746;
+        --panel2: #223240;
+        --muted: #bac5cc;
+        --line: #ffffff29;
+        --gold: #f1bca5;
+        --sage: #bfd5c2;
+      }
+      body.provider-dark .sidebar {
+        background: #182633;
+      }
+      body.provider-dark .side-link.active {
+        background: #ffffff10;
+        color: #fff;
+      }
+      body.provider-dark .side-link:hover {
+        background: #ffffff09;
+        color: #fff;
+      }
+      body.provider-dark .provider-heading {
+        background: #142330;
+        border: 1px solid #ffffff19;
+      }
+      body.provider-dark .request-card:hover,
+      body.provider-dark .quote-card:hover {
+        border-color: #768594;
+      }
+      body.provider-dark .badge {
+        background: #334554;
+        color: #d5dfe5;
+        border-color: #516270;
+      }
+      body.provider-dark .badge.green {
+        background: #2b413c;
+        color: #c3d9c7;
+        border-color: #587466;
+      }
+      body.provider-dark .badge.gold {
+        background: #4e402b;
+        color: #f2d49d;
+        border-color: #756444;
+      }
+      body.provider-dark .badge.awarded {
+        background: #c9973f;
+        border-color: #c9973f;
+        color: #221f1b;
+      }
+      body.provider-dark .pill.active {
+        background: #f3f0e8;
+        color: #1b2a38;
+        border-color: #f3f0e8;
+      }
+      body.provider-dark .btn.secondary:hover {
+        border-color: #91a0ab;
+      }
+      body.provider-dark .request-footer .btn,
+      body.provider-dark .quote-bottom .btn.secondary {
+        color: #f1bca5;
+        border-color: #b58b76;
+      }
+      body.provider-dark .btn:not(.secondary) {
+        background: #c1512f;
+        color: #fff;
+      }
+      body.provider-dark .request-footer .btn {
+        background: transparent;
+        color: #f1bca5;
+      }
+      body.provider-dark .notice {
+        background: #2d3b46;
+        color: #ded5c6;
+        border-color: #64717a;
+      }
+      body.provider-dark .field input,
+      body.provider-dark .field select,
+      body.provider-dark .field textarea {
+        border-color: #7c8a93;
+      }
+      body.provider-dark .avatar.dark-avatar {
+        background: #475b69;
+        color: #fff;
+      }
+      body.provider-dark .inbox-message.mine {
+        background: #364b5a;
+      }
+      @media (min-width: 1500px) {
+        .editorial-gallery {
+          height: 390px;
+        }
+        .editorial-hero {
+          padding-top: 65px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .shell {
+          padding: 0 35px;
+        }
+        .nav-links {
+          gap: 22px;
+        }
+        .how-grid,
+        .clarity-inner {
+          gap: 50px;
+        }
+        .workspace {
+          grid-template-columns: 185px minmax(0, 1fr);
+        }
+        .workspace-main {
+          padding: 25px;
+        }
+        .workspace-columns {
+          grid-template-columns: minmax(0, 1fr) 235px;
+        }
+        .provider-heading {
+          padding: 26px;
+          flex-wrap: wrap;
+        }
+        .provider-heading h1 {
+          font-size: 30px;
+        }
+        .request-card {
+          padding: 22px;
+        }
+        .professional-panel {
+          padding: 42px;
+          gap: 35px;
+        }
+        .professional-panel h2 {
+          font-size: 36px;
+        }
+      }
+      @media (max-width: 1020px) {
+        .workspace-columns {
+          grid-template-columns: 1fr;
+        }
+        .workspace {
+          grid-template-columns: 170px minmax(0, 1fr);
+        }
+        .editorial-gallery {
+          height: 290px;
+        }
+        .professional-panel {
+          grid-template-columns: 1.2fr 1fr;
+        }
+        .nav-actions {
+          gap: 15px;
+        }
+        .trust-card {
+          padding: 22px;
+        }
+        .feed-grid {
+          grid-template-columns: 1fr;
+        }
+        .customer-aside {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .how-grid,
+        .clarity-inner {
+          gap: 35px;
+        }
+        .clarity-copy .section-title {
+          font-size: 38px;
+        }
+      }
+      @media (max-width: 760px) {
+        .shell {
+          padding: 0 22px;
+        }
+        .nav {
+          height: 72px;
+        }
+        .nav-inner {
+          gap: 12px;
+        }
+        .mobile-nav {
+          top: 71px;
+        }
+        .brand {
+          font-size: 27px;
+        }
+        .nav .btn {
+          font-size: 10px;
+          padding: 10px 12px;
+          min-height: 38px;
+        }
+        .nav-actions {
+          gap: 10px;
+        }
+        .editorial-hero {
+          padding-top: 42px;
+        }
+        .editorial-hero h1 {
+          font-size: 44px;
+          letter-spacing: -0.05em;
+          margin-top: 23px;
+        }
+        .editorial-hero .intro {
+          font-size: 13px;
+          max-width: 335px;
+        }
+        .editorial-hero .eyebrow {
+          font-size: 9px;
+          letter-spacing: 0.09em;
+          gap: 8px;
+        }
+        .hero-buttons {
+          gap: 9px;
+          margin-top: 24px;
+        }
+        .hero-buttons .btn {
+          font-size: 11px;
+          padding: 12px 15px;
+          min-height: 44px;
+          gap: 10px;
+        }
+        .hero-fine {
+          font-size: 10px;
+          gap: 7px;
+        }
+        .editorial-gallery {
+          grid-template-columns: 1fr 2fr;
+          gap: 10px;
+          height: 254px;
+          margin-top: 30px;
+        }
+        .editorial-gallery figure:last-child {
+          display: none;
+        }
+        .editorial-gallery figure:first-child {
+          margin-top: 24px;
+        }
+        .gallery-caption {
+          font-size: 9px;
+          padding: 8px 9px;
+          left: 10px;
+          bottom: 10px;
+          max-width: calc(100% - 20px);
+          gap: 6px;
+        }
+        .gallery-caption .icon {
+          display: none;
+        }
+        .occasion-line {
+          overflow-x: auto;
+          justify-content: start;
+          gap: 25px;
+          padding: 24px 0;
+          font-size: 11px;
+        }
+        .occasion-line .eyebrow {
+          display: none;
+        }
+        .section {
+          padding: 59px 0;
+        }
+        .section-title {
+          font-size: 35px;
+        }
+        .how-grid,
+        .clarity-inner {
+          grid-template-columns: 1fr;
+          gap: 37px;
+        }
+        .how-intro p {
+          font-size: 13px;
+          max-width: 100%;
+          margin-top: 18px;
+        }
+        .process-row {
+          gap: 14px;
+        }
+        .process-row h3 {
+          font-size: 16px;
+        }
+        .process-row p {
+          font-size: 12px;
+        }
+        .clarity-section {
+          padding: 52px 0;
+        }
+        .clarity-copy {
+          order: -1;
+        }
+        .clarity-copy .section-title {
+          font-size: 35px;
+        }
+        .clarity-copy p {
+          font-size: 13px;
+          margin: 18px 0;
+        }
+        .peek-top {
+          padding: 18px;
+        }
+        .peek-event {
+          padding: 18px 18px 9px;
+          font-size: 25px;
+        }
+        .peek-row {
+          margin: 0 18px;
+          gap: 10px;
+        }
+        .peek-row strong {
+          font-size: 11px;
+        }
+        .peek-row p {
+          font-size: 9px;
+        }
+        .peek-price {
+          font-size: 12px !important;
+        }
+        .peek-bottom {
+          padding: 18px;
+          gap: 10px;
+        }
+        .peek-bottom .btn {
+          font-size: 10px;
+          padding: 10px;
+          gap: 8px;
+        }
+        .trust-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .trust-card {
+          padding: 24px;
+          display: grid;
+          grid-template-columns: 25px 1fr;
+          gap: 0 17px;
+        }
+        .trust-card > .icon {
+          margin: 2px 0 0;
+          width: 21px;
+          height: 21px;
+        }
+        .trust-card h3 {
+          font-size: 16px;
+          margin-bottom: 9px;
+        }
+        .trust-card p {
+          grid-column: 2;
+          font-size: 12px;
+        }
+        .standard-heading {
+          margin-bottom: 25px;
+        }
+        .standard-heading p {
+          font-size: 13px;
+        }
+        .trust-foot {
+          flex-direction: column;
+          align-items: start;
+          gap: 20px;
+        }
+        .professional-panel {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          padding: 29px 25px;
+        }
+        .professional-panel h2 {
+          font-size: 33px;
+        }
+        .professional-panel p {
+          font-size: 13px;
+        }
+        .business-note {
+          padding: 23px;
+        }
+        .business-note h3 {
+          font-size: 22px;
+        }
+        .faq-wrap {
+          gap: 25px;
+        }
+        .faq summary {
+          font-size: 13px;
+        }
+        .faq p {
+          font-size: 12px;
+        }
+        .warm-footer {
+          padding-top: 42px;
+        }
+        .footer-invite {
+          flex-direction: column;
+          align-items: start;
+          gap: 23px;
+          margin-bottom: 35px;
+        }
+        .footer-invite h2 {
+          font-size: 34px;
+        }
+        .footer-invite p {
+          font-size: 12px;
+        }
+        .warm-footer .footer {
+          gap: 22px;
+        }
+        .workspace {
+          display: block;
+        }
+        .sidebar {
+          height: auto;
+          position: static;
+          padding: 12px 16px;
+          border-bottom: 1px solid var(--line);
+        }
+        .sidebar .side-link.active {
+          border-bottom: 0;
+          padding-left: 12px;
+        }
+        .workspace-main {
+          padding: 20px 18px 45px;
+        }
+        .demo-bar {
+          font-size: 9px;
+          gap: 14px;
+          align-items: start;
+        }
+        .demo-tools {
+          gap: 10px;
+          min-width: 107px;
+        }
+        .demo-tools a,
+        .demo-tools button {
+          font-size: 9px;
+        }
+        .page-heading h1 {
+          font-size: 28px;
+          line-height: 1.25;
+        }
+        .page-heading .eyebrow {
+          font-size: 9px;
+        }
+        .workspace .page-heading p {
+          font-size: 12px;
+        }
+        .page-heading .btn {
+          padding: 10px;
+          font-size: 10px;
+        }
+        .event-banner {
+          height: 176px;
+        }
+        .event-banner h2 {
+          font-size: 29px;
+        }
+        .stats {
+          gap: 8px;
+        }
+        .stat {
+          padding: 14px 10px;
+        }
+        .stat strong {
+          font-size: 23px;
+        }
+        .stat-top {
+          font-size: 9px !important;
+          margin-bottom: 10px;
+          line-height: 1.5;
+          min-height: 27px;
+        }
+        .workspace .stat small {
+          font-size: 9px;
+        }
+        .workspace .stat:last-child strong {
+          font-size: 21px !important;
+        }
+        .quote-card {
+          padding: 17px;
+        }
+        .quote-name {
+          font-size: 16px;
+        }
+        .quote-card-top {
+          gap: 12px;
+        }
+        .quote-thumb {
+          width: 53px;
+          height: 53px;
+        }
+        .rating {
+          gap: 8px;
+        }
+        .workspace .rating {
+          font-size: 9px;
+        }
+        .chip {
+          font-size: 10px;
+        }
+        .price {
+          font-size: 21px;
+        }
+        .quote-bottom .btn {
+          font-size: 10px;
+          padding: 10px 11px;
+        }
+        .workspace .quote-bottom .price-caption {
+          font-size: 9px;
+          max-width: 150px;
+        }
+        .block-heading h2 {
+          font-size: 19px;
+        }
+        .block-heading .text-link {
+          font-size: 11px;
+        }
+        .customer-aside {
+          grid-template-columns: 1fr;
+        }
+        .provider-heading {
+          padding: 24px 21px;
+          margin-bottom: 23px;
+        }
+        .provider-heading h1 {
+          font-size: 29px;
+        }
+        .provider-heading .preview-switch {
+          margin-top: 17px;
+        }
+        .request-card {
+          padding: 22px;
+        }
+        .request-card h2 {
+          font-size: 22px !important;
+        }
+        .toolbar {
+          gap: 14px;
+        }
+        .pill {
+          font-size: 11px;
+          padding: 9px 11px;
+        }
+        .request-line {
+          font-size: 12px !important;
+        }
+        .request-line small {
+          font-size: 10px !important;
+        }
+        .slots {
+          font-size: 10px !important;
+          min-width: 88px;
+        }
+        .request-footer .btn {
+          font-size: 11px;
+        }
+        .match-aside h3 {
+          line-height: 1.5;
+        }
+        .modal-header h2 {
+          font-size: 24px;
+        }
+        .modal-body {
+          padding: 21px;
+        }
+        .modal-footer .btn {
+          font-size: 12px;
+        }
+      }
+      @media (max-width: 370px) {
+        .nav-actions > .btn {
+          display: none;
+        }
+        .editorial-hero h1 {
+          font-size: 38px;
+        }
+        .shell {
+          padding: 0 18px;
+        }
+        .hero-buttons .btn {
+          font-size: 10px;
+          padding: 11px 12px;
+        }
+        .hero-fine {
+          font-size: 9px;
+        }
+        .workspace-main {
+          padding: 18px 15px 40px;
+        }
+        .quote-name {
+          font-size: 14px;
+        }
+        .quote-thumb {
+          width: 44px;
+          height: 44px;
+        }
+        .workspace .stat:last-child strong {
+          font-size: 18px !important;
+        }
+        .stat strong {
+          font-size: 21px;
+        }
+        .quote-bottom {
+          gap: 8px;
+        }
+        .quote-bottom .btn {
+          font-size: 9px;
+          padding: 9px;
+        }
+        .request-card {
+          padding: 18px;
+        }
+        .request-line {
+          font-size: 11px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .professional-panel > div {
+          min-width: 0;
+        }
+        .professional-panel .btn {
+          white-space: normal;
+          text-align: left;
+        }
+        .professional-panel .btn svg {
+          flex-shrink: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <header class="nav">
+      <div class="shell nav-inner">
+        <a class="brand" href="#home" aria-label="Gathered home"
+          >gathered<span>.</span></a
+        >
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../">Designs</a>
+          <a href="#home/how">How it works</a
+          ><a href="#home/standards">Our standards</a
+          ><a href="#vendor">For professionals</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="text-link signin" data-action="signin">Sign in</button
+          ><a class="btn compact" href="#customer"
+            >Your event starts here <span aria-hidden="true">↗</span></a
+          ><button
+            class="icon-btn mobile-menu"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            data-action="menu"
+          >
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M4 8h16M4 16h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="mobile-nav" aria-label="Mobile navigation" hidden>
+        <a href="../">All designs</a>
+        <a href="../design-1/">Other design ↗</a>
+        <a href="#home/how">How it works</a
+        ><a href="#home/standards">Our standards</a
+        ><a href="#customer">Customer workspace</a
+        ><a href="#vendor">For professionals</a
+        ><button class="text-link" data-action="signin">Sign in</button>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1"></main>
+    <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script>
+      /* Concept 02 — warm editorial single-file design prototype. Data is fictional and persists in this browser only.
+     Google Fonts, Tailwind, Motion and editorial Unsplash imagery require internet.
+     Motion's vanilla API supplies the requested Framer-style animation without React. */
+      const $ = (q, r = document) => r.querySelector(q),
+        $$ = (q, r = document) => [...r.querySelectorAll(q)];
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const money = (n) =>
+        new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        }).format(n);
+      const icons = {
+        arrow: "M5 12h14M13 6l6 6-6 6",
+        up: "M6 18L18 6M6 6h12v12",
+        check: "M5 12l4 4L19 6",
+        grid: "M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z",
+        mail: "M3 5h18v14H3zM3 5l9 8 9-8",
+        heart:
+          "M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z",
+        calendar: "M4 5h16v16H4zM8 3v4M16 3v4M4 10h16",
+        pin: "M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0ZM15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+        shield: "M12 3l8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3ZM8 12l3 3 5-6",
+        plus: "M12 5v14M5 12h14",
+        close: "M6 6l12 12M6 18L18 6",
+        file: "M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6",
+        sliders: "M4 7h16M4 17h16M8 4v6M16 14v6",
+        lock: "M6 10h12v11H6zM8 10V7a4 4 0 0 1 8 0v3",
+        star: "m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2-5.5-2.9-5.5 2.9 1-6.2L2 9.6l6.2-.9L12 3Z",
+        clock: "M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM12 7v5l3 2",
+        people:
+          "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8M17 4a4 4 0 0 1 0 7M22 21v-2a4 4 0 0 0-3-3.87",
+      };
+      const icon = (n) =>
+        `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${icons[n] || icons.arrow}"/></svg>`;
+      const photos = {
+        hero: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=85",
+        table:
+          "https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=900&q=85",
+        floral:
+          "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=850&q=85",
+        couple:
+          "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85",
+        detail:
+          "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=85",
+      };
+      const initial = {
+        providerDark: false,
+        event: {
+          name: "Olivia & James",
+          type: "Wedding",
+          date: "2027-06-19",
+          location: "Santa Barbara, CA",
+          guests: 120,
+          budget: 18000,
+          needs: ["chairs", "tables", "florals", "photo"],
+        },
+        saved: [],
+        preview: false,
+        quoteStates: {},
+        messages: [],
+        sent: [],
+        preferences: { radius: "50", alerts: "Daily digest" },
+        customEvent: false,
+      };
+      let state;
+      try {
+        state = {
+          ...structuredClone(initial),
+          ...JSON.parse(localStorage.getItem("gathered-share-warm-v1") || "{}"),
+        };
+      } catch {
+        state = structuredClone(initial);
+      }
+      let view = "home",
+        vendorFilter = "All requests",
+        customerFilter = "all",
+        vendorTab = "feed",
+        sort = "newest",
+        toastTimer,
+        modalOrigin;
+      const persist = () => {
+        try {
+          localStorage.setItem("gathered-share-warm-v1", JSON.stringify(state));
+        } catch {}
+      };
+      const needs = {
+        chairs: "120 oak cross-back chairs",
+        tables: "10 round dining tables",
+        florals: "12 seasonal arrangements",
+        photo: "8 hours of photography",
+      };
+      const shortNeeds = {
+        chairs: "Chairs",
+        tables: "Tables",
+        florals: "Florals",
+        photo: "Photography",
+      };
+      const quotes = [
+        {
+          id: "paloma",
+          name: "Paloma Event Rentals",
+          tag: "Considered pieces. Beautifully placed.",
+          image: photos.table,
+          items: [
+            ["chairs", 960],
+            ["tables", 550],
+          ],
+          delivery: 180,
+          setup: 260,
+          tax: 136,
+          total: 2086,
+          google: "4.9 (86)",
+          yelp: "4.8 (42)",
+          scope: ["chairs", "tables"],
+          time: "2 hours ago",
+          deposit: "30% deposit to secure your date.",
+          cancel:
+            "Deposit refundable until 60 days before the event; nonrefundable afterward.",
+        },
+        {
+          id: "forma",
+          name: "Forma & Field",
+          tag: "A warm, understated setting.",
+          image: photos.detail,
+          items: [
+            ["chairs", 1080],
+            ["tables", 650],
+          ],
+          delivery: 200,
+          setup: 275,
+          tax: 155,
+          total: 2360,
+          google: "4.9 (64)",
+          yelp: "4.9 (31)",
+          scope: ["chairs", "tables"],
+          time: "5 hours ago",
+          deposit: "25% deposit to secure your date.",
+          cancel:
+            "Deposit refundable until 45 days before the event; nonrefundable afterward.",
+        },
+        {
+          id: "elias",
+          name: "Elias Hart Photography",
+          tag: "The moments between the moments.",
+          image: photos.couple,
+          items: [["photo", 3600]],
+          delivery: 0,
+          setup: 0,
+          tax: 0,
+          total: 3600,
+          google: "5.0 (38)",
+          yelp: null,
+          scope: ["photo"],
+          time: "Yesterday",
+          deposit: "30% deposit to secure your date.",
+          cancel:
+            "Deposit refundable until 90 days before the event; nonrefundable afterward.",
+        },
+      ];
+      const requests = [
+        {
+          id: "r1",
+          type: "Wedding",
+          title: "A summer wedding by the coast",
+          city: "Santa Barbara",
+          date: "2027-06-19",
+          guests: 120,
+          distance: 18,
+          new: true,
+          items: [
+            {
+              key: "chairs",
+              name: "Oak cross-back chairs",
+              qty: 120,
+              target: 1000,
+              received: 3,
+              limit: 5,
+              unit: 8,
+            },
+            {
+              key: "tables",
+              name: "Round dining tables",
+              qty: 10,
+              target: 600,
+              received: 2,
+              limit: 5,
+              unit: 55,
+            },
+          ],
+          note: "Delivery + setup requested",
+          style: "Warm oak, natural linen, and an understated coastal setting.",
+          venue: "Hotel / event venue",
+          window:
+            "June 18 · arrival 10 AM–12 PM; delivery complete by 2 PM. Setup June 19, 8 AM–12 PM. Pickup June 20, 8–10 AM.",
+        },
+        {
+          id: "r2",
+          type: "Birthday",
+          title: "An intimate evening in Ojai",
+          city: "Ojai",
+          date: "2027-05-08",
+          guests: 40,
+          distance: 32,
+          new: true,
+          items: [
+            {
+              key: "chairs",
+              name: "Bistro chairs",
+              qty: 40,
+              target: 480,
+              received: 1,
+              limit: 4,
+              unit: 10,
+            },
+            {
+              key: "tables",
+              name: "Long dining tables",
+              qty: 4,
+              target: 500,
+              received: 1,
+              limit: 4,
+              unit: 100,
+            },
+          ],
+          note: "Private residence",
+          style:
+            "A candlelit dinner in the garden. Natural wood and soft ivory.",
+          venue: "Private residence · exact address protected",
+          window:
+            "May 8 · delivery 9 AM–12 PM; setup complete by 4 PM. Teardown after 11 PM. Pickup May 9, 9 AM–12 PM.",
+        },
+        {
+          id: "r3",
+          type: "Engagement party",
+          title: "A garden gathering in Montecito",
+          city: "Montecito",
+          date: "2027-07-10",
+          guests: 65,
+          distance: 12,
+          new: false,
+          items: [
+            {
+              key: "chairs",
+              name: "White folding chairs",
+              qty: 65,
+              target: 650,
+              received: 4,
+              limit: 5,
+              unit: 8,
+            },
+          ],
+          note: "Delivery requested",
+          style:
+            "Simple white seating for a late-afternoon garden celebration.",
+          venue: "Private residence · exact address protected",
+          window: "July 10 · delivery 9–11 AM; pickup July 11, 8 AM–12 PM.",
+        },
+        {
+          id: "r4",
+          type: "Corporate event",
+          title: "Dinner with a different perspective",
+          city: "Ventura",
+          date: "2027-08-21",
+          guests: 80,
+          distance: 28,
+          new: false,
+          items: [
+            {
+              key: "tables",
+              name: "Round dining tables",
+              qty: 8,
+              target: 640,
+              received: 2,
+              limit: 5,
+              unit: 65,
+            },
+            {
+              key: "draping",
+              name: "Ivory draping · linear feet",
+              qty: 100,
+              target: 950,
+              received: 2,
+              limit: 5,
+              unit: 8,
+            },
+          ],
+          note: "Delivery + installation",
+          style: "Ivory draping and a clean, cohesive dinner setting.",
+          venue: "Hotel / event venue",
+          window:
+            "August 21 · installation 9 AM–2 PM. Teardown after 10 PM; complete by midnight.",
+        },
+      ];
+      function dateLabel(s, short = false) {
+        return new Date(s + "T12:00:00").toLocaleDateString("en-US", {
+          month: short ? "short" : "long",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+      function toast(message) {
+        $("#toast").classList.toggle(
+          "awarded-toast",
+          message.startsWith("Award confirmed"),
+        );
+        clearTimeout(toastTimer);
+        $("#toast").textContent = message;
+        $("#toast").hidden = false;
+        toastTimer = setTimeout(() => ($("#toast").hidden = true), 4500);
+      }
+      function animateIn(root = document) {
+        if (
+          !window.Motion ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+          return;
+        const els = $$("[data-reveal]", root);
+        els.forEach((el) => {
+          if (el.getBoundingClientRect().top < innerHeight)
+            Motion.animate(
+              el,
+              { opacity: [0, 1], y: [7, 0] },
+              { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
+            );
+          else {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                if (entries.some((e) => e.isIntersecting)) {
+                  Motion.animate(
+                    el,
+                    { opacity: [0.4, 1], y: [8, 0] },
+                    { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
+                  );
+                  observer.disconnect();
+                }
+              },
+              { threshold: 0.1 },
+            );
+            observer.observe(el);
+          }
+        });
+      }
+      function footer() {
+        return `<footer class="warm-footer"><div class="shell"><div class="footer-invite"><div><h2>Something good starts here.</h2><p>Your occasion. The right people. A little less to worry about.</p></div><button class="btn" data-action="create">Let’s plan your occasion ${icon("arrow")}</button></div><div class="footer"><a class="brand" href="#home">gathered.</a><div class="footer-links"><a href="#customer">For your event</a><a href="#vendor">For your business</a><button class="text-link" data-action="about" style="color:#c6cfd5;border-color:#ffffff40;font-size:11px">About this preview</button><a href="../design-1/#home">View original design ↗</a></div><span class="preview-label">Concept 02 · Warm editorial</span></div></div></footer>`;
+      }
+      function home() {
+        return `<div class="shell"><section class="editorial-hero"><div data-reveal><div class="eyebrow">${icon("pin")} ROOTED IN SOUTHERN CALIFORNIA</div><h1>Your kind of occasion.<br><span>Your kind of people.</span></h1><p class="intro">Thoughtful local vendors. Proposals made for you.<br>One place to bring your celebration together.</p><div class="hero-buttons"><button class="btn" data-action="create">Start your event ${icon("arrow")}</button><a class="btn secondary" href="#home/how">See how it works</a></div><div class="hero-fine">${icon("check")} Free for customers & planners <span aria-hidden="true">·</span> No booking commission</div></div><div class="editorial-gallery" data-reveal><figure><img src="${photos.couple}" alt="An intimate outdoor wedding celebration" fetchpriority="high"><figcaption class="gallery-caption">The people.</figcaption></figure><figure><img src="${photos.hero}" alt="An event table with seasonal flowers, glassware, and natural wood chairs" fetchpriority="high"><figcaption class="gallery-caption">${icon("pin")} The place. The feeling. The little details.</figcaption></figure><figure><img src="${photos.floral}" alt="A garden ceremony setting with an open-air pavilion" fetchpriority="high"><figcaption class="gallery-caption">The moments.</figcaption></figure></div></section><div class="occasion-line"><span class="eyebrow">For every reason to gather</span><span>Weddings</span><span>Milestone birthdays</span><span>Engagements</span><span>Baby showers</span><span>Corporate occasions</span></div><section id="how" class="section how-grid"><div class="how-intro" data-reveal><div class="eyebrow gold" style="margin-bottom:20px">A more considered way to plan</div><h2 class="section-title">Less searching.<br>Better company.</h2><p>You have an occasion in mind. We help you find the people who can make it yours. Without the endless introductions.</p><a class="text-link" href="#customer">Step inside the experience ${icon("arrow")}</a></div><div data-reveal><article class="process-row"><span class="process-number">01</span><div><h3>Tell us what you have in mind.</h3><p>Share your date, location, and the products or services you need. Your overall budget stays private.</p></div></article><article class="process-row"><span class="process-number">02</span><div><h3>Hear from people who fit.</h3><p>Approved local vendors respond with private proposals. Set how many quotes you would like for each need.</p></div></article><article class="process-row"><span class="process-number">03</span><div><h3>Choose your team with confidence.</h3><p>Compare the work, the scope, and the full price. Accept your choices. Once vendors confirm, arrange the final details together.</p></div></article></div></section></div><section class="clarity-section"><div class="shell clarity-inner"><div class="product-peek" data-reveal><div class="peek-top"><h3>Your proposals</h3><span>ILLUSTRATIVE PREVIEW</span></div><div class="peek-event">A table for your favourite people.</div><div class="peek-row"><img src="${photos.table}" alt="Sample rental portfolio" loading="lazy"><div><strong>Paloma Event Rentals</strong><p>120 chairs + 10 tables · Full quantities</p></div><span class="peek-price">$2,086</span></div><div class="peek-row"><img src="${photos.detail}" alt="Sample event styling portfolio" loading="lazy"><div><strong>Forma & Field</strong><p>120 chairs + 10 tables · Full quantities</p></div><span class="peek-price">$2,360</span></div><div class="peek-bottom"><span>Both include listed fees & taxes.</span><a href="#customer" class="btn compact">Take a closer look ${icon("arrow")}</a></div></div><div class="clarity-copy" data-reveal><div class="eyebrow gold" style="margin-bottom:20px">Good choices start with clarity</div><h2 class="section-title">The whole picture.<br>Before you choose.</h2><p>A beautiful photo matters. So does knowing exactly what’s included. See both, side by side.</p><div class="check-label">${icon("check")} Full quantities. Clear scope. Itemized fees.</div><div class="check-label">${icon("check")} Choose different vendors for different needs.</div><div class="check-label">${icon("check")} No public bidding. No paid placement.</div></div></div></section><div class="shell"><section id="standards" class="section"><div class="standard-heading" data-reveal><div class="eyebrow gold">Thoughtful by design</div><h2 class="section-title">Good people.<br>Clear expectations.</h2><p>Trust is built on the things you can actually see. Here is what we ask of every provider.</p></div><div class="trust-grid"><article class="trust-card" data-reveal>${icon("shield")}<h3>A reputation that<br>precedes them.</h3><p>An existing Google or Yelp review history is required. We review portfolios and approve each service category before a provider can quote.</p></article><article class="trust-card" data-reveal>${icon("grid")}<h3>The work, without<br>the guesswork.</h3><p>Accurate product photos or relevant portfolio samples. Complete quantities. Clear prices and terms. Know what you’re saying yes to.</p></article><article class="trust-card" data-reveal>${icon("lock")}<h3>A little more<br>peace of mind.</h3><p>Your overall budget stays private. You control who sees your home address. Blind booking reviews give both sides room for honest feedback.</p></article></div><div class="trust-foot"><p>License, insurance, and bond details are provider-reported. Profile approval does not mean those credentials have been independently verified.</p><button class="text-link" data-action="standards">Our standards, in full ${icon("arrow")}</button></div></section><section class="professional-panel" data-reveal><div><div class="eyebrow">For the people behind the occasion</div><h2 class="section-title">Your craft.<br>The right clients.</h2><p>Spend less time sorting through requests that don’t fit. See work matched to your approved services, your area, and your availability.</p><a class="btn" href="#vendor">Explore the provider experience ${icon("arrow")}</a></div><div class="business-note"><h3>One monthly fee.<br>No booking commission.</h3><div class="note-row">${icon("check")} Relevant requests. Private proposals.</div><div class="note-row">${icon("check")} No paid placement or bidding wars.</div><div class="note-row">${icon("check")} Approval before subscription.</div></div></section><section class="section faq-wrap"><div data-reveal><div class="eyebrow gold" style="margin-bottom:20px">Before you begin</div><h2 class="section-title">A few good<br>questions.</h2></div><div data-reveal><details class="faq"><summary>Is this free for customers and planners?</summary><p>Yes. Post event needs, receive proposals, and choose your vendors for free. Providers pay a flat monthly subscription. We take no booking commission.</p></details><details class="faq"><summary>Can I choose more than one vendor?</summary><p>Absolutely. Different vendors can cover different needs. Each included need is supplied in full. Compare combinations and see what is still open before accepting.</p></details><details class="faq"><summary>Who can see my event?</summary><p>Matched, approved providers receive relevant opportunities. Limited previews never reveal your name or your planner’s name. Exact home addresses stay private until you share them with an individual provider.</p></details><details class="faq"><summary>How do contracts and payments work?</summary><p>Accept a proposal, then wait for the provider to confirm. After the award, arrange contracts and deposits directly. Shared booking documents stay in one place. An award does not mean a contract has been signed or a payment made.</p></details><details class="faq"><summary>Is gathered. just for weddings?</summary><p>We welcome all kinds of occasions: birthdays, baby showers, quinceañeras, bar and bat mitzvahs, anniversaries, corporate events, and your own reasons to gather.</p></details></div></section></div>${footer()}`;
+      }
+      function sidebar(role) {
+        const vendor = role === "vendor";
+        return `<aside class="sidebar" aria-label="${vendor ? "Provider" : "Customer"} navigation"><p class="sidebar-label">${vendor ? "Your business" : "Your workspace"}</p><button class="side-link ${!vendor || vendorTab === "feed" ? "active" : ""}" data-action="${vendor ? "feed" : "overview"}">${icon("grid")}${vendor ? "Matching requests" : "Overview"}</button><button class="side-link ${vendor && vendorTab === "proposals" ? "active" : ""}" data-action="${vendor ? "myquotes" : "customerquotes"}">${icon("file")}${vendor ? "My proposals" : "Your proposals"}<span class="side-count">${vendor ? state.sent.length + (state.quoteStates.paloma ? 1 : 0) : state.customEvent ? 0 : 3}</span></button><button class="side-link" data-action="inbox">${icon("mail")}Messages</button><button class="side-link ${vendor && vendorFilter === "Saved" ? "active" : ""}" data-action="${vendor ? "saved" : "documents"}">${icon(vendor ? "heart" : "file")}${vendor ? "Saved requests" : "Documents"}</button><button class="side-link" data-action="${vendor ? "preferences" : "eventdetails"}">${icon(vendor ? "sliders" : "calendar")}${vendor ? "Match preferences" : "Event details"}</button><div class="sidebar-bottom"><div class="flex items-center gap-3"><span class="avatar ${vendor ? "dark-avatar" : ""}">${vendor ? "P" : "O"}</span><div><div class="small">${vendor ? "Paloma Rentals" : "Olivia Martin"}</div><div class="tiny muted" style="margin-top:5px">${vendor ? "Approved · Event rentals" : "Personal workspace"}</div></div></div><button data-action="${vendor ? "billing" : "signin"}" class="text-link" style="font-size:10px;margin-top:20px">${vendor ? "Manage subscription" : "Switch workspace"} ${icon("arrow")}</button></div></aside>`;
+      }
+      const qStatus = (q) => {
+        if (state.quoteStates[q.id]) return state.quoteStates[q.id];
+        const awardedNeeds = quotes
+          .filter((other) => state.quoteStates[other.id] === "awarded")
+          .flatMap((other) => other.scope);
+        return q.scope.every((key) => awardedNeeds.includes(key))
+          ? "not-selected"
+          : "open";
+      };
+      function blocked(q) {
+        return quotes.some(
+          (other) =>
+            other.id !== q.id &&
+            ["pending", "awarded"].includes(qStatus(other)) &&
+            other.scope.some((k) => q.scope.includes(k)),
+        );
+      }
+      function covered() {
+        const map = {};
+        if (!state.customEvent) {
+          map.florals = "awarded";
+          quotes.forEach((q) => {
+            if (["pending", "awarded"].includes(qStatus(q)))
+              q.scope.forEach((k) => (map[k] = qStatus(q)));
+          });
+        }
+        return map;
+      }
+      function quoteCard(q) {
+        let status = qStatus(q),
+          unavailable = blocked(q);
+        return `<article class="quote-card" data-reveal><div class="quote-card-top"><div class="quote-thumb"><img src="${q.image}" alt="${q.name} portfolio example"></div><div><div class="quote-name">${q.name}</div><div class="rating"><span>Google <b>★ ${q.google}</b></span>${q.yelp ? `<span>Yelp <b>★ ${q.yelp}</b></span>` : ""}<span>Sample ratings</span></div></div></div><div class="quote-card-body">${q.scope.map((k) => `<span class="chip">${needs[k]}</span>`).join("")}</div>${status !== "open" ? `<span class="badge ${status === "awarded" ? "awarded" : status === "not-selected" ? "neutral" : "gold"}" style="margin-bottom:12px">${icon(status === "awarded" ? "check" : "clock")}${status === "awarded" ? "Awarded" : status === "not-selected" ? "Not selected" : "Pending vendor confirmation"}</span>` : unavailable ? '<p class="tiny gold" style="margin-bottom:12px">Includes needs reserved in another proposal.</p>' : ""}<div class="quote-bottom"><div><span class="price">${money(q.total)}</span><div class="price-caption">${q.scope.length} of 4 needs · includes listed fees & taxes</div></div><button class="btn secondary compact" data-action="quote" data-id="${q.id}">${status === "open" ? "View proposal" : "View status"} ${icon("arrow")}</button></div></article>`;
+      }
+      function customer() {
+        const cv = covered(),
+          count = Object.values(cv).filter((x) => x === "awarded").length,
+          total = state.event.needs.length;
+        return `<div class="workspace">${sidebar("customer")}<div class="workspace-main"><div class="demo-bar"><span>DESIGN PREVIEW · Fictional events, vendors & ratings</span><button data-action="reset">Reset demo</button></div><div class="page-heading" data-reveal><div><div class="eyebrow gold">A little closer to your occasion</div><h1>It’s coming together.</h1><p>Your people. Your proposals. Everything in view.</p></div><button class="btn secondary compact" data-action="create">${icon("plus")} New event</button></div><section class="event-banner" data-reveal><img src="${photos.hero}" alt="Garden reception inspiration"><div class="event-banner-content"><div><span class="eyebrow">${esc(state.event.type)} · Your event</span><h2>${esc(state.event.name)}</h2><div class="event-meta"><span>${icon("calendar")} ${dateLabel(state.event.date)}</span><span>${icon("pin")} ${esc(state.event.location)}</span><span>${icon("people")} ${state.event.guests} guests</span></div></div><button class="btn secondary compact" data-action="eventdetails">Event details ${icon("up")}</button></div></section><div class="stats" data-reveal><div class="stat"><div class="stat-top">Needs covered ${icon("check")}</div><strong>${count}<span class="muted"> / ${total}</span></strong><small>${Object.values(cv).filter((x) => x === "pending").length ? "Awaiting a vendor confirmation" : "One thoughtful choice at a time"}</small></div><div class="stat"><div class="stat-top">Proposals received ${icon("file")}</div><strong>${state.customEvent ? 0 : 3}</strong><small>${state.customEvent ? "Your request is saved locally" : "Ready for a closer look"}</small></div><div class="stat"><div class="stat-top">Your private budget ${icon("lock")}</div><strong>${state.event.budget ? money(state.event.budget) : "Not set"}</strong><small>Never shared with vendors</small></div></div><div class="workspace-columns"><section id="customer-proposals"><div class="block-heading"><h2>Your proposals</h2>${!state.customEvent ? `<button class="text-link" data-action="compare">Compare proposals ${icon("arrow")}</button>` : ""}</div><div class="tabs" role="group" aria-label="Filter proposals"><button class="tab ${customerFilter === "all" ? "active" : ""}" data-action="cfilter" data-id="all">All proposals</button><button class="tab ${customerFilter === "rentals" ? "active" : ""}" data-action="cfilter" data-id="rentals">Rentals</button><button class="tab ${customerFilter === "photo" ? "active" : ""}" data-action="cfilter" data-id="photo">Photography</button></div>${
+          state.customEvent
+            ? '<div class="empty">Your event is ready in this browser.<br>No real requests are sent from this design preview.</div>'
+            : quotes
+                .filter(
+                  (q) =>
+                    customerFilter === "all" ||
+                    (customerFilter === "rentals"
+                      ? q.id !== "elias"
+                      : q.id === "elias"),
+                )
+                .map(quoteCard)
+                .join("")
+        }<p class="tiny muted" style="margin-top:17px">All profiles, prices, photos, and review counts in this workspace are illustrative.</p></section><aside class="customer-aside"><div class="aside-box"><div class="eyebrow gold" style="margin-bottom:12px">The bigger picture</div><h3>Your event, covered.</h3>${state.event.needs.map((k) => `<div class="need-row"><span class="need-check ${cv[k] === "awarded" ? "done" : cv[k] === "pending" ? "pending" : ""}">${cv[k] === "awarded" ? "✓" : cv[k] === "pending" ? "·" : ""}</span><div>${shortNeeds[k] || esc(k)}<div class="status-text">${cv[k] === "awarded" ? "Awarded · vendor confirmed" : cv[k] === "pending" ? "Pending confirmation" : "Open for proposals"}</div></div></div>`).join("")}<div class="progress-track"><span style="width:${(count / total) * 100}%"></span></div><p class="tiny muted">${count} of ${total} needs awarded</p></div><div class="aside-box" style="background:transparent">${icon("shield")}<h3 style="margin-top:13px;margin-bottom:9px">Your choice. Your pace.</h3><p class="tiny muted">An acceptance gives your vendor 48 hours to confirm. Your contact details are shared only once they do.</p><button class="text-link" data-action="privacy" style="margin-top:17px;font-size:10px">Your privacy ${icon("arrow")}</button></div></aside></div></div></div>`;
+      }
+      function requestCard(r) {
+        const saved = state.saved.includes(r.id),
+          sent = state.sent.find((s) => s.request === r.id);
+        return `<article class="request-card" data-reveal><div class="request-top"><span class="badge ${r.new ? "green" : ""}">${r.new ? '<span class="dot"></span> NEW MATCH' : r.type.toUpperCase()}</span><button class="icon-btn ${saved ? "gold" : ""}" data-action="save" data-id="${r.id}" aria-label="${saved ? "Unsave" : "Save"} ${esc(state.preview ? `${r.type} in ${r.city}` : r.title)}" aria-pressed="${saved}">${icon("heart")}</button></div><div class="eyebrow muted" style="font-size:9px;margin-bottom:9px">${r.type} · ${r.city}</div><h2>${state.preview ? `${r.type} in ${r.city}` : r.title}</h2><div class="request-meta"><span>${icon("calendar")} ${dateLabel(r.date, true)}</span><span>${icon("people")} ${r.guests} guests</span><span>${icon("pin")} ${r.distance} miles</span></div>${r.items
+          .map((i) => {
+            const received =
+              i.received + (sent && sent.keys.includes(i.key) ? 1 : 0);
+            return `<div class="request-line"><div>${i.qty} ${i.name.toLowerCase()}<small>Item target ${money(i.target)}</small></div><div class="slots">${received} of ${i.limit} quotes received<br>${i.limit - received} submission${i.limit - received === 1 ? "" : "s"} available<div class="slot-dots" aria-hidden="true">${Array.from({ length: i.limit }, (_, n) => `<i class="${n < received ? "filled" : ""}"></i>`).join("")}</div></div></div>`;
+          })
+          .join(
+            "",
+          )}<div class="request-footer"><span class="tiny muted">${state.preview ? `${icon("lock")} Anonymous preview` : r.note}</span><button class="btn ${state.preview ? "secondary" : ""} compact" data-action="${state.preview ? "unlock" : sent ? "sentquote" : "request"}" data-id="${r.id}">${state.preview ? "View access options" : sent ? "View your quote" : "View request"} ${icon(state.preview ? "lock" : "arrow")}</button></div></article>`;
+      }
+      function vendor() {
+        let filtered = requests.filter(
+          (r) =>
+            (vendorFilter === "Saved"
+              ? state.saved.includes(r.id)
+              : vendorFilter === "All requests" ||
+                r.items.some((i) => i.key === vendorFilter)) &&
+            r.distance <= Number(state.preferences.radius),
+        );
+        if (sort === "date")
+          filtered.sort((a, b) => a.date.localeCompare(b.date));
+        if (sort === "distance")
+          filtered.sort((a, b) => a.distance - b.distance);
+        return `<div class="workspace">${sidebar("vendor")}<div class="workspace-main"><div class="demo-bar"><span>DESIGN PREVIEW · Paloma Event Rentals · Fictional requests</span><button data-action="reset">Reset demo</button></div><div class="page-heading provider-heading" data-reveal><div><div class="eyebrow gold">PALOMA EVENT RENTALS · PROVIDER WORKSPACE</div><h1>${vendorTab === "proposals" ? "Your work, in motion." : "Requests that fit your work."}</h1><p>${vendorTab === "proposals" ? "Keep the conversation moving. Close the loop." : `Requests matched to your approved services, within ${state.preferences.radius} miles.`}</p></div><div class="preview-switch" role="group" aria-label="Demo subscription view"><button data-action="access" data-id="active" class="${!state.preview ? "active" : ""}">Subscriber</button><button data-action="access" data-id="preview" class="${state.preview ? "active" : ""}">Limited preview</button></div></div>${
+          vendorTab === "proposals"
+            ? vendorProposals()
+            : `<div class="stats" data-reveal><div class="stat"><div class="stat-top">Matching requests ${icon("grid")}</div><strong>${requests
+                .filter((r) => r.distance <= Number(state.preferences.radius))
+                .length.toString()
+                .padStart(
+                  2,
+                  "0",
+                )}</strong><small>Within your service area</small></div><div class="stat"><div class="stat-top">Approved services ${icon("shield")}</div><strong>03</strong><small>Chairs · Tables · Draping</small></div><div class="stat"><div class="stat-top">Your access ${icon("lock")}</div><strong style="font-size:26px">${state.preview ? "Preview" : "Subscribed"}</strong><small>${state.preview ? "Names and private details hidden" : "One monthly fee. No commission."}</small></div></div><div class="match-note">${icon(state.preview ? "lock" : "check")}<span>${state.preview ? "Browse a limited overview of relevant requests. Customer and planner identities, venue details, and inspiration stay private. Subscribe to access full requests and quote." : "Matched to your approved categories and service area. Quote the full quantity of any need you choose. Your competitors’ prices stay private."}</span></div><div class="toolbar"><div class="pills" role="group" aria-label="Filter matching requests">${[
+                ["All requests", "All requests"],
+                ["chairs", "Chairs"],
+                ["tables", "Tables"],
+                ["draping", "Draping"],
+                ["Saved", "Saved"],
+              ]
+                .map(
+                  ([id, label]) =>
+                    `<button class="pill ${vendorFilter === id ? "active" : ""}" data-action="vfilter" data-id="${id}" aria-pressed="${vendorFilter === id}">${label}${id === "Saved" ? " · " + state.saved.length : ""}</button>`,
+                )
+                .join(
+                  "",
+                )}</div><label class="sr-only" for="feed-sort">Sort requests</label><select id="feed-sort" class="select-small"><option value="newest" ${sort === "newest" ? "selected" : ""}>Newest first</option><option value="date" ${sort === "date" ? "selected" : ""}>Event date</option><option value="distance" ${sort === "distance" ? "selected" : ""}>Nearest first</option></select></div><div class="feed-grid">${filtered.length ? filtered.map(requestCard).join("") : '<div class="empty" style="grid-column:1/-1">No requests here yet. Try another category or update your service radius.</div>'}</div><div class="match-aside"><div><h3>A better fit starts with your preferences.</h3><p>Choose your service radius and how you hear about new requests.</p></div><button class="btn secondary compact" data-action="preferences">Refine your matches ${icon("sliders")}</button></div>`
+        }</div></div>`;
+      }
+      function vendorProposals() {
+        let p = state.quoteStates.paloma;
+        return `${p ? `<article class="quote-card"><div class="flex items-center justify-between gap-4"><div><div class="eyebrow gold">${p === "pending" ? "Action required · confirm within 48 hours" : "Awarded"}</div><h2 class="serif" style="font-size:33px;margin-top:12px">Santa Barbara wedding</h2><p class="small muted">120 chairs + 10 tables · ${money(quotes[0].total)}</p></div><span class="badge ${p === "pending" ? "gold" : "awarded"}">${p === "pending" ? "Pending confirmation" : "Confirmed"}</span></div><div class="quote-bottom" style="margin-top:20px"><p class="tiny muted">${p === "pending" ? "Confirm the exact scope, price, and availability to release contact details." : "Customer contact: Olivia Martin · olivia@example.com (sample)"}</p><button class="btn compact" data-action="${p === "pending" ? "confirm" : "quote"}" data-id="paloma">${p === "pending" ? "Confirm & mark awarded" : "View award"} ${icon("arrow")}</button></div></article>` : ""}${state.sent
+          .map((s) => {
+            let r = requests.find((r) => r.id === s.request);
+            return `<article class="quote-card"><div class="badge submitted">Submitted in this demo</div><div class="quote-bottom" style="border:0;padding-top:10px"><div><h2 class="serif" style="font-size:30px">${r.title}</h2><p class="small muted">${s.keys.map((k) => r.items.find((i) => i.key === k).name).join(" · ")} · ${money(s.total)}</p></div><button class="btn secondary compact" data-action="sentquote" data-id="${r.id}">View quote ${icon("arrow")}</button></div></article>`;
+          })
+          .join(
+            "",
+          )}${!p && !state.sent.length ? '<div class="empty">Your submitted proposals will appear here.<br>Open a matching request to prepare your first quote.</div>' : ""}<a href="#customer" class="text-link" style="margin-top:24px">Explore the customer view ${icon("arrow")}</a>`;
+      }
+      function render() {
+        const path = location.hash.slice(1).split("/");
+        view = ["customer", "vendor"].includes(path[0]) ? path[0] : "home";
+        document.body.classList.toggle(
+          "provider-dark",
+          view === "vendor" && state.providerDark,
+        );
+        $("#main").innerHTML =
+          view === "home"
+            ? home()
+            : view === "customer"
+              ? customer()
+              : vendor();
+        document.title = `${view === "home" ? "Your kind of occasion. | Concept 02" : view === "customer" ? "Your event" : "Your opportunities"} — gathered.`;
+        $(".mobile-nav").hidden = true;
+        $('[data-action="menu"]').setAttribute("aria-expanded", "false");
+        const demoBar = $(".demo-bar");
+        if (demoBar) {
+          const tools = document.createElement("div");
+          tools.className = "demo-tools";
+          tools.innerHTML = `<a href="../design-1/#${view}">Original design ↗</a>${view === "vendor" ? `<button data-action="theme" aria-pressed="${Boolean(state.providerDark)}">${state.providerDark ? "Light appearance" : "Dark appearance"}</button>` : ""}`;
+          tools.append(demoBar.querySelector("button"));
+          demoBar.append(tools);
+        }
+        animateIn($("#main"));
+        if (path[1])
+          requestAnimationFrame(() =>
+            document
+              .getElementById(path[1])
+              ?.scrollIntoView({ behavior: "smooth" }),
+          );
+      }
+      function navigate(hash) {
+        if (location.hash === hash) {
+          render();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else location.hash = hash;
+      }
+      function openModal(title, body, foot = "", wide = false) {
+        modalOrigin = document.activeElement;
+        let d = $("#dialog");
+        d.className = wide ? "wide" : "";
+        d.innerHTML = `<div class="modal-header"><h2 id="dialog-title">${title}</h2><button class="icon-btn" data-action="close" aria-label="Close dialog">${icon("close")}</button></div><div class="modal-body">${body}</div>${foot ? `<div class="modal-footer">${foot}</div>` : ""}`;
+        if (!d.open) d.showModal();
+        d.scrollTop = 0;
+      }
+      function closeModal() {
+        if ($("#dialog").open) $("#dialog").close();
+        modalOrigin?.focus();
+      }
+      function eventForm() {
+        openModal(
+          "Set the scene.",
+          `<p class="small muted" style="margin-bottom:24px">Start with the essentials. You can add the finer details later.</p><form id="event-form"><div class="form-grid"><label class="field">Event name<input name="name" maxlength="70" required placeholder="Olivia & James"></label><label class="field">Occasion<select name="type">${["Wedding", "Engagement party", "Birthday", "Baby shower", "Bridal shower", "Quinceañera", "Bar / bat mitzvah", "Anniversary", "Corporate event", "Other"].map((t) => `<option>${t}</option>`).join("")}</select></label><label class="field">Event date<input name="date" type="date" min="${new Date().toISOString().slice(0, 10)}" required></label><label class="field">Guest count<input name="guests" type="number" min="1" max="10000" required placeholder="120"></label><label class="field">City or area<input name="location" required maxlength="80" placeholder="Santa Barbara, CA"></label><label class="field">Venue type<select name="venue" id="venue-type"><option value="hotel">Hotel / event venue</option><option value="private">Private residence</option><option value="unknown">Still deciding</option></select></label></div><div class="notice" id="venue-notice">Hotel and venue details can be seen by matched subscribers. You can choose to keep the exact location private.</div><label class="check-label"><input type="checkbox" name="private" id="venue-private">Keep my exact location private</label><div class="field" style="margin-top:22px"><span>What do you need?</span><div class="check-grid">${[
+            ["chairs", "Chairs"],
+            ["tables", "Tables"],
+            ["florals", "Florals"],
+            ["photo", "Photography"],
+          ]
+            .map(
+              ([id, label]) =>
+                `<label class="check-label"><input name="needs" type="checkbox" value="${id}">${label}</label>`,
+            )
+            .join(
+              "",
+            )}</div><small>This preview includes four needs. Additional event-service categories are planned for the full product.</small></div><label class="field">Overall budget · optional<input name="budget" type="number" min="0" step="1" placeholder="$ —"><small>${icon("lock")} Only you and authorized collaborators can see this. Vendors never see your overall budget. Only item targets you choose to add are shared.</small></label><p id="event-error" class="small gold" role="alert"></p><div class="notice">Design preview: this creates an event in your browser. It does not publish a real request.</div><button type="submit" class="btn">Create demo event ${icon("arrow")}</button></form>`,
+        );
+      }
+      function showQuote(id) {
+        const q = quotes.find((q) => q.id === id);
+        if (!q) return;
+        let status = qStatus(q),
+          overlap = blocked(q);
+        openModal(
+          q.name,
+          `<div class="flex items-center gap-4"><div class="quote-thumb"><img src="${q.image}" alt="Illustrative portfolio"></div><div><p class="small">${q.tag}</p><div class="rating">Google <b>★ ${q.google}</b>${q.yelp ? ` · Yelp <b>★ ${q.yelp}</b>` : ""} · Sample data</div></div></div><div class="detail-list">${q.items.map(([key, value]) => `<div class="detail-row"><span>${needs[key]}<small>Full requested quantity and scope included${key === "chairs" ? " · " + money(value / 120) + " each" : key === "tables" ? " · " + money(value / 10) + " each" : ""}</small></span><span>${money(value)}</span></div>`).join("")}<div class="detail-row"><span>Delivery</span><span>${q.delivery ? money(q.delivery) : "Included / not applicable"}</span></div><div class="detail-row"><span>Setup & teardown</span><span>${q.setup ? money(q.setup) : "Included / not applicable"}</span></div><div class="detail-row"><span>Quoted taxes</span><span>${money(q.tax)}</span></div><div class="detail-row detail-total"><span>Total</span><span>${money(q.total)}</span></div></div><p class="small muted">${q.deposit}<br>${q.cancel}<br>Sample quote valid through December 31, 2026, 5 PM Pacific.</p><div class="notice">${status === "awarded" ? "Awarded. The vendor has confirmed. Arrange the contract and deposit directly; payment is not collected here." : status === "pending" ? "Awaiting vendor confirmation. Your selected needs are reserved for 48 hours. Contact details stay private until confirmation." : status === "not-selected" ? "These needs have been awarded to another vendor. This proposal is closed and retained for reference." : overlap ? "This proposal overlaps with needs reserved or awarded elsewhere. Ask for a revised proposal before accepting." : `Covers ${q.scope.map((k) => shortNeeds[k].toLowerCase()).join(" and ")}. ${q.id === "paloma" || q.id === "forma" ? "Choosing this package blocks other proposals containing these chairs or tables." : ""} Your vendor has 48 hours to confirm after acceptance.`}</div><p class="tiny muted">Photos and ratings are illustrative, not live provider credentials.</p>`,
+          `<button class="text-link" data-action="inbox" data-id="${id}">Request changes ${icon("mail")}</button>${status === "open" && !overlap ? `<button class="btn" data-action="accept" data-id="${id}">Accept proposal ${icon("arrow")}</button>` : status === "pending" ? `<button class="btn secondary" data-action="withdraw" data-id="${id}">Withdraw acceptance</button>` : '<button class="btn secondary" data-action="close">Done</button>'}`,
+        );
+      }
+      function compare() {
+        openModal(
+          "A clearer view of your choices.",
+          `<p class="small muted" style="margin-bottom:20px">Compare coverage first. Then choose a combination to preview its full cost. Selecting here does not accept a proposal.</p><div class="compare-scroll"><table class="compare-table"><thead><tr><th>Your requested needs</th>${quotes.map((q) => `<th><span class="serif">${q.name}</span><label class="check-label" style="margin-top:12px"><input type="checkbox" class="compare-check" value="${q.id}">Add to preview</label></th>`).join("")}</tr></thead><tbody>${["chairs", "tables", "photo"].map((k) => `<tr><td>${needs[k]}</td>${quotes.map((q) => `<td>${q.items.some((i) => i[0] === k) ? money(q.items.find((i) => i[0] === k)[1]) : '<span class="muted">Not included</span>'}</td>`).join("")}</tr>`).join("")}<tr><td>Delivery, setup & taxes</td>${quotes.map((q) => `<td>${money(q.delivery + q.setup + q.tax)}</td>`).join("")}</tr><tr><td>Full proposal total</td>${quotes.map((q) => `<td class="serif">${money(q.total)}</td>`).join("")}</tr></tbody></table></div><div id="compare-result" class="compare-result">Select proposals to see their combined coverage and cost. Florals are already awarded.</div><p class="tiny muted" style="margin-top:15px">Illustrative vendors and prices. Packages must be accepted in full.</p>`,
+          `<span class="tiny muted">Compare the same needs. Account for every fee.</span><button class="btn secondary" data-action="close">Done</button>`,
+          true,
+        );
+      }
+      function requestDetail(id) {
+        const r = requests.find((r) => r.id === id);
+        if (state.preview) {
+          unlock();
+          return;
+        }
+        openModal(
+          r.title,
+          `<div class="event-meta"><span>${dateLabel(r.date)}</span><span>${r.city} · ${r.guests} guests</span></div><div class="notice">${r.style}</div><div class="detail-list">${r.items.map((i) => `<div class="detail-row"><span>${i.qty} ${i.name}<small>Full quantity required · ${i.limit - i.received} quote spots remaining</small></span><span>${money(i.target)} target</span></div>`).join("")}</div><div class="eyebrow gold" style="margin:24px 0 10px">Timing & access</div><p class="small muted">${r.window}</p><p class="small" style="margin-top:18px">${icon(r.venue.startsWith("Private") ? "lock" : "pin")} ${r.venue}</p><p class="tiny muted" style="margin-top:13px">Only needs matching your approved categories are shown. No overall event budget or competitor pricing is shared.</p>`,
+          `<button class="text-link" data-action="inbox" data-id="${id}">Ask a question ${icon("mail")}</button><button class="btn" data-action="buildquote" data-id="${id}">Prepare proposal ${icon("arrow")}</button>`,
+        );
+      }
+      function quoteBuilder(id) {
+        const r = requests.find((r) => r.id === id);
+        if (state.preview) {
+          unlock();
+          return;
+        }
+        openModal(
+          "Make a thoughtful proposal.",
+          `<p class="small muted">${r.title} · ${dateLabel(r.date)}<br>Select the needs you can supply in full. Sample catalog photos are attached.</p><form id="quote-form" data-id="${id}"><div style="margin:18px 0 25px">${r.items.map((i) => `<div class="catalog-line"><img src="${i.key === "draping" ? photos.detail : photos.table}" alt="Illustrative ${i.name} catalog photo"><label><span class="check-label"><input type="checkbox" name="quoteitem" value="${i.key}" checked>${i.qty} ${i.name}</span><small class="muted">Full quantity · price per unit</small></label><label><span class="sr-only">Unit price for ${i.name}</span><input type="number" name="unit-${i.key}" value="${i.unit}" min="0.01" step="0.01" required></label></div>`).join("")}</div><div class="form-grid"><label class="field">Delivery<input name="delivery" type="number" min="0" step="0.01" value="180" required></label><label class="field">Setup & teardown<input name="setup" type="number" min="0" step="0.01" value="260" required></label><label class="field">Taxes · quoted amount<input name="tax" type="number" min="0" step="0.01" value="136" required></label><label class="field">Expiration date<input name="expiry" type="date" value="2026-12-31" min="${new Date().toISOString().slice(0, 10)}" required></label></div><label class="field">Deposit requirements<input name="deposit" value="30% deposit to secure the date" required maxlength="300"></label><label class="field">Cancellation terms<textarea name="terms" required maxlength="1000">Deposit refundable until 60 days before the event; nonrefundable afterward.</textarea></label><label class="check-label"><input type="checkbox" required name="available">I can supply the full selected quantities within the requested schedule.</label><div class="detail-row detail-total"><span>Proposal total</span><span id="builder-total"></span></div><p class="tiny muted" style="margin:15px 0">Demo submission only. No customer will be contacted. Drafts do not reserve a quote spot.</p><p id="quote-error" role="alert" class="small gold"></p><button class="btn" type="submit" style="margin-top:15px">Submit demo proposal ${icon("arrow")}</button></form>`,
+        );
+        updateBuilder();
+      }
+      function updateBuilder() {
+        const f = $("#quote-form");
+        if (!f) return;
+        const r = requests.find((r) => r.id === f.dataset.id);
+        let sum = 0;
+        $$('[name="quoteitem"]:checked', f).forEach(
+          (c) =>
+            (sum +=
+              (Number(f.elements["unit-" + c.value].value) || 0) *
+              r.items.find((i) => i.key === c.value).qty),
+        );
+        ["delivery", "setup", "tax"].forEach(
+          (k) => (sum += Number(f.elements[k].value) || 0),
+        );
+        $("#builder-total").textContent = money(sum);
+        return sum;
+      }
+      function unlock() {
+        openModal(
+          "A clear view of your opportunities.",
+          `<div class="eyebrow gold" style="margin-bottom:17px">Approved provider access</div><p>One flat monthly subscription opens full matched requests, private conversations, and quoting. No booking commission.</p><div class="notice">This is a design preview. Pricing is not set and no billing occurs. You can explore subscriber access below.</div><p class="small muted">Customer and planner names, exact venue details, and inspiration remain hidden in limited previews. Existing proposals and conversations stay accessible after a subscription ends.</p>`,
+          `<button class="text-link" data-action="close">Keep browsing previews</button><button class="btn" data-action="demoactivate">Explore subscriber view ${icon("arrow")}</button>`,
+        );
+      }
+      function preferences() {
+        openModal(
+          "A closer match.",
+          `<form id="preferences-form"><label class="field">Service radius · miles<select name="radius">${[15, 25, 50, 75].map((n) => `<option value="${n}" ${state.preferences.radius == n ? "selected" : ""}>${n} miles from Santa Barbara</option>`).join("")}</select></label><label class="field">New request emails<select name="alerts">${["Instant", "Daily digest", "Off"].map((n) => `<option ${state.preferences.alerts === n ? "selected" : ""}>${n}</option>`).join("")}</select><small>Matching notifications require an active subscription and verified email. Booking-status updates are separate.</small></label><div class="notice">Approved categories: chairs, tables, and draping. New service categories require review before matching.</div><button class="btn" type="submit">Save preferences ${icon("check")}</button></form>`,
+        );
+      }
+      function inbox(id) {
+        openModal(
+          "Keep the conversation together.",
+          `<p class="small muted">${id ? esc(quotes.find((q) => q.id === id)?.name || requests.find((r) => r.id === id)?.title || "Your event") : "Your event conversation"} · Demo messages</p><div class="inbox-message">${view === "vendor" ? "Ask about the details you need before quoting. Private contact details are shared after award." : "Ask about the work, the schedule, or a revised proposal. You don’t need to share contact details here."}</div><div id="message-list">${state.messages
+            .filter((m) => m.thread === (id || "general"))
+            .map((m) => `<div class="inbox-message mine">${esc(m.text)}</div>`)
+            .join(
+              "",
+            )}</div><form id="message-form" data-id="${esc(id || "general")}"><label class="field" style="margin-top:20px">Your message<textarea name="message" required maxlength="2000" placeholder="What would you like to clarify?"></textarea></label><p class="tiny muted" style="margin-bottom:15px">Saved in this browser only. No messages are sent externally.</p><button class="btn" type="submit">Add demo message ${icon("arrow")}</button></form>`,
+        );
+      }
+      function showDetails() {
+        openModal(
+          "Your event details.",
+          `<div class="detail-list"><div class="detail-row"><span>Event</span><span>${esc(state.event.name)}</span></div><div class="detail-row"><span>Date</span><span>${dateLabel(state.event.date)}</span></div><div class="detail-row"><span>Approximate location</span><span>${esc(state.event.location)}</span></div><div class="detail-row"><span>Guests</span><span>${state.event.guests}</span></div><div class="detail-row"><span>Private overall budget</span><span>${state.event.budget ? money(state.event.budget) : "Not set"}</span></div></div><div class="notice">${state.event.private ? "Your exact location is private. Share it only with individual vendors you choose." : "Hotel / event venue details can be visible to approved, subscribed matches. Limited previews never show exact venue details."}</div><p class="small muted">Your overall budget is never shared with vendors. Only optional targets attached to relevant needs are shared.</p>`,
+          `<span class="tiny muted">Design preview · local event data</span><button class="btn secondary" data-action="close">Done</button>`,
+        );
+      }
+      document.addEventListener("click", (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (anchor?.getAttribute("href") === "#main") {
+          e.preventDefault();
+          $("#main").focus();
+          $("#main").scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+        if (
+          anchor?.getAttribute("href")?.startsWith("#home/") &&
+          view === "home"
+        ) {
+          const section = anchor.getAttribute("href").split("/")[1];
+          if (location.hash === anchor.getAttribute("href")) {
+            e.preventDefault();
+            document
+              .getElementById(section)
+              ?.scrollIntoView({ behavior: "smooth" });
+            $(".mobile-nav").hidden = true;
+            $('[data-action="menu"]').setAttribute("aria-expanded", "false");
+            return;
+          }
+        }
+        const b = e.target.closest("[data-action]");
+        if (!b) return;
+        const a = b.dataset.action,
+          id = b.dataset.id;
+        if (a === "theme") {
+          state.providerDark = !state.providerDark;
+          persist();
+          render();
+          return;
+        }
+        if (a === "menu") {
+          const nav = $(".mobile-nav");
+          nav.hidden = !nav.hidden;
+          b.setAttribute("aria-expanded", String(!nav.hidden));
+          return;
+        }
+        if (a === "close") {
+          closeModal();
+          return;
+        }
+        if (a === "create") {
+          eventForm();
+          if (b.dataset.category) {
+            const mapping = {
+              Rentals: ["chairs", "tables"],
+              Florals: ["florals"],
+              Photography: ["photo"],
+            };
+            (mapping[b.dataset.category] || []).forEach(
+              (k) => ($(`#event-form input[value="${k}"]`).checked = true),
+            );
+          }
+          return;
+        }
+        if (a === "signin") {
+          openModal(
+            "Make yourself at home.",
+            `<p class="muted small">Explore either side of gathered. These are interactive sample workspaces; no account is required.</p><div class="grid sm:grid-cols-2 gap-4" style="margin-top:25px"><a href="#customer" data-action="close" class="btn">Customer workspace ${icon("arrow")}</a><a href="#vendor" data-action="close" class="btn secondary">Provider feed ${icon("arrow")}</a></div>`,
+          );
+          return;
+        }
+        if (a === "about") {
+          openModal(
+            "A considered first look.",
+            `<p>This single-file prototype brings together the landing page, a customer workspace, and a provider feed.</p><div class="notice">All people, events, quotes, ratings, and account states are fictional. Actions save only in this browser. Authentication, billing, live ratings, and external messaging are not connected.</div><p class="small muted">Working name: gathered.<br>Type: Fraunces + Inter.<br>Palette: warm ivory #FAF6F0, soft sand #F1EAE0, ink #221F1B, sienna #C1512F, navy #1B2A38. Award gold #C9973F is reserved for awarded states.<br>Editorial imagery: Unsplash.</p>`,
+          );
+          return;
+        }
+        if (a === "standards") {
+          openModal(
+            "Good work. Clear standards.",
+            `<div class="detail-list">${[
+              [
+                "Established reputation",
+                "An existing Google or Yelp listing with reviews is required. Both sources are shown when available.",
+              ],
+              [
+                "Relevant work",
+                "Portfolios and service categories are reviewed before providers can quote.",
+              ],
+              [
+                "Complete proposals",
+                "Full quantities, appropriate imagery, explicit fees, and clear terms.",
+              ],
+              [
+                "Accountability",
+                "Repeated substantiated issues lead to review, restrictions, or suspension. Providers can appeal.",
+              ],
+              [
+                "Honest credentials",
+                "License, insurance, and bond information is provider-reported unless explicitly stated otherwise. Approval is not insurance or license verification.",
+              ],
+            ]
+              .map(
+                ([t, d]) =>
+                  `<div style="padding:15px 0;border-bottom:1px solid var(--line)"><h3 class="serif" style="font-size:25px;margin-bottom:8px">${t}</h3><p class="small muted">${d}</p></div>`,
+              )
+              .join("")}</div>`,
+          );
+          return;
+        }
+        if (a === "privacy") {
+          openModal(
+            "Your plans stay yours.",
+            `<p>Your overall budget is private to you and authorized collaborators. Only item targets you choose to enter are shared with relevant vendors.</p><div class="notice">Limited previews never reveal your name, your planner’s name, identifying event titles, exact venue details, photos, or attachments.</div><p class="small muted">Private-home addresses require your permission to share with an individual vendor. Direct personal contact details are released after the vendor confirms an award.</p>`,
+          );
+          return;
+        }
+        if (a === "overview") {
+          customerFilter = "all";
+          navigate("#customer");
+          return;
+        }
+        if (a === "customerquotes") {
+          customerFilter = "all";
+          render();
+          $("#customer-proposals").scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+        if (a === "feed") {
+          vendorTab = "feed";
+          vendorFilter = "All requests";
+          render();
+          return;
+        }
+        if (a === "myquotes") {
+          vendorTab = "proposals";
+          render();
+          return;
+        }
+        if (a === "saved") {
+          vendorTab = "feed";
+          vendorFilter = "Saved";
+          render();
+          return;
+        }
+        if (a === "cfilter") {
+          customerFilter = id;
+          render();
+          return;
+        }
+        if (a === "vfilter") {
+          vendorFilter = id;
+          render();
+          return;
+        }
+        if (a === "save") {
+          state.saved = state.saved.includes(id)
+            ? state.saved.filter((s) => s !== id)
+            : [...state.saved, id];
+          persist();
+          let y = scrollY;
+          render();
+          scrollTo(0, y);
+          return;
+        }
+        if (a === "access") {
+          state.preview = id === "preview";
+          persist();
+          render();
+          return;
+        }
+        if (a === "reset") {
+          openModal(
+            "Reset this preview?",
+            `<p class="small muted">This clears locally saved demo events, messages, quotes, and preferences, and restores the original sample workspaces.</p>`,
+            `<button class="btn secondary" data-action="close">Keep my changes</button><button class="btn" data-action="doreset">Reset demo</button>`,
+          );
+          return;
+        }
+        if (a === "doreset") {
+          state = structuredClone(initial);
+          persist();
+          vendorTab = "feed";
+          customerFilter = "all";
+          closeModal();
+          render();
+          toast("The sample workspaces have been restored.");
+          return;
+        }
+        if (a === "quote") {
+          showQuote(id);
+          return;
+        }
+        if (a === "compare") {
+          compare();
+          return;
+        }
+        if (a === "eventdetails") {
+          showDetails();
+          return;
+        }
+        if (a === "accept") {
+          const q = quotes.find((q) => q.id === id);
+          if (qStatus(q) !== "open" || blocked(q)) {
+            toast("This proposal is no longer available for acceptance.");
+            return;
+          }
+          state.quoteStates[id] = "pending";
+          persist();
+          closeModal();
+          render();
+          toast(
+            "Proposal accepted in demo. The vendor has 48 hours to confirm.",
+          );
+          return;
+        }
+        if (a === "withdraw") {
+          delete state.quoteStates[id];
+          persist();
+          closeModal();
+          render();
+          toast("Acceptance withdrawn. The needs are open again.");
+          return;
+        }
+        if (a === "confirm") {
+          openModal(
+            "Confirm this award.",
+            `<p>Confirm that you can supply all 120 chairs and all 10 tables for <strong>${money(quotes[0].total)}</strong>, on the quoted date and terms.</p><div class="notice">This marks the proposal awarded and releases the sample customer contact details. The contract and deposit are arranged directly.</div>`,
+            `<button class="btn secondary" data-action="close">Go back</button><button class="btn" data-action="doconfirm">Confirm & mark awarded ${icon("check")}</button>`,
+          );
+          return;
+        }
+        if (a === "doconfirm") {
+          if (state.quoteStates.paloma !== "pending") {
+            toast("No pending acceptance to confirm.");
+            return;
+          }
+          state.quoteStates.paloma = "awarded";
+          persist();
+          closeModal();
+          render();
+          toast("Award confirmed. The customer workspace has updated.");
+          if (
+            window.Motion &&
+            !matchMedia("(prefers-reduced-motion: reduce)").matches
+          ) {
+            const award = $(".badge.awarded");
+            if (award)
+              Motion.animate(
+                award,
+                { scale: [0.94, 1.035, 1] },
+                { duration: 0.4 },
+              );
+          }
+          return;
+        }
+        if (a === "request") {
+          requestDetail(id);
+          return;
+        }
+        if (a === "buildquote") {
+          quoteBuilder(id);
+          return;
+        }
+        if (a === "unlock" || a === "billing") {
+          unlock();
+          return;
+        }
+        if (a === "preferences") {
+          preferences();
+          return;
+        }
+        if (a === "demoactivate") {
+          state.preview = false;
+          persist();
+          closeModal();
+          render();
+          toast("Subscriber preview activated. No payment was taken.");
+          return;
+        }
+        if (a === "inbox") {
+          inbox(id);
+          return;
+        }
+        if (a === "documents") {
+          openModal(
+            "Your booking documents.",
+            `<p class="small muted">Keep contracts and supporting documents with their awarded booking.</p><div class="detail-row"><span>${icon("file")} Studio Luce · Floral brief<small>Sample document · Reference only</small></span><button class="text-link" data-action="sampledoc">View</button></div><div class="notice">Signing and payments happen directly with vendors. A file upload does not verify a signature.</div>`,
+          );
+          return;
+        }
+        if (a === "sampledoc") {
+          openModal(
+            "Studio Luce · Floral brief",
+            `<div class="eyebrow gold" style="margin-bottom:20px">Sample booking document</div><p>12 seasonal table arrangements in ivory and muted green. Low arrangements to keep conversation flowing.</p><div class="detail-row"><span>Event</span><span>June 19, 2027</span></div><div class="detail-row"><span>Status</span><span>Awarded · sample data</span></div><p class="small muted" style="margin-top:20px">This is an illustrative creative brief, not a signed contract.</p>`,
+          );
+          return;
+        }
+        if (a === "sentquote") {
+          const s = state.sent.find((s) => s.request === id),
+            r = requests.find((r) => r.id === id);
+          if (!s) return;
+          openModal(
+            "Your submitted proposal.",
+            `<p class="serif" style="font-size:28px">${r.title}</p><div class="detail-list">${s.keys
+              .map((k) => {
+                const i = r.items.find((i) => i.key === k);
+                return `<div class="detail-row"><span>${i.qty} ${i.name}</span><span>${money(s.units[k] * i.qty)}</span></div>`;
+              })
+              .join(
+                "",
+              )}<div class="detail-row"><span>Delivery / setup / tax</span><span>${money(s.delivery + s.setup + s.tax)}</span></div><div class="detail-row detail-total"><span>Total</span><span>${money(s.total)}</span></div></div><p class="small muted">${esc(s.deposit)}<br>${esc(s.terms)}<br>Expires ${dateLabel(s.expiry)}.</p><div class="notice">Saved in this demo only. No real customer received this proposal.</div>`,
+          );
+          return;
+        }
+      });
+      document.addEventListener("change", (e) => {
+        if (e.target.id === "feed-sort") {
+          sort = e.target.value;
+          render();
+        }
+        if (e.target.id === "venue-type") {
+          let val = e.target.value;
+          $("#venue-private").checked = val === "private";
+          $("#venue-notice").textContent =
+            val === "private"
+              ? "Your home address is private by default. You choose which individual vendors receive it."
+              : val === "unknown"
+                ? "A city or area is enough to begin. Vendors will state their travel and access assumptions."
+                : "Hotel and venue details can be seen by matched subscribers. You can choose to keep the exact location private.";
+        }
+        if (e.target.classList.contains("compare-check")) {
+          const selected = $$(".compare-check:checked").map((c) =>
+            quotes.find((q) => q.id === c.value),
+          );
+          const keys = selected.flatMap((q) => q.scope),
+            overlap = keys.length !== new Set(keys).size;
+          $("#compare-result").innerHTML = !selected.length
+            ? "Select proposals to preview combined coverage and cost."
+            : overlap
+              ? '<span class="gold">These proposals both include chairs and tables. Choose one rental package or request a revision. They cannot be accepted together.</span>'
+              : `<div class="flex justify-between items-center gap-4"><div><span class="eyebrow gold">Your combination</span><p style="margin-top:7px">${selected.map((q) => q.name).join(" + ")}</p><p class="tiny muted">Covers ${keys.map((k) => shortNeeds[k].toLowerCase()).join(", ")}. ${
+                  ["chairs", "tables", "photo"].filter((k) => !keys.includes(k))
+                    .length
+                    ? `Still open: ${["chairs", "tables", "photo"]
+                        .filter((k) => !keys.includes(k))
+                        .map((k) => shortNeeds[k].toLowerCase())
+                        .join(", ")}.`
+                    : "All remaining needs covered."
+                }</p></div><span class="detail-total">${money(selected.reduce((n, q) => n + q.total, 0))}</span></div>`;
+        }
+        if (e.target.closest("#quote-form")) updateBuilder();
+      });
+      document.addEventListener("input", (e) => {
+        if (e.target.closest("#quote-form")) updateBuilder();
+      });
+      document.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let f = e.target,
+          fd = new FormData(f);
+        if (f.id === "event-form") {
+          let ns = fd.getAll("needs");
+          if (!ns.length) {
+            $("#event-error").textContent =
+              "Choose at least one need to continue.";
+            return;
+          }
+          state.event = {
+            name: fd.get("name").trim(),
+            type: fd.get("type"),
+            date: fd.get("date"),
+            location: fd.get("location").trim(),
+            guests: Number(fd.get("guests")),
+            budget: Number(fd.get("budget")) || 0,
+            needs: ns,
+            private: fd.has("private"),
+            venue: fd.get("venue"),
+          };
+          state.customEvent = true;
+          state.quoteStates = {};
+          persist();
+          closeModal();
+          navigate("#customer");
+          toast("Your demo event is saved in this browser.");
+          return;
+        }
+        if (f.id === "preferences-form") {
+          state.preferences = {
+            radius: fd.get("radius"),
+            alerts: fd.get("alerts"),
+          };
+          persist();
+          closeModal();
+          render();
+          toast("Your matching preferences have been saved locally.");
+          return;
+        }
+        if (f.id === "message-form") {
+          const message = String(fd.get("message")).trim();
+          if (!message) return;
+          state.messages.push({ thread: f.dataset.id, text: message });
+          persist();
+          const div = document.createElement("div");
+          div.className = "inbox-message mine";
+          div.textContent = message;
+          $("#message-list").append(div);
+          f.reset();
+          toast("Demo message saved. Nothing was sent externally.");
+          return;
+        }
+        if (f.id === "quote-form") {
+          if (state.preview) {
+            toast("A subscription is needed to submit new proposals.");
+            return;
+          }
+          const r = requests.find((r) => r.id === f.dataset.id),
+            keys = fd.getAll("quoteitem");
+          if (!keys.length) {
+            $("#quote-error").textContent =
+              "Select at least one need to quote in full.";
+            return;
+          }
+          if (state.sent.some((s) => s.request === r.id)) {
+            toast("A proposal for this request is already saved.");
+            return;
+          }
+          if (
+            keys.some(
+              (k) =>
+                r.items.find((i) => i.key === k).received >=
+                r.items.find((i) => i.key === k).limit,
+            )
+          ) {
+            $("#quote-error").textContent =
+              "A selected need has no quote spots left. Your draft has been preserved.";
+            return;
+          }
+          let units = Object.fromEntries(
+            keys.map((k) => [k, Number(fd.get("unit-" + k))]),
+          );
+          state.sent.push({
+            request: r.id,
+            keys,
+            units,
+            total: updateBuilder(),
+            delivery: Number(fd.get("delivery")),
+            setup: Number(fd.get("setup")),
+            tax: Number(fd.get("tax")),
+            deposit: fd.get("deposit"),
+            terms: fd.get("terms"),
+            expiry: fd.get("expiry"),
+          });
+          persist();
+          closeModal();
+          render();
+          toast("Demo proposal submitted. Your quote spot is now counted.");
+          return;
+        }
+      });
+      $("#dialog").addEventListener("click", (e) => {
+        if (e.target === $("#dialog")) {
+          const r = e.target.getBoundingClientRect();
+          if (
+            e.clientX < r.left ||
+            e.clientX > r.right ||
+            e.clientY < r.top ||
+            e.clientY > r.bottom
+          )
+            closeModal();
+        }
+      });
+      window.addEventListener("hashchange", () => {
+        closeModal();
+        render();
+        if (!location.hash.includes("/"))
+          window.scrollTo({ top: 0, behavior: "instant" });
+      });
+      render();
+      window.addEventListener("load", () => animateIn($("#main")));
+    </script>
+  </body>
+</html>
