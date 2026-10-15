@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20260828-weightloss">
-  <script defer src="./crypto.js?v=20260828-weightloss"></script>
-  <script defer src="./state.js?v=20260828-weightloss"></script>
-  <script defer src="./app.js?v=20260828-weightloss"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261015-checkin">
+  <script defer src="./crypto.js?v=20261015-checkin"></script>
+  <script defer src="./state.js?v=20261015-checkin"></script>
+  <script defer src="./app.js?v=20261015-checkin"></script>
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -89,7 +89,6 @@
         <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Check-in</h2></div><span id="quickCheckinState"></span></div>
         <div class="form-grid">
           <label><span>Weight</span><input id="quickWeightInput" type="number" step="0.1" inputmode="decimal"></label>
-          <label><span>Appetite / food noise</span><input id="quickFoodNoiseInput" type="range" min="0" max="10" step="1"><output id="quickFoodNoiseOutput"></output></label>
           <label><span>Side effects</span><select id="quickSideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
           <label><span>Decision</span><select id="quickDecisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
         </div>
@@ -147,7 +146,6 @@
             <div class="form-head"><h3>Check-in</h3><span id="checkinSavedState"></span></div>
             <div class="form-grid">
               <label><span>Weight</span><input id="weightInput" type="number" step="0.1" inputmode="decimal"></label>
-              <label><span>Appetite / food noise</span><input id="foodNoiseInput" type="range" min="0" max="10" step="1"><output id="foodNoiseOutput"></output></label>
               <label><span>Side effects</span><select id="sideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
               <label><span>Decision</span><select id="decisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
               <label class="wide"><span>Notes</span><textarea id="notesInput" rows="3"></textarea></label>
