@@ -16,11 +16,11 @@ function fixture() {
     } }
   });
   context.window = context;
-  for (const file of ['state.js', 'titration.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../peps', file), 'utf8'), context);
+  for (const file of ['state.js', 'titration.js', 'protocol.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../peps', file), 'utf8'), context);
   context.PepsRender = () => {};
   const core = context.PepsCore;
   const peptide = core.savePeptide({ id: 'test', name: 'Test', doseAmount: 2, doseUnit: 'mg', powderMg: 10, bacMl: 2, startDate: '2026-09-17', frequency: 'weekly', times: ['PM'], doseChanges: [{ date: '2026-09-17', amount: 2, unit: 'mg' }], titration: { enabled: true, cadenceDays: 28, increment: 1, maxDose: 6, nextReviewDate: '2026-10-15', decisions: [], plannedSteps: [] } });
-  return { core, peptide, engine: context.PepsTitration, nodes };
+  return { core, peptide, engine: context.PepsTitration, protocol: context.PepsProtocol, nodes };
 }
 
 test('configured cadence survives save, and overdue review stays pending without changing dose', () => {
@@ -134,4 +134,121 @@ test('late confirmation keeps the full cadence instead of catching up to old dat
   engine.decide('test', 'change', 3);
   assert.equal(peptide.titration.nextReviewDate, '2026-11-12');
   assert.equal(peptide.titration.plannedSteps[0].amount, 4);
+});
+
+test('reduction clamps to maintenance and ends further dose changes at the endpoint', () => {
+  const { core, peptide, engine } = fixture();
+  Object.assign(peptide.titration, { mode: 'decrease', increment: 1, targetDose: 1.5, maxDose: null });
+  assert.equal(engine.details(peptide).suggested, 1.5);
+  assert.throws(() => engine.decide('test', 'change', 1), /endpoint/);
+  assert.throws(() => engine.decide('test', 'change', 3), /endpoint/);
+  engine.decide('test', 'change', 1.5);
+  assert.equal(peptide.titration.mode, 'maintain');
+  assert.equal(peptide.titration.enabled, false);
+  assert.equal(core.plan('2026-10-22').tasks.find(task => task.peptideId === 'test').amount, 1.5);
+  assert.equal(engine.details(peptide), null);
+});
+
+test('planned stop requires confirmation and ends future injections without a zero-dose task', () => {
+  const { core, peptide, engine, protocol } = fixture();
+  Object.assign(peptide.titration, { mode: 'stop', increment: 3, targetDose: 0, maxDose: null });
+  assert.equal(engine.details(peptide).suggested, 0);
+  assert(core.plan('2026-10-22').tasks.some(task => task.peptideId === 'test'));
+  engine.decide('test', 'change', 0);
+  assert.equal(peptide.stoppedDate, '2026-10-15');
+  assert.equal(peptide.titration.mode, 'stopped');
+  assert(!peptide.doseChanges.some(change => change.amount === 0));
+  assert(!core.plan('2026-10-22').tasks.some(task => task.peptideId === 'test'));
+  assert(core.plan('2026-10-08').tasks.some(task => task.peptideId === 'test'));
+  assert.equal(protocol.cycleStatus(peptide).phase, 'stopped');
+});
+
+test('planned stop preserves an injection already completed today', () => {
+  const { core, peptide, engine } = fixture();
+  Object.assign(peptide.titration, { mode: 'stop', increment: 3, targetDose: 0, maxDose: null });
+  core.toggleDoseDone({ date: '2026-10-15', taskId: 'test-pm', done: true, doseLabel: '2 mg' });
+  engine.decide('test', 'change', 0);
+  assert.equal(peptide.stoppedDate, '2026-10-22');
+  assert(core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
+  assert(!core.plan('2026-10-22').tasks.some(task => task.peptideId === 'test'));
+});
+
+test('fixed courses include their last day and stop scheduling afterward', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.duration = { mode: 'fixed' };
+  peptide.endDate = '2026-10-15';
+  assert(core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
+  assert(!core.plan('2026-10-22').tasks.some(task => task.peptideId === 'test'));
+  assert.equal(protocol.cycleStatus(peptide, '2026-10-16').phase, 'complete');
+});
+
+test('automatic cycles exclude breaks and resume at the cycle boundary', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.duration = { mode: 'cycle', onDays: 14, offDays: 7, restart: 'auto', starts: [] };
+  assert.equal(protocol.cycleStatus(peptide, '2026-09-24').label, 'Week 2 of 2');
+  assert.equal(protocol.cycleStatus(peptide, '2026-10-01').phase, 'off');
+  assert(!core.plan('2026-10-01').tasks.some(task => task.peptideId === 'test'));
+  assert(core.plan('2026-10-08').tasks.some(task => task.peptideId === 'test'));
+});
+
+test('confirmation cycles remain paused until approved, then begin a full new cycle', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.duration = { mode: 'cycle', onDays: 14, offDays: 7, restart: 'confirm', starts: [] };
+  assert.equal(protocol.cycleStatus(peptide).phase, 'pending');
+  assert(!core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
+  assert.equal(protocol.restart('test'), '2026-10-15');
+  assert(core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
+  assert.equal(protocol.cycleStatus(peptide, '2026-10-28').phase, 'on');
+  assert.equal(protocol.cycleStatus(peptide, '2026-10-29').phase, 'off');
+  assert(!core.plan('2026-10-08').tasks.some(task => task.peptideId === 'test'));
+  assert.throws(() => protocol.restart('test'), /not waiting/);
+});
+
+test('goal tracking ignores blank weights, prompts at goal and never changes a protocol', () => {
+  const { core, peptide, protocol } = fixture();
+  core.state.checkins = { '2026-10-01': { weight: 250 }, '2026-10-08': { weight: null }, '2026-10-15': { weight: 240 } };
+  const before = JSON.stringify(peptide);
+  protocol.setGoal(240);
+  assert.equal(protocol.goalInfo().reviewDue, true);
+  assert.equal(protocol.goalInfo().percent, 100);
+  assert.equal(JSON.stringify(peptide), before);
+  assert.equal(core.helpers.weightRows().length, 2);
+  core.state.goals.reviewedGoal = 240;
+  assert.equal(protocol.goalInfo().reviewDue, false);
+  protocol.setGoal(null);
+  assert.equal(protocol.goalInfo(), null);
+});
+
+test('duration, goals, measurement status and stop dates survive reload normalization', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.duration = { mode: 'cycle', onDays: 56, offDays: 21, restart: 'confirm', starts: ['2026-12-03'] };
+  peptide.measurementPending = true;
+  peptide.stoppedDate = '2027-01-01';
+  protocol.setGoal(220);
+  core.replace(JSON.parse(JSON.stringify(core.state)));
+  const loaded = core.findPeptide('test');
+  assert.equal(loaded.duration.onDays, 56);
+  assert.equal(loaded.duration.starts[0], '2026-12-03');
+  assert.equal(loaded.measurementPending, true);
+  assert.equal(loaded.stoppedDate, '2027-01-01');
+  assert.equal(core.state.goals.weightGoal, 220);
+});
+
+test('missing measurement never provides an assumed unit value', () => {
+  const { core, peptide } = fixture();
+  peptide.measurementPending = true;
+  const task = core.plan('2026-10-15').tasks.find(task => task.peptideId === 'test');
+  assert.equal(task.units, null);
+  assert.equal(task.measurementPending, true);
+});
+
+test('a future weekly restart is confirmed once and starts on the next scheduled weekday', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.startDate = '2026-09-16';
+  peptide.duration = { mode: 'cycle', onDays: 14, offDays: 7, restart: 'confirm', starts: [] };
+  assert.equal(protocol.restart('test'), '2026-10-21');
+  assert.equal(protocol.cycleStatus(peptide).phase, 'awaiting');
+  assert.throws(() => protocol.restart('test'), /not waiting/);
+  assert(!core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
+  assert(core.plan('2026-10-21').tasks.some(task => task.peptideId === 'test'));
 });

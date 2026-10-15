@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20261015-titration">
-  <script defer src="./crypto.js?v=20261015-titration"></script>
-  <script defer src="./state.js?v=20261015-titration"></script>
-  <script defer src="./titration.js?v=20261015-titration"></script>
-  <script defer src="./app.js?v=20261015-titration"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261015-protocols">
+  <script defer src="./crypto.js?v=20261015-protocols"></script>
+  <script defer src="./state.js?v=20261015-protocols"></script>
+  <script defer src="./titration.js?v=20261015-protocols"></script>
+  <script defer src="./protocol.js?v=20261015-protocols"></script>
+  <script defer src="./app.js?v=20261015-protocols"></script>
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -86,9 +87,20 @@
         <div class="today-plan-list" id="todayCards"></div>
       </section>
 
+      <section class="panel" id="cycleSection" hidden>
+        <div class="section-heading compact"><div><p class="eyebrow">Protocol</p><h2>Cycles & phases</h2></div></div>
+        <div id="cycleList"></div>
+      </section>
+
       <section class="panel titration-section" id="titrationSection" hidden>
         <div class="section-heading compact"><div><p class="eyebrow">Your plan</p><h2>Dose check-in</h2></div><span id="titrationStatus" role="status"></span></div>
         <div id="titrationList"></div>
+      </section>
+
+      <section class="panel" id="goalSection" hidden>
+        <div class="section-heading compact"><div><p class="eyebrow">Your goal</p><h2 id="goalTitle">Weight progress</h2></div><button type="button" class="secondary-button" data-nav="settings" title="Edit weight goal"><svg aria-hidden="true"><use href="#icon-settings"></use></svg></button></div>
+        <div id="goalProgress"></div>
+        <div id="goalReview" hidden><p>Your latest weight has reached your goal. Review your maintenance plan?</p><div class="titration-actions"><button type="button" class="primary-button" id="goalReviewButton">Review my stack</button><button type="button" class="secondary-button" id="goalDismissButton">Keep current plan</button></div></div>
       </section>
 
       <form class="panel checkin-card dashboard-checkin" id="quickCheckinForm">
@@ -165,9 +177,15 @@
 
     <section class="view" id="view-settings">
       <div class="view-heading">
-        <div><p class="eyebrow">Settings</p><h2>Update protocol</h2></div>
+        <div><p class="eyebrow">Settings</p><h2 id="protocolPageTitle">Update protocol</h2></div>
         <button class="secondary-button" id="newPeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-plus"></use></svg><span>New</span></button>
       </div>
+      <form class="panel goal-settings" id="goalForm">
+        <div class="form-head"><h3>Weight goal</h3><span>Optional</span></div>
+        <div class="form-grid"><label><span>Goal weight (lb)</span><input id="goalWeightInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label></div>
+        <div class="editor-actions"><button type="submit" class="primary-button"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save goal</span></button><button type="button" class="secondary-button" id="clearGoalButton">Remove goal</button></div>
+        <p id="goalSavedStatus" role="status"></p>
+      </form>
       <section class="stack-layout">
         <div class="panel stack-list-panel">
           <div class="stack-list" id="stackList"></div>
@@ -175,10 +193,9 @@
         <form class="panel editor-panel" id="peptideForm">
           <input id="peptideIdInput" type="hidden">
           <div class="form-head"><h3 id="peptideFormTitle">Peptide</h3><span id="peptideFormMode"></span></div>
-          <div class="form-grid">
+          <div id="protocolWizard" hidden><p id="protocolStepLabel" role="status"></p><progress id="protocolStepProgress" max="5" value="1" aria-label="Setup progress"></progress></div>
+          <fieldset class="protocol-step" data-protocol-step="0"><legend>Dose & schedule</legend><div class="form-grid">
             <label><span>Name</span><input id="peptideNameInput" type="text" required></label>
-            <label><span>Powder in vial</span><input id="powderMgInput" type="number" min="0" step="0.1" required></label>
-            <label><span>BAC water added</span><input id="bacMlInput" type="number" min="0" step="0.01" required></label>
             <label><span>Starting / current dose</span><input id="doseAmountInput" type="number" min="0.001" step="0.001" required></label>
             <label><span>Dose unit</span><select id="doseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
             <label><span>Time</span><select id="timeInput"><option value="Any">Any</option><option value="AM">AM</option><option value="PM">PM</option><option value="AM,PM">AM & PM</option></select></label>
@@ -186,29 +203,53 @@
             <label><span>Interval days</span><input id="intervalDaysInput" type="number" min="1" step="1"></label>
             <label><span>Weekdays</span><input id="weekdaysInput" type="text" placeholder="Mon, Thu"></label>
             <label><span>Start date</span><input id="startDateInput" type="date" required></label>
-            <label><span>End date</span><input id="endDateInput" type="date"></label>
-            <label><span>Cycle on days</span><input id="cycleOnInput" type="number" min="0" step="1"></label>
-            <label><span>Cycle off days</span><input id="cycleOffInput" type="number" min="0" step="1"></label>
             <label><span>Status</span><select id="activeInput"><option value="true">Active</option><option value="false">Paused</option></select></label>
+          </div></fieldset>
+          <fieldset class="protocol-step" data-protocol-step="1"><legend>Duration</legend>
+            <label><span>How long is this protocol?</span><select id="durationMode"><option value="ongoing">Ongoing</option><option value="fixed">Fixed course</option><option value="cycle">Repeating cycle</option></select></label>
+            <div class="form-grid" id="fixedDurationFields" hidden><label><span>Course length (weeks)</span><input id="courseWeeksInput" type="number" min="0.143" step="any" inputmode="decimal"></label><label><span>Last day</span><input id="endDateInput" type="date"></label></div>
+            <div class="form-grid" id="cycleDurationFields" hidden>
+              <label><span>Time on (weeks)</span><input id="cycleOnWeeks" type="number" min="0.143" step="any" inputmode="decimal"></label>
+              <label><span>Time off (weeks)</span><input id="cycleOffWeeks" type="number" min="0.143" step="any" inputmode="decimal"></label>
+              <label><span>Next cycle</span><select id="cycleRestartMode"><option value="confirm">Ask me before restarting</option><option value="auto">Repeat automatically</option></select></label>
+            </div>
+            <input id="cycleOnInput" type="hidden"><input id="cycleOffInput" type="hidden">
+            <p id="durationPreview" class="titration-preview"></p>
+          </fieldset>
+          <fieldset class="protocol-step" data-protocol-step="2"><legend>Vial & measurement</legend><div class="form-grid">
+            <label><span>Have you mixed this vial?</span><select id="measurementMode"><option value="mixed">Already mixed</option><option value="later">Set up later</option></select></label>
+            <label><span>Powder in vial (mg)</span><input id="powderMgInput" type="number" min="0.001" step="0.001" required inputmode="decimal"></label>
+            <label><span>BAC water added (ml)</span><input id="bacMlInput" type="number" min="0.001" step="0.001" required inputmode="decimal"></label>
+          </div><p id="measurementPreview" class="titration-preview"></p></fieldset>
+          <fieldset class="protocol-step" data-protocol-step="3"><legend>Dose plan</legend>
             <input id="reviewEveryInput" type="hidden">
             <input id="stepAmountInput" type="hidden">
-          </div>
           <fieldset class="titration-setup">
             <legend>Titration plan</legend>
             <label class="titration-toggle"><input id="titrationEnabled" type="checkbox"><span>Scheduled dose check-ins</span></label>
             <div id="titrationFields" hidden>
               <div class="form-grid">
+                <label><span>Plan direction</span><select id="titrationMode"><option value="increase">Increase</option><option value="maintain">Maintain current dose</option><option value="decrease">Reduce to maintenance</option><option value="stop">Reduce to a planned stop</option></select></label>
                 <label><span>Time between steps (days)</span><input id="titrationCadence" type="number" min="1" max="730" step="1" value="28"></label>
                 <label><span id="titrationUnitLabel">Increase (mg)</span><input id="titrationIncrement" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
                 <label><span>Next check-in</span><input id="titrationNextDate" type="date"></label>
-                <label><span id="titrationMaxLabel">Stop increasing at (mg, optional)</span><input id="titrationMax" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
+                <label id="titrationMaxField"><span id="titrationMaxLabel">Stop increasing at (mg, optional)</span><input id="titrationMax" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
+                <label id="titrationTargetField" hidden><span id="titrationTargetLabel">Maintenance dose (mg)</span><input id="titrationTarget" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
               </div>
               <p id="titrationPreview" class="titration-preview" aria-live="polite"></p>
             </div>
           </fieldset>
+          </fieldset>
+          <fieldset class="protocol-step" data-protocol-step="4" hidden><legend>Review your protocol</legend>
+            <div id="protocolSummary"></div>
+            <div class="form-grid"><label><span>Current weight (lb, optional)</span><input id="setupWeightInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label><label><span>Goal weight (lb, optional)</span><input id="setupGoalInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label></div>
+          </fieldset>
+          <p id="protocolError" role="alert" class="titration-error"></p>
+          <div class="editor-actions" id="protocolWizardActions" hidden><button type="button" class="secondary-button" id="protocolBackButton"><svg aria-hidden="true"><use href="#icon-left"></use></svg><span>Back</span></button><button type="button" class="primary-button" id="protocolNextButton">Continue</button></div>
           <div class="editor-actions">
-            <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save peptide</span></button>
+            <button class="primary-button" id="savePeptideButton" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save peptide</span></button>
             <button class="secondary-button" id="deletePeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-trash"></use></svg><span>Delete</span></button>
+            <button class="secondary-button" id="protocolDashboardButton" type="button" data-nav="dashboard">View schedule</button>
           </div>
         </form>
       </section>

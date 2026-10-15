@@ -807,6 +807,29 @@ output { color: var(--ink); font-weight: 900; }
 .titration-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .titration-actions button { flex: 1 1 160px; white-space: normal; min-height: 44px; }
 .titration-error { color: #ae2525; }
+.protocol-step { min-width: 0; margin: 22px 0; padding: 0; border: 0; }
+.protocol-step legend { padding: 0 0 14px; font-size: 18px; font-weight: 700; }
+.protocol-step > label { display: grid; gap: 8px; margin-bottom: 14px; }
+.protocol-step .titration-setup { margin: 0; padding: 0; border: 0; }
+.protocol-step .titration-setup legend { display: none; }
+.protocol-summary { display: grid; grid-template-columns: minmax(80px, 1fr) minmax(0, 2fr); gap: 14px 16px; margin: 0 0 24px; font-size: 14px; }
+.protocol-summary dt { color: #626975; }
+.protocol-summary dd { margin: 0; overflow-wrap: anywhere; }
+.protocol-status { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding: 18px 0; border-top: 1px solid #dfe3ea; }
+.protocol-status:first-child { border-top: 0; }
+.protocol-status > div { display: grid; gap: 8px; min-width: 0; }
+.protocol-status span { font-size: 14px; color: #515764; }
+.protocol-status strong { overflow-wrap: anywhere; }
+.goal-settings { margin-bottom: 20px; }
+.goal-numbers { display: grid; gap: 10px; margin-bottom: 18px; }
+.goal-numbers span { font-size: 14px; color: #515764; }
+progress { display: block; width: 100%; height: 8px; border: 0; accent-color: #0f8f80; }
+#protocolStepLabel { font-size: 14px; color: #515764; }
+#goalReview p { font-size: 14px; line-height: 1.6; }
+.protocol-onboarding .goal-settings, .protocol-onboarding .stack-list-panel, .protocol-onboarding .changes-panel, .protocol-onboarding #newPeptideBtn { display: none; }
+.protocol-onboarding .stack-layout { display: block; }
+.protocol-onboarding .editor-panel, .protocol-onboarding .view-heading { max-width: 720px; margin-left: auto; margin-right: auto; }
+.protocol-onboarding .editor-panel { scroll-margin-top: 160px; }
 [hidden] { display: none !important; }
 
 @media (min-width: 1080px) {
