@@ -252,3 +252,32 @@ test('a future weekly restart is confirmed once and starts on the next scheduled
   assert(!core.plan('2026-10-15').tasks.some(task => task.peptideId === 'test'));
   assert(core.plan('2026-10-21').tasks.some(task => task.peptideId === 'test'));
 });
+
+test('weekly review defaults to the current dose and holding defers exactly seven days', () => {
+  const { peptide, engine } = fixture();
+  Object.assign(peptide.titration, { mode: 'review', increment: 0, cadenceDays: 7, maxDose: null });
+  assert.equal(engine.details(peptide).suggested, 2);
+  engine.decide('test', 'hold');
+  assert.equal(peptide.titration.nextReviewDate, '2026-10-22');
+  assert.equal(engine.details(peptide).due, false);
+  assert.equal(engine.details(peptide, '2026-10-22').due, true);
+});
+
+test('weekly review accepts a user-entered change and does not create automatic increases', () => {
+  const { core, peptide, engine } = fixture();
+  Object.assign(peptide.titration, { mode: 'review', increment: 0, cadenceDays: 7, maxDose: null });
+  engine.decide('test', 'change', 2.5);
+  assert.equal(core.doseForDate(peptide, '2026-11-01').amount, 2.5);
+  assert.equal(peptide.titration.nextReviewDate, '2026-10-22');
+  assert.equal(engine.details(peptide, '2026-10-22').suggested, 2.5);
+});
+
+test('weight-only check-in preserves existing notes and review summaries contain no side effects', () => {
+  const { core, peptide } = fixture();
+  core.state.selectedDate = '2026-10-15';
+  core.state.checkins['2026-10-15'] = { weight: 245, notes: 'Existing note', sideEffects: 'none', decision: 'hold' };
+  core.saveCheckin({ weight: 244 });
+  assert.equal(core.state.checkins['2026-10-15'].notes, 'Existing note');
+  assert.equal(core.state.checkins['2026-10-15'].weight, 244);
+  assert(!/side effects/i.test(core.snapshotForPeptide(peptide, '2026-10-15').summary));
+});

@@ -98,7 +98,7 @@
     const dose = h.doseLabel(Number(el("doseAmountInput").value), el("doseUnitInput").value);
     const frequency = el("frequencyInput").selectedOptions[0].textContent;
     const mode = el("titrationMode").value;
-    const plan = !el("titrationEnabled").checked ? "Keep current dose" : { increase: "Scheduled increases", maintain: "Maintain current dose", decrease: "Reduce to maintenance", stop: "Reduce to a planned stop" }[mode];
+    const plan = !el("titrationEnabled").checked ? "Keep current dose" : { increase: "Scheduled increases", review: "Weekly review / no planned increase", maintain: "Maintain current dose", decrease: "Reduce to maintenance", stop: "Reduce to a planned stop" }[mode];
     const length = duration.mode === "ongoing" ? "Ongoing" : duration.mode === "fixed" ? `Through ${h.shortDate(el("endDateInput").value)}` : `${duration.onDays / 7} weeks on / ${duration.offDays / 7} weeks off; ${duration.restart === "confirm" ? "confirm each restart" : "repeat automatically"}`;
     el("protocolSummary").innerHTML = `<dl class="protocol-summary"><dt>Peptide</dt><dd>${esc(el("peptideNameInput").value)}</dd><dt>Dose</dt><dd>${esc(dose)}</dd><dt>Schedule</dt><dd>${esc(frequency)} / ${esc(el("timeInput").value)} / ${h.shortDate(el("startDateInput").value)}</dd><dt>Duration</dt><dd>${esc(length)}</dd><dt>Measurement</dt><dd>${esc(el("measurementPreview").textContent || "Setup needed")}</dd><dt>Dose plan</dt><dd>${esc(plan)}</dd></dl>`;
   }
@@ -157,7 +157,7 @@
     el("cycleList").innerHTML = rows.map(peptide => {
       const status = cycleStatus(peptide);
       const phase = peptide.titration?.mode;
-      const mode = peptide.stoppedDate && peptide.stoppedDate > today ? `Stops ${h.shortDate(peptide.stoppedDate)}` : phase === "maintain" && peptide.titration.endpointDate > today ? `Maintenance starts ${h.shortDate(peptide.titration.endpointDate)}` : { maintain: "Maintenance", decrease: "Reducing to maintenance", stop: "Reducing to a planned stop" }[phase];
+      const mode = peptide.stoppedDate && peptide.stoppedDate > today ? `Stops ${h.shortDate(peptide.stoppedDate)}` : phase === "maintain" && peptide.titration.endpointDate > today ? `Maintenance starts ${h.shortDate(peptide.titration.endpointDate)}` : { review: "Weekly review", maintain: "Maintenance", decrease: "Reducing to maintenance", stop: "Reducing to a planned stop" }[phase];
       return `<article class="protocol-status"><div><strong>${esc(peptide.name)}</strong><span>${esc(status.label)}${status.phase === "on" && mode ? ` / ${mode}` : ""}</span>${status.nextDate ? `<span>${status.phase === "awaiting" ? "Restarts" : status.phase === "off" ? "Next cycle" : status.phase === "pending" ? "Ready since" : peptide.duration?.mode === "fixed" ? "Last day" : "Break starts"}: ${h.shortDate(status.nextDate)}</span>` : ""}</div>${status.phase === "pending" ? `<button type="button" class="primary-button" data-cycle-restart="${esc(peptide.id)}">Confirm restart</button>` : `<button type="button" class="secondary-button" data-nav="settings" data-edit-peptide="${esc(peptide.id)}">Edit plan</button>`}</article>`;
     }).join("");
     const goal = goalInfo();

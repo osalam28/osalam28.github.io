@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20261015-protocols">
-  <script defer src="./crypto.js?v=20261015-protocols"></script>
-  <script defer src="./state.js?v=20261015-protocols"></script>
-  <script defer src="./titration.js?v=20261015-protocols"></script>
-  <script defer src="./protocol.js?v=20261015-protocols"></script>
-  <script defer src="./app.js?v=20261015-protocols"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261015-reviews">
+  <script defer src="./crypto.js?v=20261015-reviews"></script>
+  <script defer src="./state.js?v=20261015-reviews"></script>
+  <script defer src="./titration.js?v=20261015-reviews"></script>
+  <script defer src="./protocol.js?v=20261015-reviews"></script>
+  <script defer src="./app.js?v=20261015-reviews"></script>
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -107,8 +107,6 @@
         <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Check-in</h2></div><span id="quickCheckinState"></span></div>
         <div class="form-grid">
           <label><span>Weight</span><input id="quickWeightInput" type="number" step="0.1" inputmode="decimal"></label>
-          <label><span>Side effects</span><select id="quickSideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
-          <label><span>Decision</span><select id="quickDecisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
         </div>
         <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save</span></button>
       </form>
@@ -165,8 +163,6 @@
             <div class="form-head"><h3>Check-in</h3><span id="checkinSavedState"></span></div>
             <div class="form-grid">
               <label><span>Weight</span><input id="weightInput" type="number" step="0.1" inputmode="decimal"></label>
-              <label><span>Side effects</span><select id="sideEffectsInput"><option value="">Not logged</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
-              <label><span>Decision</span><select id="decisionInput"><option value="">No decision</option><option value="hold">Hold</option><option value="increase">Increase</option><option value="decrease">Decrease</option><option value="pause">Pause</option></select></label>
               <label class="wide"><span>Notes</span><textarea id="notesInput" rows="3"></textarea></label>
             </div>
             <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save check-in</span></button>
@@ -229,7 +225,7 @@
             <label class="titration-toggle"><input id="titrationEnabled" type="checkbox"><span>Scheduled dose check-ins</span></label>
             <div id="titrationFields" hidden>
               <div class="form-grid">
-                <label><span>Plan direction</span><select id="titrationMode"><option value="increase">Increase</option><option value="maintain">Maintain current dose</option><option value="decrease">Reduce to maintenance</option><option value="stop">Reduce to a planned stop</option></select></label>
+                <label><span>Plan direction</span><select id="titrationMode"><option value="increase">Increase</option><option value="review">Weekly review (no planned increase)</option><option value="maintain">Maintain current dose</option><option value="decrease">Reduce to maintenance</option><option value="stop">Reduce to a planned stop</option></select></label>
                 <label><span>Time between steps (days)</span><input id="titrationCadence" type="number" min="1" max="730" step="1" value="28"></label>
                 <label><span id="titrationUnitLabel">Increase (mg)</span><input id="titrationIncrement" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
                 <label><span>Next check-in</span><input id="titrationNextDate" type="date"></label>

@@ -31,7 +31,7 @@
     if (peptide.doseChanges.some(change => change.date > date)) return null;
     const planned = (config.plannedSteps || [])[0];
     const reducing = ["decrease", "stop"].includes(config.mode);
-    let suggested = reducing ? Math.max(Number(config.targetDose) || 0, rounded(current.amount - Number(config.increment))) : planned ? planned.amount : rounded(current.amount + Number(config.increment));
+    let suggested = config.mode === "review" ? current.amount : reducing ? Math.max(Number(config.targetDose) || 0, rounded(current.amount - Number(config.increment))) : planned ? planned.amount : rounded(current.amount + Number(config.increment));
     if (!reducing && positive(config.maxDose)) suggested = Math.max(current.amount, Math.min(suggested, Number(config.maxDose)));
     return { config, current, suggested, effectiveDate, due: date >= config.nextReviewDate };
   }
@@ -76,14 +76,18 @@
   function updateEditor() {
     const enabled = el("titrationEnabled").checked;
     const mode = el("titrationMode").value;
+    const weekly = mode === "review";
     const scheduled = enabled && mode !== "maintain";
     const reducing = mode === "decrease" || mode === "stop";
     el("titrationFields").hidden = !enabled;
     ["titrationCadence", "titrationIncrement", "titrationNextDate"].forEach(id => {
-      el(id).required = scheduled;
-      el(id).disabled = !scheduled;
-      el(id).closest("label").hidden = mode === "maintain";
+      const needed = scheduled && !(weekly && id === "titrationIncrement");
+      el(id).required = needed;
+      el(id).disabled = !needed;
+      el(id).closest("label").hidden = mode === "maintain" || (weekly && id === "titrationIncrement");
     });
+    el("titrationCadence").readOnly = weekly;
+    if (weekly) el("titrationCadence").value = 7;
     const amount = Number(el("doseAmountInput").value);
     const increment = Number(el("titrationIncrement").value);
     const max = Number(el("titrationMax").value);
@@ -99,7 +103,7 @@
     el("titrationMaxField").hidden = mode !== "increase";
     el("titrationMax").disabled = !enabled || mode !== "increase";
     el("titrationMaxLabel").textContent = `Stop increasing at (${unit}, optional)`;
-    el("titrationPreview").textContent = mode === "maintain" ? `Maintain ${h.doseLabel(amount, unit)}. No scheduled increases or decreases.` : positive(amount) && positive(increment)
+    el("titrationPreview").textContent = weekly ? `Weekly review / ${h.doseLabel(amount, unit)} current dose / no planned increase` : mode === "maintain" ? `Maintain ${h.doseLabel(amount, unit)}. No scheduled increases or decreases.` : positive(amount) && positive(increment)
       ? `${h.doseLabel(amount, unit)} now · ${h.doseLabel(rounded(suggested), unit)} planned next · every ${el("titrationCadence").value} days`
       : "";
   }
@@ -112,8 +116,8 @@
       enabled: mode !== "maintain",
       mode,
       targetDose: mode === "stop" ? 0 : mode === "decrease" ? Number(el("titrationTarget").value) : null,
-      cadenceDays: Number(el("titrationCadence").value),
-      increment: Number(el("titrationIncrement").value),
+      cadenceDays: mode === "review" ? 7 : Number(el("titrationCadence").value),
+      increment: mode === "review" ? 0 : Number(el("titrationIncrement").value),
       maxDose: mode === "increase" && positive(el("titrationMax").value) ? Number(el("titrationMax").value) : null,
       nextReviewDate: el("titrationNextDate").value,
       decisions: previous?.decisions || [],
@@ -136,7 +140,7 @@
     return `<article class="titration-item">
       <div class="titration-heading"><h3>${esc(peptide.name)}</h3><span class="status-chip">${due ? "Check-in due" : h.shortDate(config.nextReviewDate)}</span></div>
       <p>Current: <strong>${esc(h.doseLabel(current.amount, current.unit))}</strong> · ${units(current.amount)}</p>
-      <p>${atLimit ? "At your plan's dose limit." : `Your plan: <strong>${suggested === 0 ? "End protocol" : esc(h.doseLabel(suggested, current.unit))}</strong> next · ${units(suggested)}`}</p>
+      <p>${config.mode === "review" ? "Weekly protocol review" : atLimit ? "At your plan's dose limit." : `Your plan: <strong>${suggested === 0 ? "End protocol" : esc(h.doseLabel(suggested, current.unit))}</strong> next · ${units(suggested)}`}</p>
       ${lastDecision ? `<p>Last check-in ${h.shortDate(lastDecision.date)}: ${lastDecision.choice === "hold" ? "stayed at" : "changed to"} ${esc(h.doseLabel(lastDecision.amount, lastDecision.unit))}</p>` : ""}
       ${due && !actionable ? '<button type="button" class="secondary-button" data-nav="dashboard">Review on Today</button>' : ""}
       ${due && actionable ? `<p>${esc(snapshot.summary)}</p>
@@ -253,6 +257,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("focus", () => { if (core.account) window.PepsRender(); });
     ["titrationEnabled", "titrationMode", "titrationTarget", "titrationCadence", "titrationIncrement", "titrationMax", "titrationNextDate", "doseAmountInput", "doseUnitInput"].forEach(id => el(id).addEventListener("input", updateEditor));
+    el("titrationMode").addEventListener("change", () => {
+      if (el("titrationMode").value === "review") el("titrationNextDate").value = addDays(editorId ? h.todayString() : el("startDateInput").value || h.todayString(), 7);
+    });
     el("titrationCadence").addEventListener("change", () => {
       if (!editorId && el("startDateInput").value) el("titrationNextDate").value = addDays(el("startDateInput").value, Number(el("titrationCadence").value) || 28);
     });
