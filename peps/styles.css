@@ -790,6 +790,25 @@ output { color: var(--ink); font-weight: 900; }
   .day-cell { min-height: 104px; padding: 8px; }
 }
 
+.titration-setup { border: 0; border-top: 1px solid #dfe3ea; padding: 20px 0 0; margin: 20px 0; min-width: 0; }
+.titration-setup legend { font-weight: 700; padding: 0 0 8px; }
+.titration-toggle { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.titration-toggle input { width: 20px; height: 20px; margin: 0; }
+.titration-preview { color: #515764; font-size: 14px; line-height: 1.6; }
+.titration-item { padding: 18px 0; border-top: 1px solid #dfe3ea; min-width: 0; }
+.titration-item:first-child { border-top: 0; }
+.titration-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.titration-heading h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
+.titration-item p { margin: 10px 0; font-size: 14px; line-height: 1.6; }
+.titration-decision { display: grid; gap: 12px; margin-top: 18px; }
+.titration-input { display: grid; grid-template-columns: minmax(0, 1fr) minmax(90px, auto); gap: 12px; align-items: center; }
+.titration-input input { min-width: 0; width: 100%; }
+.titration-input output { font-weight: 700; }
+.titration-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.titration-actions button { flex: 1 1 160px; white-space: normal; min-height: 44px; }
+.titration-error { color: #ae2525; }
+[hidden] { display: none !important; }
+
 @media (min-width: 1080px) {
   .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

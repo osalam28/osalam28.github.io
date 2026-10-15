@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20261015-checkin">
-  <script defer src="./crypto.js?v=20261015-checkin"></script>
-  <script defer src="./state.js?v=20261015-checkin"></script>
-  <script defer src="./app.js?v=20261015-checkin"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261015-titration">
+  <script defer src="./crypto.js?v=20261015-titration"></script>
+  <script defer src="./state.js?v=20261015-titration"></script>
+  <script defer src="./titration.js?v=20261015-titration"></script>
+  <script defer src="./app.js?v=20261015-titration"></script>
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -85,6 +86,11 @@
         <div class="today-plan-list" id="todayCards"></div>
       </section>
 
+      <section class="panel titration-section" id="titrationSection" hidden>
+        <div class="section-heading compact"><div><p class="eyebrow">Your plan</p><h2>Dose check-in</h2></div><span id="titrationStatus" role="status"></span></div>
+        <div id="titrationList"></div>
+      </section>
+
       <form class="panel checkin-card dashboard-checkin" id="quickCheckinForm">
         <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Check-in</h2></div><span id="quickCheckinState"></span></div>
         <div class="form-grid">
@@ -142,6 +148,7 @@
           </div>
           <div class="task-list" id="selectedTasks"></div>
           <div class="day-actions" id="dayActions"></div>
+          <div id="calendarTitration"></div>
           <form class="checkin-form" id="checkinForm">
             <div class="form-head"><h3>Check-in</h3><span id="checkinSavedState"></span></div>
             <div class="form-grid">
@@ -172,7 +179,7 @@
             <label><span>Name</span><input id="peptideNameInput" type="text" required></label>
             <label><span>Powder in vial</span><input id="powderMgInput" type="number" min="0" step="0.1" required></label>
             <label><span>BAC water added</span><input id="bacMlInput" type="number" min="0" step="0.01" required></label>
-            <label><span>Dose amount</span><input id="doseAmountInput" type="number" min="0" step="0.001" required></label>
+            <label><span>Starting / current dose</span><input id="doseAmountInput" type="number" min="0.001" step="0.001" required></label>
             <label><span>Dose unit</span><select id="doseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
             <label><span>Time</span><select id="timeInput"><option value="Any">Any</option><option value="AM">AM</option><option value="PM">PM</option><option value="AM,PM">AM & PM</option></select></label>
             <label><span>Frequency</span><select id="frequencyInput"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="weekdays">Specific weekdays</option><option value="interval">Every X days</option></select></label>
@@ -183,9 +190,22 @@
             <label><span>Cycle on days</span><input id="cycleOnInput" type="number" min="0" step="1"></label>
             <label><span>Cycle off days</span><input id="cycleOffInput" type="number" min="0" step="1"></label>
             <label><span>Status</span><select id="activeInput"><option value="true">Active</option><option value="false">Paused</option></select></label>
-            <label><span>Review cadence</span><input id="reviewEveryInput" type="number" min="0" step="1"></label>
-            <label><span>Titration step</span><input id="stepAmountInput" type="number" min="0" step="0.001"></label>
+            <input id="reviewEveryInput" type="hidden">
+            <input id="stepAmountInput" type="hidden">
           </div>
+          <fieldset class="titration-setup">
+            <legend>Titration plan</legend>
+            <label class="titration-toggle"><input id="titrationEnabled" type="checkbox"><span>Scheduled dose check-ins</span></label>
+            <div id="titrationFields" hidden>
+              <div class="form-grid">
+                <label><span>Time between steps (days)</span><input id="titrationCadence" type="number" min="1" max="730" step="1" value="28"></label>
+                <label><span id="titrationUnitLabel">Increase (mg)</span><input id="titrationIncrement" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
+                <label><span>Next check-in</span><input id="titrationNextDate" type="date"></label>
+                <label><span id="titrationMaxLabel">Stop increasing at (mg, optional)</span><input id="titrationMax" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
+              </div>
+              <p id="titrationPreview" class="titration-preview" aria-live="polite"></p>
+            </div>
+          </fieldset>
           <div class="editor-actions">
             <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save peptide</span></button>
             <button class="secondary-button" id="deletePeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-trash"></use></svg><span>Delete</span></button>
