@@ -153,8 +153,7 @@
     const planned = info.config.plannedSteps || [];
     const followsPlan = !held && target === info.suggested && planned.length;
     info.config.plannedSteps = followsPlan ? planned.slice(1) : [];
-    const nextPlanned = info.config.plannedSteps[0];
-    info.config.nextReviewDate = nextPlanned && nextPlanned.date > info.effectiveDate ? nextPlanned.date : addDays(info.effectiveDate, info.config.cadenceDays);
+    info.config.nextReviewDate = addDays(info.effectiveDate, info.config.cadenceDays);
     info.config.decisions = [...info.config.decisions || [], { date: h.todayString(), effectiveDate: info.effectiveDate, choice: held ? "hold" : "change", from: info.current.amount, amount: target, unit: info.current.unit }];
     core.commit();
     if (editorId === id) loadEditor(peptide);

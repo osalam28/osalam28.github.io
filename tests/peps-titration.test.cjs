@@ -126,3 +126,12 @@ test('future start preserves starting dose and does not treat it as the first in
   assert.equal(peptide.titration.plannedSteps.length, 0);
   assert.equal(engine.details(peptide, '2026-11-29').suggested, 1.5);
 });
+
+test('late confirmation keeps the full cadence instead of catching up to old dates', () => {
+  const { peptide, engine } = fixture();
+  peptide.titration.nextReviewDate = '2026-10-01';
+  peptide.titration.plannedSteps = [{ date: '2026-10-01', amount: 3, unit: 'mg' }, { date: '2026-10-29', amount: 4, unit: 'mg' }];
+  engine.decide('test', 'change', 3);
+  assert.equal(peptide.titration.nextReviewDate, '2026-11-12');
+  assert.equal(peptide.titration.plannedSteps[0].amount, 4);
+});
