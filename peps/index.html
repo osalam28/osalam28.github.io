@@ -1,315 +1,1136 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20261017-stack-editor">
-  <script defer src="./crypto.js?v=20261017-stack-editor"></script>
-  <script defer src="./state.js?v=20261017-stack-editor"></script>
-  <script defer src="./titration.js?v=20261017-stack-editor"></script>
-  <script defer src="./protocol.js?v=20261017-stack-editor"></script>
-  <script defer src="./app.js?v=20261017-stack-editor"></script>
-</head>
-<body class="locked">
-  <svg class="icon-sprite" aria-hidden="true" focusable="false">
-    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v11h14V10"></path><path d="M9 21v-6h6v6"></path></symbol>
-    <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
-    <symbol id="icon-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M8 6h8"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-7"></path></symbol>
-    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5z"></path><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 1 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6h.1a1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 1 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"></path></symbol>
-    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
-    <symbol id="icon-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></symbol>
-    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></symbol>
-    <symbol id="icon-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></symbol>
-    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 15H6L5 6"></path></symbol>
-    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"></path><path d="M3 3v5h5"></path></symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></symbol>
-    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M17 8l-5-5-5 5"></path><path d="M12 3v12"></path></symbol>
-    <symbol id="icon-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></symbol>
-    <symbol id="icon-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></symbol>
-  </svg>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Peps | Your Daily Protocol</title>
+    <link rel="stylesheet" href="./styles.css?v=20261017-dashboard-v1" />
+    <link rel="stylesheet" href="./experience.css?v=20261017-dashboard-v1" />
+    <script defer src="./vendor/lucide.min.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./crypto.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./state.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./titration.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./protocol.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./app.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./experience.js?v=20261017-dashboard-v1"></script>
+  </head>
+  <body class="locked">
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 11l9-8 9 8"></path>
+        <path d="M5 10v11h14V10"></path>
+        <path d="M9 21v-6h6v6"></path>
+      </symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24">
+        <path d="M8 2v4"></path>
+        <path d="M16 2v4"></path>
+        <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+        <path d="M3 10h18"></path>
+        <path d="M8 14h.01"></path>
+        <path d="M12 14h.01"></path>
+        <path d="M16 14h.01"></path>
+        <path d="M8 18h.01"></path>
+        <path d="M12 18h.01"></path>
+        <path d="M16 18h.01"></path>
+      </symbol>
+      <symbol id="icon-calc" viewBox="0 0 24 24">
+        <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+        <path d="M8 6h8"></path>
+        <path d="M8 10h.01"></path>
+        <path d="M12 10h.01"></path>
+        <path d="M16 10h.01"></path>
+        <path d="M8 14h.01"></path>
+        <path d="M12 14h.01"></path>
+        <path d="M16 14h.01"></path>
+        <path d="M8 18h.01"></path>
+        <path d="M12 18h.01"></path>
+        <path d="M16 18h.01"></path>
+      </symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24">
+        <path d="M3 3v18h18"></path>
+        <path d="M7 15l4-4 3 3 5-7"></path>
+      </symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24">
+        <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5z"></path>
+        <path
+          d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 1 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6h.1a1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 1 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"
+        ></path>
+      </symbol>
+      <symbol id="icon-lock" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </symbol>
+      <symbol id="icon-save" viewBox="0 0 24 24">
+        <path
+          d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+        ></path>
+        <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path>
+        <path d="M7 3v4a1 1 0 0 0 1 1h7"></path>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M20 6 9 17l-5-5"></path>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18"></path>
+        <path d="M8 6V4h8v2"></path>
+        <path d="M19 6l-1 15H6L5 6"></path>
+      </symbol>
+      <symbol id="icon-refresh" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"></path>
+        <path d="M3 3v5h5"></path>
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <path d="M7 10l5 5 5-5"></path>
+        <path d="M12 15V3"></path>
+      </symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <path d="M17 8l-5-5-5 5"></path>
+        <path d="M12 3v12"></path>
+      </symbol>
+      <symbol id="icon-left" viewBox="0 0 24 24">
+        <path d="m15 18-6-6 6-6"></path>
+      </symbol>
+      <symbol id="icon-right" viewBox="0 0 24 24">
+        <path d="m9 18 6-6-6-6"></path>
+      </symbol>
+    </svg>
 
-  <section class="auth-screen" id="authScreen">
-    <form class="auth-card" id="unlockForm">
-      <div class="auth-mark"><svg aria-hidden="true"><use href="#icon-lock"></use></svg></div>
-      <p class="eyebrow">Private Profiles</p>
-      <h1>Peptide Stack</h1>
-      <label><span>Profile</span><select id="profileSelect"><option value="omar">Omar</option><option value="amber">Amber</option></select></label>
-      <input type="text" autocomplete="username" id="usernameInput" value="omar" hidden>
-      <p class="auth-note" id="authModeText">Checking profile…</p>
-      <label><span>Password</span><input id="passwordInput" type="password" autocomplete="current-password" required></label>
-      <button class="primary-button" type="submit"><span id="unlockButtonText">Unlock</span></button>
-      <p class="form-error" id="authError" role="alert"></p>
-    </form>
-  </section>
-
-  <header class="app-header">
-    <div>
-      <p class="eyebrow" id="profileEyebrow">Private calendar</p>
-      <h1>Peptide Schedule</h1>
-    </div>
-    <div class="header-actions">
-      <span class="sync-status" id="syncStatus">Locked</span>
-      <button class="icon-button" id="syncBtn" type="button" aria-label="Sync"><svg aria-hidden="true"><use href="#icon-refresh"></use></svg></button>
-      <button class="icon-button" id="exportBtn" type="button" aria-label="Export"><svg aria-hidden="true"><use href="#icon-download"></use></svg></button>
-      <button class="icon-button" id="importBtn" type="button" aria-label="Import"><svg aria-hidden="true"><use href="#icon-upload"></use></svg></button>
-      <button class="icon-button" id="lockBtn" type="button" aria-label="Lock"><svg aria-hidden="true"><use href="#icon-lock"></use></svg></button>
-    </div>
-  </header>
-
-  <nav class="app-nav" aria-label="Primary">
-    <button class="nav-button active" type="button" data-nav="dashboard"><svg aria-hidden="true"><use href="#icon-home"></use></svg><span>Today</span></button>
-    <button class="nav-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span></button>
-    <button class="nav-button" type="button" data-nav="calculator"><svg aria-hidden="true"><use href="#icon-calc"></use></svg><span>Calc</span></button>
-    <button class="nav-button" type="button" data-nav="progress"><svg aria-hidden="true"><use href="#icon-chart"></use></svg><span>Progress</span></button>
-    <button class="nav-button" type="button" data-nav="settings"><svg aria-hidden="true"><use href="#icon-settings"></use></svg><span>Settings</span></button>
-  </nav>
-
-  <main class="app-shell">
-    <section class="view active" id="view-dashboard">
-      <section class="dashboard-hero">
-        <div>
-          <p class="eyebrow">Dashboard</p>
-          <h2>Today</h2>
-          <p class="hero-date" id="currentDatePill"></p>
+    <section class="auth-screen" id="authScreen">
+      <form class="auth-card" id="unlockForm">
+        <div class="auth-mark">
+          <svg aria-hidden="true"><use href="#icon-lock"></use></svg>
         </div>
-        <div class="hero-metrics" id="dashboardMetrics"></div>
-      </section>
-
-      <section class="panel today-plan-panel">
-        <div class="section-heading">
-          <div><p class="eyebrow">Exact pulls</p><h2>Today’s plan</h2></div>
-          <span class="section-status" id="todayCompletionSummary"></span>
-          <button class="secondary-button" type="button" data-nav="calendar"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span></button>
-        </div>
-        <div class="today-plan-list" id="todayCards"></div>
-      </section>
-
-      <section class="panel" id="cycleSection" hidden>
-        <div class="section-heading compact"><div><p class="eyebrow">Protocol</p><h2>Cycles & phases</h2></div></div>
-        <div id="cycleList"></div>
-      </section>
-
-      <section class="panel titration-section" id="titrationSection" hidden>
-        <div class="section-heading compact"><div><p class="eyebrow">Your plan</p><h2>Dose check-in</h2></div><span id="titrationStatus" role="status"></span></div>
-        <div id="titrationList"></div>
-      </section>
-
-      <section class="panel" id="goalSection" hidden>
-        <div class="section-heading compact"><div><p class="eyebrow">Your goal</p><h2 id="goalTitle">Weight progress</h2></div><button type="button" class="secondary-button" data-nav="settings" title="Edit weight goal"><svg aria-hidden="true"><use href="#icon-settings"></use></svg></button></div>
-        <div id="goalProgress"></div>
-        <div id="goalReview" hidden><p>Your latest weight has reached your goal. Review your maintenance plan?</p><div class="titration-actions"><button type="button" class="primary-button" id="goalReviewButton">Review my stack</button><button type="button" class="secondary-button" id="goalDismissButton">Keep current plan</button></div></div>
-      </section>
-
-      <form class="panel checkin-card dashboard-checkin" id="quickCheckinForm">
-        <div class="section-heading compact"><div><p class="eyebrow">Log</p><h2>Check-in</h2></div><span id="quickCheckinState"></span></div>
-        <div class="form-grid">
-          <label><span>Weight</span><input id="quickWeightInput" type="number" step="0.1" inputmode="decimal"></label>
-        </div>
-        <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save</span></button>
+        <p class="eyebrow">Private Profiles</p>
+        <h1>Peptide Stack</h1>
+        <label
+          ><span>Profile</span
+          ><select id="profileSelect">
+            <option value="omar">Omar</option>
+            <option value="amber">Amber</option>
+          </select></label
+        >
+        <input
+          type="text"
+          autocomplete="username"
+          id="usernameInput"
+          value="omar"
+          hidden
+        />
+        <p class="auth-note" id="authModeText">Checking profile…</p>
+        <label
+          ><span>Password</span
+          ><input
+            id="passwordInput"
+            type="password"
+            autocomplete="current-password"
+            required
+        /></label>
+        <button class="primary-button" type="submit">
+          <span id="unlockButtonText">Unlock</span>
+        </button>
+        <p class="form-error" id="authError" role="alert"></p>
       </form>
-
-      <section class="panel chart-panel dashboard-progress">
-        <div class="section-heading compact"><div><p class="eyebrow">Progress</p><h2>Weight trend</h2></div><span id="dashboardChartCaption"></span></div>
-        <div id="dashboardWeightChart" class="weight-chart"></div>
-      </section>
-
-      <section class="panel dashboard-analytics-panel">
-        <div class="section-heading compact"><div><p class="eyebrow">Analytics</p><h2>Signals</h2></div></div>
-        <div class="metrics-grid" id="dashboardAnalyticsGrid"></div>
-      </section>
-
-      <section class="dashboard-grid dashboard-support-grid">
-        <section class="panel">
-          <div class="section-heading compact"><div><p class="eyebrow">Soon</p><h2>Next up</h2></div></div>
-          <div class="next-list" id="nextUpList"></div>
-        </section>
-
-        <section class="panel">
-          <div class="section-heading compact"><div><p class="eyebrow">Active</p><h2>Current stack</h2></div><button class="link-button" type="button" data-nav="settings">Update protocol</button></div>
-          <div class="snapshot-list" id="dashboardStack"></div>
-        </section>
-      </section>
     </section>
 
-    <section class="view" id="view-calendar">
-      <div class="view-heading">
-        <div><p class="eyebrow">Calendar</p><h2>Schedule</h2></div>
-        <input id="jumpDate" type="date">
-      </div>
-      <section class="workspace-grid">
-        <section class="panel calendar-panel">
-          <div class="calendar-toolbar">
-            <button class="icon-button" id="prevMonthBtn" type="button" aria-label="Previous month"><svg aria-hidden="true"><use href="#icon-left"></use></svg></button>
-            <h2><span id="monthTitle"></span></h2>
-            <button class="icon-button" id="nextMonthBtn" type="button" aria-label="Next month"><svg aria-hidden="true"><use href="#icon-right"></use></svg></button>
-          </div>
-          <button class="secondary-button full-button" id="todayBtn" type="button"><svg aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Today</span></button>
-          <div class="weekday-row" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </section>
+    <header class="app-header">
+      <button class="brand" type="button" data-nav="dashboard">
+        <span><i data-lucide="layers-2"></i></span>peps.
+      </button>
+      <button
+        class="profile-avatar"
+        id="profileAvatar"
+        type="button"
+        data-nav="settings"
+        aria-label="Your settings"
+      ></button>
+    </header>
 
-        <section class="panel day-panel">
-          <div class="section-heading">
-            <div><p class="eyebrow">Selected</p><h2 id="selectedDateTitle"></h2></div>
-            <span class="status-chip" id="cycleBadge"></span>
-          </div>
-          <div class="task-list" id="selectedTasks"></div>
-          <div class="day-actions" id="dayActions"></div>
-          <div id="calendarTitration"></div>
-          <form class="checkin-form" id="checkinForm">
-            <div class="form-head"><h3>Check-in</h3><span id="checkinSavedState"></span></div>
-            <div class="form-grid">
-              <label><span>Weight</span><input id="weightInput" type="number" step="0.1" inputmode="decimal"></label>
-              <label class="wide"><span>Notes</span><textarea id="notesInput" rows="3"></textarea></label>
-            </div>
-            <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save check-in</span></button>
-          </form>
-        </section>
-      </section>
-    </section>
+    <nav class="app-nav" aria-label="Primary">
+      <button class="nav-button active" type="button" data-nav="dashboard">
+        <svg aria-hidden="true"><use href="#icon-home"></use></svg
+        ><span>Today</span>
+      </button>
+      <button class="nav-button" type="button" data-nav="calendar">
+        <svg aria-hidden="true"><use href="#icon-calendar"></use></svg
+        ><span>Calendar</span>
+      </button>
+      <button class="nav-button" type="button" data-nav="progress">
+        <svg aria-hidden="true"><use href="#icon-chart"></use></svg
+        ><span>Progress</span>
+      </button>
+      <button class="nav-button" type="button" data-nav="settings">
+        <svg aria-hidden="true"><use href="#icon-settings"></use></svg
+        ><span>Settings</span>
+      </button>
+    </nav>
 
-    <section class="view" id="view-settings">
-      <div class="view-heading">
-        <div><p class="eyebrow">Settings</p><h2 id="protocolPageTitle">Update protocol</h2></div>
-        <button class="secondary-button" id="newPeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-plus"></use></svg><span>New</span></button>
-      </div>
-      <form class="panel goal-settings" id="goalForm">
-        <div class="form-head"><h3>Weight goal</h3><span>Optional</span></div>
-        <div class="form-grid"><label><span>Goal weight (lb)</span><input id="goalWeightInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label></div>
-        <div class="editor-actions"><button type="submit" class="primary-button"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save goal</span></button><button type="button" class="secondary-button" id="clearGoalButton">Remove goal</button></div>
-        <p id="goalSavedStatus" role="status"></p>
-      </form>
-      <section class="stack-layout">
-        <div class="panel stack-list-panel">
-          <div class="stack-list" id="stackList"></div>
-        </div>
-        <form class="panel editor-panel" id="peptideForm">
-          <input id="peptideIdInput" type="hidden">
-          <div class="form-head"><h3 id="peptideFormTitle">Peptide</h3><span id="peptideFormMode"></span></div>
-          <div id="protocolWizard" hidden><button type="button" class="secondary-button" id="protocolCancelButton"><svg aria-hidden="true"><use href="#icon-left"></use></svg><span>Back to stack</span></button><p id="protocolStepLabel" role="status"></p><progress id="protocolStepProgress" max="5" value="1" aria-label="Setup progress"></progress></div>
-          <fieldset class="protocol-step" data-protocol-step="0"><legend>Dose & schedule</legend><div class="form-grid">
-            <label><span>Name</span><input id="peptideNameInput" type="text" required></label>
-            <label><span>Starting / current dose</span><input id="doseAmountInput" type="number" min="0.001" step="0.001" required></label>
-            <label><span>Dose unit</span><select id="doseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
-            <label><span>Time</span><select id="timeInput"><option value="Any">Any</option><option value="AM">AM</option><option value="PM">PM</option><option value="AM,PM">AM & PM</option></select></label>
-            <label><span>Frequency</span><select id="frequencyInput"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="weekdays">Specific weekdays</option><option value="interval">Every X days</option></select></label>
-            <label><span>Interval days</span><input id="intervalDaysInput" type="number" min="1" step="1"></label>
-            <label><span>Weekdays</span><input id="weekdaysInput" type="text" placeholder="Mon, Thu"></label>
-            <label><span>Start date</span><input id="startDateInput" type="date" required></label>
-            <label><span>Status</span><select id="activeInput"><option value="true">Active</option><option value="false">Paused</option></select></label>
-          </div></fieldset>
-          <fieldset class="protocol-step" data-protocol-step="1"><legend>Duration</legend>
-            <label><span>How long is this protocol?</span><select id="durationMode"><option value="ongoing">Ongoing</option><option value="fixed">Fixed course</option><option value="cycle">Repeating cycle</option></select></label>
-            <div class="form-grid" id="fixedDurationFields" hidden><label><span>Course length (weeks)</span><input id="courseWeeksInput" type="number" min="0.143" step="any" inputmode="decimal"></label><label><span>Last day</span><input id="endDateInput" type="date"></label></div>
-            <div class="form-grid" id="cycleDurationFields" hidden>
-              <label><span>Time on (weeks)</span><input id="cycleOnWeeks" type="number" min="0.143" step="any" inputmode="decimal"></label>
-              <label><span>Time off (weeks)</span><input id="cycleOffWeeks" type="number" min="0.143" step="any" inputmode="decimal"></label>
-              <label><span>Next cycle</span><select id="cycleRestartMode"><option value="confirm">Ask me before restarting</option><option value="auto">Repeat automatically</option></select></label>
-            </div>
-            <input id="cycleOnInput" type="hidden"><input id="cycleOffInput" type="hidden">
-            <p id="durationPreview" class="titration-preview"></p>
-          </fieldset>
-          <fieldset class="protocol-step" data-protocol-step="2"><legend>Vial & measurement</legend><div class="form-grid">
-            <label><span>Have you mixed this vial?</span><select id="measurementMode"><option value="mixed">Already mixed</option><option value="later">Set up later</option></select></label>
-            <label><span>Powder in vial (mg)</span><input id="powderMgInput" type="number" min="0.001" step="0.001" required inputmode="decimal"></label>
-            <label><span>BAC water added (ml)</span><input id="bacMlInput" type="number" min="0.001" step="0.001" required inputmode="decimal"></label>
-          </div><p id="measurementPreview" class="titration-preview"></p></fieldset>
-          <fieldset class="protocol-step" data-protocol-step="3"><legend>Dose plan</legend>
-            <input id="reviewEveryInput" type="hidden">
-            <input id="stepAmountInput" type="hidden">
-          <fieldset class="titration-setup">
-            <legend>Titration plan</legend>
-            <label class="titration-toggle"><input id="titrationEnabled" type="checkbox"><span>Scheduled dose check-ins</span></label>
-            <div id="titrationFields" hidden>
-              <div class="form-grid">
-                <label><span>Plan direction</span><select id="titrationMode"><option value="increase">Increase</option><option value="review">Weekly review (no planned increase)</option><option value="maintain">Maintain current dose</option><option value="decrease">Reduce to maintenance</option><option value="stop">Reduce to a planned stop</option></select></label>
-                <label><span>Time between steps (days)</span><input id="titrationCadence" type="number" min="1" max="730" step="1" value="28"></label>
-                <label><span id="titrationUnitLabel">Increase (mg)</span><input id="titrationIncrement" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
-                <label><span>Next check-in</span><input id="titrationNextDate" type="date"></label>
-                <label id="titrationMaxField"><span id="titrationMaxLabel">Stop increasing at (mg, optional)</span><input id="titrationMax" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
-                <label id="titrationTargetField" hidden><span id="titrationTargetLabel">Maintenance dose (mg)</span><input id="titrationTarget" type="number" min="0.001" step="0.001" inputmode="decimal"></label>
+    <main class="app-shell">
+      <section class="view active" id="view-dashboard">
+        <section class="dashboard-hero">
+          <div>
+            <p class="hero-date" id="currentDatePill"></p>
+            <h2>Today</h2>
+          </div>
+          <button
+            class="icon-button"
+            type="button"
+            data-nav="calendar"
+            aria-label="View calendar"
+            title="View calendar"
+          >
+            <i data-lucide="calendar-days"></i>
+          </button>
+        </section>
+        <div
+          class="hero-metrics"
+          id="dashboardMetrics"
+          aria-label="Today at a glance"
+          aria-live="polite"
+        ></div>
+        <nav id="weekRibbon" class="week-ribbon" aria-label="This week"></nav>
+        <section id="firstVisitWelcome" hidden>
+          <h2>A little setup. A clearer day.</h2>
+          <p>Add your first peptide to build your daily plan.</p>
+          <ol>
+            <li>Dose and schedule</li>
+            <li>Cycle length and breaks</li>
+            <li>Vial details and dose plan</li>
+          </ol>
+          <button class="primary-button" type="button" data-new-protocol>
+            <i data-lucide="plus"></i>Add your first peptide
+          </button>
+        </section>
+        <div class="today-workspace" id="todayWorkspace">
+          <div class="today-actions">
+            <section class="panel today-plan-panel">
+              <div class="section-heading">
+                <div><h2>Today's plan</h2></div>
+                <span class="section-status" id="todayCompletionSummary"></span>
               </div>
-              <p id="titrationPreview" class="titration-preview" aria-live="polite"></p>
-            </div>
-          </fieldset>
-          </fieldset>
-          <fieldset class="protocol-step" data-protocol-step="4" hidden><legend>Review your protocol</legend>
-            <div id="protocolSummary"></div>
-            <div class="form-grid"><label><span>Current weight (lb, optional)</span><input id="setupWeightInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label><label><span>Goal weight (lb, optional)</span><input id="setupGoalInput" type="number" min="0.1" step="0.1" inputmode="decimal"></label></div>
-          </fieldset>
-          <p id="protocolError" role="alert" class="titration-error"></p>
-          <div class="editor-actions" id="protocolWizardActions" hidden><button type="button" class="secondary-button" id="protocolBackButton"><svg aria-hidden="true"><use href="#icon-left"></use></svg><span>Back</span></button><button type="button" class="primary-button" id="protocolNextButton">Continue</button></div>
-          <div class="editor-actions">
-            <button class="primary-button" id="savePeptideButton" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save peptide</span></button>
-            <button class="secondary-button" id="deletePeptideBtn" type="button"><svg aria-hidden="true"><use href="#icon-trash"></use></svg><span>Delete</span></button>
-            <button class="secondary-button" id="protocolDashboardButton" type="button" data-nav="dashboard">View schedule</button>
+              <div class="today-plan-list" id="todayCards"></div>
+              <progress
+                id="todayProgress"
+                max="1"
+                value="0"
+                aria-label="Today's completed pulls"
+              ></progress>
+            </section>
+
+            <section class="panel" id="cycleSection" hidden>
+              <div class="section-heading compact">
+                <div><h2>Cycle restart</h2></div>
+              </div>
+              <div id="cycleList"></div>
+            </section>
+
+            <section
+              class="panel titration-section"
+              id="titrationSection"
+              hidden
+            >
+              <div class="section-heading compact">
+                <div><h2>Dose review</h2></div>
+                <span id="titrationStatus" role="status"></span>
+              </div>
+              <div id="titrationList"></div>
+            </section>
+
+            <form
+              class="panel checkin-card dashboard-checkin"
+              id="quickCheckinForm"
+            >
+              <div class="section-heading compact">
+                <div><h2>Check-in</h2></div>
+                <span id="quickCheckinState"></span>
+              </div>
+              <div class="form-grid">
+                <label
+                  ><span>Weight (lb)</span
+                  ><input
+                    id="quickWeightInput"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    inputmode="decimal"
+                    required
+                /></label>
+              </div>
+              <button class="primary-button" type="submit">
+                <svg aria-hidden="true"><use href="#icon-save"></use></svg
+                ><span>Save</span>
+              </button>
+            </form>
           </div>
-        </form>
+          <div class="today-progress">
+            <section class="panel chart-panel dashboard-progress">
+              <div class="section-heading compact">
+                <div><h2>Your progress</h2></div>
+                <div class="chart-periods">
+                  <button type="button" data-chart-period="28">4w</button
+                  ><button type="button" data-chart-period="all" class="active">
+                    All
+                  </button>
+                </div>
+              </div>
+              <div id="dashboardWeightHeadline" class="weight-headline"></div>
+              <span id="dashboardChartCaption" class="chart-caption"></span>
+              <div id="dashboardWeightChart" class="weight-chart"></div>
+            </section>
+
+            <section class="panel dashboard-analytics-panel">
+              <div class="metrics-grid" id="dashboardAnalyticsGrid"></div>
+            </section>
+            <section class="panel" id="goalSection" hidden>
+              <div class="section-heading compact">
+                <h2 id="goalTitle">Weight goal</h2>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-nav="settings"
+                  data-preferences
+                  title="Edit weight goal"
+                  aria-label="Edit weight goal"
+                >
+                  <i data-lucide="pencil"></i>
+                </button>
+              </div>
+              <div id="goalProgress"></div>
+              <div id="goalReview" hidden>
+                <p>
+                  Your latest weight has reached your goal. Review your
+                  maintenance plan?
+                </p>
+                <div class="titration-actions">
+                  <button
+                    type="button"
+                    class="primary-button"
+                    id="goalReviewButton"
+                  >
+                    Review my stack</button
+                  ><button
+                    type="button"
+                    class="secondary-button"
+                    id="goalDismissButton"
+                  >
+                    Keep current plan
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <section class="dashboard-grid dashboard-support-grid">
+          <section class="panel">
+            <div class="section-heading compact">
+              <h2>Coming up</h2>
+              <button class="link-button" type="button" data-nav="calendar">
+                Calendar <i data-lucide="arrow-right"></i>
+              </button>
+            </div>
+            <div class="next-list" id="nextUpList"></div>
+          </section>
+        </section>
       </section>
 
-      <section class="panel changes-panel">
-        <div class="section-heading compact"><div><p class="eyebrow">Titration</p><h2>Dose changes</h2></div></div>
-        <div class="changes-layout">
-          <form class="mini-form" id="doseChangeForm">
-            <label><span>Peptide</span><select id="changePeptideSelect"></select></label>
-            <label><span>Effective date</span><input id="changeDateInput" type="date"></label>
-            <label><span>New amount</span><input id="changeAmountInput" type="number" min="0" step="0.001"></label>
-            <label><span>Unit</span><select id="changeUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
-            <label class="wide"><span>Note</span><input id="changeNoteInput" type="text"></label>
-            <button class="primary-button" type="submit"><svg aria-hidden="true"><use href="#icon-save"></use></svg><span>Save change</span></button>
+      <section class="view" id="view-calendar">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Calendar</p>
+            <h2>Schedule</h2>
+          </div>
+          <input id="jumpDate" type="date" />
+        </div>
+        <section class="workspace-grid">
+          <section class="panel calendar-panel">
+            <div class="calendar-toolbar">
+              <button
+                class="icon-button"
+                id="prevMonthBtn"
+                type="button"
+                aria-label="Previous month"
+              >
+                <svg aria-hidden="true"><use href="#icon-left"></use></svg>
+              </button>
+              <h2><span id="monthTitle"></span></h2>
+              <button
+                class="icon-button"
+                id="nextMonthBtn"
+                type="button"
+                aria-label="Next month"
+              >
+                <svg aria-hidden="true"><use href="#icon-right"></use></svg>
+              </button>
+            </div>
+            <button
+              class="secondary-button full-button"
+              id="todayBtn"
+              type="button"
+            >
+              <svg aria-hidden="true"><use href="#icon-calendar"></use></svg
+              ><span>Today</span>
+            </button>
+            <div class="weekday-row" aria-hidden="true">
+              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span
+              ><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </section>
+
+          <section class="panel day-panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Selected</p>
+                <h2 id="selectedDateTitle"></h2>
+              </div>
+              <span class="status-chip" id="cycleBadge"></span>
+            </div>
+            <div class="task-list" id="selectedTasks"></div>
+            <div class="day-actions" id="dayActions"></div>
+            <div id="calendarTitration"></div>
+            <form class="checkin-form" id="checkinForm">
+              <div class="form-head">
+                <h3>Check-in</h3>
+                <span id="checkinSavedState"></span>
+              </div>
+              <div class="form-grid">
+                <label
+                  ><span>Weight</span
+                  ><input
+                    id="weightInput"
+                    type="number"
+                    step="0.1"
+                    inputmode="decimal"
+                /></label>
+                <label class="wide"
+                  ><span>Notes</span
+                  ><textarea id="notesInput" rows="3"></textarea>
+                </label>
+              </div>
+              <button class="primary-button" type="submit">
+                <svg aria-hidden="true"><use href="#icon-save"></use></svg
+                ><span>Save check-in</span>
+              </button>
+            </form>
+          </section>
+        </section>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Your plan, your preferences</p>
+            <h2>Settings</h2>
+          </div>
+        </div>
+        <div class="settings-tabs">
+          <button type="button" class="active" data-settings-tab="protocol">
+            Update protocol</button
+          ><button type="button" data-settings-tab="preferences">
+            Preferences
+          </button>
+        </div>
+        <div id="preferencesPanel" hidden>
+          <section class="account-tools">
+            <h3 id="profileEyebrow">Private profile</h3>
+            <span class="sync-status" id="syncStatus">Locked</span>
+            <div class="header-actions">
+              <button class="secondary-button" id="syncBtn" type="button">
+                <i data-lucide="refresh-cw"></i>Sync
+              </button>
+              <button class="secondary-button" id="exportBtn" type="button">
+                <i data-lucide="download"></i>Export
+              </button>
+              <button class="secondary-button" id="importBtn" type="button">
+                <i data-lucide="upload"></i>Import
+              </button>
+              <button class="secondary-button" id="lockBtn" type="button">
+                <i data-lucide="lock-keyhole"></i>Lock
+              </button>
+            </div>
+          </section>
+          <form class="panel goal-settings" id="goalForm">
+            <div class="form-head">
+              <h3>Weight goal</h3>
+              <span>Optional</span>
+            </div>
+            <div class="form-grid">
+              <label
+                ><span>Goal weight (lb)</span
+                ><input
+                  id="goalWeightInput"
+                  type="number"
+                  min="0.1"
+                  step="0.1"
+                  inputmode="decimal"
+              /></label>
+            </div>
+            <div class="editor-actions">
+              <button type="submit" class="primary-button">
+                <svg aria-hidden="true"><use href="#icon-save"></use></svg
+                ><span>Save goal</span></button
+              ><button
+                type="button"
+                class="secondary-button"
+                id="clearGoalButton"
+              >
+                Remove goal
+              </button>
+            </div>
+            <p id="goalSavedStatus" role="status"></p>
           </form>
-          <div class="change-history" id="changeHistory"></div>
+        </div>
+        <div id="protocolPanel">
+          <div class="section-heading">
+            <div>
+              <h2>My stack</h2>
+              <span id="stackCount"></span>
+            </div>
+            <button class="primary-button" id="newPeptideBtn" type="button">
+              <i data-lucide="plus"></i><span>Add peptide</span>
+            </button>
+          </div>
+          <section class="stack-layout">
+            <div class="panel stack-list-panel">
+              <div class="stack-list" id="stackList"></div>
+            </div>
+            <dialog id="protocolDialog" aria-labelledby="peptideFormTitle">
+              <div class="dialog-heading">
+                <span id="protocolPageTitle">Update protocol</span
+                ><button
+                  class="icon-button"
+                  type="button"
+                  data-close-protocol
+                  aria-label="Close protocol editor"
+                >
+                  <i data-lucide="x"></i>
+                </button>
+              </div>
+              <form class="panel editor-panel" id="peptideForm">
+                <input id="peptideIdInput" type="hidden" />
+                <div class="form-head">
+                  <h3 id="peptideFormTitle">Peptide</h3>
+                  <span id="peptideFormMode"></span>
+                </div>
+                <div id="protocolWizard" hidden>
+                  <button
+                    type="button"
+                    class="link-button"
+                    id="protocolCancelButton"
+                  >
+                    <svg aria-hidden="true"><use href="#icon-left"></use></svg
+                    ><span>Back to stack</span>
+                  </button>
+                  <p id="protocolStepLabel" role="status"></p>
+                  <progress
+                    id="protocolStepProgress"
+                    max="5"
+                    value="1"
+                    aria-label="Setup progress"
+                  ></progress>
+                </div>
+                <nav
+                  id="protocolEditTabs"
+                  class="settings-tabs"
+                  aria-label="Protocol sections"
+                  hidden
+                ></nav>
+                <fieldset class="protocol-step" data-protocol-step="0">
+                  <legend>Dose & schedule</legend>
+                  <div class="form-grid">
+                    <label
+                      ><span>Name</span
+                      ><input id="peptideNameInput" type="text" required
+                    /></label>
+                    <label
+                      ><span>Starting / current dose</span
+                      ><input
+                        id="doseAmountInput"
+                        type="number"
+                        min="0.001"
+                        step="0.001"
+                        required
+                    /></label>
+                    <label
+                      ><span>Dose unit</span
+                      ><select id="doseUnitInput">
+                        <option value="mg">mg</option>
+                        <option value="mcg">mcg</option>
+                      </select></label
+                    >
+                    <label
+                      ><span>Time</span
+                      ><select id="timeInput">
+                        <option value="Any">Any</option>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                        <option value="AM,PM">AM & PM</option>
+                      </select></label
+                    >
+                    <label
+                      ><span>Frequency</span
+                      ><select id="frequencyInput">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="weekdays">Specific weekdays</option>
+                        <option value="interval">Every X days</option>
+                      </select></label
+                    >
+                    <label
+                      ><span>Interval days</span
+                      ><input
+                        id="intervalDaysInput"
+                        type="number"
+                        min="1"
+                        step="1"
+                    /></label>
+                    <label
+                      ><span>Weekdays</span
+                      ><input
+                        id="weekdaysInput"
+                        type="text"
+                        placeholder="Mon, Thu"
+                    /></label>
+                    <label
+                      ><span>Start date</span
+                      ><input id="startDateInput" type="date" required
+                    /></label>
+                    <label
+                      ><span>Status</span
+                      ><select id="activeInput">
+                        <option value="true">Active</option>
+                        <option value="false">Paused</option>
+                      </select></label
+                    >
+                  </div>
+                </fieldset>
+                <fieldset class="protocol-step" data-protocol-step="1">
+                  <legend>How long is this protocol?</legend>
+                  <label class="duration-select"
+                    ><span>How long is this protocol?</span
+                    ><select id="durationMode" required>
+                      <option value="" disabled>Choose a duration</option>
+                      <option value="ongoing">
+                        Ongoing (no scheduled end)
+                      </option>
+                      <option value="fixed">Fixed course (then finish)</option>
+                      <option value="cycle">
+                        Repeating cycle (time on / time off)
+                      </option>
+                    </select></label
+                  >
+                  <div
+                    class="duration-choices"
+                    role="radiogroup"
+                    aria-label="How long is this protocol?"
+                  >
+                    <label
+                      ><input
+                        type="radio"
+                        name="durationChoice"
+                        value="ongoing"
+                      /><span
+                        ><strong>Ongoing</strong
+                        ><small>No scheduled end date.</small></span
+                      ></label
+                    ><label
+                      ><input
+                        type="radio"
+                        name="durationChoice"
+                        value="fixed"
+                      /><span
+                        ><strong>Fixed course</strong
+                        ><small>A set length, then finish.</small></span
+                      ></label
+                    ><label
+                      ><input
+                        type="radio"
+                        name="durationChoice"
+                        value="cycle"
+                      /><span
+                        ><strong>Repeating cycle</strong
+                        ><small
+                          >Time on, followed by a scheduled break.</small
+                        ></span
+                      ></label
+                    >
+                  </div>
+                  <div class="form-grid" id="fixedDurationFields" hidden>
+                    <label
+                      ><span>Course length (weeks)</span
+                      ><input
+                        id="courseWeeksInput"
+                        type="number"
+                        min="0.143"
+                        step="any"
+                        inputmode="decimal" /></label
+                    ><label
+                      ><span>Last day</span
+                      ><input id="endDateInput" type="date"
+                    /></label>
+                  </div>
+                  <div class="form-grid" id="cycleDurationFields" hidden>
+                    <label
+                      ><span>Time on (weeks)</span
+                      ><input
+                        id="cycleOnWeeks"
+                        type="number"
+                        min="0.143"
+                        step="any"
+                        inputmode="decimal"
+                    /></label>
+                    <label
+                      ><span>Time off (weeks)</span
+                      ><input
+                        id="cycleOffWeeks"
+                        type="number"
+                        min="0.143"
+                        step="any"
+                        inputmode="decimal"
+                    /></label>
+                    <label class="wide"
+                      ><span>After the break</span
+                      ><select id="cycleRestartMode">
+                        <option value="confirm">Confirm each restart</option>
+                        <option value="auto">Repeat automatically</option>
+                      </select></label
+                    >
+                  </div>
+                  <input id="cycleOnInput" type="hidden" /><input
+                    id="cycleOffInput"
+                    type="hidden"
+                  />
+                  <p id="durationPreview" class="titration-preview"></p>
+                </fieldset>
+                <fieldset class="protocol-step" data-protocol-step="2">
+                  <legend>Vial & measurement</legend>
+                  <div class="form-grid">
+                    <label class="wide"
+                      ><span>Have you mixed this vial?</span
+                      ><select id="measurementMode" required>
+                        <option value="" disabled>Choose vial setup</option>
+                        <option value="mixed">Yes, already mixed</option>
+                        <option value="later">Set up later</option>
+                      </select></label
+                    >
+                    <label
+                      ><span>Powder in vial (mg)</span
+                      ><input
+                        id="powderMgInput"
+                        type="number"
+                        min="0.001"
+                        step="0.001"
+                        required
+                        inputmode="decimal"
+                    /></label>
+                    <label
+                      ><span>BAC water added (ml)</span
+                      ><input
+                        id="bacMlInput"
+                        type="number"
+                        min="0.001"
+                        step="0.001"
+                        required
+                        inputmode="decimal"
+                    /></label>
+                  </div>
+                  <p id="measurementPreview" class="titration-preview"></p>
+                </fieldset>
+                <fieldset class="protocol-step" data-protocol-step="3">
+                  <legend>Dose plan</legend>
+                  <label
+                    ><span>Will your dose change?</span
+                    ><select id="protocolPlanChoice" required>
+                      <option value="" disabled>Choose a dose plan</option>
+                      <option value="steady">Stay at this dose</option>
+                      <option value="review">
+                        Weekly review, no planned increase
+                      </option>
+                      <option value="increase">Increase in steps</option>
+                      <option value="maintain">Maintain current dose</option>
+                      <option value="decrease">Reduce to maintenance</option>
+                      <option value="stop">Reduce to a planned stop</option>
+                    </select></label
+                  >
+                  <input id="reviewEveryInput" type="hidden" />
+                  <input id="stepAmountInput" type="hidden" />
+                  <fieldset class="titration-setup">
+                    <legend>Titration plan</legend>
+                    <label class="titration-toggle"
+                      ><input id="titrationEnabled" type="checkbox" /><span
+                        >Scheduled dose check-ins</span
+                      ></label
+                    >
+                    <div id="titrationFields" hidden>
+                      <div class="form-grid">
+                        <label
+                          ><span>Plan direction</span
+                          ><select id="titrationMode">
+                            <option value="increase">Increase</option>
+                            <option value="review">
+                              Weekly review (no planned increase)
+                            </option>
+                            <option value="maintain">
+                              Maintain current dose
+                            </option>
+                            <option value="decrease">
+                              Reduce to maintenance
+                            </option>
+                            <option value="stop">
+                              Reduce to a planned stop
+                            </option>
+                          </select></label
+                        >
+                        <label
+                          ><span>Time between steps (days)</span
+                          ><input
+                            id="titrationCadence"
+                            type="number"
+                            min="1"
+                            max="730"
+                            step="1"
+                            value="28"
+                        /></label>
+                        <label
+                          ><span id="titrationUnitLabel">Increase (mg)</span
+                          ><input
+                            id="titrationIncrement"
+                            type="number"
+                            min="0.001"
+                            step="0.001"
+                            inputmode="decimal"
+                        /></label>
+                        <label
+                          ><span>Next check-in</span
+                          ><input id="titrationNextDate" type="date"
+                        /></label>
+                        <label id="titrationMaxField"
+                          ><span id="titrationMaxLabel"
+                            >Stop increasing at (mg, optional)</span
+                          ><input
+                            id="titrationMax"
+                            type="number"
+                            min="0.001"
+                            step="0.001"
+                            inputmode="decimal"
+                        /></label>
+                        <label id="titrationTargetField" hidden
+                          ><span id="titrationTargetLabel"
+                            >Maintenance dose (mg)</span
+                          ><input
+                            id="titrationTarget"
+                            type="number"
+                            min="0.001"
+                            step="0.001"
+                            inputmode="decimal"
+                        /></label>
+                      </div>
+                      <p
+                        id="titrationPreview"
+                        class="titration-preview"
+                        aria-live="polite"
+                      ></p>
+                    </div>
+                  </fieldset>
+                </fieldset>
+                <fieldset class="protocol-step" data-protocol-step="4" hidden>
+                  <legend>Review your protocol</legend>
+                  <div id="protocolSummary"></div>
+                  <div class="form-grid" id="initialWeightFields">
+                    <label
+                      ><span>Current weight (lb, optional)</span
+                      ><input
+                        id="setupWeightInput"
+                        type="number"
+                        min="0.1"
+                        step="0.1"
+                        inputmode="decimal" /></label
+                    ><label
+                      ><span>Goal weight (lb, optional)</span
+                      ><input
+                        id="setupGoalInput"
+                        type="number"
+                        min="0.1"
+                        step="0.1"
+                        inputmode="decimal"
+                    /></label>
+                  </div>
+                </fieldset>
+                <p id="protocolError" role="alert" class="titration-error"></p>
+                <div class="protocol-footer">
+                  <div class="editor-actions" id="protocolWizardActions" hidden>
+                    <button
+                      type="button"
+                      class="secondary-button"
+                      id="protocolBackButton"
+                    >
+                      <svg aria-hidden="true"><use href="#icon-left"></use></svg
+                      ><span>Back</span></button
+                    ><button
+                      type="button"
+                      class="primary-button"
+                      id="protocolNextButton"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                  <div class="editor-actions">
+                    <button
+                      class="primary-button"
+                      id="savePeptideButton"
+                      type="submit"
+                    >
+                      <svg aria-hidden="true"><use href="#icon-save"></use></svg
+                      ><span>Save peptide</span>
+                    </button>
+                    <button
+                      class="secondary-button"
+                      id="deletePeptideBtn"
+                      type="button"
+                    >
+                      <svg aria-hidden="true">
+                        <use href="#icon-trash"></use></svg
+                      ><span>Delete</span>
+                    </button>
+                    <button
+                      class="secondary-button"
+                      id="protocolDashboardButton"
+                      type="button"
+                      data-nav="dashboard"
+                    >
+                      View schedule
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </dialog>
+          </section>
+          <div class="calculator-link">
+            <div>
+              <h3>Vial calculator</h3>
+              <p>Check a measurement for your vial.</p>
+            </div>
+            <button
+              class="icon-button"
+              type="button"
+              data-nav="calculator"
+              title="Open vial calculator"
+              aria-label="Open vial calculator"
+            >
+              <i data-lucide="calculator"></i>
+            </button>
+          </div>
+          <details class="panel changes-panel">
+            <summary>Dose changes & history</summary>
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Titration</p>
+                <h2>Dose changes</h2>
+              </div>
+            </div>
+            <div class="changes-layout">
+              <form class="mini-form" id="doseChangeForm">
+                <label
+                  ><span>Peptide</span
+                  ><select id="changePeptideSelect"></select
+                ></label>
+                <label
+                  ><span>Effective date</span
+                  ><input id="changeDateInput" type="date"
+                /></label>
+                <label
+                  ><span>New amount</span
+                  ><input
+                    id="changeAmountInput"
+                    type="number"
+                    min="0"
+                    step="0.001"
+                /></label>
+                <label
+                  ><span>Unit</span
+                  ><select id="changeUnitInput">
+                    <option value="mg">mg</option>
+                    <option value="mcg">mcg</option>
+                  </select></label
+                >
+                <label class="wide"
+                  ><span>Note</span><input id="changeNoteInput" type="text"
+                /></label>
+                <button class="primary-button" type="submit">
+                  <svg aria-hidden="true"><use href="#icon-save"></use></svg
+                  ><span>Save change</span>
+                </button>
+              </form>
+              <div class="change-history" id="changeHistory"></div>
+            </div>
+          </details>
         </div>
       </section>
-    </section>
 
-    <section class="view" id="view-calculator">
-      <div class="view-heading"><div><p class="eyebrow">Math</p><h2>Calculator</h2></div></div>
-      <div class="calculator-grid">
-        <form class="panel calc-panel" id="unitsCalcForm">
-          <div class="form-head"><h3>Units from dose</h3><span>U-100 default</span></div>
-          <div class="form-grid">
-            <label><span>Powder in vial</span><input id="calcPowderInput" type="number" min="0" step="0.1" value="10"></label>
-            <label><span>BAC water added</span><input id="calcWaterInput" type="number" min="0" step="0.01" value="1"></label>
-            <label><span>Target dose</span><input id="calcDoseInput" type="number" min="0" step="0.001" value="1"></label>
-            <label><span>Dose unit</span><select id="calcDoseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
-            <label><span>Syringe units / ml</span><input id="calcUnitsPerMlInput" type="number" min="1" step="1" value="100"></label>
+      <section class="view" id="view-calculator">
+        <button class="link-button" type="button" data-nav="settings">
+          <i data-lucide="arrow-left"></i>Back to stack
+        </button>
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Math</p>
+            <h2>Calculator</h2>
           </div>
-          <div class="calc-result" id="unitsCalcResult"></div>
-        </form>
-        <form class="panel calc-panel" id="waterCalcForm">
-          <div class="form-head"><h3>Easy-measure water</h3><span>Target units</span></div>
-          <div class="form-grid">
-            <label><span>Powder in vial</span><input id="easyPowderInput" type="number" min="0" step="0.1" value="10"></label>
-            <label><span>Target dose</span><input id="easyDoseInput" type="number" min="0" step="0.001" value="1"></label>
-            <label><span>Dose unit</span><select id="easyDoseUnitInput"><option value="mg">mg</option><option value="mcg">mcg</option></select></label>
-            <label><span>Preferred units</span><input id="easyUnitsInput" type="number" min="1" step="0.1" value="10"></label>
-            <label><span>Syringe units / ml</span><input id="easyUnitsPerMlInput" type="number" min="1" step="1" value="100"></label>
-            <label><span>Max vial volume</span><input id="easyMaxVolumeInput" type="number" min="0" step="0.1" placeholder="optional"></label>
+        </div>
+        <div class="calculator-grid">
+          <form class="panel calc-panel" id="unitsCalcForm">
+            <div class="form-head">
+              <h3>Units from dose</h3>
+              <span>U-100 default</span>
+            </div>
+            <div class="form-grid">
+              <label
+                ><span>Powder in vial (mg)</span
+                ><input
+                  id="calcPowderInput"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value="10"
+              /></label>
+              <label
+                ><span>BAC water added (mL)</span
+                ><input
+                  id="calcWaterInput"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value="1"
+              /></label>
+              <label
+                ><span>Target dose</span
+                ><input
+                  id="calcDoseInput"
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  value="1"
+              /></label>
+              <label
+                ><span>Dose unit</span
+                ><select id="calcDoseUnitInput">
+                  <option value="mg">mg</option>
+                  <option value="mcg">mcg</option>
+                </select></label
+              >
+              <label
+                ><span>Syringe units / ml</span
+                ><input
+                  id="calcUnitsPerMlInput"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="100"
+              /></label>
+            </div>
+            <div class="calc-result" id="unitsCalcResult"></div>
+          </form>
+          <form class="panel calc-panel" id="waterCalcForm">
+            <div class="form-head">
+              <h3>Easy-measure water</h3>
+              <span>Target units</span>
+            </div>
+            <div class="form-grid">
+              <label
+                ><span>Powder in vial (mg)</span
+                ><input
+                  id="easyPowderInput"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value="10"
+              /></label>
+              <label
+                ><span>Target dose</span
+                ><input
+                  id="easyDoseInput"
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  value="1"
+              /></label>
+              <label
+                ><span>Dose unit</span
+                ><select id="easyDoseUnitInput">
+                  <option value="mg">mg</option>
+                  <option value="mcg">mcg</option>
+                </select></label
+              >
+              <label
+                ><span>Preferred units</span
+                ><input
+                  id="easyUnitsInput"
+                  type="number"
+                  min="1"
+                  step="0.1"
+                  value="10"
+              /></label>
+              <label
+                ><span>Syringe units / ml</span
+                ><input
+                  id="easyUnitsPerMlInput"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="100"
+              /></label>
+              <label
+                ><span>Max vial volume (mL)</span
+                ><input
+                  id="easyMaxVolumeInput"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  placeholder="optional"
+              /></label>
+            </div>
+            <div class="calc-result" id="waterCalcResult"></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="view" id="view-progress">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Tracking</p>
+            <h2>Progress</h2>
           </div>
-          <div class="calc-result" id="waterCalcResult"></div>
-        </form>
-      </div>
-    </section>
-
-    <section class="view" id="view-progress">
-      <div class="view-heading"><div><p class="eyebrow">Tracking</p><h2>Progress</h2></div></div>
-      <div class="metrics-grid" id="metricsGrid"></div>
-      <section class="panel chart-panel">
-        <div class="section-heading compact"><div><p class="eyebrow">Trend</p><h2>Weight</h2></div><span id="chartCaption"></span></div>
-        <div id="weightChart" class="weight-chart"></div>
+        </div>
+        <div class="metrics-grid" id="metricsGrid"></div>
+        <section class="panel chart-panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Trend</p>
+              <h2>Weight</h2>
+            </div>
+            <span id="chartCaption"></span>
+          </div>
+          <div id="weightChart" class="weight-chart"></div>
+        </section>
+        <section class="panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Recent</p>
+              <h2>Check-ins</h2>
+            </div>
+          </div>
+          <div class="history-list" id="checkinHistory"></div>
+        </section>
       </section>
-      <section class="panel">
-        <div class="section-heading compact"><div><p class="eyebrow">Recent</p><h2>Check-ins</h2></div></div>
-        <div class="history-list" id="checkinHistory"></div>
-      </section>
-    </section>
-  </main>
+    </main>
 
-  <input id="importFileInput" type="file" accept="application/json" hidden>
-  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-</body>
+    <input id="importFileInput" type="file" accept="application/json" hidden />
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
 </html>

@@ -27,35 +27,38 @@ const { pathToFileURL } = require('node:url');
       await page.locator(`#stackList [data-edit-peptide="${removed}"]`).click();
       await page.locator('#deletePeptideBtn').click();
       const next = width === 390 ? 'beta' : 'gamma';
-      assert.equal(await page.locator('#peptideIdInput').inputValue(), next);
+      assert.equal(await page.locator('#protocolDialog').isVisible(), false);
       assert.equal(await page.locator('#stackList').isVisible(), true);
       assert.equal(await page.locator('#stackList [data-edit-peptide]').count(), 2);
-      assert.equal(await page.locator('#protocolWizard').isVisible(), false);
+      await page.locator(`#stackList [data-edit-peptide="${next}"]`).click();
       await page.locator('#doseAmountInput').fill('2.5');
+      await page.locator('[data-protocol-edit-step="4"]').click();
       await page.locator('#savePeptideButton').click();
       assert.equal(await page.evaluate(id => PepsCore.findPeptide(id).doseAmount, next), 2.5);
       const remaining = await page.locator('#stackList [data-edit-peptide]').evaluateAll(buttons => buttons.map(button => button.dataset.editPeptide));
       for (const id of remaining) {
         await page.locator(`#stackList [data-edit-peptide="${id}"]`).click();
         assert.equal(await page.locator('#peptideIdInput').inputValue(), id);
+        await page.locator('[data-close-protocol]').click();
       }
       await page.locator('#newPeptideBtn').click();
       assert.equal(await page.locator('#protocolWizard').isVisible(), true);
       await page.locator('#protocolCancelButton').click();
       assert.equal(await page.locator('#stackList').isVisible(), true);
-      assert.equal(await page.locator('#protocolWizard').isVisible(), false);
+      assert.equal(await page.locator('#protocolDialog').isVisible(), false);
       while (await page.locator('#stackList [data-edit-peptide]').count()) {
         await page.locator('#stackList [data-edit-peptide]').first().click();
         await page.locator('#deletePeptideBtn').click();
         if (await page.locator('#stackList [data-edit-peptide]').count()) assert.equal(await page.locator('#stackList').isVisible(), true);
       }
-      assert.equal(await page.locator('#protocolWizard').isVisible(), true);
+      assert.equal(await page.locator('#protocolDialog').isVisible(), false);
       assert.equal(await page.locator('#peptideIdInput').inputValue(), '');
-      assert.equal(await page.locator('#protocolCancelButton').isVisible(), false);
+      await page.locator('#newPeptideBtn').click();
+      assert.equal(await page.locator('#protocolCancelButton').isVisible(), true);
       assert.equal(await page.locator('#peptideNameInput').isVisible(), true);
       assert.deepEqual(errors, []);
       await page.close();
     }
-    console.log('PASS: mobile/desktop first and middle deletion, edit remaining entries, cancel setup, repeated deletion and empty-stack setup.');
+    console.log('PASS: mobile/desktop first and middle deletion, edit remaining entries, cancel setup, repeated deletion and intentional empty-stack setup.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
