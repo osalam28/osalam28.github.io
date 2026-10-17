@@ -109,6 +109,7 @@
     el("protocolPageTitle").textContent = wizard ? "Set up your protocol" : "Update protocol";
     el("protocolDashboardButton").hidden = wizard;
     el("protocolWizard").hidden = !wizard;
+    el("protocolCancelButton").hidden = !core.state.stack.length;
     el("protocolWizardActions").hidden = !wizard;
     document.querySelectorAll("[data-protocol-step]").forEach(fieldset => { fieldset.hidden = wizard ? Number(fieldset.dataset.protocolStep) !== step : fieldset.dataset.protocolStep === "4"; });
     el("protocolStepLabel").textContent = `Step ${step + 1} of 5: ${stepNames[step]}`;
@@ -270,6 +271,9 @@
     }, true);
     el("protocolNextButton").addEventListener("click", () => { el("protocolError").textContent = ""; if (validateStep(step)) { step = Math.min(4, step + 1); showStep(); el("peptideForm").scrollIntoView({ block: "start" }); } });
     el("protocolBackButton").addEventListener("click", () => { step = Math.max(0, step - 1); showStep(); el("peptideForm").scrollIntoView({ block: "start" }); });
+    el("protocolCancelButton").addEventListener("click", () => {
+      el("stackList").querySelector("[data-edit-peptide]")?.click();
+    });
     ["durationMode", "cycleOnWeeks", "cycleOffWeeks", "cycleRestartMode", "measurementMode", "powderMgInput", "bacMlInput", "doseAmountInput", "doseUnitInput", "frequencyInput", "startDateInput"].forEach(id => el(id).addEventListener("input", updateFields));
     el("courseWeeksInput").addEventListener("input", () => {
       if (positive(el("courseWeeksInput").value) && el("startDateInput").value) el("endDateInput").value = add(el("startDateInput").value, Math.round(Number(el("courseWeeksInput").value) * 7) - 1);

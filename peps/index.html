@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Peptide Stack Calendar</title>
-  <link rel="stylesheet" href="./styles.css?v=20261015-reviews">
-  <script defer src="./crypto.js?v=20261015-reviews"></script>
-  <script defer src="./state.js?v=20261015-reviews"></script>
-  <script defer src="./titration.js?v=20261015-reviews"></script>
-  <script defer src="./protocol.js?v=20261015-reviews"></script>
-  <script defer src="./app.js?v=20261015-reviews"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261017-stack-editor">
+  <script defer src="./crypto.js?v=20261017-stack-editor"></script>
+  <script defer src="./state.js?v=20261017-stack-editor"></script>
+  <script defer src="./titration.js?v=20261017-stack-editor"></script>
+  <script defer src="./protocol.js?v=20261017-stack-editor"></script>
+  <script defer src="./app.js?v=20261017-stack-editor"></script>
 </head>
 <body class="locked">
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
@@ -189,7 +189,7 @@
         <form class="panel editor-panel" id="peptideForm">
           <input id="peptideIdInput" type="hidden">
           <div class="form-head"><h3 id="peptideFormTitle">Peptide</h3><span id="peptideFormMode"></span></div>
-          <div id="protocolWizard" hidden><p id="protocolStepLabel" role="status"></p><progress id="protocolStepProgress" max="5" value="1" aria-label="Setup progress"></progress></div>
+          <div id="protocolWizard" hidden><button type="button" class="secondary-button" id="protocolCancelButton"><svg aria-hidden="true"><use href="#icon-left"></use></svg><span>Back to stack</span></button><p id="protocolStepLabel" role="status"></p><progress id="protocolStepProgress" max="5" value="1" aria-label="Setup progress"></progress></div>
           <fieldset class="protocol-step" data-protocol-step="0"><legend>Dose & schedule</legend><div class="form-grid">
             <label><span>Name</span><input id="peptideNameInput" type="text" required></label>
             <label><span>Starting / current dose</span><input id="doseAmountInput" type="number" min="0.001" step="0.001" required></label>
