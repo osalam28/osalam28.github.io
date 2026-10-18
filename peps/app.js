@@ -8,24 +8,25 @@
     o = "unlock",
     i = null;
   async function l() {
+    if (window.PepsAccounts?.enabled) return;
     const t = a("profileSelect").value;
-    (a("usernameInput").value = t),
+    ((a("usernameInput").value = t),
       (a("authError").textContent = ""),
-      (a("authModeText").textContent = "Checking profile...");
+      (a("authModeText").textContent = "Checking profile..."));
     try {
       const n = await e.accountStatus(t);
-      (o = n.exists ? "unlock" : "create"),
+      ((o = n.exists ? "unlock" : "create"),
         (a("unlockButtonText").textContent =
           "create" === o ? "Create private password" : "Unlock"),
         (a("authModeText").textContent =
           "create" === o
             ? `${n.label} has not set a password yet. Create one to start a private profile.`
-            : `${n.label} profile is ready.`);
+            : `${n.label} profile is ready.`));
     } catch (e) {
-      console.warn(e),
+      (console.warn(e),
         (a("authModeText").textContent =
           "Could not check sync. You can try unlocking anyway."),
-        (o = "unlock");
+        (o = "unlock"));
     }
   }
   async function d(t) {
@@ -33,8 +34,8 @@
     const n = a("profileSelect").value,
       s = a("passwordInput").value;
     let i;
-    (a("authError").textContent = ""),
-      E("create" === o ? "Creating" : "Unlocking", "working");
+    ((a("authError").textContent = ""),
+      E("create" === o ? "Creating" : "Unlocking", "working"));
     try {
       i = await e.unlock(n, s, { create: "create" === o });
     } catch (e) {
@@ -61,47 +62,58 @@
         )
       );
     }
-    document.body.classList.remove("locked"),
+    (document.body.classList.remove("locked"),
       (a("authScreen").hidden = !0),
       (a("passwordInput").value = ""),
       E("Synced", "synced"),
       p(),
-      i.created && (r("dashboard"), y());
+      i.created && (r("dashboard"), y()));
   }
-  function c() {
-    window.PepsExperience.closeEditor(),
+  async function c() {
+    if (window.PepsAccounts?.enabled) {
+      try {
+        await e.flush();
+        await window.PepsAccounts.signOut();
+      } catch {
+        H(
+          "Could not save and sign out. Sync or export your changes, then try again.",
+        );
+      }
+      return;
+    }
+    (window.PepsExperience.closeEditor(),
       e.lock(),
       document.body.classList.add("locked"),
       (a("authScreen").hidden = !1),
       E("Locked"),
-      l();
+      l());
   }
   async function u() {
     try {
-      E("Syncing", "working"),
+      (E("Syncing", "working"),
         await e.syncNow(),
         p(),
         E("Synced", "synced"),
-        H("Synced");
+        H("Synced"));
     } catch (e) {
-      console.warn(e), E("Sync failed", "error"), H("Sync failed");
+      (console.warn(e), E("Sync failed", "error"), H("Sync failed"));
     }
   }
   function r(e, scroll = true) {
-    (s = n.includes(e) ? e : "dashboard"),
+    ((s = n.includes(e) ? e : "dashboard"),
       n.forEach((e) => a(`view-${e}`).classList.toggle("active", e === s)),
       document
         .querySelectorAll("[data-nav]")
         .forEach((e) => e.classList.toggle("active", e.dataset.nav === s)),
-      scroll && window.scrollTo({ top: 0, behavior: "instant" });
+      scroll && window.scrollTo({ top: 0, behavior: "instant" }));
   }
   function p() {
     a("profileEyebrow").textContent = `${e.state.profileName} profile`;
-    (function () {
+    ((function () {
       const n = e.state,
         s = new Date(n.viewYear, n.viewMonth, 1),
         o = t.addDays(s, -s.getDay());
-      (a("monthTitle").textContent = s.toLocaleDateString(void 0, {
+      ((a("monthTitle").textContent = s.toLocaleDateString(void 0, {
         month: "long",
         year: "numeric",
       })),
@@ -124,13 +136,13 @@
               )
               .join("")}</span>\n      </button>`
           );
-        }).join(""));
+        }).join("")));
     })(),
       (function () {
         const n = e.state,
           s = e.plan(n.selectedDate),
           o = n.checkins[n.selectedDate] || {};
-        (a("selectedDateTitle").textContent = t.longDate(n.selectedDate)),
+        ((a("selectedDateTitle").textContent = t.longDate(n.selectedDate)),
           (a("cycleBadge").textContent = `${s.tasks.length} scheduled`),
           (a("selectedTasks").innerHTML = s.tasks.length
             ? s.tasks.map(g).join("")
@@ -151,7 +163,7 @@
           (a("notesInput").value = o.notes ?? ""),
           (a("checkinSavedState").textContent = n.checkins[n.selectedDate]
             ? "Saved"
-            : "");
+            : ""));
       })(),
       m(),
       (function () {
@@ -174,12 +186,12 @@
       r(s, false),
       window.PepsTitration.render(),
       window.PepsProtocol.render(),
-      window.PepsExperience.render();
+      window.PepsExperience.render());
   }
   function m() {
     const n = e.state.stack,
       s = a("peptideIdInput").value;
-    (a("stackList").innerHTML = n.length
+    ((a("stackList").innerHTML = n.length
       ? n.map(h).join("")
       : '<div class="empty-state">No protocol configured.</div>'),
       n.length &&
@@ -190,21 +202,21 @@
       (function () {
         const n = a("changePeptideSelect"),
           s = n.value;
-        (n.innerHTML = e.state.stack
+        ((n.innerHTML = e.state.stack
           .map(
             (e) => `<option value="${e.id}">${t.escapeHtml(e.name)}</option>`,
           )
           .join("")),
           e.findPeptide(s) && (n.value = s),
-          !n.value && e.state.stack[0] && (n.value = e.state.stack[0].id);
+          !n.value && e.state.stack[0] && (n.value = e.state.stack[0].id));
         const o = e.findPeptide(n.value);
         if (o && !a("changeAmountInput").value) {
           const t = e.doseForDate(o, e.state.selectedDate);
-          (a("changeAmountInput").value = t.amount),
-            (a("changeUnitInput").value = t.unit);
+          ((a("changeAmountInput").value = t.amount),
+            (a("changeUnitInput").value = t.unit));
         }
         a("changeDateInput").value ||= e.state.selectedDate;
-      })();
+      })());
   }
   function g(a) {
     const n = e.state.selectedDate,
@@ -219,7 +231,7 @@
     if (!n) return;
     const s = e.doseForDate(n, e.helpers.todayString()),
       o = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    (a("peptideIdInput").value = n.id),
+    ((a("peptideIdInput").value = n.id),
       (a("peptideFormTitle").textContent = n.name),
       (a("peptideFormMode").textContent = "Editing"),
       (a("peptideNameInput").value = n.name),
@@ -242,11 +254,11 @@
       (a("reviewEveryInput").value = n.reviewEveryDays),
       (a("stepAmountInput").value = n.stepAmount),
       (a("deletePeptideBtn").disabled = !1),
-      window.PepsTitration.loadEditor(n);
+      window.PepsTitration.loadEditor(n));
   }
   function y() {
     const n = t.todayString();
-    (a("peptideIdInput").value = ""),
+    ((a("peptideIdInput").value = ""),
       (a("peptideFormTitle").textContent = "New peptide"),
       (a("peptideFormMode").textContent = ""),
       (a("peptideNameInput").value = ""),
@@ -266,7 +278,7 @@
       (a("reviewEveryInput").value = ""),
       (a("stepAmountInput").value = ""),
       (a("deletePeptideBtn").disabled = !0),
-      window.PepsTitration.loadEditor(null);
+      window.PepsTitration.loadEditor(null));
   }
   function b() {
     const n = a("peptideIdInput").value,
@@ -278,7 +290,7 @@
           const n = t.slug(a);
           let s = n,
             o = 2;
-          for (; e.findPeptide(s); ) (s = `${n}-${o}`), (o += 1);
+          for (; e.findPeptide(s); ) ((s = `${n}-${o}`), (o += 1));
           return s;
         })(o),
       l = Number(a("doseAmountInput").value),
@@ -360,27 +372,27 @@
     H("Peptide removed");
   }
   function w(t) {
-    t.preventDefault(),
+    (t.preventDefault(),
       e.addDoseChange({
         peptideId: a("changePeptideSelect").value,
         date: a("changeDateInput").value || e.state.selectedDate,
         amount: Number(a("changeAmountInput").value),
         unit: a("changeUnitInput").value,
         note: a("changeNoteInput").value.trim(),
-      }) && ((a("changeNoteInput").value = ""), p(), H("Dose change saved"));
+      }) && ((a("changeNoteInput").value = ""), p(), H("Dose change saved")));
   }
   function $(t) {
-    t.preventDefault(),
+    (t.preventDefault(),
       e.saveCheckin({
         weight:
           "" === a("weightInput").value ? null : Number(a("weightInput").value),
         notes: a("notesInput").value.trim(),
       }),
       p(),
-      H("Check-in saved");
+      H("Check-in saved"));
   }
   function D(n) {
-    n.preventDefault(),
+    (n.preventDefault(),
       e.setDate(t.todayString()),
       e.saveCheckin({
         weight:
@@ -389,10 +401,10 @@
             : Number(a("quickWeightInput").value),
       }),
       p(),
-      H("Check-in saved");
+      H("Check-in saved"));
   }
   function N(t) {
-    e.setDate(t), p();
+    (e.setDate(t), p());
   }
   function L() {
     const n = e.calculatorUnits({
@@ -424,32 +436,32 @@
         type: "application/json",
       }),
       n = document.createElement("a");
-    (n.href = URL.createObjectURL(a)),
+    ((n.href = URL.createObjectURL(a)),
       (n.download = `peptide-${e.state.profileId}-${t.todayString()}.json`),
       n.click(),
-      URL.revokeObjectURL(n.href);
+      URL.revokeObjectURL(n.href));
   }
   function C(t) {
     const a = t.target.files[0];
     if (!a) return;
     const n = new FileReader();
-    (n.onload = () => {
-      e.replace(JSON.parse(n.result)), p(), H("Imported");
+    ((n.onload = () => {
+      (e.replace(JSON.parse(n.result)), p(), H("Imported"));
     }),
       n.readAsText(a),
-      (t.target.value = "");
+      (t.target.value = ""));
   }
   function E(e, t = "") {
-    (a("syncStatus").textContent = e),
-      (a("syncStatus").className = `sync-status ${t}`.trim());
+    ((a("syncStatus").textContent = e),
+      (a("syncStatus").className = `sync-status ${t}`.trim()));
   }
   function H(e) {
-    clearTimeout(i),
+    (clearTimeout(i),
       (a("toast").textContent = e),
       (a("toast").hidden = !1),
       (i = setTimeout(() => {
         a("toast").hidden = !0;
-      }, 2200));
+      }, 2200)));
   }
   window.PepsRender = p;
   window.PepsApp = {
@@ -460,7 +472,7 @@
     removePeptide: k,
   };
   document.addEventListener("DOMContentLoaded", () => {
-    a("profileSelect").addEventListener("change", l),
+    (a("profileSelect").addEventListener("change", l),
       a("unlockForm").addEventListener("submit", d),
       a("syncBtn").addEventListener("click", u),
       a("lockBtn").addEventListener("click", c),
@@ -495,10 +507,10 @@
       }),
       a("todayBtn").addEventListener("click", () => N(t.todayString())),
       a("prevMonthBtn").addEventListener("click", () => {
-        e.shiftMonth(-1), p();
+        (e.shiftMonth(-1), p());
       }),
       a("nextMonthBtn").addEventListener("click", () => {
-        e.shiftMonth(1), p();
+        (e.shiftMonth(1), p());
       }),
       a("jumpDate").addEventListener(
         "change",
@@ -515,7 +527,7 @@
         t && (f(t.dataset.editPeptide), m());
       }),
       a("newPeptideBtn").addEventListener("click", () => {
-        m(), y();
+        (m(), y());
       }),
       a("peptideForm").addEventListener("submit", I),
       a("deletePeptideBtn").addEventListener("click", k),
@@ -527,8 +539,8 @@
           t,
           a("changeDateInput").value || e.state.selectedDate,
         );
-        (a("changeAmountInput").value = n.amount),
-          (a("changeUnitInput").value = n.unit);
+        ((a("changeAmountInput").value = n.amount),
+          (a("changeUnitInput").value = n.unit));
       }),
       [
         "calcPowderInput",
@@ -557,6 +569,6 @@
       ),
       E("Locked"),
       r("dashboard"),
-      l();
+      l());
   });
 })();

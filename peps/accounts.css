@@ -1,0 +1,102 @@
+.auth-screen:has(.account-card) {
+  overflow-y: auto;
+  align-items: safe center;
+}
+.account-card {
+  width: min(100%, 420px);
+  padding: 28px 24px;
+  text-align: left;
+  gap: 12px;
+  margin-block: auto;
+}
+.account-brand {
+  color: #166550;
+  font-size: 26px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.account-card h1 {
+  margin: 22px 0;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.account-card h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+.account-card p {
+  line-height: 1.5;
+}
+.account-card input,
+.account-card textarea {
+  width: 100%;
+  min-height: 48px;
+  font-size: 16px;
+}
+.account-password {
+  position: relative;
+}
+.account-password input {
+  padding-right: 52px;
+}
+.account-password button {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 42px;
+  height: 42px;
+}
+.account-card .primary-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 16px;
+}
+.account-text-button {
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: #166550;
+  padding: 8px 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.recovery-key {
+  border-top: 1px solid #d8e1de;
+  border-bottom: 1px solid #d8e1de;
+  margin-top: 20px;
+  padding: 18px 0;
+}
+.recovery-key code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 12px 0;
+  user-select: all;
+}
+.recovery-ack {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+}
+.recovery-ack input {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  flex-shrink: 0;
+}
+.account-card button:focus-visible,
+.account-card a:focus-visible {
+  outline: 3px solid #287963;
+  outline-offset: 3px;
+}
+#accountStatus:empty {
+  display: none;
+}
+@media (max-width: 480px) {
+  .account-card {
+    padding: 24px 18px;
+  }
+}
