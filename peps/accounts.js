@@ -252,6 +252,14 @@
     enabled: true,
     open,
     describe,
+    async register(email) {
+      check(
+        await client.auth.signInWithOtp({
+          email: email.trim(),
+          options: { shouldCreateUser: true, emailRedirectTo: config.redirectUrl },
+        }),
+      );
+    },
     async verify(tokenHash, type) {
       if (!["invite", "recovery", "email"].includes(type))
         throw fault("This account link is not supported.", "invalid_link");

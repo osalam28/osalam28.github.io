@@ -1,5 +1,6 @@
 {
   "mailer_subjects_invite": "You're invited to Peps",
   "mailer_subjects_recovery": "Reset your Peps password",
-  "mailer_subjects_magic_link": "Your Peps account link"
+  "mailer_subjects_magic_link": "Your Peps account link",
+  "mailer_subjects_confirmation": "Verify your email for Peps"
 }

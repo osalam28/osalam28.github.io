@@ -95,6 +95,21 @@
 #accountStatus:empty {
   display: none;
 }
+.account-new {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid #d8e1de;
+  padding-top: 20px;
+  margin-top: 8px;
+  text-align: center;
+}
+.account-card .secondary-button {
+  min-height: 48px;
+  justify-content: center;
+}
+#pendingEmail {
+  overflow-wrap: anywhere;
+}
 @media (max-width: 480px) {
   .account-card {
     padding: 24px 18px;

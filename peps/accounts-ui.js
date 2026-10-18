@@ -9,6 +9,19 @@
     token = "",
     linkType = "";
   let hasLegacy = false;
+  let pendingEmail = "",
+    resendTimer;
+  const sentAt = new Map();
+  function updateResend() {
+    if (mode !== "sent") return;
+    const remaining = Math.max(
+      0,
+      Math.ceil(((sentAt.get(pendingEmail.toLowerCase()) || 0) + 60000 - Date.now()) / 1000),
+    );
+    const button = byId("accountSubmit");
+    button.disabled = busy || remaining > 0;
+    button.textContent = remaining ? `Resend in ${remaining}s` : "Resend email";
+  }
   function readLink() {
     const params = new URLSearchParams(location.hash.slice(1));
     if (params.has("token_hash")) {
@@ -28,43 +41,44 @@
     element.classList.toggle("form-error", error);
   }
   function screen() {
+    clearInterval(resendTimer);
     const link = mode === "link",
       reset = mode === "reset",
       setup = mode === "setup";
+    const signup = mode === "signup",
+      sent = mode === "sent";
     const recover = mode === "recover",
       invalid = mode === "invalid";
-    const password = !link && !reset && !invalid;
-    const title = invalid
-      ? "This link is unavailable"
-      : link
-        ? linkType === "invite"
-          ? "Your invitation is ready"
-          : linkType === "email"
-            ? "Continue to Peps"
-            : "Reset your password"
-        : setup
-          ? "Create your account"
-          : recover
-            ? "Recover your account"
-            : reset
-              ? "Forgot your password?"
-              : "Welcome back";
-    const action = link
-      ? "Continue"
-      : setup
-        ? "Create account"
-        : recover
-          ? "Save new password"
-          : reset
-            ? "Send reset email"
-            : "Sign in";
+    const password = !link && !reset && !invalid && !signup && !sent;
+    const title = {
+      signin: "Welcome back",
+      signup: "Join Peps",
+      sent: "Check your email",
+      setup: "Create your account",
+      recover: "Recover your account",
+      reset: "Forgot your password?",
+      invalid: "This link is unavailable",
+      link: linkType === "invite" ? "Your invitation is ready"
+        : linkType === "email" ? "Continue to Peps" : "Reset your password",
+    }[mode];
+    const action = {
+      signin: "Sign in",
+      signup: "Send verification email",
+      sent: "Resend email",
+      link: "Continue",
+      setup: "Create account",
+      recover: "Save new password",
+      reset: "Send reset email",
+    }[mode];
     byId("authScreen").innerHTML = `
       <form class="auth-card account-card" id="accountForm">
         <a class="account-brand" href="./" aria-label="Peps home">peps.</a>
         <h1 id="accountTitle" tabindex="-1">${title}</h1>
-        ${invalid ? "<p>Request a new invitation or password-reset email.</p>" : ""}
+        ${invalid ? "<p>This link has expired, has already been used, or is invalid. Request a fresh email to continue.</p>" : ""}
         ${link ? "<p>Continue to verify your email address.</p>" : ""}
-        ${!link && !invalid ? '<label><span>Email</span><input id="accountEmail" type="email" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" required /></label>' : ""}
+        ${signup ? '<p>Verify your email, then set up your private account.</p>' : ""}
+        ${sent ? '<p>We sent a verification link to <strong id="pendingEmail"></strong>.</p><p>Check your inbox and spam folder. Use the newest email to continue. If the link expires, request another here.</p>' : ""}
+        ${!link && !invalid && !sent ? '<label><span>Email</span><input id="accountEmail" type="email" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" required /></label>' : ""}
         ${setup ? '<label><span>First name</span><input id="accountName" autocomplete="given-name" maxlength="80" required /></label>' : ""}
         ${password ? `<label><span>${setup || recover ? "New password" : "Password"}</span><div class="account-password"><input id="accountPassword" type="password" autocomplete="${setup || recover ? "new-password" : "current-password"}" ${setup || recover ? 'minlength="6" aria-describedby="passwordHint"' : ""} required /><button type="button" class="icon-button" id="toggleAccountPassword" aria-label="Show password" title="Show password"><i data-lucide="eye"></i></button></div></label>${setup || recover ? '<p class="auth-note" id="passwordHint">At least 6 characters.</p>' : ""}` : ""}
         ${setup ? '<section class="recovery-key"><h2>Your recovery key</h2><p>Keep this in a password manager or another safe place. Without your password or this key, your history cannot be recovered.</p><code id="newRecoveryKey"></code><button type="button" id="downloadRecoveryKey" class="secondary-button"><i data-lucide="download"></i> Download key</button><label class="recovery-ack"><input id="savedRecoveryKey" type="checkbox" required /><span>I have saved my recovery key.</span></label></section>' : ""}
@@ -72,9 +86,15 @@
         ${setup && hasLegacy ? '<label><span>Previous profile password</span><input id="legacyPasswordInput" type="password" autocomplete="off" required /></label><p class="auth-note">A one-time transfer of your existing history. The original encrypted copy will be kept.</p>' : ""}
         ${!invalid ? `<button class="primary-button" id="accountSubmit" type="submit">${action}</button>` : ""}
         <p id="accountStatus" role="status" aria-live="polite"></p>
-        ${mode === "signin" ? '<button type="button" class="account-text-button" data-account-mode="reset">Forgot password?</button><p class="auth-note">New here? Open the invitation sent to your email.</p>' : '<button type="button" class="account-text-button" data-account-mode="signin">Back to sign in</button>'}
+        ${mode === "signin" ? '<button type="button" class="account-text-button" data-account-mode="reset">Forgot password?</button><div class="account-new"><span>New to Peps?</span><button type="button" class="secondary-button" data-account-mode="signup"><i data-lucide="user-plus" aria-hidden="true"></i> Create account</button></div>' : `${invalid ? `<button type="button" class="secondary-button" data-account-mode="${linkType === "recovery" ? "reset" : "signup"}">Request a new link</button>` : ""}${sent ? '<button type="button" class="account-text-button" data-account-mode="signup">Use a different email</button>' : ""}<button type="button" class="account-text-button" data-account-mode="signin">Back to sign in</button>`}
       </form>`;
     if (setup) byId("newRecoveryKey").textContent = recovery;
+    if (signup) byId("accountEmail").value = pendingEmail;
+    if (sent) {
+      byId("pendingEmail").textContent = pendingEmail;
+      updateResend();
+      resendTimer = setInterval(updateResend, 1000);
+    }
     window.lucide?.createIcons();
   }
   async function prepare() {
@@ -100,6 +120,18 @@
         await accounts.verify(token, linkType);
         token = "";
         await prepare();
+      } else if (mode === "signup" || mode === "sent") {
+        const email = mode === "signup" ? byId("accountEmail").value.trim() : pendingEmail;
+        if (Date.now() - (sentAt.get(email.toLowerCase()) || 0) < 60000) {
+          status("Please wait a minute before requesting another email.", true);
+        } else {
+          await accounts.register(email);
+          pendingEmail = email;
+          sentAt.set(email.toLowerCase(), Date.now());
+          mode = "sent";
+          screen();
+          byId("accountTitle").focus();
+        }
       } else if (mode === "reset") {
         await accounts.reset(byId("accountEmail").value);
         status(
@@ -137,8 +169,9 @@
         const messages = {
           invalid_credentials: "Email or password is incorrect.",
           email_not_confirmed: "Verify your email address before signing in.",
-          otp_expired:
-            "This link has expired or has already been used. Request a new one.",
+          otp_expired: "This link has expired or has already been used. Request a new one.",
+          signup_disabled: "New accounts are temporarily unavailable. Please try again later.",
+          otp_disabled: "New accounts are temporarily unavailable. Please try again later.",
           over_email_send_rate_limit:
             "Please wait before requesting another email.",
           over_request_rate_limit:
@@ -154,6 +187,12 @@
           "session_expired",
           "recovery_save_failed",
         ];
+        if (mode === "link" && error.code === "otp_expired") {
+          token = "";
+          mode = "invalid";
+          screen();
+          byId("accountTitle").focus();
+        }
         status(
           messages[error.code] ||
             (localCodes.includes(error.code)
@@ -161,12 +200,12 @@
               : "Unable to complete this request. Your history has not been replaced. Please try again."),
           true,
         );
-        if (mode === "link" && error.code === "otp_expired") token = "";
       }
     } finally {
       busy = false;
       const current = byId("accountSubmit");
       if (current) current.disabled = false;
+      updateResend();
       byId("accountForm")?.removeAttribute("aria-busy");
     }
   }

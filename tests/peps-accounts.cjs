@@ -64,6 +64,7 @@ const session = (user) => ({
   user: safeUser(user),
 });
 let recoverFailure = false;
+let signupFailure = "";
 
 async function mock(route) {
   const request = route.request(),
@@ -88,6 +89,20 @@ async function mock(route) {
       },
     });
   requests.push({ path: url.pathname, method });
+  if (url.pathname === "/auth/v1/otp") {
+    assert.equal(body.create_user, true);
+    assert.equal(url.searchParams.get("redirect_to"), "https://omarsalam.io/peps/");
+    assert.equal(body.password, undefined);
+    if (signupFailure) {
+      const code = signupFailure;
+      signupFailure = "";
+      return reply({ code, msg: "Signup test error" }, 429);
+    }
+    if (!users.has(body.email)) users.set(body.email, {
+      id: "11111111-1111-4111-8111-111111111111", email: body.email, password: "",
+    });
+    return reply({});
+  }
   if (url.pathname === "/auth/v1/verify") {
     const user = users.get(
       body.token_hash === "invite-one" || body.token_hash === "recover-one" || body.token_hash === "email-one"
@@ -276,15 +291,66 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
     });
     page.on("pageerror", (error) => errors.push(error.message));
     await page.route("https://*.supabase.co/**", mock);
+    users.delete("one@example.test");
+    await page.goto(`${base}/peps/`);
+    await page.getByRole("button", { name: "Create account", exact: true }).click();
+    await page.getByRole("heading", { name: "Join Peps" }).waitFor();
+    assert.equal(await page.locator("#accountPassword").count(), 0);
+    await page.locator("#accountEmail").fill("one@example.test");
+    signupFailure = "signup_disabled";
+    await page.locator("#accountSubmit").click();
+    await page.getByText(/New accounts are temporarily unavailable/).waitFor();
+    signupFailure = "over_email_send_rate_limit";
+    await page.locator("#accountSubmit").click();
+    await page.getByText("Please wait before requesting another email.", { exact: true }).waitFor();
+    await page.locator("#accountSubmit").click();
+    await page.getByRole("heading", { name: "Check your email" }).waitFor();
+    assert.equal(await page.locator("#pendingEmail").textContent(), "one@example.test");
+    assert.equal(await page.locator("#accountSubmit").isDisabled(), true);
+    assert.equal(rows.size, 0, "No vault before verification and setup");
+    assert.equal(await page.evaluate(() => PepsCore.account), null);
+    const sentCount = requests.filter(r => r.path === "/auth/v1/otp").length;
+    await page.locator("#accountForm").dispatchEvent("submit");
+    await page.getByText(/Please wait a minute/).waitFor();
+    assert.equal(requests.filter(r => r.path === "/auth/v1/otp").length, sentCount);
+    await page.screenshot({ path: "/tmp/peps-signup-sent.png", fullPage: true });
+    await page.clock.install();
+    await page.clock.fastForward(61000);
+    await page.getByRole("button", { name: "Use a different email" }).click();
+    assert.equal(await page.locator("#accountEmail").inputValue(), "one@example.test");
+    await page.locator("#accountSubmit").click();
+    await page.getByRole("heading", { name: "Check your email" }).waitFor();
+    assert.equal(requests.filter(r => r.path === "/auth/v1/otp").length, sentCount + 1);
+    await page.clock.resume();
     const recovery = await create(
       page,
       base,
-      "invite-one",
+      "email-one",
       "one@example.test",
       "Private Test Name",
       "long-test-password-one",
+      undefined,
+      "email",
     );
     assert.equal(await page.evaluate(() => PepsCore.state.stack.length), 0);
+    await page.locator("#firstVisitWelcome").waitFor({ state: "visible" });
+    await page.locator('[data-new-protocol]').click();
+    await page.locator('#peptideNameInput').fill('Signup cycle test');
+    await page.locator('#doseAmountInput').fill('1');
+    await page.locator('#protocolNextButton').click();
+    await page.locator('[name="durationChoice"][value="cycle"]').check();
+    await page.locator('#cycleOnWeeks').fill('8');
+    await page.locator('#cycleOffWeeks').fill('3');
+    await page.locator('#protocolNextButton').click();
+    await page.locator('#measurementMode').selectOption('later');
+    await page.locator('#protocolNextButton').click();
+    await page.locator('#dosePlanKind').selectOption('steady');
+    await page.locator('#protocolNextButton').click();
+    await page.locator('#goalReviewChoice').selectOption('off');
+    await page.locator('#savePeptideButton').click();
+    await page.locator('#protocolDialog').waitFor({ state: 'hidden' });
+    assert.equal(await page.evaluate(() => PepsCore.state.stack[0].duration.onDays), 56);
+    assert.equal(await page.evaluate(() => PepsCore.state.stack[0].duration.offDays), 21);
     await page.evaluate(async () => {
       PepsCore.saveCheckin({ weight: 201.8, notes: "private-test-note" });
       PepsCore.savePeptide({ id: 'private-goal-test', name: 'private-goal-peptide', doseAmount: 1, doseUnit: 'mg',
@@ -313,6 +379,12 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
       await page.evaluate(() => Object.keys(PepsCore.state.checkins).length),
       0,
     );
+    const originalVault = JSON.stringify(rows.get(users.get("one@example.test").id));
+    await page.getByRole("button", { name: "Create account", exact: true }).click();
+    await page.locator("#accountEmail").fill("one@example.test");
+    await page.locator("#accountSubmit").click();
+    await page.getByRole("heading", { name: "Check your email" }).waitFor();
+    assert.equal(JSON.stringify(rows.get(users.get("one@example.test").id)), originalVault);
     await page.goto(`${base}/peps/?auth=20261017-accounts-v3#token_hash=email-one&type=email`);
     await page.getByRole("heading", { name: "Continue to Peps" }).waitFor();
     await page.locator("#accountSubmit").click();
@@ -437,6 +509,10 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
         path: `/tmp/peps-account-signin-${width}.png`,
         fullPage: true,
       });
+      await fresh.getByRole("button", { name: "Create account", exact: true }).click();
+      await fresh.getByRole("heading", { name: "Join Peps" }).waitFor();
+      assert.ok(await fresh.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await fresh.screenshot({ path: `/tmp/peps-signup-${width}.png`, fullPage: true });
     }
     const legacy = await fresh.evaluate(async () => {
       const state = PepsCore.starterState("legacy-test");
@@ -501,10 +577,16 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
     await fresh.getByText(/If this email has an account/).waitFor();
     await fresh.goto(`${base}/peps/#token_hash=expired&type=invite`);
     await fresh.locator("#accountSubmit").click();
-    await fresh.getByText(/This link has expired/).waitFor();
+    await fresh.getByRole("heading", { name: "This link is unavailable" }).waitFor();
+    await fresh.getByRole("button", { name: "Request a new link" }).click();
+    await fresh.getByRole("heading", { name: "Join Peps" }).waitFor();
+    await fresh.goto(`${base}/peps/#token_hash=expired&type=recovery`);
+    await fresh.locator("#accountSubmit").click();
+    await fresh.getByRole("button", { name: "Request a new link" }).click();
+    await fresh.getByRole("heading", { name: "Forgot your password?" }).waitFor();
     assert.deepEqual(errors, []);
     console.log(
-      "PASS: invitations, encrypted persistence, isolated accounts, recovery failure/retry, conflict protection, legacy migration, expired links, and mobile layouts",
+      "PASS: self-service signup, resend cooldown, signup errors, existing-user protection, invitations, encrypted persistence, isolated accounts, recovery failure/retry, conflict protection, legacy migration, expired-link renewal, and mobile layouts",
     );
   } finally {
     await browser.close();
