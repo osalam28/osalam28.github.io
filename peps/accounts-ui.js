@@ -14,7 +14,7 @@
     if (params.has("token_hash")) {
       token = params.get("token_hash");
       linkType = params.get("type");
-      mode = ["invite", "recovery"].includes(linkType) ? "link" : "invalid";
+      mode = ["invite", "recovery", "email"].includes(linkType) ? "link" : "invalid";
     } else if (params.has("error") || params.has("access_token")) {
       mode = "invalid";
     } else return false;
@@ -39,7 +39,9 @@
       : link
         ? linkType === "invite"
           ? "Your invitation is ready"
-          : "Reset your password"
+          : linkType === "email"
+            ? "Continue to Peps"
+            : "Reset your password"
         : setup
           ? "Create your account"
           : recover
@@ -78,7 +80,7 @@
   async function prepare() {
     const info = await accounts.describe();
     hasLegacy = info.hasLegacy;
-    mode = info.hasVault ? "recover" : "setup";
+    mode = info.hasVault ? (linkType === "email" ? "signin" : "recover") : "setup";
     if (!info.hasVault) recovery ||= window.PepsVault.recoverySecret();
     screen();
     byId("accountEmail").value = info.email;

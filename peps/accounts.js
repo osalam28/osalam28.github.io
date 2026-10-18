@@ -253,7 +253,7 @@
     open,
     describe,
     async verify(tokenHash, type) {
-      if (!["invite", "recovery"].includes(type))
+      if (!["invite", "recovery", "email"].includes(type))
         throw fault("This account link is not supported.", "invalid_link");
       check(await client.auth.verifyOtp({ token_hash: tokenHash, type }));
     },

@@ -90,7 +90,7 @@ async function mock(route) {
   requests.push({ path: url.pathname, method });
   if (url.pathname === "/auth/v1/verify") {
     const user = users.get(
-      body.token_hash === "invite-one" || body.token_hash === "recover-one"
+      body.token_hash === "invite-one" || body.token_hash === "recover-one" || body.token_hash === "email-one"
         ? "one@example.test"
         : body.token_hash === "invite-two"
           ? "two@example.test"
@@ -159,7 +159,9 @@ async function mock(route) {
   );
 }
 async function signIn(page, email, password) {
-  await page.locator("#accountEmail").fill(email);
+  const field = page.locator("#accountEmail");
+  if (await field.isEditable()) await field.fill(email);
+  else assert.equal(await field.inputValue(), email);
   await page.locator("#accountPassword").fill(password);
   await page.locator("#accountSubmit").click();
 }
@@ -169,13 +171,14 @@ async function signOut(page) {
   await page.locator("#lockBtn").click();
   await page.locator("#accountPassword").waitFor({ state: "visible" });
 }
-async function create(page, base, hash, email, name, password, legacyPassword) {
+async function create(page, base, hash, email, name, password, legacyPassword, type = "invite") {
   const verificationCount = requests.filter(
     (r) => r.path === "/auth/v1/verify",
   ).length;
-  await page.goto(`${base}/peps/#token_hash=${hash}&type=invite`);
+  await page.goto(`${base}/peps/?auth=20261017-accounts-v3#token_hash=${hash}&type=${type}`);
   await page.waitForFunction(() => !location.hash);
   assert.equal(new URL(page.url()).hash, "", "Secret removed from URL");
+  assert.equal(new URL(page.url()).search, "?auth=20261017-accounts-v3", "Versioned entry URL retained");
   assert.equal(
     requests.filter((r) => r.path === "/auth/v1/verify").length,
     verificationCount,
@@ -301,6 +304,13 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       await page.evaluate(() => Object.keys(PepsCore.state.checkins).length),
       0,
     );
+    await page.goto(`${base}/peps/?auth=20261017-accounts-v3#token_hash=email-one&type=email`);
+    await page.getByRole("heading", { name: "Continue to Peps" }).waitFor();
+    await page.locator("#accountSubmit").click();
+    await page.getByRole("heading", { name: "Welcome back" }).waitFor();
+    assert.equal(await page.locator("#recoveryKeyInput").count(), 0);
+    assert.equal(await page.locator("#newRecoveryKey").count(), 0);
+    assert.equal(await page.evaluate(() => PepsCore.account), null, "Email link alone cannot unlock existing encrypted history");
     await signIn(page, "one@example.test", "wrong-test-password");
     await page
       .getByText("Email or password is incorrect.", { exact: true })
@@ -462,6 +472,7 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       "Legacy Test",
       "new-legacy-test-password",
       "old-test-password",
+      "email",
     );
     const migrated = await fresh.evaluate(() => PepsCore.state);
     assert.equal(migrated.checkins["2026-01-01"].weight, 230);
