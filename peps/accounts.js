@@ -155,8 +155,8 @@
       key = await vault.dataKey(raw);
       state = await vault.decrypt(key, row.payload, identity.id, "state");
       if (mode === "recover") {
-        if (password.length < 12)
-          throw fault("Use at least 12 characters.", "weak_password");
+        if (password.length < 6)
+          throw fault("Use at least 6 characters.", "weak_password");
         const password_wrap = await vault.wrap(
           raw,
           password,
@@ -194,8 +194,8 @@
           "Finish setting up your encrypted account.",
           "setup_required",
         );
-      if (password.length < 12)
-        throw fault("Use at least 12 characters.", "weak_password");
+      if (password.length < 6)
+        throw fault("Use at least 6 characters.", "weak_password");
       if (!options.savedRecovery)
         throw fault(
           "Keep your recovery key somewhere safe before continuing.",

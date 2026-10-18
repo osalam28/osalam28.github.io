@@ -64,7 +64,7 @@
         ${link ? "<p>Continue to verify your email address.</p>" : ""}
         ${!link && !invalid ? '<label><span>Email</span><input id="accountEmail" type="email" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" required /></label>' : ""}
         ${setup ? '<label><span>First name</span><input id="accountName" autocomplete="given-name" maxlength="80" required /></label>' : ""}
-        ${password ? `<label><span>${setup || recover ? "New password" : "Password"}</span><div class="account-password"><input id="accountPassword" type="password" autocomplete="${setup || recover ? "new-password" : "current-password"}" ${setup || recover ? 'minlength="12" aria-describedby="passwordHint"' : ""} required /><button type="button" class="icon-button" id="toggleAccountPassword" aria-label="Show password" title="Show password"><i data-lucide="eye"></i></button></div></label>${setup || recover ? '<p class="auth-note" id="passwordHint">At least 12 characters.</p>' : ""}` : ""}
+        ${password ? `<label><span>${setup || recover ? "New password" : "Password"}</span><div class="account-password"><input id="accountPassword" type="password" autocomplete="${setup || recover ? "new-password" : "current-password"}" ${setup || recover ? 'minlength="6" aria-describedby="passwordHint"' : ""} required /><button type="button" class="icon-button" id="toggleAccountPassword" aria-label="Show password" title="Show password"><i data-lucide="eye"></i></button></div></label>${setup || recover ? '<p class="auth-note" id="passwordHint">At least 6 characters.</p>' : ""}` : ""}
         ${setup ? '<section class="recovery-key"><h2>Your recovery key</h2><p>Keep this in a password manager or another safe place. Without your password or this key, your history cannot be recovered.</p><code id="newRecoveryKey"></code><button type="button" id="downloadRecoveryKey" class="secondary-button"><i data-lucide="download"></i> Download key</button><label class="recovery-ack"><input id="savedRecoveryKey" type="checkbox" required /><span>I have saved my recovery key.</span></label></section>' : ""}
         ${recover ? '<label><span>Recovery key</span><textarea id="recoveryKeyInput" rows="3" autocomplete="off" autocapitalize="none" spellcheck="false" required></textarea></label><p class="auth-note">Your key unlocks your encrypted history. Peps cannot recover it for you.</p>' : ""}
         ${setup && hasLegacy ? '<label><span>Previous profile password</span><input id="legacyPasswordInput" type="password" autocomplete="off" required /></label><p class="auth-note">A one-time transfer of your existing history. The original encrypted copy will be kept.</p>' : ""}
@@ -141,7 +141,7 @@
             "Please wait before requesting another email.",
           over_request_rate_limit:
             "Too many attempts. Please wait and try again.",
-          weak_password: "Use a stronger password with at least 12 characters.",
+          weak_password: "Use at least 6 characters.",
           same_password: "Choose a different password.",
         };
         const localCodes = [

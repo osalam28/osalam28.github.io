@@ -185,6 +185,14 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
   await page.locator("#newRecoveryKey").waitFor();
   assert.equal(await page.locator("#accountEmail").inputValue(), email);
   const recovery = await page.locator("#newRecoveryKey").textContent();
+  assert.equal(await page.locator("#accountPassword").getAttribute("minlength"), "6");
+  assert.equal(await page.evaluate(async () => {
+    try {
+      await PepsAccounts.open("", "short", { mode: "setup" });
+    } catch (error) {
+      return error.code;
+    }
+  }), "weak_password", "Setup rejects fewer than six characters before saving");
   await page.locator("#accountName").fill(name);
   await page.locator("#accountPassword").fill(password);
   assert.equal(
@@ -312,7 +320,7 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       "invite-two",
       "two@example.test",
       "Second Name",
-      "long-test-password-two",
+      "test-2",
     );
     assert.equal(
       await page.evaluate(() => Object.keys(PepsCore.state.checkins).length),
@@ -320,10 +328,15 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
     );
     await signOut(page);
 
+    await signIn(page, "two@example.test", "test-2");
+    await page.locator("#authScreen").waitFor({ state: "hidden" });
+    await signOut(page);
+
     await page.goto(`${base}/peps/#token_hash=recover-one&type=recovery`);
     await page.locator("#accountSubmit").click();
     await page.locator("#recoveryKeyInput").waitFor();
-    await page.locator("#accountPassword").fill("new-test-password-one");
+    assert.equal(await page.locator("#accountPassword").getAttribute("minlength"), "6");
+    await page.locator("#accountPassword").fill("reset1");
     await page.locator("#recoveryKeyInput").fill("0".repeat(64));
     await page.locator("#accountSubmit").click();
     await page
@@ -337,6 +350,14 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       "Wrong recovery key does not change login password",
     );
     await page.locator("#recoveryKeyInput").fill(recovery);
+    assert.equal(await page.evaluate(async (recoveryKey) => {
+      try {
+        await PepsAccounts.open("", "short", { mode: "recover", recovery: recoveryKey });
+      } catch (error) {
+        return error.code;
+      }
+    }, recovery), "weak_password", "Recovery rejects fewer than six characters before changing Auth");
+    assert.equal(users.get("one@example.test").password, "long-test-password-one");
     recoverFailure = true;
     await page.locator("#accountSubmit").click();
     await page
@@ -344,7 +365,7 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       .waitFor();
     assert.equal(
       users.get("one@example.test").password,
-      "new-test-password-one",
+      "reset1",
     );
     await page.locator("#accountSubmit").click();
     await page.locator("#authScreen").waitFor({ state: "hidden" });
@@ -355,7 +376,7 @@ async function create(page, base, hash, email, name, password, legacyPassword) {
       201.8,
     );
     await signOut(page);
-    await signIn(page, "one@example.test", "new-test-password-one");
+    await signIn(page, "one@example.test", "reset1");
     await page.locator("#authScreen").waitFor({ state: "hidden" });
     assert.equal(
       await page.evaluate(
