@@ -1191,6 +1191,18 @@ dialog::backdrop {
 .titration-toggle {
   display: none;
 }
+.preset-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px;
+  align-items: end;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.preset-stage input { width: 100%; min-width: 0; }
+#presetPlanFields > label { display: grid; margin-top: 16px; }
+#addPresetStage { margin-top: 12px; }
+.scheduled-change { display: block; color: var(--accent, #24684d); margin-top: 6px; }
 .titration-setup label:has(#titrationMode) {
   display: none;
 }

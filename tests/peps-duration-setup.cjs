@@ -37,7 +37,7 @@ const path = require('node:path');
       await page.locator('#protocolNextButton').click();
       await page.locator('#measurementMode').selectOption('later');
       await page.locator('#protocolNextButton').click();
-      await page.locator('#protocolPlanChoice').selectOption('steady');
+      await page.locator('#dosePlanKind').selectOption('steady');
       await page.locator('#protocolNextButton').click();
       assert.match(await page.locator('#protocolSummary').textContent(), /8 weeks on \/ 3 weeks off/);
       await page.locator('#goalReviewChoice').selectOption('off');

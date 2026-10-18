@@ -33,7 +33,8 @@ async function addPeptide(page, { name, duration, measurement = 'mixed', plan = 
     assert.match(await page.locator('#measurementPreview').textContent(), /20 units/);
   }
   await next(page);
-  await page.locator('#protocolPlanChoice').selectOption(plan);
+  await page.locator('#dosePlanKind').selectOption(plan === 'steady' ? 'steady' : 'review');
+  if (plan !== 'steady') await page.locator('#protocolPlanChoice').selectOption(plan);
   if (plan === 'increase') {
     await page.locator('#titrationIncrement').fill('0.5');
     await page.locator('#titrationCadence').fill('28');

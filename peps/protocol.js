@@ -196,6 +196,7 @@
       el("frequencyInput").value === "interval";
     el("intervalDaysInput").disabled =
       el("frequencyInput").value !== "interval";
+    window.PepsDosePlans?.updateVisibility();
   }
 
   function summary() {
@@ -213,7 +214,7 @@
       ? "Keep current dose"
       : {
           increase: "Scheduled increases",
-          review: "Weekly review / no planned increase",
+          review: `Review every ${el("titrationCadence").value} days / confirm any change`,
           maintain: "Maintain current dose",
           decrease: "Reduce to maintenance",
           stop: "Reduce to a planned stop",
@@ -239,6 +240,13 @@
         : duration.mode === "fixed"
           ? `Through ${h.shortDate(el("endDateInput").value)}`
           : `${duration.onDays / 7} weeks on / ${duration.offDays / 7} weeks off; first break ${h.shortDate(add(el("startDateInput").value, duration.onDays))}; ${duration.restart === "confirm" ? "confirm each restart" : "repeat automatically"}`;
+    if (el("dosePlanKind").value === "preset") {
+      try { window.PepsDosePlans.validateEditor(); plan = window.PepsDosePlans.summary(); }
+      catch (error) { plan = error.message; }
+    } else if (el("titrationEnabled").checked && mode !== "maintain" &&
+      (!Number.isInteger(Number(el("titrationCadence").value)) || Number(el("titrationCadence").value) < 1 || Number(el("titrationCadence").value) > 730)) {
+      plan = "Choose a valid review interval from 1 to 730 whole days.";
+    }
     el("protocolSummary").innerHTML =
       `<dl class="protocol-summary"><dt>Peptide</dt><dd>${esc(el("peptideNameInput").value)}</dd><dt>Dose</dt><dd>${esc(dose)}</dd><dt>Schedule</dt><dd>${esc(frequency)} / ${esc(el("timeInput").value)} / ${h.shortDate(el("startDateInput").value)}</dd><dt>Duration</dt><dd>${esc(length)}</dd><dt>Measurement</dt><dd>${esc(el("measurementPreview").textContent || "Setup needed")}</dd><dt>Dose plan</dt><dd>${esc(plan)}</dd></dl>`;
     if (replacesFuturePlan(editor, el("protocolPlanChoice").value)) {
@@ -286,6 +294,18 @@
   }
 
   function validateStep(index) {
+    if (index === 3) {
+      try { window.PepsDosePlans?.validateEditor(); }
+      catch (error) { el("protocolError").textContent = error.message; return false; }
+      if (el("titrationEnabled").checked && el("titrationMode").value !== "maintain") {
+        const cadence = Number(el("titrationCadence").value);
+        if (!Number.isInteger(cadence) || cadence < 1 || cadence > 730) {
+          el("protocolError").textContent = "Time between reviews must be a whole number from 1 to 730 days.";
+          el("titrationCadence").focus();
+          return false;
+        }
+      }
+    }
     if (index === 4 && el("goalReviewChoice").value === "review" && !positive(el("setupGoalInput").value)) {
       el("protocolError").textContent = "Enter a goal weight for this milestone, or choose no weight milestone.";
       el("setupGoalInput").focus();
@@ -427,6 +447,7 @@
   }
 
   function saveEditorPeptide(peptide) {
+    peptide = window.PepsDosePlans.prepare(peptide);
     if (replacesFuturePlan(peptide, peptide.titration?.mode)) {
       peptide.doseChanges = peptide.doseChanges.filter((change) => change.date <= h.todayString());
       if (peptide.stoppedDate > h.todayString()) peptide.stoppedDate = "";
@@ -442,6 +463,14 @@
     window.PepsApp.navigate("settings");
     button.click();
     pendingGoalReview = review ? { id, goal: goalInfo()?.goal } : null;
+    if (review) {
+      el("dosePlanKind").value = "review";
+      if (["steady", "preset"].includes(el("protocolPlanChoice").value)) {
+        el("protocolPlanChoice").value = "review";
+        el("protocolPlanChoice").dispatchEvent(new Event("change"));
+      }
+      window.PepsDosePlans.updateVisibility();
+    }
     step = review ? 3 : 4;
     showStep();
     el("protocolDialog").scrollTop = 0;
@@ -464,7 +493,7 @@
             : phase === "maintain" && peptide.titration.endpointDate > today
               ? `Maintenance starts ${h.shortDate(peptide.titration.endpointDate)}`
               : {
-                  review: "Weekly review",
+                  review: `Review every ${peptide.titration.cadenceDays} days`,
                   maintain: "Maintenance",
                   decrease: "Reducing to maintenance",
                   stop: "Reducing to a planned stop",
@@ -584,6 +613,7 @@
         ? peptide.titration.mode || "increase"
         : "steady"
       : "";
+    window.PepsDosePlans?.loadEditor(peptide);
     updateFields();
     showStep();
   };
@@ -607,6 +637,15 @@
       if (task.measurementPending) {
         task.units = null;
         task.warning = "Measurement setup needed";
+      }
+      const dose = window.PepsDosePlans?.doseForDate(peptide, date);
+      if (dose && date !== peptide.startDate) {
+        const previous = core.doseForDate(peptide, add(date, -1));
+        if (dose.amount !== previous.amount || dose.unit !== previous.unit) {
+          task.scheduledChange = "Scheduled dose changes today";
+          if (!result.events.some((event) => event.label === `${peptide.name}: scheduled dose change`))
+            result.events.push({ kind: "review", label: `${peptide.name}: scheduled dose change` });
+        }
       }
     });
     core.state.stack
@@ -726,8 +765,8 @@
     );
     el("protocolPlanChoice").addEventListener("change", () => {
       const choice = el("protocolPlanChoice").value;
-      el("titrationEnabled").checked = choice !== "steady" && !!choice;
-      if (choice && choice !== "steady") el("titrationMode").value = choice;
+      el("titrationEnabled").checked = !["steady", "preset", ""].includes(choice);
+      if (choice && !["steady", "preset"].includes(choice)) el("titrationMode").value = choice;
       el("titrationEnabled").dispatchEvent(new Event("input"));
       el("titrationMode").dispatchEvent(new Event("change"));
     });

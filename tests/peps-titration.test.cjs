@@ -16,11 +16,11 @@ function fixture() {
     } }
   });
   context.window = context;
-  for (const file of ['state.js', 'titration.js', 'protocol.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../peps', file), 'utf8'), context);
+  for (const file of ['state.js', 'titration.js', 'protocol.js', 'dose-plans.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../peps', file), 'utf8'), context);
   context.PepsRender = () => {};
   const core = context.PepsCore;
   const peptide = core.savePeptide({ id: 'test', name: 'Test', doseAmount: 2, doseUnit: 'mg', powderMg: 10, bacMl: 2, startDate: '2026-09-17', frequency: 'weekly', times: ['PM'], doseChanges: [{ date: '2026-09-17', amount: 2, unit: 'mg' }], titration: { enabled: true, cadenceDays: 28, increment: 1, maxDose: 6, nextReviewDate: '2026-10-15', decisions: [], plannedSteps: [] } });
-  return { core, peptide, engine: context.PepsTitration, protocol: context.PepsProtocol, nodes };
+  return { core, peptide, engine: context.PepsTitration, protocol: context.PepsProtocol, plans: context.PepsDosePlans, nodes };
 }
 
 test('configured cadence survives save, and overdue review stays pending without changing dose', () => {
@@ -31,6 +31,69 @@ test('configured cadence survives save, and overdue review stays pending without
   assert.equal(engine.details(peptide, '2026-11-01').due, true);
   assert.equal(core.doseForDate(peptide, '2026-11-01').amount, 2);
   assert.equal(core.reviewDue('2026-10-15').some(item => item.peptide.id === 'test'), false);
+});
+
+test('preset stages switch on day eight, hold through day 56, and stop with the course', () => {
+  const { core, plans, engine } = fixture();
+  const peptide = core.savePeptide({ id: 'preset', startDate: '2026-10-01', endDate: '2026-11-25', duration: { mode: 'fixed' },
+    frequency: 'daily', times: ['AM', 'PM'], doseAmount: 300, doseUnit: 'mcg', powderMg: 10, bacMl: 2,
+    dosePlans: [{ effectiveDate: '2026-10-01', startDate: '2026-10-01', unit: 'mcg', repeat: 'restart', stages: [{ day: 1, amount: 300 }, { day: 8, amount: 500 }] }] });
+  plans.validatePlan(peptide.dosePlans[0], peptide);
+  assert.equal(core.doseForDate(peptide, '2026-10-07').amount, 300);
+  assert.equal(core.doseForDate(peptide, '2026-10-08').amount, 500);
+  assert.equal(core.plan('2026-10-08').tasks.find(t => t.peptideId === 'preset').units, 10);
+  assert.equal(core.plan('2026-10-08').tasks.find(t => t.peptideId === 'preset').scheduledChange, 'Scheduled dose changes today');
+  assert.equal(core.plan('2026-11-25').tasks.filter(t => t.peptideId === 'preset').length, 2);
+  assert.equal(core.plan('2026-11-26').tasks.filter(t => t.peptideId === 'preset').length, 0);
+  assert.equal(engine.details(peptide), null);
+  assert.equal(core.reviewDue('2026-10-08').some(item => item.peptide.id === 'preset'), false);
+  assert.deepEqual(Object.keys(core.completedForDate('2026-10-08')), []);
+  core.replace(JSON.parse(JSON.stringify(core.state)));
+  assert.equal(core.doseForDate(core.findPeptide('preset'), '2026-10-08').amount, 500);
+});
+
+test('preset stages repeat or resume final dose after automatic and confirmed breaks', () => {
+  const { core } = fixture();
+  const peptide = core.savePeptide({ id: 'cycled', startDate: '2026-10-01', frequency: 'daily', doseUnit: 'mcg', doseAmount: 300,
+    duration: { mode: 'cycle', onDays: 56, offDays: 21, restart: 'auto', starts: [] },
+    dosePlans: [{ effectiveDate: '2026-10-01', startDate: '2026-10-01', unit: 'mcg', repeat: 'restart', stages: [{ day: 1, amount: 300 }, { day: 8, amount: 500 }] }] });
+  assert.equal(core.plan('2026-11-26').tasks.some(t => t.peptideId === peptide.id), false);
+  assert.equal(core.doseForDate(peptide, '2026-12-17').amount, 300);
+  assert.equal(core.doseForDate(peptide, '2026-12-24').amount, 500);
+  peptide.dosePlans[0].repeat = 'final';
+  assert.equal(core.doseForDate(peptide, '2026-12-17').amount, 500);
+  peptide.duration.restart = 'confirm';
+  assert.equal(core.plan('2026-12-17').tasks.some(t => t.peptideId === peptide.id), false);
+  peptide.duration.starts = ['2026-12-20'];
+  peptide.dosePlans[0].repeat = 'restart';
+  assert.equal(core.doseForDate(peptide, '2026-12-20').amount, 300);
+  assert.equal(core.doseForDate(peptide, '2026-12-27').amount, 500);
+});
+
+test('schedule revisions preserve history and cancellation retains the boundary dose', () => {
+  const { core } = fixture();
+  const peptide = core.savePeptide({ id: 'history', startDate: '2026-10-01', doseAmount: 300, doseUnit: 'mcg',
+    doseChanges: [{ date: '2026-10-01', amount: 300, unit: 'mcg' }, { date: '2026-10-20', amount: 400, unit: 'mcg' }],
+    dosePlans: [
+      { effectiveDate: '2026-10-01', startDate: '2026-10-01', unit: 'mcg', stages: [{ day: 1, amount: 300 }, { day: 8, amount: 500 }] },
+      { effectiveDate: '2026-10-16', startDate: '2026-10-01', unit: 'mcg', stages: [{ day: 1, amount: 300 }, { day: 8, amount: 450 }] },
+      { effectiveDate: '2026-10-20', disabled: true }
+    ] });
+  assert.equal(core.doseForDate(peptide, '2026-10-15').amount, 500);
+  assert.equal(core.doseForDate(peptide, '2026-10-16').amount, 450);
+  assert.equal(core.doseForDate(peptide, '2026-10-20').amount, 400);
+  core.addDoseChange({ peptideId: 'history', date: '2026-10-17', amount: 425, unit: 'mcg' });
+  assert.equal(core.doseForDate(peptide, '2026-10-16').amount, 450);
+  assert.equal(core.doseForDate(peptide, '2026-10-17').amount, 425);
+  assert.equal(peptide.dosePlans.at(-1).disabled, true);
+});
+
+test('zero, fractional and negative cadence and malformed stages are rejected', () => {
+  const { core, peptide, plans } = fixture();
+  for (const cadenceDays of [0, -1, 1.5, 731, NaN])
+    assert.throws(() => core.savePeptide({ ...peptide, titration: { ...peptide.titration, cadenceDays } }), /whole number/);
+  for (const stages of [[{ day: 0, amount: 1 }, { day: 8, amount: 2 }], [{ day: 1, amount: 1 }, { day: 1, amount: 2 }], [{ day: 1, amount: 1 }, { day: 57, amount: 2 }], [{ day: 1, amount: 1 }, { day: 8, amount: 0 }]])
+    assert.throws(() => plans.validatePlan({ stages }, { duration: { mode: 'cycle', onDays: 56 } }));
 });
 
 test('confirmation changes dose and units, then resets cadence', () => {

@@ -8,6 +8,7 @@
   const positive = (value) =>
     Number.isFinite(Number(value)) && Number(value) > 0;
   const rounded = (value) => Math.round(value * 1000000) / 1000000;
+  const validCadence = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 730;
   let editorId = null;
 
   function nextDoseDate(peptide, from) {
@@ -23,9 +24,12 @@
   }
 
   function details(peptide, date = h.todayString()) {
+    const preset = window.PepsDosePlans?.planAt(peptide, date);
+    if (preset && !preset.disabled) return null;
     const config = peptide.titration;
     if (!peptide.active || !config?.enabled || !config.nextReviewDate)
       return null;
+    if (!validCadence(config.cadenceDays)) return null;
     if (peptide.stoppedDate && date >= peptide.stoppedDate) return null;
     if (peptide.endDate && date > peptide.endDate) return null;
     const effectiveDate = nextDoseDate(
@@ -109,7 +113,7 @@
       config?.mode && config.mode !== "stopped" ? config.mode : "increase";
     el("titrationTarget").value =
       config?.mode === "decrease" ? (config.targetDose ?? "") : "";
-    el("titrationCadence").value = config?.cadenceDays || 28;
+    el("titrationCadence").value = config?.cadenceDays ?? 28;
     el("titrationIncrement").value =
       config?.increment ?? peptide?.stepAmount ?? "";
     el("titrationMax").value = config?.maxDose || "";
@@ -125,6 +129,8 @@
   }
 
   function updateEditor() {
+    if (validCadence(el("titrationCadence").value) && el("protocolError")?.textContent.startsWith("Time between reviews"))
+      el("protocolError").textContent = "";
     const enabled = el("titrationEnabled").checked;
     const mode = el("titrationMode").value;
     const weekly = mode === "review";
@@ -140,8 +146,7 @@
           mode === "maintain" || (weekly && id === "titrationIncrement");
       },
     );
-    el("titrationCadence").readOnly = weekly;
-    if (weekly) el("titrationCadence").value = 7;
+    el("titrationCadence").readOnly = false;
     const amount = Number(el("doseAmountInput").value);
     const increment = Number(el("titrationIncrement").value);
     const max = Number(el("titrationMax").value);
@@ -167,8 +172,10 @@
     el("titrationMax").disabled = !enabled || mode !== "increase";
     el("titrationMaxLabel").textContent =
       `Stop increasing at (${unit}, optional)`;
-    el("titrationPreview").textContent = weekly
-      ? `Weekly review / ${h.doseLabel(amount, unit)} current dose / no planned increase`
+    el("titrationPreview").textContent = scheduled && !validCadence(el("titrationCadence").value)
+      ? "Enter a whole number from 1 to 730 days between reviews."
+      : weekly
+      ? `Review every ${el("titrationCadence").value} days / ${h.doseLabel(amount, unit)} current dose / confirm any change`
       : mode === "maintain"
         ? `Maintain ${h.doseLabel(amount, unit)}. No scheduled increases or decreases.`
         : positive(amount) && positive(increment)
@@ -183,6 +190,8 @@
         : null;
     const previous = peptide?.titration;
     const mode = el("titrationMode").value;
+    if (mode !== "maintain" && !validCadence(el("titrationCadence").value))
+      throw new Error("Time between reviews must be a whole number from 1 to 730 days.");
     const config = {
       enabled: mode !== "maintain",
       mode,
@@ -192,7 +201,7 @@
           : mode === "decrease"
             ? Number(el("titrationTarget").value)
             : null,
-      cadenceDays: mode === "review" ? 7 : Number(el("titrationCadence").value),
+      cadenceDays: Number(el("titrationCadence").value),
       increment: mode === "review" ? 0 : Number(el("titrationIncrement").value),
       maxDose:
         mode === "increase" && positive(el("titrationMax").value)
@@ -231,7 +240,7 @@
     return `<article class="titration-item">
       <div class="titration-heading"><h3>${esc(peptide.name)}</h3><span class="status-chip">${due ? "Check-in due" : h.shortDate(config.nextReviewDate)}</span></div>
       <p>Current: <strong>${esc(h.doseLabel(current.amount, current.unit))}</strong> · ${units(current.amount)}</p>
-      <p>${config.mode === "review" ? "Weekly protocol review" : atLimit ? "At your plan's dose limit." : `Your plan: <strong>${suggested === 0 ? "End protocol" : esc(h.doseLabel(suggested, current.unit))}</strong> next · ${units(suggested)}`}</p>
+      <p>${config.mode === "review" ? `Protocol review every ${config.cadenceDays} days` : atLimit ? "At your plan's dose limit." : `Your plan: <strong>${suggested === 0 ? "End protocol" : esc(h.doseLabel(suggested, current.unit))}</strong> next · ${units(suggested)}`}</p>
       ${lastDecision ? `<p>Last check-in ${h.shortDate(lastDecision.date)}: ${lastDecision.choice === "hold" ? "stayed at" : "changed to"} ${esc(h.doseLabel(lastDecision.amount, lastDecision.unit))}</p>` : ""}
       ${due && !actionable ? '<button type="button" class="secondary-button" data-nav="dashboard">Review on Today</button>' : ""}
       ${
@@ -376,6 +385,8 @@
   core.savePeptide = function (peptide) {
     const previous = core.findPeptide(peptide.id);
     if (peptide.titration?.enabled) {
+      if (!validCadence(peptide.titration.cadenceDays))
+        throw new Error("Time between reviews must be a whole number from 1 to 730 days.");
       peptide.reviewEveryDays = peptide.titration.cadenceDays;
       peptide.stepAmount = peptide.titration.increment;
       if (previous && !previous.titration?.enabled) {
@@ -445,26 +456,30 @@
       "doseUnitInput",
     ].forEach((id) => el(id).addEventListener("input", updateEditor));
     el("titrationMode").addEventListener("change", () => {
-      if (el("titrationMode").value === "review")
+      if (el("titrationMode").value === "review") {
+        el("titrationCadence").value = 7;
         el("titrationNextDate").value = addDays(
           editorId
             ? h.todayString()
             : el("startDateInput").value || h.todayString(),
           7,
         );
+      }
+      updateEditor();
     });
     el("titrationCadence").addEventListener("change", () => {
-      if (!editorId && el("startDateInput").value)
+      if (validCadence(el("titrationCadence").value)) el("protocolError").textContent = "";
+      if (!editorId && el("startDateInput").value && validCadence(el("titrationCadence").value))
         el("titrationNextDate").value = addDays(
           el("startDateInput").value,
-          Number(el("titrationCadence").value) || 28,
+          Number(el("titrationCadence").value),
         );
     });
     el("startDateInput").addEventListener("change", () => {
-      if (!editorId && el("startDateInput").value)
+      if (!editorId && el("startDateInput").value && validCadence(el("titrationCadence").value))
         el("titrationNextDate").value = addDays(
           el("startDateInput").value,
-          Number(el("titrationCadence").value) || 28,
+          Number(el("titrationCadence").value),
         );
     });
     document.addEventListener("click", (event) => {

@@ -7,7 +7,7 @@
     <meta name="referrer" content="no-referrer" />
     <title>Peps | Your Daily Protocol</title>
     <link rel="stylesheet" href="./styles.css?v=20261017-dashboard-v1" />
-    <link rel="stylesheet" href="./experience.css?v=20261017-goals-v1" />
+    <link rel="stylesheet" href="./experience.css?v=20261018-plans-v1" />
     <link rel="stylesheet" href="./accounts.css?v=20261017-accounts-v1" />
     <script defer src="./vendor/lucide.min.js?v=20261017-dashboard-v1"></script>
     <script defer src="./crypto.js?v=20261017-dashboard-v1"></script>
@@ -15,11 +15,12 @@
     <script defer src="./vendor/supabase.min.js?v=20261017-accounts-v1"></script>
     <script defer src="./vault.js?v=20261017-accounts-v1"></script>
     <script defer src="./accounts.js?v=20261017-accounts-v3"></script>
-    <script defer src="./state.js?v=20261017-goals-v1"></script>
-    <script defer src="./titration.js?v=20261017-dashboard-v1"></script>
-    <script defer src="./protocol.js?v=20261017-goals-v1"></script>
-    <script defer src="./app.js?v=20261017-goals-v1"></script>
-    <script defer src="./experience.js?v=20261017-dashboard-v1"></script>
+    <script defer src="./state.js?v=20261018-plans-v1"></script>
+    <script defer src="./titration.js?v=20261018-plans-v1"></script>
+    <script defer src="./protocol.js?v=20261018-plans-v1"></script>
+    <script defer src="./dose-plans.js?v=20261018-plans-v1"></script>
+    <script defer src="./app.js?v=20261018-plans-v1"></script>
+    <script defer src="./experience.js?v=20261018-plans-v1"></script>
     <script defer src="./accounts-ui.js?v=20261017-accounts-v3"></script>
   </head>
   <body class="locked">
@@ -733,20 +734,40 @@
                 </fieldset>
                 <fieldset class="protocol-step" data-protocol-step="3">
                   <legend>Dose plan</legend>
+                  <label><span>Plan type</span><select id="dosePlanKind" required>
+                    <option value="">Choose a dose plan</option>
+                    <option value="steady">Same dose throughout</option>
+                    <option value="preset">Preset schedule</option>
+                    <option value="review">Review and decide</option>
+                  </select></label>
                   <label
-                    ><span>Will your dose change?</span
+                    id="reviewPlanChoiceField"><span>At each review</span
                     ><select id="protocolPlanChoice" required>
                       <option value="" disabled>Choose a dose plan</option>
-                      <option value="steady">Stay at this dose</option>
+                      <option value="steady" hidden>Stay at this dose</option>
+                      <option value="preset" hidden>Follow preset schedule</option>
                       <option value="review">
-                        Weekly review, no planned increase
+                        Decide at check-in
                       </option>
-                      <option value="increase">Increase in steps</option>
+                      <option value="increase">Review a planned increase</option>
                       <option value="maintain">Maintain current dose</option>
                       <option value="decrease">Reduce to maintenance</option>
                       <option value="stop">Reduce to a planned stop</option>
                     </select></label
                   >
+                  <div id="presetPlanFields" hidden>
+                    <p class="muted">Doses follow these stages without a check-in. Your dosing frequency stays the same.</p>
+                    <p id="presetAnchorNote" class="muted"></p>
+                    <div id="presetStageList"></div>
+                    <button type="button" class="secondary-button" id="addPresetStage">Add stage</button>
+                    <label id="presetRepeatField"><span>After a cycle break</span><select id="presetRepeat">
+                      <option value="restart">Repeat these stages</option>
+                      <option value="final">Resume at the final dose</option>
+                    </select></label>
+                    <p id="presetPreview" class="titration-preview" aria-live="polite"></p>
+                  </div>
+                  <label id="planEffectiveField" hidden><span>Apply plan changes from</span><input id="planEffectiveDate" type="date" /></label>
+                  <p id="planEffectiveNote" class="muted" hidden>Earlier doses stay unchanged. Future dose changes are replaced by this plan.</p>
                   <input id="reviewEveryInput" type="hidden" />
                   <input id="stepAmountInput" type="hidden" />
                   <fieldset class="titration-setup">
@@ -777,7 +798,7 @@
                           </select></label
                         >
                         <label
-                          ><span>Time between steps (days)</span
+                          ><span>Time between reviews (days)</span
                           ><input
                             id="titrationCadence"
                             type="number"

@@ -341,6 +341,7 @@
       stoppedDate: s?.stoppedDate || "",
       titration: window.PepsTitration.readEditor(s),
       goalReview: window.PepsProtocol.readGoalReview(s),
+      dosePlans: s?.dosePlans || [],
       doseChanges: c,
     };
   }

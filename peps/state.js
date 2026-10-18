@@ -387,6 +387,7 @@
       duration:
         e.duration && typeof e.duration === "object" ? e.duration : null,
       measurementPending: !!e.measurementPending,
+      dosePlans: Array.isArray(e.dosePlans) ? e.dosePlans : [],
       goalReview:
         e.goalReview && typeof e.goalReview === "object"
           ? { ...e.goalReview, enabled: e.goalReview.enabled === true }
@@ -422,6 +423,8 @@
         }, 700)));
   }
   function k(e, t) {
+    const planned = window.PepsDosePlans?.doseForDate(e, t);
+    if (planned) return planned;
     return (
       e.doseChanges.filter((e) => e.date <= t).at(-1) || {
         date: e.startDate,
