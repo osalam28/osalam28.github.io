@@ -387,6 +387,10 @@
       duration:
         e.duration && typeof e.duration === "object" ? e.duration : null,
       measurementPending: !!e.measurementPending,
+      goalReview:
+        e.goalReview && typeof e.goalReview === "object"
+          ? { ...e.goalReview, enabled: e.goalReview.enabled === true }
+          : null,
       stoppedDate: W(e.stoppedDate) ? e.stoppedDate : "",
       titration:
         e.titration && typeof e.titration === "object" ? e.titration : null,

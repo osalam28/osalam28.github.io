@@ -11,6 +11,7 @@ const path = require('node:path');
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       await page.route('**/rest/v1/**', route => route.fulfill({ json: [] }));
+      await page.route('**/account-config.js*', route => route.fulfill({ contentType: 'text/javascript', body: 'window.PepsAccountConfig = { enabled: false };' }));
       await page.goto(pathToFileURL(path.join(__dirname, '../peps/index.html')).href);
       await page.evaluate(existing => {
         PepsCore.state.stack = [];
@@ -39,6 +40,7 @@ const path = require('node:path');
       await page.locator('#protocolPlanChoice').selectOption('steady');
       await page.locator('#protocolNextButton').click();
       assert.match(await page.locator('#protocolSummary').textContent(), /8 weeks on \/ 3 weeks off/);
+      await page.locator('#goalReviewChoice').selectOption('off');
       await page.locator('#savePeptideButton').click();
       const duration = await page.evaluate(() => PepsCore.state.stack.find(p => p.name === 'Cycle test').duration);
       assert.equal(duration.mode, 'cycle');

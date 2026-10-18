@@ -340,14 +340,16 @@
       measurementPending: a("measurementMode").value === "later",
       stoppedDate: s?.stoppedDate || "",
       titration: window.PepsTitration.readEditor(s),
+      goalReview: window.PepsProtocol.readGoalReview(s),
       doseChanges: c,
     };
   }
   function I(event) {
     event.preventDefault();
     try {
-      const saved = e.savePeptide(b());
+      const saved = window.PepsProtocol.saveEditorPeptide(b());
       if (!saved) return;
+      window.PepsProtocol.saveEditorWeights(saved);
       a("peptideIdInput").value = saved.id;
       f(saved.id);
       window.PepsExperience.closeEditor();

@@ -8,6 +8,8 @@
   const positive = (value) =>
     Number.isFinite(Number(value)) && Number(value) > 0;
   let editor = null;
+  let initialWeight = "";
+  let pendingGoalReview = null;
   let step = 0;
   const stepNames = [
     "Dose & schedule",
@@ -239,6 +241,15 @@
           : `${duration.onDays / 7} weeks on / ${duration.offDays / 7} weeks off; first break ${h.shortDate(add(el("startDateInput").value, duration.onDays))}; ${duration.restart === "confirm" ? "confirm each restart" : "repeat automatically"}`;
     el("protocolSummary").innerHTML =
       `<dl class="protocol-summary"><dt>Peptide</dt><dd>${esc(el("peptideNameInput").value)}</dd><dt>Dose</dt><dd>${esc(dose)}</dd><dt>Schedule</dt><dd>${esc(frequency)} / ${esc(el("timeInput").value)} / ${h.shortDate(el("startDateInput").value)}</dd><dt>Duration</dt><dd>${esc(length)}</dd><dt>Measurement</dt><dd>${esc(el("measurementPreview").textContent || "Setup needed")}</dd><dt>Dose plan</dt><dd>${esc(plan)}</dd></dl>`;
+    if (replacesFuturePlan(editor, el("protocolPlanChoice").value)) {
+      el("protocolSummary").innerHTML += '<p class="titration-preview">Saving this goal review replaces future dose changes and any future stop date with this plan. Past doses stay unchanged.</p>';
+    }
+  }
+
+  function replacesFuturePlan(peptide, mode) {
+    return Boolean(peptide && pendingGoalReview?.id === peptide.id &&
+      ["maintain", "decrease", "stop"].includes(mode) &&
+      (peptide.doseChanges.some((change) => change.date > h.todayString()) || peptide.stoppedDate > h.todayString()));
   }
 
   function showStep() {
@@ -270,11 +281,16 @@
           `<button type="button" data-protocol-edit-step="${index}" class="${index === step ? "active" : ""}">${esc(name)}</button>`,
       )
       .join("");
-    el("initialWeightFields").hidden = core.state.stack.length > 0;
+    el("initialWeightFields").hidden = false;
     if (step === 4) summary();
   }
 
   function validateStep(index) {
+    if (index === 4 && el("goalReviewChoice").value === "review" && !positive(el("setupGoalInput").value)) {
+      el("protocolError").textContent = "Enter a goal weight for this milestone, or choose no weight milestone.";
+      el("setupGoalInput").focus();
+      return false;
+    }
     if (index === 1 && !el("durationMode").value) {
       el("protocolError").textContent =
         "Choose ongoing, a fixed course, or a repeating cycle.";
@@ -307,7 +323,7 @@
   function goalInfo() {
     const goal = Number(core.state.goals?.weightGoal);
     if (!positive(goal)) return null;
-    const rows = h.weightRows();
+    const rows = h.weightRows().filter((row) => row.date <= h.todayString());
     const latest = rows.at(-1);
     const first = rows[0];
     const reached = Boolean(latest && latest.weight <= goal);
@@ -328,7 +344,7 @@
       latest,
       reached,
       percent,
-      reviewDue: reached && core.state.goals.reviewedGoal !== goal,
+      reviewDue: core.state.stack.some((peptide) => goalReviewStatus(peptide, { goal, reached }).due),
     };
   }
 
@@ -336,6 +352,14 @@
     if (value !== "" && value != null && !positive(value))
       throw new Error("Enter a goal weight greater than zero.");
     const weightGoal = value === "" || value == null ? null : Number(value);
+    if (core.state.goals?.weightGoal !== weightGoal) {
+      core.state.stack.forEach((peptide) => {
+        if (peptide.goalReview) {
+          peptide.goalReview.reviewedGoal = null;
+          peptide.goalReview.snoozedUntil = "";
+        }
+      });
+    }
     core.state.goals = {
       weightGoal,
       reviewedGoal:
@@ -344,6 +368,84 @@
           : null,
     };
     core.commit();
+  }
+
+  function goalReviewStatus(peptide, goal = goalInfo()) {
+    const config = peptide.goalReview;
+    const eligible = peptide.active && !["future", "stopped", "complete"].includes(cycleStatus(peptide).phase);
+    const reviewed = Boolean(goal && config?.reviewedGoal === goal.goal);
+    const snoozed = Boolean(config?.snoozedUntil > h.todayString());
+    return {
+      eligible,
+      configured: Boolean(config),
+      enabled: config?.enabled === true,
+      reviewed,
+      snoozed,
+      due: Boolean(eligible && goal?.reached && config?.enabled && !reviewed && !snoozed),
+    };
+  }
+
+  function recordGoalDecision(id, decision) {
+    const peptide = core.findPeptide(id);
+    const goal = goalInfo();
+    if (!peptide || !goalReviewStatus(peptide, goal).due) return false;
+    const config = peptide.goalReview;
+    if (decision === "later") {
+      config.snoozedUntil = add(h.todayString(), 7);
+    } else {
+      config.reviewedGoal = goal.goal;
+      config.reviewedAt = h.todayString();
+      config.decision = decision;
+      config.snoozedUntil = "";
+    }
+    core.commit();
+    return true;
+  }
+
+  function readGoalReview(peptide) {
+    const enabled = el("goalReviewChoice").value === "review";
+    return peptide?.goalReview?.enabled === enabled
+      ? { ...peptide.goalReview }
+      : { enabled, reviewedGoal: null, snoozedUntil: "" };
+  }
+
+  function saveEditorWeights(saved) {
+    const goalValue = el("setupGoalInput").value;
+    const goal = goalValue === "" ? null : Number(goalValue);
+    if ((core.state.goals?.weightGoal ?? null) !== goal) setGoal(goal);
+    const weight = el("setupWeightInput").value;
+    // A prefilled historical reading is not a new check-in.
+    if (positive(weight) && Number(weight) !== Number(initialWeight)) {
+      const date = h.todayString();
+      core.state.checkins[date] = { ...core.state.checkins[date], weight: Number(weight) };
+      core.commit();
+    }
+    if (pendingGoalReview?.id === saved.id && pendingGoalReview.goal === goal) {
+      recordGoalDecision(saved.id, el("protocolPlanChoice").value);
+    }
+    pendingGoalReview = null;
+  }
+
+  function saveEditorPeptide(peptide) {
+    if (replacesFuturePlan(peptide, peptide.titration?.mode)) {
+      peptide.doseChanges = peptide.doseChanges.filter((change) => change.date <= h.todayString());
+      if (peptide.stoppedDate > h.todayString()) peptide.stoppedDate = "";
+      peptide.titration.plannedSteps = [];
+    }
+    return core.savePeptide(peptide);
+  }
+
+  function openGoalEditor(id, review) {
+    const button = [...el("stackList").querySelectorAll("[data-edit-peptide]")]
+      .find((entry) => entry.dataset.editPeptide === id);
+    if (!button) return;
+    window.PepsApp.navigate("settings");
+    button.click();
+    pendingGoalReview = review ? { id, goal: goalInfo()?.goal } : null;
+    step = review ? 3 : 4;
+    showStep();
+    el("protocolDialog").scrollTop = 0;
+    el(review ? "protocolPlanChoice" : "goalReviewChoice").focus();
   }
 
   function render() {
@@ -378,7 +480,24 @@
         : "Weight progress";
       el("goalProgress").innerHTML =
         `<div class="goal-numbers"><strong>${h.formatNumber(goal.goal)} lb goal</strong><span>${goal.latest ? `${h.formatNumber(goal.latest.weight)} lb latest / ${h.formatNumber(Math.max(0, goal.latest.weight - goal.goal))} lb to goal` : "Log a weight to see progress"}</span></div><progress max="100" value="${goal.percent}" aria-label="Progress toward goal weight"></progress>`;
-      el("goalReview").hidden = !goal.reviewDue;
+      const peptides = core.state.stack.filter((peptide) => {
+        const status = goalReviewStatus(peptide, goal);
+        return status.eligible && (!status.configured || status.enabled);
+      });
+      el("goalReview").hidden = peptides.length === 0;
+      el("goalReviewList").innerHTML = peptides.map((peptide) => {
+        const status = goalReviewStatus(peptide, goal);
+        const id = esc(peptide.id);
+        const action = (value, label) => `<button type="button" class="secondary-button" data-goal-action="${value}" data-goal-peptide="${id}">${label}</button>`;
+        const message = !status.configured ? "Choose whether this peptide needs a review at your goal weight."
+          : status.due ? "Goal weight reached. Review maintenance or a gradual reduction with your clinician. Your plan stays unchanged until you save a change."
+          : status.reviewed ? `Goal plan reviewed ${h.shortDate(peptide.goalReview.reviewedAt)}.`
+          : status.snoozed ? `Next goal check-in ${h.shortDate(peptide.goalReview.snoozedUntil)}.`
+          : `Goal review at ${h.formatNumber(goal.goal)} lb. Scheduled dose reviews continue separately.`;
+        return `<article class="goal-review-row"><strong>${esc(peptide.name)}</strong><p>${esc(message)}</p><div class="titration-actions">${status.due
+          ? action("review", "Review dose plan") + action("keep", "Keep existing plan") + action("later", "Remind in a week")
+          : action("setup", status.configured ? "Edit goal review" : "Set up goal review")}</div></article>`;
+      }).join("");
     }
     if (document.activeElement !== el("goalWeightInput"))
       el("goalWeightInput").value = core.state.goals?.weightGoal || "";
@@ -414,6 +533,7 @@
   window.PepsTitration.loadEditor = function (peptide) {
     loadEditor(peptide);
     editor = peptide || null;
+    pendingGoalReview = null;
     step = 0;
     const duration = peptide?.duration;
     const legacyCycle = peptide?.cycleOnDays && peptide?.cycleOffDays;
@@ -450,8 +570,14 @@
       el("powderMgInput").value = "";
       el("bacMlInput").value = "";
     }
-    el("setupWeightInput").value = "";
+    const latestWeight = h.weightRows().filter((row) => row.date <= h.todayString()).at(-1);
+    initialWeight = latestWeight ? String(latestWeight.weight) : "";
+    el("setupWeightInput").value = initialWeight;
+    el("setupWeightStatus").textContent = latestWeight
+      ? `Last logged ${h.shortDate(latestWeight.date)}. Changing this value records today's weight.`
+      : "You can also log weight in your daily check-in.";
     el("setupGoalInput").value = core.state.goals?.weightGoal || "";
+    el("goalReviewChoice").value = peptide?.goalReview ? peptide.goalReview.enabled ? "review" : "off" : "";
     el("protocolError").textContent = "";
     el("protocolPlanChoice").value = peptide
       ? peptide.titration?.enabled || peptide.titration?.mode === "maintain"
@@ -469,24 +595,7 @@
       peptide.cycleOffDays = "";
       if (peptide.duration.mode !== "fixed") peptide.endDate = "";
     }
-    const saved = savePeptide.call(core, peptide);
-    if (
-      saved &&
-      !editor &&
-      core.state.stack.length === 1 &&
-      el("setupGoalInput")
-    ) {
-      if (el("setupGoalInput").value) setGoal(el("setupGoalInput").value);
-      if (positive(el("setupWeightInput").value)) {
-        const date = h.todayString();
-        core.state.checkins[date] = {
-          ...core.state.checkins[date],
-          weight: Number(el("setupWeightInput").value),
-        };
-        core.commit();
-      }
-    }
-    return saved;
+    return savePeptide.call(core, peptide);
   };
 
   const plan = core.plan;
@@ -565,10 +674,16 @@
     render,
     goalInfo,
     setGoal,
+    goalReviewStatus,
+    recordGoalDecision,
+    readGoalReview,
+    saveEditorWeights,
+    saveEditorPeptide,
     isCreating: () => !editor && el("protocolDialog").open,
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    el("protocolDialog").addEventListener("close", () => { pendingGoalReview = null; });
     el("peptideForm").noValidate = true;
     el("peptideForm").addEventListener(
       "submit",
@@ -664,16 +779,17 @@
       window.PepsRender();
       el("goalSavedStatus").textContent = "Goal removed";
     });
-    el("goalReviewButton").addEventListener("click", () => {
-      document.querySelector('[data-nav="settings"]').click();
-      el("stackList").scrollIntoView({ block: "start" });
-    });
-    el("goalDismissButton").addEventListener("click", () => {
-      core.state.goals.reviewedGoal = core.state.goals.weightGoal;
-      core.commit();
-      window.PepsRender();
-    });
     document.addEventListener("click", (event) => {
+      const goalButton = event.target.closest("[data-goal-action]");
+      if (goalButton) {
+        const id = goalButton.dataset.goalPeptide;
+        const action = goalButton.dataset.goalAction;
+        if (action === "review" || action === "setup") openGoalEditor(id, action === "review");
+        else {
+          recordGoalDecision(id, action);
+          window.PepsRender();
+        }
+      }
       const editButton = event.target.closest("[data-edit-peptide]");
       if (editButton && !event.composedPath().includes(el("stackList"))) {
         const entry = [

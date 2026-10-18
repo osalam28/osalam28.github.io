@@ -694,6 +694,23 @@ input[type="radio"] {
 #goalReview p {
   font-size: 13px;
 }
+.goal-review-row {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.goal-review-row .titration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.goal-review-row button {
+  min-height: 44px;
+  white-space: normal;
+}
+#initialWeightFields + p {
+  font-size: 13px;
+}
 .dashboard-support-grid {
   display: block;
   border-top: 1px solid var(--line);

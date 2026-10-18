@@ -287,6 +287,11 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
     assert.equal(await page.evaluate(() => PepsCore.state.stack.length), 0);
     await page.evaluate(async () => {
       PepsCore.saveCheckin({ weight: 201.8, notes: "private-test-note" });
+      PepsCore.savePeptide({ id: 'private-goal-test', name: 'private-goal-peptide', doseAmount: 1, doseUnit: 'mg',
+        startDate: PepsCore.helpers.todayString(), frequency: 'daily', times: ['AM'],
+        goalReview: { enabled: true, reviewedGoal: 205, reviewedAt: PepsCore.helpers.todayString(), decision: 'keep' } });
+      PepsCore.state.goals = { weightGoal: 205 };
+      PepsCore.commit();
       await PepsCore.flush();
     });
     assert.ok(
@@ -296,6 +301,8 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
       !JSON.stringify([...rows.values()]).includes("Private Test Name"),
     );
     assert.ok(!JSON.stringify([...rows.values()]).includes("201.8"));
+    assert.ok(!JSON.stringify([...rows.values()]).includes("private-goal-peptide"));
+    assert.ok(!JSON.stringify([...rows.values()]).includes("reviewedGoal"));
     const local = await page.evaluate(() => JSON.stringify(localStorage));
     assert.ok(!local.includes("private-test-note"));
     assert.ok(!local.includes(recovery));
@@ -323,6 +330,8 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
       ),
       201.8,
     );
+    assert.equal(await page.evaluate(() => PepsCore.findPeptide('private-goal-test').goalReview.reviewedGoal), 205);
+    assert.equal(await page.evaluate(() => PepsProtocol.goalInfo().reviewDue), false);
     await signOut(page);
     await create(
       page,

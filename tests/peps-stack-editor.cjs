@@ -12,6 +12,7 @@ const { pathToFileURL } = require('node:url');
       page.on('pageerror', error => errors.push(error.message));
       page.on('dialog', dialog => dialog.accept());
       await page.route('**/rest/v1/**', route => route.fulfill({ json: [] }));
+      await page.route('**/account-config.js*', route => route.fulfill({ contentType: 'text/javascript', body: 'window.PepsAccountConfig = { enabled: false };' }));
       await page.goto(pathToFileURL(path.join(__dirname, '../peps/index.html')).href);
       await page.evaluate(() => {
         PepsCore.state.stack = [];
@@ -33,6 +34,7 @@ const { pathToFileURL } = require('node:url');
       await page.locator(`#stackList [data-edit-peptide="${next}"]`).click();
       await page.locator('#doseAmountInput').fill('2.5');
       await page.locator('[data-protocol-edit-step="4"]').click();
+      await page.locator('#goalReviewChoice').selectOption('off');
       await page.locator('#savePeptideButton').click();
       assert.equal(await page.evaluate(id => PepsCore.findPeptide(id).doseAmount, next), 2.5);
       const remaining = await page.locator('#stackList [data-edit-peptide]').evaluateAll(buttons => buttons.map(button => button.dataset.editPeptide));

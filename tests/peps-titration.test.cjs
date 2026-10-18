@@ -207,16 +207,75 @@ test('confirmation cycles remain paused until approved, then begin a full new cy
 test('goal tracking ignores blank weights, prompts at goal and never changes a protocol', () => {
   const { core, peptide, protocol } = fixture();
   core.state.checkins = { '2026-10-01': { weight: 250 }, '2026-10-08': { weight: null }, '2026-10-15': { weight: 240 } };
-  const before = JSON.stringify(peptide);
+  peptide.goalReview = { enabled: true };
   protocol.setGoal(240);
+  const before = JSON.stringify(peptide);
   assert.equal(protocol.goalInfo().reviewDue, true);
   assert.equal(protocol.goalInfo().percent, 100);
   assert.equal(JSON.stringify(peptide), before);
   assert.equal(core.helpers.weightRows().length, 2);
-  core.state.goals.reviewedGoal = 240;
+  protocol.recordGoalDecision(peptide.id, 'keep');
   assert.equal(protocol.goalInfo().reviewDue, false);
   protocol.setGoal(null);
   assert.equal(protocol.goalInfo(), null);
+});
+
+test('weight milestones are per peptide and independent of dose review cadence', () => {
+  const { core, peptide, protocol, engine } = fixture();
+  peptide.goalReview = { enabled: true };
+  const second = core.savePeptide({ ...peptide, id: 'second', goalReview: { enabled: true } });
+  const cadence = JSON.stringify(peptide.titration);
+  core.state.checkins = { '2026-10-15': { weight: 200 } };
+  protocol.setGoal(200);
+  assert.equal(protocol.goalReviewStatus(peptide).due, true);
+  assert.equal(protocol.goalReviewStatus(second).due, true);
+  protocol.recordGoalDecision(peptide.id, 'keep');
+  assert.equal(protocol.goalReviewStatus(peptide).due, false);
+  assert.equal(protocol.goalReviewStatus(second).due, true);
+  assert.equal(JSON.stringify(peptide.titration), cadence);
+  assert.equal(engine.details(peptide).due, true);
+  protocol.recordGoalDecision(second.id, 'later');
+  assert.equal(second.goalReview.snoozedUntil, '2026-10-22');
+  assert.equal(protocol.goalInfo().reviewDue, false);
+  second.goalReview.snoozedUntil = '2026-10-15';
+  assert.equal(protocol.goalReviewStatus(second).due, true);
+  protocol.setGoal(190);
+  assert.equal(protocol.goalReviewStatus(peptide).due, false);
+  protocol.setGoal(200);
+  assert.equal(protocol.goalReviewStatus(peptide).due, true, 'Changing the goal resets acknowledgements');
+  const snapshot = JSON.parse(JSON.stringify(core.state));
+  core.replace(snapshot);
+  assert.equal(core.findPeptide('second').goalReview.enabled, true);
+  assert.equal(protocol.goalReviewStatus(core.findPeptide('test')).due, true);
+});
+
+test('future weights and ineligible protocols do not trigger milestones', () => {
+  const { core, peptide, protocol } = fixture();
+  peptide.goalReview = { enabled: true };
+  core.state.checkins = { '2026-10-14': { weight: 210 }, '2026-10-20': { weight: 190 } };
+  protocol.setGoal(200);
+  assert.equal(protocol.goalInfo().reached, false);
+  core.state.checkins['2026-10-15'] = { weight: 200 };
+  assert.equal(protocol.goalInfo().reviewDue, true);
+  peptide.active = false;
+  assert.equal(protocol.goalInfo().reviewDue, false);
+  peptide.active = true;
+  peptide.stoppedDate = '2026-10-15';
+  assert.equal(protocol.goalInfo().reviewDue, false);
+  peptide.stoppedDate = '';
+  peptide.goalReview = null;
+  assert.equal(protocol.goalReviewStatus(peptide).configured, false);
+  assert.equal(protocol.goalInfo().reviewDue, false);
+  peptide.goalReview = { enabled: false };
+  assert.equal(protocol.goalInfo().reviewDue, false);
+});
+
+test('saving a peptide never creates a weight check-in from stale editor values', () => {
+  const { core, peptide, nodes } = fixture();
+  nodes.set('setupWeightInput', { value: '200' });
+  nodes.set('setupGoalInput', { value: '180' });
+  core.savePeptide({ ...peptide, id: 'second' });
+  assert.equal(Object.keys(core.state.checkins).length, 0);
 });
 
 test('duration, goals, measurement status and stop dates survive reload normalization', () => {

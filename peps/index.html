@@ -7,7 +7,7 @@
     <meta name="referrer" content="no-referrer" />
     <title>Peps | Your Daily Protocol</title>
     <link rel="stylesheet" href="./styles.css?v=20261017-dashboard-v1" />
-    <link rel="stylesheet" href="./experience.css?v=20261017-dashboard-v1" />
+    <link rel="stylesheet" href="./experience.css?v=20261017-goals-v1" />
     <link rel="stylesheet" href="./accounts.css?v=20261017-accounts-v1" />
     <script defer src="./vendor/lucide.min.js?v=20261017-dashboard-v1"></script>
     <script defer src="./crypto.js?v=20261017-dashboard-v1"></script>
@@ -15,10 +15,10 @@
     <script defer src="./vendor/supabase.min.js?v=20261017-accounts-v1"></script>
     <script defer src="./vault.js?v=20261017-accounts-v1"></script>
     <script defer src="./accounts.js?v=20261017-accounts-v3"></script>
-    <script defer src="./state.js?v=20261017-accounts-v1"></script>
+    <script defer src="./state.js?v=20261017-goals-v1"></script>
     <script defer src="./titration.js?v=20261017-dashboard-v1"></script>
-    <script defer src="./protocol.js?v=20261017-dashboard-v1"></script>
-    <script defer src="./app.js?v=20261017-accounts-v1"></script>
+    <script defer src="./protocol.js?v=20261017-goals-v1"></script>
+    <script defer src="./app.js?v=20261017-goals-v1"></script>
     <script defer src="./experience.js?v=20261017-dashboard-v1"></script>
     <script defer src="./accounts-ui.js?v=20261017-accounts-v3"></script>
   </head>
@@ -310,25 +310,7 @@
               </div>
               <div id="goalProgress"></div>
               <div id="goalReview" hidden>
-                <p>
-                  Your latest weight has reached your goal. Review your
-                  maintenance plan?
-                </p>
-                <div class="titration-actions">
-                  <button
-                    type="button"
-                    class="primary-button"
-                    id="goalReviewButton"
-                  >
-                    Review my stack</button
-                  ><button
-                    type="button"
-                    class="secondary-button"
-                    id="goalDismissButton"
-                  >
-                    Keep current plan
-                  </button>
-                </div>
+                <div id="goalReviewList"></div>
               </div>
             </section>
           </div>
@@ -848,10 +830,11 @@
                 </fieldset>
                 <fieldset class="protocol-step" data-protocol-step="4" hidden>
                   <legend>Review your protocol</legend>
-                  <div id="protocolSummary"></div>
+                  <h3>Weight &amp; goal review</h3>
+                  <p class="muted">Weight and goal are shared across your profile. The goal review choice applies only to this peptide.</p>
                   <div class="form-grid" id="initialWeightFields">
                     <label
-                      ><span>Current weight (lb, optional)</span
+                      ><span>Latest weight (lb, optional)</span
                       ><input
                         id="setupWeightInput"
                         type="number"
@@ -868,6 +851,17 @@
                         inputmode="decimal"
                     /></label>
                   </div>
+                  <p class="muted" id="setupWeightStatus"></p>
+                  <label><span>When I reach my goal weight</span>
+                    <select id="goalReviewChoice" required>
+                      <option value="">Choose for this peptide</option>
+                      <option value="review">Remind me at goal weight</option>
+                      <option value="off">No weight milestone</option>
+                    </select>
+                  </label>
+                  <p class="muted">A goal review is separate from scheduled dose reviews. No dose changes happen automatically. Agree any maintenance or reduction plan with your clinician.</p>
+                  <h3>Protocol summary</h3>
+                  <div id="protocolSummary"></div>
                 </fieldset>
                 <p id="protocolError" role="alert" class="titration-error"></p>
                 <div class="protocol-footer">
