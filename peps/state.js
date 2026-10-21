@@ -27,6 +27,7 @@
       viewMonth: r.getMonth(),
       unitsPerMl: 100,
       goals: {},
+      inventory: { version: 1, items: [], usage: {} },
       stack: n[e] ? l(e) : [],
       checkins: {},
       completedDoses: {},
@@ -313,6 +314,9 @@
         : o.getMonth(),
       unitsPerMl: T(e.unitsPerMl, 100),
       goals: e.goals && typeof e.goals === "object" ? e.goals : {},
+      inventory: window.PepsInventory
+        ? window.PepsInventory.normalize(e.inventory)
+        : (e.inventory || { version: 1, items: [], usage: {} }),
       stack: Array.isArray(e.stack) ? e.stack.map(v).filter(Boolean) : a.stack,
       checkins: e.checkins && "object" == typeof e.checkins ? e.checkins : {},
       completedDoses:
@@ -448,6 +452,18 @@
           K(t.startDate, e) > 0 && K(t.startDate, e) % t.reviewEveryDays === 0,
       )
       .map((t) => ({ peptide: t, snapshot: A(t, e) }));
+  }
+  function scheduled(e, date) {
+    if (!e.active || date < e.startDate ||
+        (e.stoppedDate && date >= e.stoppedDate) ||
+        (e.endDate && date > e.endDate) ||
+        (window.PepsProtocol && !window.PepsProtocol.allowed(e, date))) return false;
+    const days = K(e.startDate, date);
+    if (e.cycleOnDays && e.cycleOffDays &&
+        days % (e.cycleOnDays + e.cycleOffDays) >= e.cycleOnDays) return false;
+    return e.frequency === "daily" || (e.frequency === "weekly" ? days % 7 === 0
+      : e.frequency === "weekdays" ? (e.weekdays || []).includes(B(date).getDay())
+      : days % Math.max(1, e.intervalDays) === 0);
   }
   function A(e, t) {
     const n = e.reviewEveryDays || 28,
@@ -712,6 +728,7 @@
       clearTimeout(c);
       await f();
     },
+    isScheduled: scheduled,
     plan: function (e) {
       const t = [],
         n = [];
@@ -720,31 +737,7 @@
           .filter((e) => e.active)
           .forEach((a) => {
             if (
-              !(function (e, t) {
-                if (
-                  !e.active ||
-                  t < e.startDate ||
-                  (e.stoppedDate && t >= e.stoppedDate) ||
-                  (window.PepsProtocol && !window.PepsProtocol.allowed(e, t))
-                )
-                  return !1;
-                if (e.endDate && t > e.endDate) return !1;
-                const n = K(e.startDate, t);
-                return (
-                  !(n < 0) &&
-                  !(
-                    e.cycleOnDays &&
-                    e.cycleOffDays &&
-                    n % (e.cycleOnDays + e.cycleOffDays) >= e.cycleOnDays
-                  ) &&
-                  ("daily" === e.frequency ||
-                    ("weekly" === e.frequency
-                      ? n % 7 == 0
-                      : "weekdays" === e.frequency
-                        ? (e.weekdays || []).includes(B(t).getDay())
-                        : n % Math.max(1, e.intervalDays) === 0))
-                );
-              })(a, e)
+              !scheduled(a, e)
             )
               return;
             const r = k(a, e);
@@ -788,6 +781,7 @@
     toggleDoseDone: function (e) {
       const t = W(e.date) ? e.date : a.selectedDate,
         n = String(e.taskId || "");
+      if (n) window.PepsInventory?.recordDose(t, n, !!e.done);
       return n
         ? ((a.completedDoses ||= {}),
           (a.completedDoses[t] ||= {}),

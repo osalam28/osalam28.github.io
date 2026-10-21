@@ -9,18 +9,21 @@
     <link rel="stylesheet" href="./styles.css?v=20261017-dashboard-v1" />
     <link rel="stylesheet" href="./experience.css?v=20261018-plans-v1" />
     <link rel="stylesheet" href="./accounts.css?v=20261018-signup-v1" />
+    <link rel="stylesheet" href="./inventory.css?v=20261021-inventory-v1" />
     <script defer src="./vendor/lucide.min.js?v=20261017-dashboard-v1"></script>
     <script defer src="./crypto.js?v=20261017-dashboard-v1"></script>
     <script defer src="./account-config.js?v=20261018-signup-v1"></script>
     <script defer src="./vendor/supabase.min.js?v=20261017-accounts-v1"></script>
     <script defer src="./vault.js?v=20261017-accounts-v1"></script>
     <script defer src="./accounts.js?v=20261018-signup-v1"></script>
-    <script defer src="./state.js?v=20261018-plans-v1"></script>
+    <script defer src="./state.js?v=20261021-inventory-v1"></script>
     <script defer src="./titration.js?v=20261018-plans-v1"></script>
     <script defer src="./protocol.js?v=20261018-plans-v1"></script>
     <script defer src="./dose-plans.js?v=20261018-plans-v1"></script>
-    <script defer src="./app.js?v=20261018-plans-v1"></script>
-    <script defer src="./experience.js?v=20261018-plans-v1"></script>
+    <script defer src="./inventory.js?v=20261021-inventory-v1"></script>
+    <script defer src="./app.js?v=20261021-inventory-v1"></script>
+    <script defer src="./experience.js?v=20261021-inventory-v1"></script>
+    <script defer src="./inventory-ui.js?v=20261021-inventory-v1"></script>
     <script defer src="./accounts-ui.js?v=20261018-signup-v1"></script>
   </head>
   <body class="locked">
@@ -177,6 +180,9 @@
         <svg aria-hidden="true"><use href="#icon-settings"></use></svg
         ><span>Settings</span>
       </button>
+      <button class="nav-button" type="button" data-nav="inventory">
+        <i data-lucide="package" aria-hidden="true"></i><span>Inventory</span>
+      </button>
     </nav>
 
     <main class="app-shell">
@@ -329,6 +335,20 @@
         </section>
       </section>
 
+      <section class="view" id="view-inventory">
+        <div class="view-heading"><div><p class="eyebrow">Stock &amp; supply</p><h2>Inventory</h2></div>
+          <button class="primary-button" type="button" id="inventoryAdd"><i data-lucide="plus" aria-hidden="true"></i> Add stock</button></div>
+        <div id="inventorySummary" class="inventory-summary"></div>
+        <div id="inventoryList" class="inventory-list"></div>
+      </section>
+      <dialog id="inventoryDialog" class="inventory-dialog" aria-labelledby="inventoryTitle">
+        <form id="inventoryForm">
+          <header><h2 id="inventoryTitle">Add stock</h2><button type="button" class="icon-button" data-inventory-close aria-label="Close inventory editor" title="Close"><i data-lucide="x" aria-hidden="true"></i></button></header>
+          <div id="inventoryFields"></div>
+          <p id="inventoryError" role="alert" class="error-text"></p>
+          <footer><button class="secondary-button" type="button" data-inventory-close>Cancel</button><button class="primary-button" id="inventorySave" type="submit">Save stock</button></footer>
+        </form>
+      </dialog>
       <section class="view" id="view-calendar">
         <div class="view-heading">
           <div>

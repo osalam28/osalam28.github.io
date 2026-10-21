@@ -49,7 +49,10 @@
             .map((task) => {
               const done = Boolean(completed[task.taskId]);
               const label = `${done ? "Undo" : "Mark"} ${task.name} ${time} ${done ? "completion" : "as taken"}`;
-              return `<article class="today-dose ${done ? "done" : ""}"><span class="compound-icon">${icon("syringe")}</span><div class="today-dose-main"><strong>${esc(task.name)}</strong><p>${esc(task.doseLabel)} · <span>${task.measurementPending ? "Vial setup needed" : h.unitsLabel(task.units)}</span></p>${task.scheduledChange ? `<small class="scheduled-change">${esc(task.scheduledChange)}</small>` : ""}${task.warning && !task.measurementPending ? `<small class="warning">${esc(task.warning)}</small>` : ""}${task.measurementPending ? `<button class="link-button" type="button" data-nav="settings" data-edit-peptide="${esc(task.peptideId)}">Set up vial</button>` : ""}</div><div class="completion-action">${done ? '<span class="taken-label">Taken</span>' : ""}<button class="done-toggle" type="button" aria-pressed="${done}" aria-label="${esc(label)}" title="${esc(label)}" data-dose-toggle data-date="${day}" data-task-id="${esc(task.taskId)}" data-done="${done}" data-name="${esc(task.name)}" data-dose-label="${esc(task.doseLabel)}" data-time="${esc(time)}" ${task.measurementPending || day > h.todayString() ? "disabled" : ""}>${icon("check")}</button></div></article>`;
+              const setup = task.inventoryVial
+                ? '<button class="link-button" type="button" data-nav="inventory">Set up active vial</button>'
+                : `<button class="link-button" type="button" data-nav="settings" data-edit-peptide="${esc(task.peptideId)}">Set up vial</button>`;
+              return `<article class="today-dose ${done ? "done" : ""}"><span class="compound-icon">${icon("syringe")}</span><div class="today-dose-main"><strong>${esc(task.name)}</strong><p>${esc(task.doseLabel)} · <span>${task.measurementPending ? "Vial setup needed" : h.unitsLabel(task.units)}</span></p>${task.scheduledChange ? `<small class="scheduled-change">${esc(task.scheduledChange)}</small>` : ""}${task.warning && !task.measurementPending ? `<small class="warning">${esc(task.warning)}</small>` : ""}${task.measurementPending ? setup : ""}</div><div class="completion-action">${done ? '<span class="taken-label">Taken</span>' : ""}<button class="done-toggle" type="button" aria-pressed="${done}" aria-label="${esc(label)}" title="${esc(label)}" data-dose-toggle data-date="${day}" data-task-id="${esc(task.taskId)}" data-done="${done}" data-name="${esc(task.name)}" data-dose-label="${esc(task.doseLabel)}" data-time="${esc(time)}" ${(task.measurementPending && !done) || day > h.todayString() ? "disabled" : ""}>${icon("check")}</button></div></article>`;
             })
             .join("")
         );
@@ -325,6 +328,7 @@
       el("stackList").innerHTML =
         '<div class="empty-state"><strong>Your stack is empty</strong><p>Add a peptide to start your schedule.</p></div>';
     setSettings(settingsTab);
+    window.PepsInventoryUI?.render();
     icons();
   }
   window.PepsExperience = { render, stackCard, closeEditor, drawCharts };

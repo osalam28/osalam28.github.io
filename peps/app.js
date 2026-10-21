@@ -3,7 +3,7 @@
   const e = window.PepsCore,
     t = e.helpers,
     a = (e) => document.getElementById(e),
-    n = ["dashboard", "calendar", "calculator", "progress", "settings"];
+    n = ["dashboard", "calendar", "calculator", "progress", "settings", "inventory"];
   let s = "dashboard",
     o = "unlock",
     i = null;
