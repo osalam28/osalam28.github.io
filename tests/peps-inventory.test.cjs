@@ -147,3 +147,59 @@ test('invalid stock quantities and duplicate protocol links are rejected without
   assert.throws(() => open(inv, item, 50), /Remaining/);
   assert.equal(item.unopened, 2);
 });
+
+test('undo opening returns exactly one vial, preserves history and restores previous active vial', () => {
+  const { core, inv, item } = fixture();
+  const previous = open(inv, item, '', false), vial = open(inv, item);
+  assert.equal(item.unopened, 1);
+  assert.throws(() => inv.undoOpening(item.id, vial.id), /Confirm/);
+  inv.undoOpening(item.id, vial.id, { unopened: true });
+  assert.equal(item.unopened, 2);
+  assert.equal(item.activeVialId, previous.id);
+  assert.equal(vial.closed, true);
+  assert.ok(vial.openingUndoneAt);
+  assert.equal(inv.stock(item).knownMg, 80);
+  assert.equal(item.vials.length, 2, 'Audit history is retained');
+  assert.throws(() => inv.undoOpening(item.id, vial.id, { unopened: true }), /already/);
+  assert.throws(() => inv.updateVial(item.id, vial.id, { remainingMg: 40, bacMl: 2, active: true }), /undone/);
+  core.replace(JSON.parse(JSON.stringify(core.state)));
+  assert.equal(inv.find(item.id).unopened, 2);
+  assert.ok(inv.find(item.id).vials[1].openingUndoneAt);
+});
+test('undo refuses used, partial, separately added, and changed-strength vials', () => {
+  const { core, inv, item } = fixture();
+  const vial = open(inv, item);
+  take(core);
+  assert.throws(() => inv.undoOpening(item.id, vial.id, { unopened: true }), /Doses/);
+  take(core, false);
+  inv.updateVial(item.id, vial.id, { remainingMg: 30, bacMl: 2 });
+  assert.throws(() => inv.undoOpening(item.id, vial.id, { unopened: true }), /partial/);
+  inv.updateVial(item.id, vial.id, { remainingMg: 40, bacMl: 2 });
+  item.powderMg = 50;
+  assert.throws(() => inv.undoOpening(item.id, vial.id, { unopened: true }), /strength/);
+  item.powderMg = 40;
+  const separate = open(inv, item, 40, false);
+  assert.throws(() => inv.undoOpening(item.id, separate.id, { unopened: true }), /separately/);
+  assert.equal(item.unopened, 1);
+});
+test('legacy vial undo requires explicit confirmation of the stock deduction', () => {
+  const { inv, item } = fixture();
+  const vial = open(inv, item);
+  delete vial.fromStock;
+  assert.throws(() => inv.undoOpening(item.id, vial.id, { unopened: true }), /older entry/);
+  inv.undoOpening(item.id, vial.id, { unopened: true, deducted: true });
+  assert.equal(item.unopened, 2);
+  assert.equal(item.corrections.at(-1).legacyConfirmed, true);
+});
+test('link existing inventory to protocol never opens or deducts a vial', () => {
+  const { core, inv, item } = fixture();
+  const vial = open(inv, item);
+  inv.saveItem({ ...item, peptideId: '' }, item.id);
+  const before = JSON.stringify(item.vials);
+  inv.linkItem(item.id, 'example');
+  assert.equal(item.unopened, 1);
+  assert.equal(item.activeVialId, vial.id);
+  assert.equal(JSON.stringify(item.vials), before);
+  core.savePeptide({ id: 'different', name: 'Different' });
+  assert.throws(() => inv.linkItem(item.id, 'different'), /already linked/);
+});

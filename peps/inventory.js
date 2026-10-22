@@ -63,6 +63,7 @@
     for (const field of ["mixedDate", "expiry"]) if (input[field] && !dateValid(input[field])) throw new Error("Enter valid vial dates.");
     if (input.mixedDate > h.todayString()) throw new Error("The mixed date cannot be in the future.");
     const vial = { id: id(), powderMg, bacMl: positive(input.bacMl) ? Number(input.bacMl) : null, initialMg: balance,
+      fromStock: !!fromStock, previousActiveVialId: item.activeVialId || "", stockExpiry: item.expiry || "",
       mixedDate: input.mixedDate || "", expiry: input.expiry || "", closed: false, openedAt: new Date().toISOString() };
     if (fromStock) item.unopened -= 1;
     item.vials.push(vial);
@@ -70,9 +71,46 @@
     core.commit();
     return vial;
   }
+  function undoOpeningReason(item, vial) {
+    if (!item || !vial) return "Vial not found.";
+    if (vial.openingUndoneAt) return "This opening has already been undone.";
+    if (vial.fromStock === false) return "This vial was added separately and did not reduce unopened stock.";
+    if (vial.closed) return "This vial is marked finished or discarded.";
+    if (entries(item).some(([, row]) => row.vialId === vial.id)) return "Doses are logged against this vial. Correct those entries before undoing its opening.";
+    const balance = remaining(item, vial);
+    if (balance !== null && Math.abs(balance - vial.powderMg) > 1e-6) return "This vial has a partial balance. Correct the inventory record before undoing its opening.";
+    if (Number(item.powderMg) !== Number(vial.powderMg)) return "The unopened vial strength has changed. Correct the stock record before undoing this opening.";
+    if (vial.fromStock === true && (vial.stockExpiry || "") !== (item.expiry || "")) return "The unopened stock expiry has changed. Reconcile the stock record before undoing this opening.";
+    return "";
+  }
+  function undoOpening(key, vialId, confirmation = {}) {
+    const item = find(key), vial = item?.vials.find(v => v.id === vialId);
+    const reason = undoOpeningReason(item, vial);
+    if (reason) throw new Error(reason);
+    if (confirmation.unopened !== true) throw new Error("Confirm that the physical vial is still unopened and unused.");
+    if (vial.fromStock == null && confirmation.deducted !== true) throw new Error("Confirm that this older entry reduced your unopened count.");
+    const at = new Date().toISOString();
+    item.corrections.push({ action: "undo-opening", at, vialId, unopenedBefore: item.unopened, unopenedAfter: item.unopened + 1, legacyConfirmed: vial.fromStock == null });
+    item.unopened += 1;
+    vial.openingUndoneAt = at;
+    vial.closed = true;
+    if (item.activeVialId === vialId) {
+      const previous = item.vials.find(v => v.id === vial.previousActiveVialId && !v.closed && !v.openingUndoneAt);
+      item.activeVialId = previous?.id || "";
+    }
+    core.commit();
+  }
+  function linkItem(key, peptideId) {
+    const item = find(key);
+    if (!item || item.archived) throw new Error("Choose an active inventory item.");
+    if (!core.findPeptide(peptideId)) throw new Error("Protocol not found.");
+    if (item.peptideId && item.peptideId !== peptideId && core.findPeptide(item.peptideId)) throw new Error("This inventory is already linked to another protocol.");
+    return saveItem({ ...item, peptideId }, key);
+  }
   function updateVial(key, vialId, input) {
     const item = find(key), vial = item?.vials.find(v => v.id === vialId);
     if (!vial) throw new Error("Vial not found.");
+    if (vial.openingUndoneAt) throw new Error("This opening was undone. Start a new vial when you actually open it.");
     const balance = input.remainingMg === "" ? null : Number(input.remainingMg);
     if (balance !== null && (!nonnegative(balance) || balance > vial.powderMg)) throw new Error("Remaining mg must be between zero and the original vial amount.");
     if (input.bacMl !== "" && !positive(input.bacMl)) throw new Error("BAC water must be positive, or leave it unknown.");
@@ -89,6 +127,7 @@
     const entry = data().usage[key], item = entry && find(entry.itemId);
     const vial = item?.vials.find(v => v.id === vialId);
     if (!vial || !entry) throw new Error("Choose a vial for this logged dose.");
+    if (vial.openingUndoneAt) throw new Error("A returned unopened vial cannot have a dose assigned to it.");
     entry.vialId = vial.id;
     core.commit();
   }
@@ -154,7 +193,7 @@
     }
     return { ...result, status: !scheduledCount ? "unscheduled" : bounded ? "covered" : "horizon", lastDate };
   }
-  window.PepsInventory = { normalize, find, entries, remaining, activeVial, linked, saveItem, openVial, updateVial, assignUsage, recordDose, stock, forecast };
+  window.PepsInventory = { normalize, find, entries, remaining, activeVial, linked, saveItem, openVial, undoOpeningReason, undoOpening, linkItem, updateVial, assignUsage, recordDose, stock, forecast };
   const plan = core.plan;
   core.plan = function (date) {
     const result = plan(date);

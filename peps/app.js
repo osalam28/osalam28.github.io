@@ -357,6 +357,7 @@
       p();
       r("settings");
       H("Protocol saved");
+      window.PepsInventoryUI?.offerLink(saved);
     } catch (error) {
       a("protocolError").textContent = error.message;
     }
