@@ -21,6 +21,7 @@ async function start(page, name, duration) {
     await page.locator('#cycleRestartMode').selectOption('auto');
   }
   await next(page);
+  await page.locator('#setupStockSource').selectOption('later');
   await page.locator('#measurementMode').selectOption('mixed');
   await page.locator('#powderMgInput').fill('10');
   await page.locator('#bacMlInput').fill('2');

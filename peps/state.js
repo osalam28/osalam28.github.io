@@ -13,7 +13,8 @@
     s = null,
     u = null,
     c = null,
-    accountStore = null;
+    accountStore = null,
+    inTransaction = false;
   function d(e) {
     const t = n[e] || { label: "You" },
       a = R(),
@@ -417,6 +418,7 @@
     };
   }
   function b() {
+    if (inTransaction) return;
     ((a.updatedAt = new Date().toISOString()),
       !accountStore && localStorage.setItem(g(), JSON.stringify(a)),
       clearTimeout(c),
@@ -724,6 +726,21 @@
         : await f();
     },
     commit: b,
+    transaction(action) {
+      if (inTransaction) throw new Error("A save is already in progress.");
+      const before = JSON.parse(JSON.stringify(a));
+      inTransaction = true;
+      try {
+        const result = action();
+        inTransaction = false;
+        b();
+        return result;
+      } catch (error) {
+        a = before;
+        inTransaction = false;
+        throw error;
+      }
+    },
     flush: async function () {
       clearTimeout(c);
       await f();

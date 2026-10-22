@@ -30,6 +30,7 @@
       ${result.dose ? `<p class="inventory-basis">${esc(h.doseLabel(result.dose.amount, result.dose.unit))} per pull / ${esc(h.cadenceLabel(peptide))} / ${esc(peptide.times.join(" + "))}${peptide.duration?.mode === "cycle" || peptide.cycleOffDays ? " / cycle breaks included" : ""}</p>` : '<p class="inventory-basis">Inventory only or paused protocol</p>'}
       ${result.nextShortfall ? `<p class="inventory-basis">First uncovered pull: ${h.shortDate(result.nextShortfall)}</p>` : ""}
       ${notes.map(note => `<p class="inventory-note">${icon("info")}${esc(note)}</p>`).join("")}
+      ${!peptide && !item.archived ? `<div class="inventory-actions"><button type="button" class="secondary-button" data-inventory-protocol="${esc(item.id)}">${icon("calendar-plus")}Add to my stack</button></div>` : ""}
       <details data-inventory-detail="${esc(item.id)}"><summary>Vials &amp; usage <span>${item.vials.filter(v => !v.closed).length} mixed</span></summary>
       <div class="inventory-actions">${button("Start new vial", "new-vial", item.id, "flask-conical")}${button("Add existing mixed vial", "existing-vial", item.id)}</div>
       ${item.vials.map((vial, index) => {
@@ -84,11 +85,6 @@
         (reason ? `<p class="error-text">${esc(reason)}</p>` : "") +
         '<label class="inventory-check"><input id="invUndoUnopened" type="checkbox" required>The vial is still unopened and unused; its count has not already been restored.</label>' +
         (vial.fromStock == null ? '<label class="inventory-check"><input id="invUndoDeducted" type="checkbox" required>This older entry reduced my unopened count by one.</label>' : "");
-    } else if (action === "link") {
-      const peptide = core.findPeptide(key), candidates = linkCandidates();
-      const matches = candidates.filter(candidate => comparable(candidate.name) === comparable(peptide.name));
-      title = `Link inventory to ${peptide.name}`; submit = "Link existing stock";
-      fields = select("invLink", "Existing inventory", matches.length === 1 ? matches[0].id : "", [["", "Choose stock"], ...candidates.map(candidate => [candidate.id, `${candidate.name} / ${candidate.unopened} unopened / ${candidate.vials.filter(v => !v.closed).length} mixed`])]) + '<p id="invLinkPreview" class="inventory-basis"></p>';
     } else if (action === "assign") {
       title = `Assign ${item.name} dose`; submit = "Assign vial";
       fields = select("invAssign", "Vial used for this dose", core.state.inventory.usage[usageKey]?.vialId || "", [["", "Choose vial"], ...item.vials.flatMap((v, index) => v.openingUndoneAt ? [] : [[v.id, `Vial ${index + 1} / ${v.powderMg} mg${v.closed ? " (closed)" : ""}`]])]);
@@ -111,7 +107,6 @@
     el("inventoryFields").innerHTML = fields;
     // An existing vial of unknown quantity must never default to a full or empty vial.
     if (action === "existing-vial") el("invRemaining").value = "";
-    if (action === "link") linkPreview();
     el("inventorySave").textContent = submit;
     el("inventoryError").textContent = "";
     el("inventoryDialog").showModal();
@@ -125,7 +120,6 @@
       const { action, key, vialId, usageKey } = editing;
       if (action === "stock") inv.saveItem({ name: value("invName"), peptideId: value("invProtocol"), powderMg: value("invPowder"), unopened: value("invCount"), expiry: value("invExpiry"), lowDays: value("invLowDays"), archived: !!el("invArchived")?.checked }, key);
       else if (action === "undo-opening") inv.undoOpening(key, vialId, { unopened: !!el("invUndoUnopened")?.checked, deducted: !!el("invUndoDeducted")?.checked });
-      else if (action === "link") inv.linkItem(value("invLink"), key);
       else if (action === "assign") inv.assignUsage(usageKey, value("invAssign"));
       else {
         const values = { powderMg: value("invVialPowder"), bacMl: value("invBac"), remainingMg: value("invRemaining"), mixedDate: value("invMixed"), expiry: value("invDiscard"), active: !!el("invActive")?.checked, closed: !!el("invClosed")?.checked };
@@ -136,17 +130,7 @@
       window.PepsRender(); window.PepsApp.toast("Inventory saved");
     } catch (error) { el("inventoryError").textContent = error.message; }
   }
-  const comparable = name => String(name).toLowerCase().replace(/[^a-z0-9]/g, "");
-  const linkCandidates = () => (core.state.inventory?.items || []).filter(item => !item.archived && (!item.peptideId || !core.findPeptide(item.peptideId)));
-  function linkPreview() {
-    const item = inv.find(el("invLink").value), vial = item && inv.activeVial(item);
-    el("invLinkPreview").textContent = !item ? "No inventory selected." :
-      `${item.unopened} unopened vials will remain unchanged. ${vial ? `Existing active vial: ${vial.powderMg} mg / ${vial.bacMl ? `${vial.bacMl} ml BAC` : "BAC unknown"}.` : "No active vial."} No new vial will be opened.`;
-  }
-  function offerLink(peptide) {
-    if (!inv.linked(peptide.id) && linkCandidates().length) open("link", peptide.id);
-  }
-  window.PepsInventoryUI = { render, offerLink };
+  window.PepsInventoryUI = { render };
   document.addEventListener("DOMContentLoaded", () => {
     el("inventoryForm").addEventListener("submit", submit);
     el("inventoryAdd").addEventListener("click", () => open("stock"));
@@ -156,7 +140,6 @@
       if (node?.dataset.inventoryAction) open(node.dataset.inventoryAction, node.dataset.inventoryId, node.dataset.vialId, node.dataset.usageKey);
     });
     el("inventoryFields").addEventListener("change", event => {
-      if (event.target.id === "invLink") { linkPreview(); return; }
       if (event.target.id !== "invProtocol" || editing?.key) return;
       const peptide = core.findPeptide(event.target.value);
       if (peptide) { el("invName").value = peptide.name; el("invPowder").value = peptide.powderMg; }

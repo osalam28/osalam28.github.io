@@ -14,7 +14,7 @@
   const stepNames = [
     "Dose & schedule",
     "Cycle length & duration",
-    "Vial & measurement",
+    "Inventory & vial",
     "Dose plan",
     "Review",
   ];
@@ -167,10 +167,12 @@
         : mode === "fixed" && end
           ? `Last scheduled day: ${h.shortDate(end)}. No doses after this date.`
           : "";
+    window.PepsProtocolInventory?.update();
+    const inventoryManaged = window.PepsProtocolInventory?.managed();
     const pending = el("measurementMode").value !== "mixed";
     ["powderMgInput", "bacMlInput"].forEach((id) => {
-      el(id).disabled = pending;
-      el(id).required = !pending;
+      el(id).disabled = pending || inventoryManaged;
+      el(id).required = !pending && !inventoryManaged;
       el(id).closest("label").hidden = pending;
     });
     const units =
@@ -249,6 +251,7 @@
     }
     el("protocolSummary").innerHTML =
       `<dl class="protocol-summary"><dt>Peptide</dt><dd>${esc(el("peptideNameInput").value)}</dd><dt>Dose</dt><dd>${esc(dose)}</dd><dt>Schedule</dt><dd>${esc(frequency)} / ${esc(el("timeInput").value)} / ${h.shortDate(el("startDateInput").value)}</dd><dt>Duration</dt><dd>${esc(length)}</dd><dt>Measurement</dt><dd>${esc(el("measurementPreview").textContent || "Setup needed")}</dd><dt>Dose plan</dt><dd>${esc(plan)}</dd></dl>`;
+    if (window.PepsProtocolInventory) el("protocolSummary").innerHTML += `<dl class="protocol-summary"><dt>Inventory</dt><dd>${esc(window.PepsProtocolInventory.summary())}</dd></dl>`;
     if (replacesFuturePlan(editor, el("protocolPlanChoice").value)) {
       el("protocolSummary").innerHTML += '<p class="titration-preview">Saving this goal review replaces future dose changes and any future stop date with this plan. Past doses stay unchanged.</p>';
     }
@@ -294,6 +297,10 @@
   }
 
   function validateStep(index) {
+    if (index === 2 && window.PepsProtocolInventory) {
+      try { window.PepsProtocolInventory.validate(); }
+      catch (error) { el("protocolError").textContent = error.message; return false; }
+    }
     if (index === 3) {
       try { window.PepsDosePlans?.validateEditor(); }
       catch (error) { el("protocolError").textContent = error.message; return false; }
@@ -614,6 +621,7 @@
         : "steady"
       : "";
     window.PepsDosePlans?.loadEditor(peptide);
+    window.PepsProtocolInventory?.loadEditor(peptide);
     updateFields();
     showStep();
   };

@@ -342,7 +342,11 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
     await page.locator('#cycleOnWeeks').fill('8');
     await page.locator('#cycleOffWeeks').fill('3');
     await page.locator('#protocolNextButton').click();
-    await page.locator('#measurementMode').selectOption('later');
+    await page.locator('#setupStockSource').selectOption('new');
+    await page.locator('#setupStockPowder').fill('10');
+    await page.locator('#setupStockCount').fill('3');
+    await page.locator('#setupVialAction').selectOption('new');
+    await page.locator('#setupVialBac').fill('2');
     await page.locator('#protocolNextButton').click();
     await page.locator('#dosePlanKind').selectOption('steady');
     await page.locator('#protocolNextButton').click();
@@ -351,6 +355,9 @@ async function create(page, base, hash, email, name, password, legacyPassword, t
     await page.locator('#protocolDialog').waitFor({ state: 'hidden' });
     assert.equal(await page.evaluate(() => PepsCore.state.stack[0].duration.onDays), 56);
     assert.equal(await page.evaluate(() => PepsCore.state.stack[0].duration.offDays), 21);
+    assert.equal(await page.evaluate(() => PepsCore.state.inventory.items[0].unopened), 2);
+    assert.equal(await page.evaluate(() => PepsCore.state.inventory.items[0].vials.length), 1);
+    assert.equal(await page.evaluate(() => PepsCore.state.inventory.items[0].peptideId), 'signup-cycle-test');
     await page.evaluate(async () => {
       PepsCore.saveCheckin({ weight: 201.8, notes: "private-test-note" });
       PepsCore.savePeptide({ id: 'private-goal-test', name: 'private-goal-peptide', doseAmount: 1, doseUnit: 'mg',

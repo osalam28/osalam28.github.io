@@ -21,6 +21,74 @@ function fixture(options = {}) {
 const take = (core, done = true, time = 'pm', date = '2026-10-21') => core.toggleDoseDone({ date, taskId: `example-${time}`, done });
 const open = (inv, item, remainingMg = 40, fromStock = true) => inv.openVial(item.id, { powderMg: 40, bacMl: 2, remainingMg }, fromStock);
 
+test('protocol and inventory save together, rollback restores all state on failure', () => {
+  const { core, inv } = fixture();
+  const before = JSON.stringify(core.state);
+  assert.throws(() => core.transaction(() => {
+    const p = core.savePeptide({ id: 'new', name: 'New', doseAmount: 1, doseUnit: 'mg' });
+    inv.applySetup({ source: 'new', powderMg: 10, unopened: 2, action: 'new', vial: { bacMl: 2, remainingMg: 10 } }, p);
+    throw new Error('Later operation failed');
+  }), /Later operation/);
+  assert.equal(JSON.stringify(core.state), before);
+  assert.throws(() => core.transaction(() => {
+    const p = core.savePeptide({ id: 'new', name: 'New', doseAmount: 1, doseUnit: 'mg' });
+    inv.applySetup({ source: 'new', powderMg: 10, unopened: 0, action: 'new', vial: {} }, p);
+  }), /No unopened/);
+  assert.equal(JSON.stringify(core.state), before);
+});
+test('new stock plus opening deducts once; later protocol edits preserve balances and usage', () => {
+  const { core, inv } = fixture();
+  const p = core.transaction(() => {
+    const p = core.savePeptide({ id: 'new', name: 'New', doseAmount: 1, doseUnit: 'mg' });
+    inv.applySetup({ source: 'new', powderMg: 10, unopened: 3, expiry: '2026-12-31', action: 'new', vial: { bacMl: 2, remainingMg: 10 } }, p);
+    return p;
+  });
+  const item = inv.linked(p.id), before = JSON.stringify(item);
+  assert.equal(item.unopened, 2);
+  assert.equal(item.vials.length, 1);
+  assert.equal(item.vials[0].expiry, '2026-12-31');
+  inv.applySetup({ source: 'existing', itemId: item.id, action: 'keep' }, p);
+  assert.equal(JSON.stringify(item), before);
+  assert.equal(p.measurementPending, false);
+  assert.equal(p.powderMg, 10);
+  assert.equal(p.bacMl, 2);
+});
+test('setup links pre-opened inventory without decrement and keeps unknown balance unknown', () => {
+  const { core, inv, item } = fixture();
+  inv.saveItem({ ...item, peptideId: '' }, item.id);
+  open(inv, item, '', false);
+  const p = core.savePeptide({ id: 'new', name: 'New', doseAmount: 1 });
+  inv.applySetup({ source: 'existing', itemId: item.id, action: 'keep' }, p);
+  assert.equal(item.unopened, 2);
+  assert.equal(item.vials.length, 1);
+  assert.equal(inv.remaining(item, inv.activeVial(item)), null);
+  assert.throws(() => inv.validateSetup({ source: 'later' }, p.id), /linked inventory/);
+});
+test('new stock can include a separately opened vial or no active vial without phantom usage', () => {
+  const { core, inv } = fixture();
+  const p = core.savePeptide({ id: 'new', name: 'New', doseAmount: 1 });
+  inv.applySetup({ source: 'new', powderMg: 10, unopened: 0, action: 'opened', vial: { powderMg: 20, bacMl: '', remainingMg: '' } }, p);
+  const item = inv.linked(p.id);
+  assert.equal(item.unopened, 0);
+  assert.equal(inv.remaining(item, inv.activeVial(item)), null);
+  assert.equal(p.measurementPending, true);
+  assert.equal(inv.entries(item).length, 0);
+  const q = core.savePeptide({ id: 'no-vial', name: 'No vial', doseAmount: 1 });
+  inv.applySetup({ source: 'new', powderMg: 10, unopened: 3, action: 'none' }, q);
+  assert.equal(inv.linked(q.id).unopened, 3);
+  assert.equal(inv.linked(q.id).vials.length, 0);
+  assert.equal(q.measurementPending, true);
+});
+test('setup validates source, whole stock counts, vial availability and separate protocol ownership', () => {
+  const { core, inv, item } = fixture();
+  for (const unopened of ['', -1, 1.5]) assert.throws(() => inv.validateSetup({ source: 'new', powderMg: 10, unopened, action: 'none' }, 'new'), /whole number/);
+  assert.throws(() => inv.validateSetup({}, 'new'), /Choose inventory/);
+  assert.throws(() => inv.validateSetup({ source: 'existing', itemId: item.id, action: 'keep' }, 'new'), /available inventory/);
+  assert.throws(() => inv.validateSetup({ source: 'existing', itemId: item.id, action: 'vial:missing' }, 'example'), /no longer available/);
+  inv.validateSetup({ source: 'later' }, 'new');
+  assert.equal(core.state.inventory.items.length, 1);
+});
+
 test('forecast recomputes current dose, frequency and stock rather than caching original supply', () => {
   const { core, inv, peptide, item } = fixture();
   assert.equal(inv.forecast(item).doses, 10);

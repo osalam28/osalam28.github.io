@@ -193,7 +193,56 @@
     }
     return { ...result, status: !scheduledCount ? "unscheduled" : bounded ? "covered" : "horizon", lastDate };
   }
-  window.PepsInventory = { normalize, find, entries, remaining, activeVial, linked, saveItem, openVial, undoOpeningReason, undoOpening, linkItem, updateVial, assignUsage, recordDose, stock, forecast };
+  function validateSetup(setup, peptideId) {
+    if (!setup || !["new", "existing", "later"].includes(setup.source)) throw new Error("Choose inventory for this peptide, or set it up later.");
+    const current = linked(peptideId);
+    if (current && (setup.source !== "existing" || setup.itemId !== current.id)) throw new Error("Keep this protocol's linked inventory. Manage stock changes in Inventory.");
+    if (setup.source === "later") return;
+    const item = setup.source === "existing" ? find(setup.itemId) : null;
+    if (setup.source === "existing" && (!item || item.archived || (item.peptideId && item.peptideId !== peptideId && core.findPeptide(item.peptideId)))) throw new Error("Choose available inventory for this protocol.");
+    if (setup.source === "new") {
+      if (!positive(setup.powderMg) || setup.powderMg > 100000) throw new Error("Enter the mg per unopened vial.");
+      if (!nonnegative(setup.unopened) || !Number.isInteger(Number(setup.unopened)) || setup.unopened > 100000) throw new Error("Enter a whole number of unopened vials, including zero.");
+      if (setup.expiry && !dateValid(setup.expiry)) throw new Error("Enter a valid stock expiration date.");
+    }
+    if (!["keep", "new", "opened", "none"].includes(setup.action) && !setup.action?.startsWith("vial:")) throw new Error("Choose the vial you will use, or no active vial yet.");
+    if (setup.action === "keep" && !item) throw new Error("Choose a vial option.");
+    if (setup.action === "none" && item && activeVial(item)) throw new Error("Choose the existing active vial.");
+    if (setup.action?.startsWith("vial:")) {
+      const vial = item?.vials.find(v => v.id === setup.action.slice(5));
+      if (!vial || vial.closed || vial.openingUndoneAt) throw new Error("That vial is no longer available.");
+    }
+    if (["new", "opened"].includes(setup.action)) {
+      const powder = setup.action === "new" ? item?.powderMg ?? Number(setup.powderMg) : Number(setup.vial.powderMg);
+      if (setup.action === "new" && Number(item?.unopened ?? setup.unopened) < 1) throw new Error("No unopened vials remain. Add stock or record an already-open vial.");
+      if (!positive(powder)) throw new Error("Enter the original mg in the mixed vial.");
+      if (setup.vial.bacMl !== "" && setup.vial.bacMl != null && !positive(setup.vial.bacMl)) throw new Error("BAC water must be positive, or leave it unknown.");
+      const balance = setup.vial.remainingMg;
+      if (balance !== "" && balance != null && (!nonnegative(balance) || Number(balance) > powder)) throw new Error("Remaining mg must be between zero and the original vial amount.");
+      for (const field of ["mixedDate", "expiry"]) if (setup.vial[field] && !dateValid(setup.vial[field])) throw new Error("Enter valid vial dates.");
+      if (setup.vial.mixedDate > h.todayString()) throw new Error("The mixed date cannot be in the future.");
+    }
+  }
+  function applySetup(setup, peptide) {
+    validateSetup(setup, peptide.id);
+    if (setup.source === "later") return;
+    const item = setup.source === "new"
+      ? saveItem({ name: peptide.name, peptideId: peptide.id, powderMg: setup.powderMg, unopened: setup.unopened, expiry: setup.expiry, lowDays: 14 })
+      : find(setup.itemId);
+    if (item.peptideId !== peptide.id) linkItem(item.id, peptide.id);
+    if (["new", "opened"].includes(setup.action)) openVial(item.id, {
+      ...setup.vial,
+      expiry: setup.vial.expiry || (setup.action === "new" ? item.expiry : ""),
+    }, setup.action === "new");
+    if (setup.action.startsWith("vial:")) { item.activeVialId = setup.action.slice(5); core.commit(); }
+    const vial = activeVial(item);
+    // Keep the protocol's measurement fallback consistent with its selected vial.
+    peptide.measurementPending = !vial?.bacMl;
+    if (vial) { peptide.powderMg = vial.powderMg; peptide.bacMl = vial.bacMl || 0; }
+    core.commit();
+    return item;
+  }
+  window.PepsInventory = { normalize, find, entries, remaining, activeVial, linked, saveItem, openVial, undoOpeningReason, undoOpening, linkItem, updateVial, assignUsage, recordDose, stock, forecast, validateSetup, applySetup };
   const plan = core.plan;
   core.plan = function (date) {
     const result = plan(date);

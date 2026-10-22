@@ -26,6 +26,7 @@ async function addPeptide(page, { name, duration, measurement = 'mixed', plan = 
   }
   if (duration === 'fixed') await page.locator('#courseWeeksInput').fill('8');
   await next(page);
+  await page.locator('#setupStockSource').selectOption('later');
   await page.locator('#measurementMode').selectOption(measurement);
   if (measurement === 'mixed') {
     await page.locator('#powderMgInput').fill('10');

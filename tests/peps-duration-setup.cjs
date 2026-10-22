@@ -35,6 +35,7 @@ const path = require('node:path');
       assert.match(await page.locator('#protocolStepLabel').textContent(), /Step 2/);
       await page.locator('#cycleOffWeeks').fill('3');
       await page.locator('#protocolNextButton').click();
+      await page.locator('#setupStockSource').selectOption('later');
       await page.locator('#measurementMode').selectOption('later');
       await page.locator('#protocolNextButton').click();
       await page.locator('#dosePlanKind').selectOption('steady');

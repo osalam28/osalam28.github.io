@@ -348,16 +348,22 @@
   function I(event) {
     event.preventDefault();
     try {
-      const saved = window.PepsProtocol.saveEditorPeptide(b());
+      const saved = e.transaction(() => {
+        const setup = window.PepsProtocolInventory.read();
+        window.PepsProtocolInventory.validate();
+        const peptide = window.PepsProtocol.saveEditorPeptide(b());
+        if (!peptide) throw new Error("Check the peptide details before saving.");
+        window.PepsInventory.applySetup(setup, peptide);
+        window.PepsProtocol.saveEditorWeights(peptide);
+        return peptide;
+      });
       if (!saved) return;
-      window.PepsProtocol.saveEditorWeights(saved);
       a("peptideIdInput").value = saved.id;
       f(saved.id);
       window.PepsExperience.closeEditor();
       p();
       r("settings");
       H("Protocol saved");
-      window.PepsInventoryUI?.offerLink(saved);
     } catch (error) {
       a("protocolError").textContent = error.message;
     }
