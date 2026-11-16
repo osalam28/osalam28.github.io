@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f4ec" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Omar Salam for Chipotle | Digital design</title>
+    <meta
+      name="description"
+      content="Omar Salam on restaurant ordering, conversational design, and how his teams at Taco Bell, Under Armour, and Southern California Edison built digital products."
+    />
+    <link rel="canonical" href="https://omarsalam.io/forreal/" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="sketch.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="mast">
+      <div class="wrap mast-row">
+        <a class="wordmark" href="/" aria-label="Omar Salam’s main portfolio"
+          >Omar Salam<span class="path">/forreal</span></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="#work">Selected work</a><a class="nav-sketch" href="#sketch">Ordering sketch</a
+          ><a class="nav-resume" href="Omar_Salam_Resume_Chipotle.pdf"
+            >Résumé <span aria-hidden="true">↗</span></a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span>A portfolio for Chipotle</p>
+          <h1 id="title">From the app<br /><em>to the kitchen.</em></h1>
+          <p class="lead">
+            I’m Omar. I led the national launch of Taco Bell Delivery. Today I run digital product and
+            customer experience at Southern California Edison, where my teams build the voice and chat
+            services customers turn to for help.
+          </p>
+          <a class="primary" href="#sketch">Try the ordering sketch <span aria-hidden="true">↓</span></a>
+        </div>
+        <figure class="portrait">
+          <img src="../assets/myphoto.JPG" alt="Omar Salam" width="1200" height="1536" fetchpriority="high" />
+          <figcaption><span>Omar Salam</span><span>Irvine, California</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="work wrap" aria-labelledby="work">
+        <header class="section-top">
+          <h2 id="work">Selected work</h2>
+          <p>Restaurant ordering, retail, and customer service</p>
+        </header>
+        <article class="case">
+          <div class="case-name">Taco Bell<span>Digital commerce</span></div>
+          <div class="case-story">
+            <h3>Getting a custom order to the restaurant</h3>
+            <p>
+              For the national delivery launch, my team connected web and mobile orders to payments, delivery
+              partners, and the restaurant’s point-of-sale system. We also studied checkout sessions and
+              tested new ways to customize and pay. Cart abandonment fell 8% after the redesign.
+            </p>
+          </div>
+          <div class="case-stat">
+            <strong>$1B</strong><span>Annual revenue the delivery channel reached after launch</span>
+          </div>
+        </article>
+        <article class="case">
+          <div class="case-name">Under Armour<span>Product discovery</span></div>
+          <div class="case-story">
+            <h3>“My daughter is starting soccer.”</h3>
+            <p>
+              A parent could describe a first soccer season and get gear recommendations from across the
+              catalog. I led the rollout. Shoppers spent less time finding the right items, and average order
+              value rose 6%.
+            </p>
+          </div>
+          <div class="case-stat">
+            <strong>35%</strong
+            ><span>Less time from the start of shopping to adding an item to the cart</span>
+          </div>
+        </article>
+        <article class="case">
+          <div class="case-name">Southern California Edison<span>Conversation design</span></div>
+          <div class="case-story">
+            <h3>Anticipating the reason for a call</h3>
+            <p>
+              We used customer feedback and interaction data to anticipate why someone might call or start a
+              chat. The service could then suggest the likely reason for the visit. I also helped establish
+              our customer data platform and shared services so each product team could build on the same
+              work.
+            </p>
+            <p>
+              I lead the managers of our digital product lines, set priorities for a $15M portfolio, and
+              decide where we hire or bring in a partner. Our teams use the design system with AI coding
+              agents to build prototypes and carry tested changes into production.
+            </p>
+          </div>
+          <div class="case-stat">
+            <strong>1 year</strong
+            ><span>Time for SCE’s digital experience to move from the bottom quartile to the top</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="sketch" aria-labelledby="sketch">
+        <div class="wrap sketch-grid">
+          <div class="sketch-intro">
+            <p class="eyebrow"><span class="dot"></span>Interactive concept</p>
+            <h2 id="sketch">“My usual, with<br /><em>one change.”</em></h2>
+            <p>
+              A guest who reorders a bowl should be able to change it in a few words. This sketch explores
+              when the app can make an edit and when it needs to ask a question.
+            </p>
+            <p class="test-note">
+              <b>What I’d test</b>Can a guest spot exactly what changed before confirming? I’d watch where
+              people pause or go back, especially when the app has asked them to clarify.
+            </p>
+          </div>
+          <div class="ticket-wrap">
+            <div class="ticket" id="order-demo">
+              <div class="ticket-head"><span>Order sketch</span><span>Sample bowl</span></div>
+              <h3 id="bowl-title">Chicken bowl</h3>
+              <p class="ingredients" id="ingredients">White rice, black beans, chicken, cheese</p>
+              <div class="interaction" id="interaction" hidden>
+                <h4 tabindex="-1" id="prompt">What would you change?</h4>
+                <p class="hint" id="hint">Choose a sample request.</p>
+                <div class="actions" id="actions">
+                  <button type="button" data-choice="cheese">“Hold the cheese.”</button>
+                  <button type="button" data-choice="half">“Make it half and half.”</button>
+                </div>
+              </div>
+              <noscript
+                ><p>
+                  For “hold the cheese,” the app can show the revised ingredients right away. For “make it
+                  half and half,” it needs to ask which second protein to add.
+                </p></noscript
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap">
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <a class="email" href="mailto:osalam28@gmail.com"
+          >osalam28@gmail.com <span aria-hidden="true">↗</span></a
+        >
+      </div>
+      <div class="footer-links">
+        <a href="Omar_Salam_Resume_Chipotle.pdf">Résumé (PDF)</a><a href="/">Full portfolio</a
+        ><a href="https://www.linkedin.com/in/omar-salam">LinkedIn</a>
+      </div>
+    </footer>
+  </body>
+</html>
