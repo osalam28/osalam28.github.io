@@ -3,155 +3,461 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#f7f4ec" />
+    <meta name="theme-color" content="#201710" />
     <meta name="robots" content="noindex,follow" />
-    <title>Omar Salam for Chipotle | Digital design</title>
+    <title>Forreal | A digital strategy for Chipotle by Omar Salam</title>
     <meta
       name="description"
-      content="Omar Salam on restaurant ordering, conversational design, and how his teams at Taco Bell, Under Armour, and Southern California Edison built digital products."
+      content="Follow a guest’s usual order from their own words to the restaurant. A proposed digital strategy for Chipotle by Omar Salam."
     />
     <link rel="canonical" href="https://omarsalam.io/forreal/" />
+    <link rel="preload" as="image" href="images/bowl.webp" />
+    <link rel="preload" as="font" type="font/ttf" href="fonts/barlow-condensed-bold.ttf" crossorigin />
     <link rel="stylesheet" href="style.css" />
-    <script src="sketch.js" defer></script>
+    <link rel="stylesheet" href="order-lab.css" />
+    <script src="strategy.js" defer></script>
+    <script src="order-lab.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="mast">
-      <div class="wrap mast-row">
-        <a class="wordmark" href="/" aria-label="Omar Salam’s main portfolio"
-          >Omar Salam<span class="path">/forreal</span></a
+    <a class="skip" href="#main">Skip to strategy</a>
+    <header class="masthead">
+      <div class="mast-inner wrap">
+        <a href="#main" class="wordmark" aria-label="Forreal, back to the top"
+          ><span class="fold" aria-hidden="true"></span>FORREAL<span class="wm-period">.</span></a
         >
-        <nav aria-label="Main navigation">
-          <a href="#work">Selected work</a><a class="nav-sketch" href="#sketch">Ordering sketch</a
-          ><a class="nav-resume" href="Omar_Salam_Resume_Chipotle.pdf"
-            >Résumé <span aria-hidden="true">↗</span></a
-          >
+        <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" type="button">
+          Menu <span aria-hidden="true">☰</span>
+        </button>
+        <nav id="navigation" aria-label="Strategy sections">
+          <a href="#experience">Guest experience</a><a href="#services">Shared services</a
+          ><a href="#studio">Design studio</a><a href="#pilot">Pilot plan</a>
         </nav>
+        <a class="author" href="#author">Omar Salam <span aria-hidden="true">↘</span></a>
       </div>
     </header>
     <main id="main">
-      <section class="hero wrap" aria-labelledby="title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="dot"></span>A portfolio for Chipotle</p>
-          <h1 id="title">From the app<br /><em>to the kitchen.</em></h1>
-          <p class="lead">
-            I’m Omar. I led the national launch of Taco Bell Delivery. Today I run digital product and
-            customer experience at Southern California Edison, where my teams build the voice and chat
-            services customers turn to for help.
-          </p>
-          <a class="primary" href="#sketch">Try the ordering sketch <span aria-hidden="true">↓</span></a>
-        </div>
-        <figure class="portrait">
-          <img src="../assets/myphoto.JPG" alt="Omar Salam" width="1200" height="1536" fetchpriority="high" />
-          <figcaption><span>Omar Salam</span><span>Irvine, California</span></figcaption>
-        </figure>
-      </section>
-
-      <section class="work wrap" aria-labelledby="work">
-        <header class="section-top">
-          <h2 id="work">Selected work</h2>
-          <p>Restaurant ordering, retail, and customer service</p>
-        </header>
-        <article class="case">
-          <div class="case-name">Taco Bell<span>Digital commerce</span></div>
-          <div class="case-story">
-            <h3>Getting a custom order to the restaurant</h3>
-            <p>
-              For the national delivery launch, my team connected web and mobile orders to payments, delivery
-              partners, and the restaurant’s point-of-sale system. We also studied checkout sessions and
-              tested new ways to customize and pay. Cart abandonment fell 8% after the redesign.
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero-photo"
+          width="1672"
+          height="941"
+          src="images/bowl.webp"
+          alt="A chicken bowl with guacamole, salsa, rice, black beans, and a wedge of lime."
+          fetchpriority="high"
+        />
+        <div class="hero-shade"></div>
+        <div class="hero-inner wrap">
+          <div class="hero-copy">
+            <p class="kicker hero-kicker"><i aria-hidden="true"></i>A digital strategy for Chipotle</p>
+            <h1 id="hero-title">My usual.<br /><span>Hold the cheese.</span></h1>
+            <p class="hero-lede">
+              At the counter, a crew member can handle a change in a few words. I’d give guests that same
+              freedom in the app or through their own AI assistant, with one basket that follows them to
+              pickup.
             </p>
-          </div>
-          <div class="case-stat">
-            <strong>$1B</strong><span>Annual revenue the delivery channel reached after launch</span>
-          </div>
-        </article>
-        <article class="case">
-          <div class="case-name">Under Armour<span>Product discovery</span></div>
-          <div class="case-story">
-            <h3>“My daughter is starting soccer.”</h3>
-            <p>
-              A parent could describe a first soccer season and get gear recommendations from across the
-              catalog. I led the rollout. Shoppers spent less time finding the right items, and average order
-              value rose 6%.
-            </p>
-          </div>
-          <div class="case-stat">
-            <strong>35%</strong
-            ><span>Less time from the start of shopping to adding an item to the cart</span>
-          </div>
-        </article>
-        <article class="case">
-          <div class="case-name">Southern California Edison<span>Conversation design</span></div>
-          <div class="case-story">
-            <h3>Anticipating the reason for a call</h3>
-            <p>
-              We used customer feedback and interaction data to anticipate why someone might call or start a
-              chat. The service could then suggest the likely reason for the visit. I also helped establish
-              our customer data platform and shared services so each product team could build on the same
-              work.
-            </p>
-            <p>
-              I lead the managers of our digital product lines, set priorities for a $15M portfolio, and
-              decide where we hire or bring in a partner. Our teams use the design system with AI coding
-              agents to build prototypes and carry tested changes into production.
-            </p>
-          </div>
-          <div class="case-stat">
-            <strong>1 year</strong
-            ><span>Time for SCE’s digital experience to move from the bottom quartile to the top</span>
-          </div>
-        </article>
-      </section>
-
-      <section class="sketch" aria-labelledby="sketch">
-        <div class="wrap sketch-grid">
-          <div class="sketch-intro">
-            <p class="eyebrow"><span class="dot"></span>Interactive concept</p>
-            <h2 id="sketch">“My usual, with<br /><em>one change.”</em></h2>
-            <p>
-              A guest who reorders a bowl should be able to change it in a few words. This sketch explores
-              when the app can make an edit and when it needs to ask a question.
-            </p>
-            <p class="test-note">
-              <b>What I’d test</b>Can a guest spot exactly what changed before confirming? I’d watch where
-              people pause or go back, especially when the app has asked them to clarify.
-            </p>
-          </div>
-          <div class="ticket-wrap">
-            <div class="ticket" id="order-demo">
-              <div class="ticket-head"><span>Order sketch</span><span>Sample bowl</span></div>
-              <h3 id="bowl-title">Chicken bowl</h3>
-              <p class="ingredients" id="ingredients">White rice, black beans, chicken, cheese</p>
-              <div class="interaction" id="interaction" hidden>
-                <h4 tabindex="-1" id="prompt">What would you change?</h4>
-                <p class="hint" id="hint">Choose a sample request.</p>
-                <div class="actions" id="actions">
-                  <button type="button" data-choice="cheese">“Hold the cheese.”</button>
-                  <button type="button" data-choice="half">“Make it half and half.”</button>
-                </div>
-              </div>
-              <noscript
-                ><p>
-                  For “hold the cheese,” the app can show the revised ingredients right away. For “make it
-                  half and half,” it needs to ask which second protein to add.
-                </p></noscript
+            <div class="hero-actions">
+              <a class="button-primary" href="#experience">Try the order <span aria-hidden="true">↗</span></a
+              ><a class="text-link light" href="#studio"
+                >See how teams build it <span aria-hidden="true">↓</span></a
               >
+            </div>
+          </div>
+          <a class="hero-glass" href="#services"
+            ><span class="signal" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></span
+            ><span><small>From guest to crew</small><b>Follow the order</b></span
+            ><span class="glass-arrow" aria-hidden="true">↘</span></a
+          >
+        </div>
+      </section>
+      <aside class="context-band" aria-label="Why start with a repeat pickup order">
+        <div class="wrap context-inner">
+          <div class="context-lead">
+            <p class="kicker">The first investment</p>
+            <h2>Build on the repeat order.</h2>
+          </div>
+          <div class="context-point">
+            <strong>38.8<span>%</span></strong>
+            <p>
+              Digital share of food and beverage revenue in Q3 2026.
+              <a href="#sources" aria-label="Source for digital share">[1]</a>
+            </p>
+          </div>
+          <div class="context-point">
+            <strong><span class="approx">~</span>90<span>%</span></strong>
+            <p>
+              Of digital transactions linked to Rewards, as reported in April 2026.
+              <a href="#sources" aria-label="Source for Rewards share">[2]</a>
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      <section class="experience chapter-wrap wrap" aria-labelledby="experience">
+        <div class="section-head">
+          <div>
+            <p class="kicker ink-red"><i aria-hidden="true"></i>Guest experience</p>
+            <h2 id="experience">Order in your own words.</h2>
+          </div>
+          <p>
+            Chipotle offered voice reordering back in 2019. I’d build on that by letting a guest edit a
+            favorite, switch restaurants, and check exactly what the crew will make. Try the same order from
+            six starting points.
+            <a class="footnote" href="#sources" aria-label="Source for voice reordering">[3]</a>
+          </p>
+        </div>
+        <div id="order-lab">
+          <noscript
+            >In the proposed experience, a guest selects a favorite, changes an ingredient, checks
+            availability at the pickup restaurant, and confirms the full price. The restaurant receives the
+            confirmed ingredient list.</noscript
+          >
+        </div>
+      </section>
+
+      <section class="services dark-section" aria-labelledby="services">
+        <div class="wrap chapter-wrap">
+          <div class="section-head">
+            <div>
+              <p class="kicker gold"><i aria-hidden="true"></i>Company capabilities</p>
+              <h2 id="services">What the order runs on.</h2>
+            </div>
+            <p>
+              I’d fund shared ordering services before adding another front end. Explore the decisions every
+              channel has to get right, from permission to open a favorite to the moment a ticket reaches the
+              line.
+            </p>
+          </div>
+          <div class="service-board">
+            <div class="board-bar">
+              <span class="small-label">Service map</span
+              ><span class="board-detail">Proposed architecture</span>
+            </div>
+            <div class="service-switch" aria-label="Explore a shared service">
+              <button type="button" data-service="identity" aria-pressed="true">Identity &amp; Rewards</button
+              ><button type="button" data-service="menu" aria-pressed="false">Menu &amp; availability</button
+              ><button type="button" data-service="quote" aria-pressed="false">Price &amp; payment</button
+              ><button type="button" data-service="ticket" aria-pressed="false">Ticket &amp; pickup</button>
+            </div>
+            <div class="service-route" aria-live="polite" aria-atomic="true">
+              <article class="route-node">
+                <span class="node-icon" aria-hidden="true">↗</span>
+                <p class="small-label">Guest action</p>
+                <h3 id="s-guest">“Get my usual.”</h3>
+                <p id="s-guest-detail">The guest chooses a favorite and a pickup location.</p>
+              </article>
+              <div class="wire" aria-hidden="true"></div>
+              <article class="route-node core-node">
+                <span class="node-icon" aria-hidden="true">⌘</span>
+                <p class="small-label">Chipotle service</p>
+                <h3 id="s-core">Resolve the favorite</h3>
+                <p id="s-core-detail">
+                  Check the signed-in account and the permission granted to this channel. Return the selected
+                  bowl and eligible rewards.
+                </p>
+              </article>
+              <div class="wire" aria-hidden="true"></div>
+              <article class="route-node">
+                <span class="node-icon" aria-hidden="true">✓</span>
+                <p class="small-label">Guest or crew outcome</p>
+                <h3 id="s-result">An editable starting point</h3>
+                <p id="s-result-detail">
+                  The guest can change the bowl, decline personalization, or build an order from scratch.
+                </p>
+              </article>
+            </div>
+          </div>
+          <div class="mcp-note">
+            <div>
+              <p class="kicker gold">Personal assistants</p>
+              <h3>Where MCP fits</h3>
+            </div>
+            <div>
+              <p>
+                I’d give a guest’s assistant a small set of tools through the Model Context Protocol (MCP). It
+                could read a store’s menu and draft a basket. Access to a saved meal would require the guest’s
+                permission, which they could revoke.
+              </p>
+              <p>
+                Chipotle would own the quote, Rewards rules, and checkout. The guest would confirm the
+                restaurant, pickup time, and total on a Chipotle review card inside a compatible assistant, or
+                through a secure checkout link. A retry would return the same order reference.
+                <a class="footnote" href="#sources" aria-label="Sources for Model Context Protocol">[4]</a>
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      <section class="studio chapter-wrap wrap" aria-labelledby="studio">
+        <div class="section-head">
+          <div>
+            <p class="kicker ink-red"><i aria-hidden="true"></i>Design operations</p>
+            <h2 id="studio">Inside the design studio.</h2>
+          </div>
+          <p>
+            Suppose guests leave after changing pickup locations. Here’s how I’d give researchers, designers,
+            product managers, and engineers the tools to find the cause and test a fix with a restaurant crew.
+          </p>
+        </div>
+        <div class="studio-frame">
+          <div class="studio-steps" aria-label="Explore the design workflow">
+            <button type="button" data-studio="data" aria-pressed="true">
+              <span>01</span> Query the data <b aria-hidden="true">↗</b>
+            </button>
+            <button type="button" data-studio="prototype" aria-pressed="false">
+              <span>02</span> Build in code <b aria-hidden="true">↗</b>
+            </button>
+            <button type="button" data-studio="test" aria-pressed="false">
+              <span>03</span> Test the handoff <b aria-hidden="true">↗</b>
+            </button>
+            <button type="button" data-studio="ship" aria-pressed="false">
+              <span>04</span> Release &amp; learn <b aria-hidden="true">↗</b>
+            </button>
+          </div>
+          <div class="studio-workspace" id="studio-workspace">
+            <article class="studio-panel" data-panel="data">
+              <div class="studio-explain">
+                <p class="kicker ink-red">Research &amp; analytics</p>
+                <h3>Why do guests leave after switching stores?</h3>
+                <p>
+                  Let teams ask questions in plain language. A data assistant translates them into read-only
+                  queries over approved, aggregated order events in the warehouse. An analyst checks the
+                  query, the eligible sessions, and the missing events. Pair the pattern with guest interviews
+                  before calling it a cause.
+                </p>
+                <p class="guest-benefit">
+                  <strong>Guest outcome</strong> Surface an unavailable ingredient while the guest can still
+                  change it.
+                </p>
+              </div>
+              <div class="work-sample">
+                <div class="sample-top"><span>Query preview</span><small>Illustrative data</small></div>
+                <p class="query-prompt">
+                  “Compare checkout exits when a guest changes pickup restaurants during a repeat order.”
+                </p>
+                <div class="query-filters" aria-label="Filter illustrative results by daypart">
+                  <button data-scope="all" type="button" aria-pressed="true">All day</button
+                  ><button data-scope="lunch" type="button" aria-pressed="false">Lunch rush</button
+                  ><button data-scope="other" type="button" aria-pressed="false">Off-peak</button>
+                </div>
+                <div class="query-output" aria-live="polite" aria-atomic="true">
+                  <div class="query-rows">
+                    <div>
+                      <span>Kept restaurant</span><strong id="kept-rate">8%</strong
+                      ><i id="kept-bar" style="--bar: 32%"></i>
+                    </div>
+                    <div>
+                      <span>Changed restaurant</span><strong id="changed-rate">18%</strong
+                      ><i id="changed-bar" style="--bar: 72%"></i>
+                    </div>
+                  </div>
+                  <p id="cohorts" class="sample-foot">
+                    Of 1,000 sessions in each group, 80 and 180 ended before checkout.
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="studio-panel" data-panel="prototype" hidden>
+              <div class="studio-explain">
+                <p class="kicker ink-red">AI-assisted development</p>
+                <h3>Put the design system in the coding tool.</h3>
+                <p>
+                  Connect the coding assistant to the same versioned components the app ships. Give it the
+                  spacing and color tokens, voice and chat patterns, accessibility rules, and a sample menu. A
+                  designer or product manager can generate two working concepts from one brief. Engineering
+                  reviews the code.
+                </p>
+                <p class="guest-benefit">
+                  <strong>Guest outcome</strong> The same ingredient change is legible on screen, spoken
+                  clearly, and reflected in the total.
+                </p>
+                <a href="#order-lab" class="text-link studio-demo" id="try-store-change"
+                  >Try the guest version <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <div class="work-sample">
+                <div class="sample-top"><span>Concept comparison</span><small>Same design system</small></div>
+                <p class="query-prompt">
+                  “Show two ways to explain a sold-out ingredient when a guest switches stores.”
+                </p>
+                <div class="query-filters" aria-label="Compare design concepts">
+                  <button data-concept="inline" type="button" aria-pressed="true">Inline notice</button
+                  ><button type="button" data-concept="review" aria-pressed="false">Review card</button>
+                </div>
+                <div class="concept-preview" aria-live="polite">
+                  <span class="small-label" id="concept-location">While editing ingredients</span
+                  ><b id="concept-message">Green salsa is out at Market Street.</b
+                  ><span id="concept-choice"
+                    >Choose another salsa, skip it, or keep it at another restaurant.</span
+                  >
+                </div>
+                <p class="sample-foot">
+                  Both concepts use the same ingredient data. Test which one guests notice and understand
+                  before they pay.
+                </p>
+              </div>
+            </article>
+            <article class="studio-panel" data-panel="test" hidden>
+              <div class="studio-explain">
+                <p class="kicker ink-red">Guest &amp; crew research</p>
+                <h3>Take the prototype to the pickup counter.</h3>
+                <p>
+                  Have guests change stores and explain what they expect to receive. Include people using
+                  voice and screen readers. Hand the matching ticket to a crew member during a lunch-rush
+                  simulation. Watch where either person has to guess.
+                </p>
+                <p class="guest-benefit">
+                  <strong>Guest outcome</strong> The order the guest thinks they confirmed matches the meal
+                  the crew knows to make.
+                </p>
+              </div>
+              <div class="work-sample">
+                <div class="sample-top"><span>Acceptance checks</span><small>Before pilot</small></div>
+                <ol class="sample-list">
+                  <li>
+                    <b>Guest can correct the edit</b
+                    ><span>The substitute, price, and restaurant are explicit.</span>
+                  </li>
+                  <li>
+                    <b>Crew can make the ticket</b><span>Modifiers appear in the order the line uses.</span>
+                  </li>
+                  <li>
+                    <b>Recovery works</b><span>A lost connection can resume with the same order ID.</span>
+                  </li>
+                </ol>
+              </div>
+            </article>
+            <article class="studio-panel" data-panel="ship" hidden>
+              <div class="studio-explain">
+                <p class="kicker ink-red">Design systems &amp; product operations</p>
+                <h3>Release one tested pattern across teams.</h3>
+                <p>
+                  Design and Engineering approve the component, interaction copy, and tests together. Publish
+                  the change to the design library and the context that coding agents read. Product-line
+                  managers schedule adoption and use the same event definitions to measure it.
+                </p>
+                <p class="guest-benefit">
+                  <strong>Guest outcome</strong> A fix proven in the app can reach web, voice, text, and chat
+                  without making the guest learn a different rule.
+                </p>
+              </div>
+              <div class="work-sample">
+                <div class="sample-top"><span>Release review</span><small>Evidence to keep</small></div>
+                <ul class="sample-list">
+                  <li><b>Design quality</b><span>Accessibility, guest comprehension, brand voice</span></li>
+                  <li>
+                    <b>Team performance</b><span>Time to a tested prototype, reuse, escaped defects</span>
+                  </li>
+                  <li>
+                    <b>Restaurant outcome</b><span>Correct pickups, wait times, and remakes by daypart</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="pilot" aria-labelledby="pilot">
+        <div class="wrap chapter-wrap">
+          <div class="pilot-head">
+            <div>
+              <p class="kicker gold"><i aria-hidden="true"></i>Proposed 90-day pilot</p>
+              <h2 id="pilot">Measure the handoff.</h2>
+              <p>
+                I’d fund one team from Design, Product, Engineering, Data, and Restaurant Operations to test
+                with signed-in app guests who have a favorite pickup order. A correct meal, ready when
+                promised, earns the next investment.
+              </p>
+            </div>
+            <img src="images/handoff.webp" alt="" width="920" height="460" />
+          </div>
+          <div class="pilot-plan">
+            <article>
+              <p class="small-label">Days 1–30</p>
+              <h3>Walk the order.</h3>
+              <p>
+                Trace repeat orders from first tap to pickup at peak and quieter times. Pair crew observations
+                with exit data. If the biggest failure is a late handoff, spend the first round there.
+              </p>
+            </article>
+            <article>
+              <p class="small-label">Days 31–60</p>
+              <h3>Test one change.</h3>
+              <p>
+                Randomly assign eligible guests to today’s reorder or the editable version. Keep the price and
+                offers comparable. Audit sampled tickets against bags and record promised and actual ready
+                times.
+              </p>
+            </article>
+            <article>
+              <p class="small-label">Days 61–90</p>
+              <h3>Decide what scales.</h3>
+              <p>
+                Expand to web if the result holds at lunch rush and the extra orders cover their cost. Extend
+                to chat, voice, and text next. Open a limited assistant pilot once permissions, payment, and
+                retries pass restaurant tests.
+              </p>
+            </article>
+          </div>
+          <div class="decision">
+            <div>
+              <p class="small-label">Primary measure</p>
+              <strong>Correct, on-time pickups<br />per 100 eligible guests</strong>
+            </div>
+            <p>
+              Agree on a meaningful lift and guardrail limits with Operations before launch. Compare remakes,
+              refunds, peak wait, and margin per eligible guest with the control. Pause for duplicate charges
+              or wrong tickets. Check 30-day repeat before a wider rollout.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer class="wrap">
-      <div>
-        <p class="eyebrow">Get in touch</p>
-        <a class="email" href="mailto:osalam28@gmail.com"
-          >osalam28@gmail.com <span aria-hidden="true">↗</span></a
-        >
-      </div>
-      <div class="footer-links">
-        <a href="Omar_Salam_Resume_Chipotle.pdf">Résumé (PDF)</a><a href="/">Full portfolio</a
-        ><a href="https://www.linkedin.com/in/omar-salam">LinkedIn</a>
+    <footer id="author">
+      <div class="wrap footer-grid">
+        <div>
+          <p class="kicker gold">Independent strategy concept</p>
+          <h2>Omar Salam</h2>
+          <a class="text-link light" href="mailto:osalam28@gmail.com"
+            >osalam28@gmail.com <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <details id="sources">
+          <summary>Sources &amp; context <span aria-hidden="true">+</span></summary>
+          <ol>
+            <li>
+              <a href="https://newsroom.chipotle.com/2026-10-28-CHIPOTLE-ANNOUNCES-THIRD-QUARTER-2026-RESULTS"
+                >Chipotle Q3 2026 results, October 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://newsroom.chipotle.com/2026-04-13-CHIPOTLE-RELAUNCHES-REWARDS-WITH-REWARDS-ON-REPEAT,-DELIVERING-MORE-VALUE-WITHOUT-TRADE-OFFS"
+                >Chipotle Rewards relaunch, April 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://newsroom.chipotle.com/2019-11-21-Chipotle-Announces-Alexa-Reordering-Skill-By-Giving-Away-Echo-Dots-To-Rewards-Members-Named-Alexa"
+                >Chipotle announces Alexa reordering, November 2019</a
+              >
+            </li>
+            <li>
+              <a href="https://modelcontextprotocol.io/docs/getting-started/intro"
+                >Model Context Protocol introduction</a
+              >
+              and
+              <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization"
+                >authorization specification</a
+              >
+            </li>
+          </ol>
+          <p>
+            The prototype, example prices, studio data, and rollout plan illustrate my proposal. Chipotle’s
+            published figures are linked above.
+          </p>
+        </details>
       </div>
     </footer>
   </body>
